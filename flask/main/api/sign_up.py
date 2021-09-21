@@ -3,7 +3,7 @@ from flask import Blueprint,request,Flask
 from flask.templating import render_template
 from flask_mongoengine import MongoEngine
 from mongoengine.errors import ValidationError
-from .models import User
+from ..models.db import User
 def not_empty(val):
     if not val:
         return ValidationError('error')
