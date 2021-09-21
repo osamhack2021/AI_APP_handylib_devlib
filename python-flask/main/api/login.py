@@ -1,6 +1,6 @@
 from flask import Blueprint,request
 from flask.templating import render_template
-from ..models.db import User
+from main.models.database import *
 login_page=Blueprint('login',__name__,url_prefix='/login')
 
 @login_page.route('/',methods=['GET','POST'])

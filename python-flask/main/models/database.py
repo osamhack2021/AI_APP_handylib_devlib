@@ -1,25 +1,31 @@
 from flask_mongoengine import MongoEngine
-
-db=MongoEngine()
-
+import os, sys
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))
+import config
+from mongoengine import StringField,ListField,EmailField,IntField,ImageField
+from ..app import app
+db = MongoEngine()
+db.init_app(app)
 class User(db.Document):
   # objectid(고유번호) = auto_create or insert
-  name = db.StringField()
-  user_id = db.StringField()
-  email = db.EmailField()
-  password = db.StringField()
-  interest_tag = db.StringField()
-  like = db.ListField()
-  borrowed = db.ListField()
+  name = StringField()
+  user_id = StringField()
+  email = EmailField()
+  password = StringField()
+  
+  interest_tag = StringField()
+  like = ListField()
+  borrowed = ListField()
 class Administrator(db.Document):
   # objectid(고유번호) = auto_create or insert
-  name = db.StringField()
-  user_id = db.StringField()
-  password = db.StringField()
+  name = StringField()
+  user_id = StringField()
+  password = StringField()
+"""
 class Book(db.Document):
   # objectid(고유번호) = auto_create or insert
-  isbn = db.IntField()
-  title = db.StringField()
+  isbn = IntField()
+  title = StringField()
   publication_date  = db.StringField() # API: 20200924 년월일까지 받아짐
   tag = db.ListField()
 class Ebook(db.Document):
@@ -55,3 +61,4 @@ class Searchlog(db.Document):
   # objectid(고유번호) = auto_create or insert
   user_id = db.StringField()
   log = db.ListField()
+"""

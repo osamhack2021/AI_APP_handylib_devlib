@@ -3,7 +3,7 @@ from flask import Blueprint,request,Flask
 from flask.templating import render_template
 from flask_mongoengine import MongoEngine
 from mongoengine.errors import ValidationError
-from ..models.db import User
+from main.models import database
 def not_empty(val):
     if not val:
         return ValidationError('error')
@@ -17,11 +17,11 @@ def login():
         return render_template('sign_up.html')
     else:
         #user_id가 일치하는게 db에 있는지 확인
-        user=User.objects(user_id=request.form['user_id']).first()
+        user=database.User.objects(user_id=request.form['user_id']).first()
         if user:
             return render_template('sign_up.html')
         #user등록 흥미분야를 어떻게 리스트로 넘길지 생각할 필요가 있음
-        User(
+        database.User(
             user_id = request.form['user_id'],
             password=request.form['password'],
             name = request.form['name'],
