@@ -46,7 +46,24 @@
 
   개인화 추천 목적
   
-  * Matrix Factorization
-  * 유사도 계산
-  * wide_n_deep 모델
+  모델별 성능을 분석하고 최고의 성능을 내는 모델 하나를 선택하거나 여러 모델의 결과를 합쳐서 추천할 예정
+  
+#### Matrix Factorization (행렬 인수분해)
+  일반적으로 사용자는 도서관에 있는 책 중 일부만 읽고, 그중에도 일부만 평점을 남겼을 것이다. 따라서 사용자가 책에 남긴 평점을 행렬로 만들면, 거의 대부분이 평점이 기록되지 않아 0으로 표기된 Sparse Matrix(희소행렬)이 만들어진다. Sparse Matrix인 User-Item Ratings Matrix를, matrix factorization(행렬 인수분해)를 이용해 Latent Factor(잠재요소)를 학습한 두 행렬의 곱으로 나타내어 sparse matrix의 빈 곳이 채워진 complete matrix로 만드는 것이 목표이다. User-Item Ratings Matrix의 실제 평점값 - 분해한 행렬의 곱으로 얻은 예측한 평점값이 최소가 되도록 학습이 진행될 것이며, 학습이 종료되면 sparse matrix에서의 0은 complete matrix에서 예측값으로 기록될 것이다.
+  
+  ![image](https://user-images.githubusercontent.com/88222584/134134735-961b9c33-05e4-43fa-ac81-1afffd39c1fd.png)
 
+  이 프로젝트에서는 Alternating Least Square(ALS, 교대제곱법)을 이용해 latent factor를 학습하여 예측평점을 구하고, 예측평점이 높은 상위 OO권을 추천 후보군에 등록될 것이다.
+
+   (이후 code 올릴 때 hyperparameter 에서 latent factor k를 20개 사용하는 이유에 대한 논문 링크 추가)
+
+#### 유사도 계산
+
+#### wide_n_deep 모델
+
+
+# 추천시스템 개발 일정
+## 데이터 제작
+## 모델 생성
+## 모델별 성능 비교
+## 서버에 추천시스템 탑재
