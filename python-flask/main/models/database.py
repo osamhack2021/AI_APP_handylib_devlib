@@ -2,10 +2,11 @@ from flask_mongoengine import MongoEngine
 import os, sys
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))
 import config
-from mongoengine import StringField,ListField,EmailField,IntField,ImageField
+from mongoengine import StringField,ListField,EmailField,IntField,ImageField,FloatField
 from ..app import app
 db = MongoEngine()
 db.init_app(app)
+
 class User(db.Document):
   # objectid(고유번호) = auto_create or insert
   name = StringField()
@@ -16,49 +17,99 @@ class User(db.Document):
   interest_tag = StringField()
   like = ListField()
   borrowed = ListField()
+  def to_json(self):
+    return {"name": self.name,
+    "email": self.email,
+    "password": self.password,
+    "user_id": self.user_id,
+    "interest_tag": self.interest_tag,
+    "like": self.like,
+    "borrowed": self.borrowed}
 class Administrator(db.Document):
   # objectid(고유번호) = auto_create or insert
   name = StringField()
   user_id = StringField()
   password = StringField()
-"""
+  def to_json(self):
+    return {"name": self.name,
+    "password": self.password,}
+
 class Book(db.Document):
   # objectid(고유번호) = auto_create or insert
   isbn = IntField()
   title = StringField()
-  publication_date  = db.StringField() # API: 20200924 년월일까지 받아짐
-  tag = db.ListField()
+  publication_date  = StringField() # API: 20200924 년월일까지 받아짐
+  tag = ListField()
+  def to_json(self):
+    return {"isbn": self.isbn,
+    "title": self.title,
+    "publication_date": self.publication_date,
+    "tag": self.tag,}
+
 class Ebook(db.Document):
   # objectid(고유번호) = auto_create or insert
-  isbn = db.IntField()
-  title = db.StringField()
-  publication_date  = db.StringField() # API: 20200924 년월일까지 받아짐
-  contents = db.ImageField() # Filefiled() or Imagefiled()
-  tag = db.ListField()
+  isbn = IntField()
+  title = StringField()
+  publication_date  = StringField() # API: 20200924 년월일까지 받아짐
+  contents = ImageField() # Filefiled() or Imagefiled()
+  tag = ListField()
+  def to_json(self):
+    return {"isbn": self.isbn,
+    "title": self.title,
+    "publication_date": self.publication_date,
+    "tag": self.tag,
+    "contents":self.contents}
 class Review(db.Document):
   # objectid(고유번호) = auto_create or insert
-  user_id = db.StringField()
-  isbn = db.IntField()
-  score = db.FloatField() # min:0 max:5 interval: 0.1
+  user_id = StringField()
+  isbn = IntField()
+  score = FloatField() # min:0 max:5 interval: 0.1
+  def to_json(self):
+    return {"user_id": self.user_id,
+    "isbn": self.isbn,
+    "score": self.score,}
 class Notice_board(db.Document):
   # objectid(고유번호) = auto_create or insert
-  number = db.IntField()
-  user_id = db.StringField()
-  title = db.StringField()
-  comment_number = db.StringField()
-  content = db.StringField() # 이미지는?
-  tag = db.ListField()
+  number = IntField()
+  user_id = StringField()
+  title = StringField()
+  comment_number = ListField()
+  content = StringField() 
+  tag = ListField()
+  def to_json(self):
+    return {"number": self.number,
+    "user_id": self.user_id,
+    "title": self.title,
+    "comment_number":self.comment_number,
+    "content":self.content,
+    "tag":self.tag
+    }
 class Comment(db.Document):
   # objectid(고유번호) = auto_create or insert
-  comment_number = db.IntField()
-  user_id = db.StringField()
-  contnet = db.StringField()
+  comment_number = IntField()
+  user_id = StringField()
+  content = StringField()
+  def to_json(self):
+    return {
+    "user_id": self.user_id,
+    "comment_number":self.comment_number,
+    "content":self.content,
+    }
 class Unit(db.Document):
   # objectid(고유번호) = auto_create or insert
-  name = db.StringField()
-  books_list = db.ListField()
+  name = StringField()
+  books_list = ListField()
+  def to_json(self):
+    return {
+    "name":self.name,
+    "books_list":self.books_list,
+    }
 class Searchlog(db.Document):
   # objectid(고유번호) = auto_create or insert
-  user_id = db.StringField()
-  log = db.ListField()
-"""
+  user_id = StringField()
+  log = ListField()
+  def to_json(self):
+    return {
+        "user_id": self.user_id,
+        "log": self.log,
+    }
