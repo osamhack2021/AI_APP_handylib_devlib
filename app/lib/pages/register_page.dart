@@ -11,6 +11,15 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return
+      Container(
+      width: 100,
+      height: 100,
+      child: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.flutter_dash)),
+    );
   }
 }

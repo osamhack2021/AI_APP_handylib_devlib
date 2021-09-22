@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class Feedpage extends StatefulWidget {
-  Feedpage({Key? key}) : super(key: key);
+class FeedPage extends StatefulWidget {
+  FeedPage({Key? key}) : super(key: key);
 
   @override
-  _FeedpageState createState() => _FeedpageState();
+  _FeedPageState createState() => _FeedPageState();
 }
 
-class _FeedpageState extends State<Feedpage> {
+class _FeedPageState extends State<FeedPage> {
   @override
   Widget build(BuildContext context) {
     return Container(

@@ -1,7 +1,7 @@
 import 'package:app/components/homeScreen/home_bottom_nav.dart';
 import 'package:flutter/material.dart';
 
-import 'package:app/routes.dart';
+import 'package:app/navigation/routes.dart';
 import 'package:app/pages/login_page.dart';
 
 class HomeScreen extends StatefulWidget {

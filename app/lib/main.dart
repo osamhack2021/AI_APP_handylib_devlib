@@ -1,7 +1,6 @@
-import 'package:app/screens/auth_screen.dart';
 import 'package:app/screens/home_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:app/routes.dart';
+import 'package:app/navigation/routes.dart';
 
 void main() {
   runApp(MyApp());
