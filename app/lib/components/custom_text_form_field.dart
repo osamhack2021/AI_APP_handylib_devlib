@@ -1,14 +1,23 @@
+import 'package:app/size.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextFormField extends StatelessWidget {
+
+  final String title, hintText;
+
+  const CustomTextFormField({required this.title, required this.hintText});
+
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("MyText"),
+        Text(title),
+        SizedBox(height:small_gap),
         TextFormField(
+          obscureText: ( title == "Password") ? true : false,
           decoration: InputDecoration(
-            hintText: "Input your id",
+            hintText: hintText,
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
             ),

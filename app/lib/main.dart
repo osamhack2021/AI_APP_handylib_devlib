@@ -13,6 +13,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme:ThemeData(
+        textButtonTheme: TextButtonThemeData(
+          style : TextButton.styleFrom(
+            backgroundColor:Colors.black,
+            primary: Colors.white,
+            shape:RoundedRectangleBorder(
+              borderRadius:BorderRadius.circular(30),
+            )            ,
+            minimumSize: Size(400,60),
+          ), //ButtonStyle
+        ),
+      ),
       initialRoute: "\login",
       routes: {
         "\login" :(context) => LoginPage(),

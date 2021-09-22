@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../size.dart';
+
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
 
@@ -13,10 +15,24 @@ class LoginPage extends StatelessWidget {
         body: Padding(
       padding: const EdgeInsets.all(16.0),
       child: ListView(children: [
+        SizedBox(height:xlarge_gap),
         Logo(
           "Login",
         ),
-        CustomTextFormField(),
+        CustomTextFormField(
+          title:"ID",
+          hintText: " Enter ID"
+        ),
+        SizedBox(height:small_gap),
+        CustomTextFormField(
+          title:"Password",
+          hintText: "Enter Password"
+        ),
+        SizedBox(height:large_gap),
+        TextButton(
+          onPressed:() {},
+          child: Text("Login"),
+        ),
       ]),
     ));
   }
