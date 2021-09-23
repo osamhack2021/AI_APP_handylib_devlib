@@ -1,5 +1,7 @@
+import 'package:app/components/custom_text_form_field.dart';
+import 'package:app/components/logo.dart';
+import 'package:app/constants/size.dart';
 import 'package:flutter/material.dart';
-import '../size.dart';
 class LoginPage extends StatefulWidget {
   LoginPage({Key? key}) : super(key: key);
   @override
