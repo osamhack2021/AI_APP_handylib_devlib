@@ -1,23 +1,25 @@
-import 'package:app/components/logo.dart';
-import 'package:app/size.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
-class RegisterPage extends StatelessWidget {
+class RegisterPage extends StatefulWidget {
+  RegisterPage({Key? key}) : super(key: key);
 
-  
+  @override
+  _RegisterPageState createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body:Padding(
-        padding: EdgeInsets.all(16.0),
-        child: ListView(
-          children:[
-           SizedBox(height:large_gap),
-           Logo("Register"),
-          ]
-
-          ),
-      )
+    return
+      Container(
+      width: 100,
+      height: 100,
+      child: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.flutter_dash)),
     );
   }
 }

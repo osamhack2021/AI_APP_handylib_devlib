@@ -1,16 +1,15 @@
+import 'package:app/components/LoginPage/login_button.dart';
 import 'package:app/components/custom_text_form_field.dart';
 import 'package:app/components/logo.dart';
+import 'package:app/constants/size.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:mongo_dart/mongo_dart.dart' show Db, DbCollection;
-import 'package:http/http.dart' as http;
+class LoginPage extends StatefulWidget {
+  LoginPage({Key? key}) : super(key: key);
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
 
-import '../size.dart';
-
-class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
-
+class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,18 +30,34 @@ class LoginPage extends StatelessWidget {
           hintText: "Enter Password"
         ),
         SizedBox(height:large_gap),
-        TextButton(
-          onPressed:() {},
-          child: Text("Login"),
+        LoginButton( ),
+         TextButton(
+          onPressed:() {
+            Navigator.pushNamed(context,"/home");
+          },
+          child: Text("Register"),
         ),
-        SizedBox(height:medium_gap),
-        TextButton(
-          onPressed: (
-
-          ){},
-          child : Text("Register"),
+        Container(
+          width: 100,
+          height: 100,
+          child: IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, "/auth/register");
+              },
+              icon: Icon(Icons.flutter_dash)),
+        ),
+        Container(
+          width: 100,
+          height: 100,
+          child: IconButton(
+              onPressed: () {
+                Navigator.pushReplacementNamed(context, "/home");
+              },
+              icon: Icon(Icons.flutter_dash)),
         )
       ]),
     ));
   }
 }
+
+
