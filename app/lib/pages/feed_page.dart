@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:app/components/homeScreen/feed_page_appbar.dart';
 
 class FeedPage extends StatefulWidget {
   FeedPage({Key? key}) : super(key: key);
@@ -8,10 +9,19 @@ class FeedPage extends StatefulWidget {
 }
 
 class _FeedPageState extends State<FeedPage> {
+  // PageController _pageController;
+
+  @override
+  void initState() {
+    super.initState();
+    // _pageController = PageController(initialPage: 1, viewportFraction: 0.9);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text("Feed Page"),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: FeedPageAppBar(),
     );
   }
 }
