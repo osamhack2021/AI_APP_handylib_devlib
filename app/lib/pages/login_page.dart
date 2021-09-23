@@ -3,6 +3,8 @@ import 'package:app/components/logo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mongo_dart/mongo_dart.dart' show Db, DbCollection;
+import 'package:http/http.dart' as http;
 
 import '../size.dart';
 
@@ -33,6 +35,13 @@ class LoginPage extends StatelessWidget {
           onPressed:() {},
           child: Text("Login"),
         ),
+        SizedBox(height:medium_gap),
+        TextButton(
+          onPressed: (
+
+          ){},
+          child : Text("Register"),
+        )
       ]),
     ));
   }
