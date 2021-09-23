@@ -29,4 +29,4 @@ def login():
             interest_tag = request.form['interest_tag']
         ).save()
         #db저장 작업이 끝나면 다른 페이지로 렌더링
-        return render_template('login.html')
+        return render_template('sign_in.html')
