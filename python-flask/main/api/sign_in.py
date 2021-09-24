@@ -1,7 +1,6 @@
-from flask import Blueprint,request,session,render_template
+from flask import Blueprint,request,session,redirect,render_template,make_response,Response
 from main.models import database
-
-sign_in_page=Blueprint('sign_in',__name__,url_prefix='/sign_in')
+sign_in_page=Blueprint('sign_in',__name__)
 
 @sign_in_page.route('/',methods=['GET','POST'])
 def sign_in():
@@ -12,14 +11,15 @@ def sign_in():
         pwd=request.form.get('password')
         users=database.User.objects(user_id=id).first()
         if not users:
-            return render_template('sign_in.html')
+            #response형태로 id 잘못 입력 보내기
+            return redirect('/sign_in')
         else:
             if users.password==pwd:
                 session["user_id"]=id
-                session["name"]=users.name
+                session["name"]=users['name']
                 session.permanent=True
-            else:
-                return render_template('sign_in.html')
-    return render_template('index.html')
+                return redirect('/')
+            #실패시 response형태로 pwd 잘못 입력 보내기
+            return redirect('/sign_in')
         
         

@@ -1,7 +1,4 @@
 from flask_mongoengine import MongoEngine
-import os, sys
-sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))
-import config
 from mongoengine import StringField,ListField,EmailField,IntField,ImageField,FloatField
 from ..app import app
 db = MongoEngine()
@@ -13,8 +10,7 @@ class User(db.Document):
   user_id = StringField()
   email = EmailField()
   password = StringField()
-  
-  interest_tag = StringField()
+  interest_tag = ListField()
   like = ListField()
   borrowed = ListField()
   def to_json(self):
@@ -25,15 +21,6 @@ class User(db.Document):
     "interest_tag": self.interest_tag,
     "like": self.like,
     "borrowed": self.borrowed}
-class Administrator(db.Document):
-  # objectid(고유번호) = auto_create or insert
-  name = StringField()
-  user_id = StringField()
-  password = StringField()
-  def to_json(self):
-    return {"name": self.name,
-    "password": self.password,}
-
 class Book(db.Document):
   # objectid(고유번호) = auto_create or insert
   isbn = IntField()
@@ -75,7 +62,7 @@ class Notice_board(db.Document):
   title = StringField()
   comment_number = ListField()
   content = StringField() 
-  tag = ListField()
+  tag = StringField()
   def to_json(self):
     return {"number": self.number,
     "user_id": self.user_id,
