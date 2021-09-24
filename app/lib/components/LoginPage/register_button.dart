@@ -1,11 +1,7 @@
 import 'package:app/constants/colors.dart';
 import 'package:flutter/material.dart';
 
-class LoginButton extends StatelessWidget {
-  const LoginButton({
-    Key? key,
-  }) : super(key: key);
-
+class RegisterButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
@@ -14,10 +10,10 @@ class LoginButton extends StatelessWidget {
         elevation: 5,
       ),
       onPressed: () {
-        Navigator.pushNamed(context, "/home");
+        Navigator.pushNamed(context, '/auth/register');
       },
       child: Text(
-        "Login",
+        "Register",
         style: TextStyle(color: Colors.white),
       ),
     );
