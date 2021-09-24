@@ -1,0 +1,1 @@
+const COLOR_PRIMARY = 0xff0c9869;

@@ -1,14 +1,12 @@
-import 'package:app/components/custom_text_form_field.dart';
-import 'package:app/components/logo.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
 import '../size.dart';
+class LoginPage extends StatefulWidget {
+  LoginPage({Key? key}) : super(key: key);
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
-
+class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,6 +31,24 @@ class LoginPage extends StatelessWidget {
           onPressed:() {},
           child: Text("Login"),
         ),
+        Container(
+          width: 100,
+          height: 100,
+          child: IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, "/auth/register");
+              },
+              icon: Icon(Icons.flutter_dash)),
+        ),
+        Container(
+          width: 100,
+          height: 100,
+          child: IconButton(
+              onPressed: () {
+                Navigator.pushReplacementNamed(context, "/home");
+              },
+              icon: Icon(Icons.flutter_dash)),
+        )
       ]),
     ));
   }
