@@ -4,7 +4,7 @@ from flask.templating import render_template
 from flask_mongoengine import MongoEngine
 from mongoengine.errors import ValidationError
 from mongoengine.fields import StringField
-from main.models import database
+from main.models import database # database_name = "DevLib" 에 들어있음
 def not_empty(val):
     if not val:
         return ValidationError('error')
