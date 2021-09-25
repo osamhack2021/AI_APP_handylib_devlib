@@ -11,7 +11,7 @@ def not_empty(val):
 
 unit_page=Blueprint('unit',__name__,url_prefix='/unit')
 
-@Unit_page.route('/',methods=['GET','POST'])
+@unit_page.route('/',methods=['GET','POST'])
 def unit_name():
     if request.method=='GET':
         u = []
@@ -21,7 +21,7 @@ def unit_name():
     else:
         return "Unit_name 클릭하면 url 및 값 넘기기"
 
-@Unit_page.route('/<Unit_name>', methods=['POST'])
+@unit_page.route('/<Unit_name>', methods=['POST'])
 def Unit_books_list(Unit_name):
   u = ""
 #   u = ", ".join(database.Unit.objects(name=Unit_name)[0].books_list) 왜 파라메터 값으로 받아서 파싱하려는데 에러뜨지;;;; Colab에서 잘되는데ㅠㅠ
