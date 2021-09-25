@@ -1,25 +1,30 @@
+import 'package:app/components/RegisterPage/make_account_button.dart';
+import 'package:app/components/custom_text_form_field.dart';
+import 'package:app/components/logo.dart';
+import 'package:app/constants/size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class RegisterPage extends StatefulWidget {
-  RegisterPage({Key? key}) : super(key: key);
+class RegisterPage extends StatelessWidget {
+  const RegisterPage({Key? key}) : super(key: key);
 
-  @override
-  _RegisterPageState createState() => _RegisterPageState();
-}
-
-class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
-    return
-      Container(
-      width: 100,
-      height: 100,
-      child: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: Icon(Icons.flutter_dash)),
-    );
+    return Scaffold(
+        body: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: ListView(children: const [
+              SizedBox(height: xlarge_gap),
+              Logo("Register"),
+              CustomTextFormField(title: "성명", hintText: "홍길동"),
+              SizedBox(height: medium_gap),
+              CustomTextFormField(title: "ID", hintText: "Enter ID"),
+              SizedBox(height: medium_gap),
+              CustomTextFormField(
+                  title: "Password", hintText: "Enter Password"
+              ),
+              SizedBox(height:large_gap),
+              MakeAccountButton(),
+            ])));
   }
 }
