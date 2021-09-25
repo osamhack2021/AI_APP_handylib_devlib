@@ -6,7 +6,7 @@ app.register_blueprint(sign_up.sign_up_page,url_prefix='/sign_up')
 app.register_blueprint(sign_in.sign_in_page,url_prefix='/sign_in')
 app.register_blueprint(logout.logout_page,url_prefix='/logout')
 app.register_blueprint(board.board_page,url_prefix='/board')
-app.register_blueprint(unit.Unit_page,url_prefix='/unit')
+app.register_blueprint(unit.unit_page,url_prefix='/unit')
 app.debug = True
 
 

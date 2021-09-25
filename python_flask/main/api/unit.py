@@ -9,7 +9,7 @@ def not_empty(val):
     if not val:
         return ValidationError('error')
 
-Unit_page=Blueprint('unit',__name__,url_prefix='/unit')
+unit_page=Blueprint('unit',__name__,url_prefix='/unit')
 
 @Unit_page.route('/',methods=['GET','POST'])
 def unit_name():
