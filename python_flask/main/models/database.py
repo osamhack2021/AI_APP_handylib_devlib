@@ -1,6 +1,9 @@
 from flask_mongoengine import MongoEngine
 from mongoengine import StringField,ListField,EmailField,IntField,ImageField,FloatField
 from ..app import app
+database_name = "API_test"
+uri  = "mongodb+srv://DevLib_Backend1:OSAMHackathonDevLibBackend1@cluster0.5ublg.mongodb.net/{}?retryWrites=true&w=majority".format(database_name) # 몽고db커넥트url 넣으면 되요
+app.config["MONGODB_HOST"] = uri
 db = MongoEngine()
 db.init_app(app)
 
