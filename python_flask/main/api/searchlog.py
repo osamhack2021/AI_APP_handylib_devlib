@@ -11,15 +11,20 @@ def not_empty(val):
 
 search_page=Blueprint('search',__name__,url_prefix='/search')
 
-@search_page.route('=<keyword>',methods=['POST'])
-def search_keyword(keyword):
-    if keyword != null :
-        p = []
-        p = "// ".join(Searchlog.objects(user_id="tester")[0].log)
-        p += '// {0}'.format(keyword)
-        Searchlog.objects(user_id="tester")[0].update(log = p.split('// '))
-        return "원하는 북 데이터 출력하게 할 예정"
+@search_page.route('/<user_id>/search=<keyword>',methods=['POST'])
+def search_keyword(user_id, keyword):
+    u = []
+    u = "// ".join(Searchlog.objects(user_id='{0}'.format(user_id))[0].log)
+    if u == '' :
+        u += '{0}'.format(keyword)
     else :
-        return "검색어를 입력해주세요"
+        u += '// {0}'.format(keyword)
+    Searchlog.objects(user_id='{0}'.format(user_id))[0].update(log = u.split('// '))
+    return "search_sucess"
 
-# user_id가 검색한 내용을 호출 할 수 있게 함수를 만들기
+@search_page.route('/<user_id>/searchlog',methods=['GET'])
+def search_keyword(user_id):
+    u = ""
+    u = ", ".join(Searchlog.objects(user_id='{0}'.format(user_id))[0].log)
+    return u
+    # 예외코드 아직 안만듬
