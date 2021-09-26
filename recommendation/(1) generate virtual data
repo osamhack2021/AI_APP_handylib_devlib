@@ -1,4 +1,3 @@
-~~~
 import pandas as pd
 import numpy as np
 import random
@@ -72,10 +71,10 @@ def scenario1(df_category_count):
     return like_category
 def scenario2(len_books, df_category_count):
     '''
-        <시나리오 2 생성>
-        300명은 5~50권의 책을 읽음
-        결과물은 like_category 에 들어있음
-        '''
+    <시나리오 2 생성>
+    300명은 5~50권의 책을 읽음
+    결과물은 like_category 에 들어있음
+    '''
     like_category = []
     for i in range(300):
         i_book_list = []
@@ -88,7 +87,11 @@ def scenario2(len_books, df_category_count):
         like_category.append(i_book_list)
     return like_category
 def scenario3(list_scenarios):
-    # 수정필요 : 1번 책부터 1125번 책까지로 범위 수정해주기
+    '''
+    <시나리오 3 생성>
+    700명은 시나리오 1, 시나리오 2를 따르는 사용자가 읽은 책 리스트 중 일부를 읽음
+    결과물은 like_category 에 들어있음
+    '''
     like_category = []
     for i_list in list_scenarios:
         i_book_list = []
@@ -134,4 +137,4 @@ list_scenario3 = scenario3(list_scenario1+list_scenario2)
 
 df = make_dataframe(list_scenario1+list_scenario2+list_scenario3)
 df.to_csv(books_file_path+'사용자1.csv')
-~~~
+
