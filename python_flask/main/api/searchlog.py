@@ -20,11 +20,18 @@ def search_keyword(user_id, keyword):
     else :
         u += '// {0}'.format(keyword)
     Searchlog.objects(user_id='{0}'.format(user_id))[0].update(log = u.split('// '))
-    return "search_sucess"
+    return "search_success" # 검색 목록 띄우기
 
 @search_page.route('/<user_id>/searchlog',methods=['GET'])
-def search_keyword(user_id):
+def search_log(user_id):
     u = ""
     u = ", ".join(Searchlog.objects(user_id='{0}'.format(user_id))[0].log)
     return u
     # 예외코드 아직 안만듬
+
+@search_page.route('/<user_id>/searchlog=delete',methods=['POST'])
+def search_log_delete(user_id):
+    if len(Searchlog.objects(user_id='{0}'.format(user_id))) == 0 :
+        Searchlog(user_id='{0}'.format(user_id)).save()
+    Searchlog.objects(user_id='{0}'.format(user_id))[0].update(log = [])
+    return "delete_success" # 삭제성공 메시지 or 사라진 검색log 출력
