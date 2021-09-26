@@ -1,8 +1,10 @@
 import 'package:app/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:app/navigation/routes.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
+Future main() async {
+  await dotenv.load(fileName: "setting.env");
   runApp(MyApp());
 }
 
@@ -14,6 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: HomeScreen(),
       routes: routes,
+      debugShowCheckedModeBanner: false,
     );
   }
 }
