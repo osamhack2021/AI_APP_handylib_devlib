@@ -33,7 +33,7 @@ def board_number(number):
 def write_board():
     content=request.form.get('content')
     title = request.form.get('title')
-    user_id=session['user_id']
+    user_id=session.get('user_id')
     tag=request.form.get('tag')
     database.Notice_board(content=content,title=title
     ,user_id=user_id,tag=tag,
