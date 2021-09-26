@@ -22,8 +22,16 @@ def unit_name():
         return "Unit_name 클릭하면 url 및 값 넘기기"
 
 @unit_page.route('/<Unit_name>', methods=['POST'])
-def Unit_books_list(Unit_name):
-  u = ""
-#   u = ", ".join(database.Unit.objects(name=Unit_name)[0].books_list) 왜 파라메터 값으로 받아서 파싱하려는데 에러뜨지;;;; Colab에서 잘되는데ㅠㅠ
-  u = ", ".join(database.Unit.objects(name="53사단")[0].books_list)
+def Unit_books_list(Unit_name):\
+    if Unit_name == "1번부대":
+        u = ""
+        u = ", ".join(database.Unit.objects(name="1번부대")[0].books_list)
+    elif Unit_name == "2번부대":
+        u = ""
+        u = ", ".join(database.Unit.objects(name="2번부대")[0].books_list)
+    else :
+        u="올바른 부대를 선택해주세요"
+        
+    #u = ""
+    #u = ", ".join(database.Unit.objects(name=Unit_name)[0].books_list) Colab에서 구동 잘됨. codespace에서는 에러뜸;;
   return u
