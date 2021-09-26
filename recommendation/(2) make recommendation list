@@ -1,0 +1,133 @@
+import numpy as np
+import pandas as pd
+
+def get_books(path, file_name):
+    df_books = pd.read_csv(path+file_name, encoding='cp949')
+    df_books_category = pd.DataFrame(df_books, columns=['순번', '분야'])
+    return df_books_category
+
+users_path = 'C:/Users/admin/Documents/osam_ai/'
+users_file_name = '사용자1.csv'
+books_file_path = "C:/Users/admin/Documents/osam_ai/"
+categories_file_path = "C:/Users/admin/Documents/osam_ai/book_dataset/"
+books_file_name = "1번부대도서.csv"
+categories_file_name = "카테고리1.csv"
+
+books = get_books(books_file_path, books_file_name)
+df_users = pd.read_csv(users_path+users_file_name, encoding='cp949')        # columns = 'id', 'user_id', 'book_id'
+R = df_users.pivot_table('like', index = 'user_id', columns = 'book_id').fillna(0)
+
+r_lambda = 40
+nf = 200        # dimension of latent vector
+alpha = 40
+
+nu = R.shape[0] # num of users
+ni = R.shape[1] # num of items(books)
+
+X = np.random.rand(nu, nf) * 0.01
+Y = np.random.rand(ni, nf) * 0.01
+
+R = np.copy(R)
+P = np.copy(R)
+P[P>0] = 1
+C = 1 + alpha*R
+
+def loss_function(C, P, xTy, X, Y, r_lambda):
+    predict_error = np.square(P-xTy)
+    confidence_error = np.sum(C*predict_error)
+    regularization = r_lambda * (np.sum(np.square(X)) + np.sum(np.square(Y)))
+    total_loss = confidence_error + regularization
+    return np.sum(predict_error), confidence_error, regularization, total_loss
+
+def optimize_user(X, Y, C, P, nu, nf, r_lambda):
+    yT = np.transpose(Y)
+    for u in range(nu):
+        Cu = np.diag(C[u])
+        yT_Cu_y = np.matmul(np.matmul(yT, Cu), Y)
+        lI = np.dot(r_lambda, np.identity(nf))
+        yT_Cu_pu = np.matmul(np.matmul(yT, Cu), P[u])
+        X[u] = np.linalg.solve(yT_Cu_y + lI, yT_Cu_pu)
+
+def optimize_item(X, Y, C, P, ni, nf, r_lambda):
+    xT = np.transpose(X)
+    for i in range(ni):
+        Ci = np.diag(C[:, i])
+        xT_Ci_x = np.matmul(np.matmul(xT, Ci), X)
+        lI = np.dot(r_lambda, np.identity(nf))
+        xT_Ci_pi = np.matmul(np.matmul(xT, Ci), P[:, i])
+        Y[i] = np.linalg.solve(xT_Ci_x + lI, xT_Ci_pi)
+
+predict_errors = []
+confidence_errors = []
+regularization_list = []
+total_losses = []
+
+for i in range(15):
+    if i != 0:
+        optimize_user(X, Y, C, P, nu, nf, r_lambda)
+        optimize_item(X, Y, C, P, ni, nf, r_lambda)
+    predict = np.matmul(X, np.transpose(Y))
+    predict_error, confidence_error, regularization, total_loss = loss_function(C, P, predict, X, Y, r_lambda)
+
+    predict_errors.append(predict_error)
+    confidence_errors.append(confidence_error)
+    regularization_list.append(regularization)
+    total_losses.append(total_loss)
+
+    print('-----------step %d------------' % i)
+    print("predict error: %f" % predict_error)
+    print("confidence error: %f" % confidence_error)
+    print("regularization: %f" % regularization)
+    print("total_loss: %f" % total_loss)
+
+predict = np.matmul(X, np.transpose(Y))
+print('final predict')
+print(predict)
+
+def make_dataframe(list_pred):
+    df = pd.DataFrame(list_pred, columns=range(1125))   # user-item = 1400 x 1125
+    df = df.fillna(0)
+    return df
+
+df_predict = make_dataframe(predict)
+
+pred_file_path = 'C:/Users/admin/Documents/osam_ai/'
+df_predict.to_csv(pred_file_path+'predict1.csv')
+
+def recommendation(user_id):
+    # predict1 파일 읽기
+    pred_file_path = 'C:/Users/admin/Documents/osam_ai/'
+    pred_file_name = 'predict1.csv'
+    df_preds = pd.read_csv(pred_file_path + pred_file_name, encoding='cp949').fillna(0)
+    df_preds.drop(['Unnamed: 0'], axis=1, inplace=True)
+    pred_row = df_preds.iloc[user_id]
+    pred_row.index.name = 'book_id'
+    #pred_row = pred_row.sort_values(ascending=False)
+    list_pred_row = list(np.array(pred_row.tolist()))
+
+    # 사용자1 파일 읽기
+    users_path = 'C:/Users/admin/Documents/osam_ai/'
+    users_file_name = '사용자1.csv'
+    df_users = pd.read_csv(users_path + users_file_name, encoding='cp949')  # columns = 'id', 'user_id', 'book_id'
+    df_users = df_users.pivot_table('like', index='user_id', columns='book_id').fillna(0)
+    like_row = df_users.iloc[user_id]
+    list_like_row = list(np.array(like_row.tolist()))
+
+    # 1번부대도서 파일 읽기
+    books_path = 'C:/Users/admin/Documents/osam_ai/'
+    books_file_name = '1번부대도서.csv'
+    df_books = pd.read_csv(books_path+books_file_name, encoding='cp949')
+    df_books = pd.DataFrame(df_books, columns=['상품명', '분야'])
+    print(df_books)
+
+    df = pd.DataFrame({'pred_score':list_pred_row,
+                        'like':list_like_row,
+    })
+    df = pd.concat([df, df_books], axis = 1)
+    df = df.sort_values(by='pred_score', ascending=False)
+
+    df_recommendation = df[df['like']==0]
+    df_recommendation = df_recommendation.iloc[range(20)]
+    df_recommendation.to_csv(pred_file_path+'rec1.csv')
+
+recommendation(0)
