@@ -1,3 +1,4 @@
+from os import write
 from main.api import login_require
 from flask import Blueprint, json,request,Response,session,redirect
 from main.models import database
@@ -36,10 +37,12 @@ def write_board():
     user_id=session.get('user_id')
     tag=request.form.get('tag')
     database.Notice_board(content=content,title=title
-    ,user_id=user_id,tag=tag,
+    ,user_id=user_id,
+    tag=tag,
     time_stamp=datetime.fromtimestamp(time.time()),
     number=database.Notice_board.objects(tag=tag).count()+1).save()
-    return redirect('/board/page/{number}')
+    writed_num=database.Notice_board.objects(tag=tag,user_id=user_id,title=title,content=content).first().number
+    return redirect('/board/page/{}'.format(writed_num))
 
 #수정 요청 라우터
 @board_page.route('/page/<int:number>/edit',methods=['PUT'])
@@ -49,7 +52,7 @@ def edit_board(number):
     board_item.update(title=request.form.get('title'),
     content=request.form.get('content')
     )
-    return redirect('/board/page/{number}')
+    return redirect('/board/page/{}'.format(number))
 
 #삭제 요청 라우터
 @board_page.route('/page/<int:number>/delete',methods=['DELETE'])

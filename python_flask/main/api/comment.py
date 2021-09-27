@@ -24,14 +24,14 @@ def com_write(number):
     lists.append(com_num)
     data.update(comment_number=lists)
 
-    return redirect('/board/page/{number}')
+    return redirect('/board/page/{}'.format(number))
 
 @comment_page.route('/<int:number>/<int:comment_number>/edit',methods=['PUT'])
 @login_require
 def com_edit(number,comment_number):
     data=database.Comment.objects(user_id=session.get('user_id'), comment_number=comment_number).first()
     data.update(content=request.form.get('content'))
-    return redirect('/board/page/{number}')
+    return redirect('/board/page/{}'.format(number))
 
 @comment_page.route('/<int:number>/<int:comment_number>/delete',methods=['DELETE'])
 @login_require
@@ -44,4 +44,4 @@ def com_delete(number,comment_number):
     board_data.update(comment_number=lists)
      #comment collection삭제
     data.delete()
-    return redirect('/board/page/int:{number}')
+    return redirect('/board/page/{}'.format(number))
