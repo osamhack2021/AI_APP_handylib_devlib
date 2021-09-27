@@ -4,8 +4,13 @@ import 'package:flutter/material.dart';
 class CustomTextFormField extends StatelessWidget {
 
   final String title, hintText;
+  final controller;
 
-  const CustomTextFormField({required this.title, required this.hintText});
+  const CustomTextFormField({
+    required this.title,
+    required this.hintText, 
+    this.controller,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +20,7 @@ class CustomTextFormField extends StatelessWidget {
         Text(title),
         SizedBox(height:small_gap),
         TextFormField(
+          controller: controller,
           obscureText: ( title == "Password") ? true : false,
           decoration: InputDecoration(
             hintText: hintText,

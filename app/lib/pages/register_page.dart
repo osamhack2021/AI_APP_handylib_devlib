@@ -10,7 +10,10 @@ import 'package:http/http.dart' as http;
 
 
 class RegisterPage extends StatelessWidget {
-  const RegisterPage({Key? key}) : super(key: key);
+
+  final TextEditingController _username = TextEditingController();
+  final TextEditingController _password = TextEditingController();
+  final TextEditingController _id = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -20,27 +23,26 @@ class RegisterPage extends StatelessWidget {
             child: ListView(children: const [
               SizedBox(height: xlarge_gap),
               Logo("Register"),
-              CustomTextFormField(title: "성명", hintText: "홍길동"),
-              SizedBox(height: medium_gap),
-              CustomTextFormField(title: "ID", hintText: "Enter ID"),
+              CustomTextFormField(
+                title: "성명", 
+                hintText: "홍길동",
+                controller: _username,
+              ),
               SizedBox(height: medium_gap),
               CustomTextFormField(
-                  title: "Password", hintText: "Enter Password"
+                title: "ID", 
+                hintText: "Enter ID",
+                controller: _id,
+              ),
+              SizedBox(height: medium_gap),
+              CustomTextFormField(
+                  title: "Password", 
+                  hintText: "Enter Password",
+                  controller: _password,
               ),
               SizedBox(height:large_gap),
               MakeAccountButton(),
 
-              FutureBuilder<User>(
-                future:fetchUser(),
-                builder: (context,snapshot) {
-                  if(snapshot.hasData) {
-                    return Text(snapshot.data!.title);
-                  }else if(snapshot.hasError) {
-                    return Text('${snapshot.error}');
-                  }
-                  return const CircularProgressIndicator();
-                },
-              )
             ])));
   }
 }

@@ -11,7 +11,9 @@ class MakeAccountButton extends StatelessWidget {
         backgroundColor: const Color(COLOR_PRIMARY),
         elevation: 5,
       ),
-      onPressed: () {},
+      onPressed: ()=> {
+        
+      },
       child: const Text(
         "Make Account",
         style:TextStyle(
