@@ -1,4 +1,4 @@
-class Movie {
+class Book {
   String imageUrl;
   String title;
   String categories;
@@ -8,7 +8,7 @@ class Movie {
   String description;
   List<String> screenshots;
 
-  Movie({
+  Book({
     required this.imageUrl,
     required this.title,
     required this.categories,
@@ -20,23 +20,23 @@ class Movie {
   });
 }
 
-final List<Movie> movies = [
-  Movie(
-    imageUrl: 'assets/images/spiderman.jpg',
-    title: '스파이더맨',
+final List<Book> movies = [
+  Book(
+    imageUrl: 'assets/images/spiderman.jpeg',
+    title: '초격차 투자법 - 시장을 이긴 숨은 고수 11인의',
     categories: 'Fantasy, Sci-fi',
     year: 2018,
     country: 'USA',
     length: 129,
     description:
-        'Our friendly neighborhood Super Hero decides to join his best friends Ned, MJ, and the rest of the gang on a European vacation. However, Peter\'s plan to leave super heroics behind for a few weeks are quickly scrapped when he begrudgingly agrees to help Nick Fury uncover the mystery of several elemental creature attacks, creating havoc across the continent.',
+        '주식 고수들이 손꼽는 인생 책, 전 세계 100만 부 이상 판매된 베스트셀러 시리즈 ‘시장의 마법사들’이 더 강력하게 돌아왔다. 주식과 선물시장의 전설들을 인터뷰해 그들의 투자 기법을 밝힌 ‘시장의 마법사들’은 고수들이 찾아 읽는 투자 고전으로 손꼽힌다. 9년 만에 출간된 신간 《초격차 투자법》에서는 나 홀로 투자에 뛰어든 개인 투자자 11명을 만난다.',
     screenshots: [
       'assets/images/spiderman_0.jpg',
       'assets/images/spiderman_1.jpg',
       'assets/images/spiderman_2.jpg',
     ],
   ),
-  Movie(
+  Book(
     imageUrl: 'assets/images/nutcracker.jpg',
     title: 'The Nutcracker And The Four Realms',
     categories: 'Adventure, Family, Fantasy',
@@ -51,7 +51,7 @@ final List<Movie> movies = [
       'assets/images/nutcracker_2.jpg',
     ],
   ),
-  Movie(
+  Book(
     imageUrl: 'assets/images/toystory.jpg',
     title: 'Toy Story 4',
     categories: 'Adventure, Fantasy',
@@ -66,13 +66,6 @@ final List<Movie> movies = [
       'assets/images/toystory_2.jpg',
     ],
   ),
-];
-
-final List<String> labels = [
-  'Discover',
-  'Categories',
-  'Specials',
-  'New',
 ];
 
 final List<String> myList = [

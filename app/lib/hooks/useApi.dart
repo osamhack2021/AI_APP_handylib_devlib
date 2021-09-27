@@ -8,7 +8,8 @@ Map<String, dynamic> aladinParam(String ISBN13) {
     "itemIdType": "ISBN13",
     "ItemId": ISBN13,
     "output": "JS",
-    "Omitkey": "1"
+    "Omitkey": "1",
+    "Cover": "Big"
   };
   return ret;
 }
