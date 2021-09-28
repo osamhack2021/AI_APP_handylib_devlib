@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:app/components/homeScreen/feed_page_appbar.dart';
 import 'package:app/models/book_models.dart';
 import 'package:app/components/homeScreen/book_selector.dart';
-import 'package:app/components/content_scroll.dart';
+import 'package:app/components/homeScreen/content_scroll.dart';
 
 class FeedPage extends StatefulWidget {
   FeedPage({Key? key}) : super(key: key);
@@ -43,28 +43,6 @@ class _FeedPageState extends State<FeedPage> {
                 },
               ),
             ),
-            // Container(
-            //   height: 280.0,
-            //   width: double.infinity,
-            //   child: PageView.builder(
-            //     controller: _midPageController,
-            //     itemCount: movies.length,
-            //     itemBuilder: (BuildContext context, int index) {
-            //       return BookSelector(index, _topPageController, context);
-            //     },
-            //   ),
-            // ),
-            // Container(
-            //   height: 280.0,
-            //   width: double.infinity,
-            //   child: PageView.builder(
-            //     controller: _bottomPageController,
-            //     itemCount: movies.length,
-            //     itemBuilder: (BuildContext context, int index) {
-            //       return BookSelector(index, _topPageController, context);
-            //     },
-            //   ),
-            // ),
             ContentScroll(
               images: myList,
               title: 'My List',
