@@ -1,4 +1,3 @@
-from os import write
 from main.api import login_require
 from flask import Blueprint, json,request,Response,session,redirect
 from main.models import database

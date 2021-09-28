@@ -12,15 +12,17 @@ def sign_up():
         return render_template('sign_up.html')
     else:
         #user_id가 일치하는게 db에 있는지 확인
-        user = database.User.objects(user_id=request.form['user_id']).first()
+        user = database.User.objects(user_id=request.form.get('user_id')).first()
         if user:
             return redirect('/sign_up')
         database.User(
-            user_id=request.form['user_id'],
-            password=request.form['password'],
-            name=request.form['name'],
-            email=request.form['email'],
-            interest_tag=list(request.form['interest_tag'])
+            user_id=request.form.get('user_id'),
+            password=request.form.get('password'),
+            name=request.form.get('name'),
+            email=request.form.get('email'),
+            interest_tag=list(request.form.get('interest_tag')),
+            rank=request.form.get('rank'),
+            unit=request.form.get('unit')
         ).save()
         
     #db저장 작업이 끝나면 다른 페이지로 렌더링
