@@ -22,6 +22,21 @@ Future<User> createUser(String name, String id, String password) async{
     }
 }
 
+bool loginUser(String id, String password) {
+  final response =  http.post(
+      Uri.parse(''),
+      headers: <String, String>{
+        'Content-Type' : 'application/json; charset=UTF-8',
+      },
+      body : jsonEncode(<String, String>{
+        'user_id' : id,
+        'password' : password,
+      }),
+    );
+    
+    return true; //Response 협의 후 수정 예정
+}
+
 class User{
   final String? username;
   final String? id;
