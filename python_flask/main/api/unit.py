@@ -2,7 +2,7 @@
 from flask import Blueprint, request
 from main.models import database
 
-unit_page=Blueprint('unit',__name__,url_prefix='/unit')
+unit_page=Blueprint('unit',__name__)
 
 @unit_page.route('/',methods=['GET','POST'])
 def unit_name():
