@@ -20,9 +20,9 @@ def com_write(number):
     database.Comment(user_id=user_id,content=content,comment_number=com_num).save()
     #board db 해당 number에 comment 추가 
     data=database.Notice_board.objects(number=number,tag=request.args.get('tag')).first()
-    lists=data.comment_number
+    lists=data.comment_list
     lists.append(com_num)
-    data.update(comment_number=lists)
+    data.update(comment_list=lists)
 
     return redirect('/board/page/{}'.format(number))
 
@@ -39,9 +39,9 @@ def com_delete(number,comment_number):
     data=database.Comment.objects(user_id=session.get('user_id'), comment_number=comment_number).first()
     board_data=database.Notice_board.objects(number=number,tag=request.args.get('tag')).first()
     #board comment_number list에서 삭제
-    lists=board_data.comment_number
+    lists=board_data.comment_list
     lists.remove(comment_number)
-    board_data.update(comment_number=lists)
+    board_data.update(comment_list=lists)
      #comment collection삭제
     data.delete()
     return redirect('/board/page/{}'.format(number))

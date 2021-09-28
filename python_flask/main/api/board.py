@@ -36,28 +36,22 @@ def write_board():
     title = request.form.get('title')
     user_id=session.get('user_id')
     tag=request.form.get('tag')
-    database.Notice_board(content=content,title=title
-    ,user_id=user_id,
-    tag=tag,
-    time_stamp=datetime.fromtimestamp(time.time()),
-    number=database.Notice_board.objects(tag=tag).count()+1).save()
-    writed_num=database.Notice_board.objects(tag=tag,user_id=user_id,title=title,content=content).first().number
-    return redirect('/board/page/{}'.format(writed_num))
+    count=database.Notice_board.objects(tag=tag).count()+1
+    database.Notice_board(content=content, title=title, user_id=user_id, tag=tag, time_stamp=datetime.fromtimestamp(time.time()), number=count).save()
+    return redirect('/board/page/{}'.format(count))
 
 #수정 요청 라우터
 @board_page.route('/page/<int:number>/edit',methods=['PUT'])
 @login_require
 def edit_board(number):  
     board_item = database.Notice_board.objects(number=number,tag=request.form.get('tag')).first()
-    board_item.update(title=request.form.get('title'),
-    content=request.form.get('content')
-    )
+    board_item.update(title=request.form.get('title'),content=request.form.get('content'))
     return redirect('/board/page/{}'.format(number))
 
 #삭제 요청 라우터
 @board_page.route('/page/<int:number>/delete',methods=['DELETE'])
 @login_require
 def delete_board(number):
-    board_item = database.Notice_board.objects(number=number,tag=request.form.get('tag')).first()
+    board_item = database.Notice_board.objects(number=number,tag=request.args.get('tag')).first()
     board_item.delete()
     return redirect('/board/1')

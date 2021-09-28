@@ -63,7 +63,7 @@ class Notice_board(db.Document):
   number = IntField()
   user_id = StringField()
   title = StringField()
-  comment_number = ListField()
+  comment_list = ListField()
   content = StringField() 
   tag = StringField()
   time_stamp=DateField()
@@ -71,7 +71,7 @@ class Notice_board(db.Document):
     return {"number": self.number,
     "user_id": self.user_id,
     "title": self.title,
-    "comment_number":self.comment_number,
+    "comment_number":self.comment_list,
     "content":self.content,
     "tag":self.tag,
     "time_stamp":self.time_stamp
