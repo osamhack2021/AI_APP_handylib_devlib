@@ -15,59 +15,56 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   final TextEditingController _idController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: ListView(children: [
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: ListView(children: [
           SizedBox(height: xlarge_gap),
           Logo(
             "Login",
           ),
           CustomTextFormField(
-            title: "ID", 
+            title: "ID",
             hintText: " Enter ID",
             controller: _idController,
           ),
           SizedBox(height: small_gap),
           CustomTextFormField(
-            title: "Password", 
+            title: "Password",
             hintText: "Enter Password",
-            controller : _passwordController,
+            controller: _passwordController,
           ),
           SizedBox(height: large_gap),
           ElevatedButton(
-            onPressed: () {
-              var res = loginUser(
-                _idController.value.text, 
-                _passwordController.value.text,
-              );
-              if(res) {
-                debugPrint("login succeed");
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context)=> HomeScreen()),
+              onPressed: () {
+                var res = loginUser(
+                  _idController.value.text,
+                  _passwordController.value.text,
                 );
-              }
-            }, 
-            child: Text(
-              'Login',
-            ),
-            style:ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(Color(COLOR_PRIMARY)),
-            )
-          ),
+                if (res) {
+                  debugPrint("login succeed");
+                  Navigator.of(context).pushReplacementNamed(
+                    '/home',
+                    arguments: _idController.value.text,
+                  );
+                }
+              },
+              child: Text(
+                'Login',
+              ),
+              style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Color(COLOR_PRIMARY)),
+              )),
           SizedBox(height: medium_gap),
           RegisterButton(),
-          ]
-        ),
+        ]),
       ),
     );
   }
 }
-

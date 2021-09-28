@@ -1,3 +1,4 @@
+import 'package:app/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class SettingPage extends StatefulWidget {
@@ -10,10 +11,19 @@ class SettingPage extends StatefulWidget {
 class _SettingPageState extends State<SettingPage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text(
-        "setting page",
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: Center(child: Text("My Profile")),
+        backgroundColor: Color(COLOR_PRIMARY),
       ),
+      body: ListView(children: [
+        const CircleAvatar(
+          backgroundImage: AssetImage(
+            'default_profile_image.png',
+          ),
+        )
+      ]),
     );
   }
 }

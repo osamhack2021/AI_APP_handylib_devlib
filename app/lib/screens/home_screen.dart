@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:app/navigation/routes.dart';
 import 'package:app/pages/login_page.dart';
 
+String? id;
+
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
 
@@ -14,6 +16,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    id = ModalRoute.of(context)!.settings.arguments as String?;
     return Scaffold(
       body: DefaultTabController(
           length: 4,
