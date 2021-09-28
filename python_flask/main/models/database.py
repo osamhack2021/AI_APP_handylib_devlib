@@ -16,6 +16,8 @@ class User(db.Document):
   interest_tag = ListField()
   like = ListField()
   borrowed = ListField()
+  rank = StringField()
+  unit=StringField()
   def to_json(self):
     return {"name": self.name,
     "email": self.email,
@@ -23,7 +25,10 @@ class User(db.Document):
     "user_id": self.user_id,
     "interest_tag": self.interest_tag,
     "like": self.like,
-    "borrowed": self.borrowed}
+    "borrowed": self.borrowed,
+    "rank":self.rank,
+    "unit":self.unit,
+    }
 class Book(db.Document):
   # objectid(고유번호) = auto_create or insert
   isbn = IntField()
