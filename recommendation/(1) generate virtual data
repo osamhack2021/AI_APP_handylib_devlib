@@ -2,12 +2,14 @@ import pandas as pd
 import numpy as np
 import random
 
-def make_dataframe(input_list):
-    df = pd.DataFrame(input_list)
-    df = df.fillna(0)
-    df = df.astype(int)
-    return df
-    
+'''
+이 프로그램의 목적은 시나리오 1, 2, 3에 대응하는 사용자 정보 csv를 만드는 것이다
+시나리오 1. 자신의 선호 카테고리의 책을 랜덤으로 읽는 사람
+시나리오 2. 랜덤으로 읽는 사람
+시나리오 3. 다른 사람이 읽은 책 중 일부를 따라 읽는 사람
+사용자 수는 1,000 명을 만들 예정이며, 시나리오 1, 2, 3 순서대로 (400, 300, 300)명에 해당하는 좋아요 표시 데이터를 만드는 것이 목표이다.
+'''
+
 def get_books(path, file_name):
     df_books = pd.read_csv(path+file_name, encoding='cp949')
     df_books_category = pd.DataFrame(df_books, columns=['순번', '분야'])
@@ -105,36 +107,34 @@ def scenario3(list_scenarios):
     return like_category
 
 def make_dataframe(list_scenarios):
-    like_user_id = []
-    like_book_id = []
-    user_id = 0
-    for list_i in list_scenarios:
-        for i in list_i:
-            like_user_id.append(user_id)
-            like_book_id.append(i)
-        user_id += 1
-    td = {
-        'user_id': like_user_id,
-        'book_id': like_book_id,
-        'like': [1]*len(like_user_id)
+    to_df = {
+        'name': range(len(list_scenarios)),
+        'user_id': range(len(list_scenarios)),
+        'email': range(len(list_scenarios)),
+        'password': range(len(list_scenarios)),
+        'interest_tag': range(len(list_scenarios)),
+        'like':list_scenarios,
+        'borrowed':list_scenarios
     }
 
     df = pd.DataFrame(td)
     df = df.fillna(0)
-    df = df.astype(int)
     return df
 
-books_file_path = "C:/Users/admin/Documents/osam_ai/"
-categories_file_path = "C:/Users/admin/Documents/osam_ai/book_dataset/"
-books_file_name = "1번부대도서.csv"
-categories_file_name = "카테고리1.csv"
+def user_generator(file_path, books_file_name, categories_file_name, users_file_name):
+    books = get_books(file_path, books_file_name)
+    list_category_count = get_categories(file_path, categories_file_name)
 
-books = get_books(books_file_path, books_file_name)
-list_category_count = get_categories(categories_file_path, categories_file_name)
-list_scenario1 = scenario1(list_category_count)
-list_scenario2 = scenario2(len(books), list_category_count)
-list_scenario3 = scenario3(list_scenario1+list_scenario2)
+    list_scenario1 = scenario1(list_category_count)
+    list_scenario2 = scenario2(len(books), list_category_count)
+    list_scenario3 = scenario3(list_scenario1+list_scenario2)
 
-df = make_dataframe(list_scenario1+list_scenario2+list_scenario3)
-df.to_csv(books_file_path+'사용자1.csv')
+    df = make_dataframe(list_scenario1+list_scenario2+list_scenario3)
+    df.to_csv(file_path + users_file_name)
 
+file_path = "C:/Users/admin/Documents/osam_ai/book_dataset/"
+books_file_name = "rec_books_1.csv"
+categories_file_name = "rec_category_1.csv"
+users_file_name = "rec_user_1.csv"
+
+user_generator(file_path, books_file_name, categories_file_name, users_file_name)
