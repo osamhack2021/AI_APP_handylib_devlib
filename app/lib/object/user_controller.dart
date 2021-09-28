@@ -6,7 +6,7 @@ Future<User> createUser(String name, String id, String password) async{
     final response = await http.post(
       Uri.parse(''),
       headers: <String, String>{
-        'Content-Type' : 'application.json charset=UTF-8',
+        'Content-Type' : 'application/json; charset=UTF-8',
       },
       body : jsonEncode(<String, String>{
         'name' : name,

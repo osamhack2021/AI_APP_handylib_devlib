@@ -1,5 +1,6 @@
 import 'package:app/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:app/pages/register_page.dart';
 
 class MakeAccountButton extends StatelessWidget {
   const MakeAccountButton({Key? key}) : super(key: key);
@@ -12,7 +13,6 @@ class MakeAccountButton extends StatelessWidget {
         elevation: 5,
       ),
       onPressed: ()=> {
-        
       },
       child: const Text(
         "Make Account",
