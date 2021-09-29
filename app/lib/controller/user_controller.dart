@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-Future<User> createUser(String name, String id, String password) async{
+Future<User> createUser(String name, String user_id, String password) async{
     final response = await http.post(
       Uri.parse(''),
       headers: <String, String>{
@@ -10,7 +10,7 @@ Future<User> createUser(String name, String id, String password) async{
       },
       body : jsonEncode(<String, String>{
         'name' : name,
-        'user_id' : id,
+        'user_id' : user_id,
         'password' : password,
       }),
     );
@@ -22,14 +22,14 @@ Future<User> createUser(String name, String id, String password) async{
     }
 }
 
-bool loginUser(String id, String password) {
+bool loginUser(String user_id, String password) {
   final response =  http.post(
       Uri.parse(''),
       headers: <String, String>{
         'Content-Type' : 'application/json; charset=UTF-8',
       },
       body : jsonEncode(<String, String>{
-        'user_id' : id,
+        'user_id' : user_id,
         'password' : password,
       }),
     );
@@ -39,13 +39,19 @@ bool loginUser(String id, String password) {
 
 class User{
   final String? username;
-  final String? id;
+  final String? user_id;
   final String? password;
+  final String? email;
+  final String? rank;
+  final String? unit;
 
-  User(this.username, this.id, this.password);
+  User(this.username, this.user_id, this.password, this.email, this.rank, this.unit);
 
   User.fromJson(Map<String, dynamic> json)
-  : id = json["id"],
+  : user_id = json["user_id"],
     username = json["username"],
-    password = json["password"];
+    password = json["password"],
+    email = json["email"],
+    rank = json["rank"],
+    unit = json["unit"];
 }

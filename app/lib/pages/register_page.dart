@@ -18,6 +18,9 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _idController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _unitController = TextEditingController();
+  final TextEditingController _rankController = TextEditingController();
 
   var myId='testID';
   @override
@@ -50,9 +53,27 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
               SizedBox(height: medium_gap),
               CustomTextFormField(
-                  title: "Password", 
+                  title: "비밀번호", 
                   hintText: "Enter Password",
                   controller: _passwordController,
+              ),
+              SizedBox(height:medium_gap),
+              CustomTextFormField(
+                  title: "email", 
+                  hintText: "Enter email address",
+                  controller: _emailController,
+              ),
+              SizedBox(height:medium_gap),
+              CustomTextFormField(
+                  title: "소속 부대", 
+                  hintText: "Enter Password",
+                  controller: _unitController,
+              ),
+              SizedBox(height:medium_gap),
+              CustomTextFormField(
+                  title: "계급", 
+                  hintText: "Enter Password",
+                  controller: _rankController,
               ),
               SizedBox(height:large_gap),
               ElevatedButton(
@@ -69,6 +90,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   backgroundColor : MaterialStateProperty.all<Color>(Color(COLOR_PRIMARY)),
                 )
               ),
+              SizedBox(height:xlarge_gap),
 
             ])));
   }

@@ -12,6 +12,8 @@ class CustomTextFormField extends StatelessWidget {
     this.controller,
   });
 
+  
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -23,6 +25,12 @@ class CustomTextFormField extends StatelessWidget {
           controller: controller,
           initialValue: null,
           obscureText: ( title == "Password") ? true : false,
+          onSaved: (String? _value){},
+          validator: (_value) {
+            if(_value!.length<1) {
+              return 'Too short';
+            }
+          },
           decoration: InputDecoration(
             hintText: hintText,
             enabledBorder: OutlineInputBorder(
