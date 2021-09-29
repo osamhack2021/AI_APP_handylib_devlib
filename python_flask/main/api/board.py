@@ -16,10 +16,10 @@ def boarding(page_id):
     lists=database.Notice_board.objects(tag=request.args.get('tag'))
     if end > lists.count():
         end=lists.count()
+    #pageid에 따라 게시판 수량 띄우기
     to_list = lists[start:end].to_json()
     resultJson=json.dumps(to_list, ensure_ascii=False)
     return Response(resultJson,mimetype="application/json",status=200)
-    #pageid에 따라 게시판 수량 띄우기
 #해당 페이지 불러오는 라우터
 @board_page.route('/page/<int:number>',methods=['GET'])
 @login_require
