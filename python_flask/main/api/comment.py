@@ -7,7 +7,7 @@ comment_page=Blueprint('comment',__name__)
 @login_require
 def com_get(comment_number):
     data=database.Comment.objects(user_id=session.get('user_id'), comment_number=comment_number).first()
-    resultJson=json.dumps(data.content)
+    resultJson=json.dumps(data.content, ensure_ascii=False)
     return Response(resultJson,mimetype="application/json",status=200)
 
 @comment_page.route('/<int:number>/comment_write',methods=['POST'])
