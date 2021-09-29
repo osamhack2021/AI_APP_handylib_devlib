@@ -1,4 +1,7 @@
+import 'package:app/components/settingPage/profile_edit_tile.dart';
 import 'package:app/constants/colors.dart';
+import 'package:app/constants/size.dart';
+import 'package:app/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class SettingPage extends StatefulWidget {
@@ -14,16 +17,28 @@ class _SettingPageState extends State<SettingPage> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Center(child: Text("My Profile")),
-        backgroundColor: Color(COLOR_PRIMARY),
+        title: const Center(child: Text("나의 프로필")),
+        backgroundColor: const Color(COLOR_PRIMARY),
       ),
-      body: ListView(children: [
-        const CircleAvatar(
-          backgroundImage: AssetImage(
-            'default_profile_image.png',
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: ListView(children: [
+          SizedBox(height:large_gap),
+           CircleAvatar(
+            backgroundImage: (
+              AssetImage('default_profile_image.png')
+            ),
+            backgroundColor: Color(COLOR_PRIMARY),
+            radius : 50,
           ),
-        )
-      ]),
+          SizedBox(height : large_gap),
+          ListTile(title:Text('id : ${id}')),
+          ProfileEditTile(text:'이름',param:'Jordano'),
+          ProfileEditTile(text: 'email', param: 'abc@efg.com')
+        ]),
+      ),
     );
   }
 }
+
+
