@@ -46,7 +46,7 @@ class _DetailScreenState extends State<DetailScreen> {
     return Scaffold(
       body: ListView(
         children: <Widget>[
-          ClippedImageView(context, widget.book.imageUrl),
+          ClippedImageView(context, widget.book.coverUrl),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
             child: Column(
@@ -61,7 +61,7 @@ class _DetailScreenState extends State<DetailScreen> {
                         color: Colors.black87)),
                 SizedBox(height: 10.0),
                 Text(
-                  widget.book.categories,
+                  widget.book.category,
                   style: TextStyle(
                     color: Colors.black54,
                     fontSize: 16.0,
@@ -71,10 +71,9 @@ class _DetailScreenState extends State<DetailScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
-                    title_subtitle_tile('출판일', widget.book.year.toString()),
-                    title_subtitle_tile(
-                        '출판사', widget.book.country.toUpperCase()),
-                    title_subtitle_tile('별점', '${widget.book.length} min'),
+                    title_subtitle_tile('출판일', widget.book.pubDate),
+                    title_subtitle_tile('출판사', widget.book.publisher),
+                    title_subtitle_tile('저자', widget.book.author),
                   ],
                 ),
                 SizedBox(height: 25.0),

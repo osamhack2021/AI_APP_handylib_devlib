@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:app/screens/detail_screen.dart';
 import 'package:app/models/book_models.dart';
 
-BookSelector(int index, PageController _pageController, BuildContext context) {
+BookSelector(int index, Book book, PageController _pageController,
+    BuildContext context) {
   return AnimatedBuilder(
     animation: _pageController,
     builder: (context, widget) {
@@ -23,7 +24,7 @@ BookSelector(int index, PageController _pageController, BuildContext context) {
       onTap: () => Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (_) => DetailScreen(book: movies[index]),
+          builder: (_) => DetailScreen(book: book),
         ),
       ),
       child: Center(
@@ -41,11 +42,11 @@ BookSelector(int index, PageController _pageController, BuildContext context) {
           ),
           child: Center(
             child: Hero(
-              tag: movies[index].imageUrl,
+              tag: book.coverUrl,
               child: ClipRRect(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
                 child: Image(
-                  image: AssetImage(movies[index].imageUrl),
+                  image: AssetImage(book.coverUrl),
                   height: 400.0,
                   fit: BoxFit.cover,
                 ),

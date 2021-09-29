@@ -24,27 +24,28 @@ Widget ClippedImageView(BuildContext context, String _imageUrl) {
         ), // Widget that is blurred
       ),
       Container(
-        // padding: EdgeInsets.symmetric(horizontal: 100),
-        width: double.infinity,
-        padding: EdgeInsets.fromLTRB(110, 20, 110, 0),
-        child: Hero(
-          tag: _imageUrl,
-          child: Container(
-              decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black87,
-                    offset: Offset(0.0, 4.0),
-                    blurRadius: 15.0,
+          // padding: EdgeInsets.symmetric(horizontal: 100),
+          width: double.infinity,
+          padding: EdgeInsets.fromLTRB(110, 20, 110, 0),
+          child: Center(
+            child: Hero(
+              tag: _imageUrl,
+              child: Container(
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black87,
+                        offset: Offset(0.0, 4.0),
+                        blurRadius: 15.0,
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              child: Image(
-                  fit: BoxFit.fitHeight,
-                  image: AssetImage(_imageUrl),
-                  colorBlendMode: BlendMode.modulate)),
-        ),
-      ),
+                  child: Image(
+                      fit: BoxFit.fitHeight,
+                      image: AssetImage(_imageUrl),
+                      colorBlendMode: BlendMode.modulate)),
+            ),
+          )),
       IconButton(
         padding: EdgeInsets.only(left: 30.0),
         onPressed: () => Navigator.pop(context),
