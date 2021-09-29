@@ -9,6 +9,7 @@ app.register_blueprint(board.board_page,url_prefix='/board')
 app.register_blueprint(unit.unit_page,url_prefix='/unit')
 app.register_blueprint(comment.comment_page,url_prefix='/board/page')
 app.register_blueprint(account_info.info_page,url_prefix='/info')
+app.register_blueprint(mypage.mypage_page,url_prefix='/mypage')
 app.register_blueprint(searchlog.info_page,url_prefix='/searclog')
 app.debug = True
 

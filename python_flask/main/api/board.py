@@ -17,7 +17,7 @@ def boarding(page_id):
     if end > lists.count():
         end=lists.count()
     to_list = lists[start:end].to_json()
-    resultJson=json.dumps(to_list)
+    resultJson=json.dumps(to_list, ensure_ascii=False)
     return Response(resultJson,mimetype="application/json",status=200)
     #pageid에 따라 게시판 수량 띄우기
 #해당 페이지 불러오는 라우터
@@ -25,7 +25,7 @@ def boarding(page_id):
 @login_require
 def board_number(number):
     board_item=database.Notice_board.objects(number=number,tag=request.args.get('tag')).first().to_json()
-    resultJson=json.dumps(board_item)
+    resultJson=json.dumps(board_item, ensure_ascii=False)
     return Response(resultJson,mimetype="application/json",status=200)
 #작성 요청 라우터
 @board_page.route('/write',methods=['POST'])

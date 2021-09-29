@@ -8,7 +8,7 @@ info_page=Blueprint('info',__name__)
 def info():
     user_id=session.get('user_id')
     user=database.User(user_id=user_id).objects.first().to_json()
-    resultJson=json.dumps(user)
+    resultJson=json.dumps(user, ensure_ascii=False)
     return Response(resultJson,mimetype="application/json",status=200)
 
 @info_page.route('/edit',methods=['PUT'])
