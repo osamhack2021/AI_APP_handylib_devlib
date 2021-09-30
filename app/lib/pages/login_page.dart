@@ -50,8 +50,8 @@ class _LoginPageState extends State<LoginPage> {
                if(res) {
                  Navigator.of(context).pushReplacementNamed(
                    '/home',
-                   arguments: _idController.value.text,
-                   );
+                   arguments: loadUserInfo(_idController.value.text),
+                 );
                }
             }, 
             child: Text(

@@ -7,7 +7,6 @@ import 'package:app/constants/size.dart';
 import 'package:app/controller/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:crypt/crypt.dart';
 
 class RegisterPage extends StatefulWidget {
 

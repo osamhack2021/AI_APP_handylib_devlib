@@ -1,8 +1,11 @@
 import 'package:app/components/settingPage/profile_edit_tile.dart';
 import 'package:app/constants/colors.dart';
 import 'package:app/constants/size.dart';
+import 'package:app/controller/user_controller.dart';
 import 'package:app/screens/home_screen.dart';
 import 'package:flutter/material.dart';
+
+final TextEditingController modifySettingController = TextEditingController();
 
 class SettingPage extends StatefulWidget {
   SettingPage({Key? key}) : super(key: key);
@@ -32,9 +35,13 @@ class _SettingPageState extends State<SettingPage> {
             radius : 50,
           ),
           SizedBox(height : large_gap),
-          ListTile(title:Text('id : ${id}')),
-          ProfileEditTile(text:'이름',param:'Jordano'),
-          ProfileEditTile(text: 'email', param: 'abc@efg.com')
+          ListTile(title:Text('아이디 : ${getPropertyValue(myUser!, 'userId')}')),
+          ProfileEditTile(myUser!, "username"),
+          ProfileEditTile(myUser!, "password"),
+          ProfileEditTile(myUser!, "email"),
+          ProfileEditTile(myUser!, "unit"),
+          ProfileEditTile(myUser!, "rank"),
+          
         ]),
       ),
     );

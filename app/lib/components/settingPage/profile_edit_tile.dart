@@ -1,15 +1,13 @@
-import 'package:app/screens/home_screen.dart';
+import 'package:app/components/settingPage/show_modify_dialog.dart';
+import 'package:app/controller/user_controller.dart';
 import 'package:flutter/material.dart';
 
 class ProfileEditTile extends StatelessWidget {
 
-  final String? text, param;
+  String title;
+  User myUser;
 
-  const ProfileEditTile(
-     {
-       required this.text, 
-       required this.param
-      });
+  ProfileEditTile(this.myUser, this.title);  
 
   @override
   Widget build(BuildContext context) {
@@ -18,11 +16,19 @@ class ProfileEditTile extends StatelessWidget {
         onTap:() {
           null;
         },
-        title:Text('${text} : ${param}'),
-        trailing: Icon(
-          Icons.create,
+        title:Text('${getPropertyTitle(myUser,title)} : ${getPropertyValue(myUser, title)}'),
+        trailing: IconButton(
+          icon: Icon(
+            Icons.create,
+
+          ),
+          onPressed: () => {
+            showModifyDialog(context, title)            
+          },
         ),
       ),
     );
   }
+
+  
 }

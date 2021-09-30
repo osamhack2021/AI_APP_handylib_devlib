@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:app/constants/uri.dart';
 import 'package:crypt/crypt.dart';
 import 'package:http/http.dart' as http;
 
@@ -51,21 +52,50 @@ bool loginUser(String userId, String password) {
     return true; //Response 협의 후 수정 예정
 }
 
+String? getPropertyTitle(User myUser, String prop) {
+    if(prop == 'username') return '이름';
+    if(prop == 'userId') return '아이디';
+    if(prop == 'password') return '비밀번호';
+    if(prop == 'email') return '이메일';
+    if(prop == 'unit') return '소속 부대';
+    if(prop == 'rank') return '계급';
+}
+
+String? getPropertyValue(User myUser, String prop) {
+    if(prop == 'username') return myUser.username;
+    if(prop == 'userId') return myUser.userId;
+    if(prop == 'password') return myUser.password;
+    if(prop == 'email') return myUser.email;
+    if(prop == 'unit') return myUser.unit;
+    if(prop == 'rank') return myUser.rank;
+}
+
+Future<User> loadUserInfo(String userId) async {
+  final response = await http.get(Uri.parse(myUri + ''));
+
+  if(response.statusCode == 200) {
+    return User.fromJson(jsonDecode(response.body));
+  } else {
+    throw Exception('Failed to load User data');
+  }
+}
+
 class User{
   final String? username;
   final String? userId;
   final String? password;
   final String? email;
-  final String? rank;
   final String? unit;
+  final String? rank;
 
-  User(this.username, this.userId, this.password, this.email, this.rank, this.unit);
+  User(this.username, this.userId, this.password, this.email, this.unit, this.rank);
 
   User.fromJson(Map<String, dynamic> json)
   : userId = json["user_id"],
     username = json["username"],
     password = json["password"],
     email = json["email"],
-    rank = json["rank"],
-    unit = json["unit"];
+    unit = json["unit"],
+    rank = json["rank"];
+
 }
