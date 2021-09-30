@@ -47,6 +47,12 @@ class _LoginPageState extends State<LoginPage> {
                  _idController.value.text,
                  _passwordController.value.text,
                );
+               if(res) {
+                 Navigator.of(context).pushReplacementNamed(
+                   '/home',
+                   arguments: _idController.value.text,
+                   );
+               }
             }, 
             child: Text(
               '로그인',
