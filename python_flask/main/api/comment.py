@@ -1,5 +1,5 @@
 from main.api import login_require
-from flask import Blueprint,request,session,redirect,Response,json
+from flask import Blueprint,request,session,Response,json
 from main.models import database
 comment_page=Blueprint('comment',__name__)
 
@@ -23,15 +23,16 @@ def com_write(number):
     lists=data.comment_list
     lists.append(com_num)
     data.update(comment_list=lists)
-
-    return redirect('/board/page/{}'.format(number))
+    resultJson=json.dumps({"message": "write success"})
+    return Response(resultJson,mimetype="application/json",status=200)
 
 @comment_page.route('/<int:number>/<int:comment_number>/edit',methods=['PUT'])
 @login_require
 def com_edit(number,comment_number):
     data=database.Comment.objects(user_id=session.get('user_id'), comment_number=comment_number).first()
     data.update(content=request.form.get('content'))
-    return redirect('/board/page/{}'.format(number))
+    resultJson=json.dumps({"message": "edit success"})
+    return Response(resultJson,mimetype="application/json",status=200)
 
 @comment_page.route('/<int:number>/<int:comment_number>/delete',methods=['DELETE'])
 @login_require
@@ -44,4 +45,5 @@ def com_delete(number,comment_number):
     board_data.update(comment_list=lists)
      #comment collection삭제
     data.delete()
-    return redirect('/board/page/{}'.format(number))
+    resultJson=json.dumps({"message": "delete success"})
+    return Response(resultJson,mimetype="application/json",status=200)

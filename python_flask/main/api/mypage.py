@@ -1,32 +1,66 @@
 from main.api import login_require
-from flask import Blueprint,request,session,redirect,Response,json
+from flask import Blueprint,request,session,Response,json
 from main.models import database
-import csv
+import csv,os
+from dotenv import load_dotenv
+from urllib.request import Request, urlopen
+from urllib.parse import urlencode, quote
 
 mypage_page=Blueprint('mypage',__name__)
 
+def read_book(query):
+    # book api를 이용해서 이미지 등 읽어오기
+    load_dotenv()
+    client_id=os.environ.get('Client_ID')
+    client_secret=os.environ.get('Client_Secret')
+    request = Request('https://openapi.naver.com/v1/search/book?query='+quote(query))
+    request.add_header('X-Naver-Client-Id', client_id)
+    request.add_header('X-Naver-Client-Secret', client_secret)
+    response = urlopen(request).read().decode('utf-8')
+    result = json.loads(response)
+    return result
+
 def read_csv():
-    file = csv.reader(open('/list.csv','r'))
+    user_id = session.get('user_id')
+    file = csv.reader(open('/{}.csv'.format(user_id),'r'))
+    lists=[]
     for row in file:
         # 각 열마다 어떤 데이터인지 읽고 dicts에 저장
-        lists=[row[0],row[1],row[2],row[3]]
+        books = read_book(row[1])['items']
+        dict_data={"title":row[1],"author":books[0]['author'],'image':books[0]['image']}
+        lists.append(dict_data)
     #dicts에 저장해서 return
-    dicts={
-        "user_id",
-    }
-    return dicts
+    return lists
+
+def read_borrow(borrow_list):
+    borrow_lists=[]
+    # book api를 이용해서 이미지 등 읽어오기
+    for title in borrow_list:
+        books = read_book(title)['items']
+        book_data={"title":title,"author":books[0]['author'],'image':books[0]['image']}
+        borrow_lists.append(book_data)
+    return borrow_lists
+
+
+def read_data():
+    return ''
+
 
 
 @mypage_page.route('/',methods=['GET'])
 @login_require
 def mypage():
     user_id=session.get('user_id')
+    #borrow_list 불러오기
     borrow_list=database.User(user_id=user_id).objects.first().borrow_list
-    # recommend_list를 가져오는 code 구현하기(csv파일을 불러올 예정)
-    recommend_list=[]
-    # user의 borrow_list와 추천 시스템의 recommend_list를 json형태로 보내줘야함
+    borrow_lists=read_borrow(borrow_list)
+    # recommend_list 불러오기(csv파일을 불러올 예정)
+    recommend_list=read_csv()
+    #user_data 불러오기
+
+    # res
     dicts={
-        "borrow_list": borrow_list,
+        "borrow_list": borrow_lists,
         "recommend_list":recommend_list,
     }
     resultJson=json.dumps(dicts, ensure_ascii=False)
@@ -35,9 +69,20 @@ def mypage():
 @mypage_page.route('/borrow_list',methods=['GET'])
 @login_require
 def borrow():
-    return ''
+    user_id=session.get('user_id')
+    borrow_list=database.User(user_id=user_id).objects.first().borrow_list
+    borrow_lists=read_borrow(borrow_list)
+    resultJson=json.dumps(borrow_lists, ensure_ascii=False)
+    return Response(resultJson,mimetype="application/json",status=200)
 
 @mypage_page.route('/recommend_list',methods=['GET'])
 @login_require
 def recommend():
-    return ''
+    recommend_list=read_csv()
+    resultJson=json.dumps(recommend_list, ensure_ascii=False)
+    return Response(resultJson,mimetype="application/json",status=200)
+
+@mypage_page.route('/user_data',methods=['GET'])
+@login_require
+def user_data():
+    return ;

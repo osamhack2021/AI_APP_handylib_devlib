@@ -1,5 +1,5 @@
 from main.api import login_require
-from flask import Blueprint,request,session,redirect,Response,json
+from flask import Blueprint,request,session,Response,json
 from main.models import database
 info_page=Blueprint('info',__name__)
 
