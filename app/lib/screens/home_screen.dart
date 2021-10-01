@@ -35,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
     //myUser = ModalRoute.of(context)!.settings.arguments as User?;
     return Scaffold(
       body: DefaultTabController(
-          length: 4,
+          length: 5,
           child: Stack(children: [
             Container(
               height: double.infinity,
