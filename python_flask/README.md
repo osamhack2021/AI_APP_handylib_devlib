@@ -1,11 +1,11 @@
 # Handylib Back-end
 ------------
-내 손안의 도서관 백엔드 부분
+내 손안의 전자도서관 back-end
 
 
 # Technologies
 ------------
-+ Flask
++ python, Flask
 + MongoDB, mongoengine
 + Azure cloud, VM
 + Git
@@ -13,17 +13,17 @@
 
 ## Install
 ------------
-'''python
+```python
 pip install flask
 pip install flask-mongoengine
 pip install PILLOW
-'''
+```
 
 # Documentation
 ------------
-'''
+```
 [notion](https://www.notion.so/backend-c26e987ceb954576b7578e6503940495)
-'''
+```
 ## Directory
 ------------
 + python_flask
