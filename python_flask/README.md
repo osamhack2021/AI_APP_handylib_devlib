@@ -21,9 +21,9 @@ pip install PILLOW
 
 # Documentation
 ------------
-```
+REST API 및 DB 구조
 [notion](https://www.notion.so/backend-c26e987ceb954576b7578e6503940495)
-```
+
 ## Directory
 ------------
 + python_flask
