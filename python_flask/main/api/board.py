@@ -1,5 +1,5 @@
 from main.api import login_require
-from flask import Blueprint, json,request,Response,session,redirect
+from flask import Blueprint, json,request,Response,session
 from main.models import database
 from datetime import datetime
 import time
@@ -37,15 +37,16 @@ def write_board():
     tag=request.form.get('tag')
     count=database.Notice_board.objects(tag=tag).count()+1
     database.Notice_board(content=content, title=title, user_id=user_id, tag=tag, time_stamp=datetime.fromtimestamp(time.time()), number=count).save()
-    return redirect('/board/page/{}'.format(count))
-
+    resultJson=json.dumps({"message": "write success"})
+    return Response(resultJson,mimetype="application/json",status=200)
 #수정 요청 라우터
 @board_page.route('/page/<int:number>/edit',methods=['PUT'])
 @login_require
 def edit_board(number):  
     board_item = database.Notice_board.objects(number=number,tag=request.form.get('tag')).first()
     board_item.update(title=request.form.get('title'),content=request.form.get('content'))
-    return redirect('/board/page/{}'.format(number))
+    resultJson=json.dumps({"message": "edit success"})
+    return Response(resultJson,mimetype="application/json",status=200)
 
 #삭제 요청 라우터
 @board_page.route('/page/<int:number>/delete',methods=['DELETE'])
@@ -53,4 +54,5 @@ def edit_board(number):
 def delete_board(number):
     board_item = database.Notice_board.objects(number=number,tag=request.args.get('tag')).first()
     board_item.delete()
-    return redirect('/board/1')
+    resultJson=json.dumps({"message": "delete success"})
+    return Response(resultJson,mimetype="application/json",status=200)
