@@ -1,3 +1,5 @@
+import 'package:app/constants/colors.dart';
+import 'package:app/models/board_models.dart';
 import 'package:app/pages/contest_page.dart';
 import 'package:app/pages/forum_page.dart';
 import 'package:flutter/material.dart';
@@ -13,27 +15,23 @@ class _ForumScreenState extends State<ForumScreen> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home:DefaultTabController(
-        length:2,
-        child: Scaffold(
-          appBar: AppBar(
-            bottom: const TabBar(
-              tabs: [
-                Tab(text:'contest'),
-                Tab(text:'forum'),
-              ],
-            ),
-            title: (
-              Center(
-                child: Text('Tab'),
-              )
-            ),
+      home: ListView(
+        children: [
+          ListTile(
+            title:Text("게시판 목록"),
+            tileColor: Color(COLOR_PRIMARY2),
           ),
-          body:const TabBarView(children: [
-            ContestPage(),
-            ForumPage(),
-          ],)
-          ),)
+          Card( child:
+            ListTile(
+              title:Text("hello"),
+              trailing:(
+                Icon(Icons.chevron_right)
+              ),
+            )
+          )
+          ],
+      )
     );
+
   }
 }
