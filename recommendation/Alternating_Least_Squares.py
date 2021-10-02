@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 def get_ratings(path, users_file_name):
-    df_users = pd.read_csv(path + users_file_name, encoding='cp949')
+    df_users = pd.read_csv(path + users_file_name, encoding='UTF8')
     df_users_books = pd.DataFrame(df_users, columns=['user_id', 'like'])
     sr_users = []
     sr_books = []
