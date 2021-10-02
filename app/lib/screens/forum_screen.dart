@@ -1,7 +1,7 @@
+import 'package:app/components/forum_page/board_selector.dart';
 import 'package:app/constants/colors.dart';
 import 'package:app/models/board_models.dart';
 import 'package:app/pages/contest_page.dart';
-import 'package:app/pages/forum_page.dart';
 import 'package:flutter/material.dart';
 
 class ForumScreen extends StatefulWidget {
@@ -22,37 +22,19 @@ class _ForumScreenState extends State<ForumScreen> {
           Text("게시판")
         )
       ),
-      body: ListView(
+      body: 
+      ListView(
+        //padding: EdgeInsets.all(0.0),
         children: [
           ListTile(
             title:Text("   게시판 목록"),
             tileColor: Color(COLOR_PRIMARY2),
           ),
-          /*for(int i = 1; i < 3; i++ ){
-            Text('hello world'),
-          }*/
+          for(Board myBoard in boardDataList)
+            BoardSelector(myBoard.boardId),
           ],
       )
     );
 
-  }
-}
-
-class BoardSelector extends StatelessWidget {
-  final int boardId;
-  
-  BoardSelector(this.boardId);
-
-  @override
-  Widget build(BuildContext context) {
-    Board thisBoard = getBoardbyId(boardId);
-    return Card( child:
-      ListTile(
-        title:Text('${thisBoard.boardName}'),
-        trailing:(
-          Icon(Icons.chevron_right)
-        ),
-      )
-    );
   }
 }

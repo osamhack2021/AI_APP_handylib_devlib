@@ -20,7 +20,7 @@ Future<Map<String, dynamic>> api_get(
       Uri(scheme: "http", host: _host, path: _path, queryParameters: _param),
       headers: {"Accept": "application/json"});
   Map<String, dynamic> res;
-  if (_host == proxiUri+"www.aladin.co.kr") {
+  if (_host == proxyUri+"www.aladin.co.kr") {
     res = jsonDecode(response.body.substring(0, response.body.length - 1));
   } else {
     res = jsonDecode(response.body);

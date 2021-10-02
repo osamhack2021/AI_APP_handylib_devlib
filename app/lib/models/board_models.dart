@@ -14,7 +14,7 @@ List<Board> boardDataList = [
   Board(3, "자유게시판"),
 ];
 
-getBoardbyId(int boardIdQuery) {
+getBoardbyId(int? boardIdQuery) {
   for(Board myBoard in boardDataList) {
     if(myBoard.boardId == boardIdQuery) {
       return myBoard;

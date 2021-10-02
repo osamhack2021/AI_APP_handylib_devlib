@@ -1,4 +1,5 @@
 import 'package:app/components/homeScreen/home_bottom_nav.dart';
+import 'package:app/constants/uri.dart';
 import 'package:app/controller/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:app/navigation/routes.dart';

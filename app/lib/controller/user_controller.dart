@@ -16,7 +16,7 @@ Future<User> createUser(
     final encryptedPassword = Crypt.sha256(password).toString();
 
     final response = await http.post(
-      Uri.parse(''),
+      Uri.parse(proxyUri+myUri+'sign_up'),
       headers: <String, String>{
         'Content-Type' : 'application/json; charset=UTF-8',
       },

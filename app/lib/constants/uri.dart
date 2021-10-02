@@ -1,2 +1,2 @@
-final String myUri = 'http://www.projectlib.tk/';
-final String proxiUri = 'https://cors-anywhere.herokuapp.com/';
+final String myUri = 'https://www.projectlib.tk/';
+final String proxyUri = 'https://cors-anywhere.herokuapp.com/';
