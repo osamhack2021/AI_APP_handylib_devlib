@@ -1,9 +1,9 @@
 from flask_mongoengine import MongoEngine
-import os, sys
-sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))
-import config
-from mongoengine import StringField,ListField,EmailField,IntField,ImageField,FloatField
+from mongoengine import StringField,ListField,EmailField,IntField,ImageField,FloatField,DateField
 from ..app import app
+database_name = "API_test"
+uri  = "mongodb+srv://DevLib_Backend1:OSAMHackathonDevLibBackend1@cluster0.5ublg.mongodb.net/{}?retryWrites=true&w=majority".format(database_name) # 몽고db커넥트url 넣으면 되요
+app.config["MONGODB_HOST"] = uri
 db = MongoEngine()
 db.init_app(app)
 
@@ -13,10 +13,11 @@ class User(db.Document):
   user_id = StringField()
   email = EmailField()
   password = StringField()
-  
-  interest_tag = StringField()
+  interest_tag = ListField()
   like = ListField()
   borrowed = ListField()
+  rank = StringField()
+  unit=StringField()
   def to_json(self):
     return {"name": self.name,
     "email": self.email,
@@ -24,16 +25,10 @@ class User(db.Document):
     "user_id": self.user_id,
     "interest_tag": self.interest_tag,
     "like": self.like,
-    "borrowed": self.borrowed}
-class Administrator(db.Document):
-  # objectid(고유번호) = auto_create or insert
-  name = StringField()
-  user_id = StringField()
-  password = StringField()
-  def to_json(self):
-    return {"name": self.name,
-    "password": self.password,}
-
+    "borrowed": self.borrowed,
+    "rank":self.rank,
+    "unit":self.unit,
+    }
 class Book(db.Document):
   # objectid(고유번호) = auto_create or insert
   isbn = IntField()
@@ -73,27 +68,31 @@ class Notice_board(db.Document):
   number = IntField()
   user_id = StringField()
   title = StringField()
-  comment_number = ListField()
+  comment_list = ListField()
   content = StringField() 
-  tag = ListField()
+  tag = StringField()
+  time_stamp=DateField()
   def to_json(self):
     return {"number": self.number,
     "user_id": self.user_id,
     "title": self.title,
-    "comment_number":self.comment_number,
+    "comment_number":self.comment_list,
     "content":self.content,
-    "tag":self.tag
+    "tag":self.tag,
+    "time_stamp":self.time_stamp
     }
 class Comment(db.Document):
   # objectid(고유번호) = auto_create or insert
   comment_number = IntField()
   user_id = StringField()
   content = StringField()
+  time_stamp=DateField()
   def to_json(self):
     return {
     "user_id": self.user_id,
     "comment_number":self.comment_number,
     "content":self.content,
+    "time_stamp":self.time_stamp
     }
 class Unit(db.Document):
   # objectid(고유번호) = auto_create or insert
