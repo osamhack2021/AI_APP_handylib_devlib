@@ -1,4 +1,3 @@
-from main.api import login_require
 from flask import Blueprint,request,session,Response,json
 from main.models import database
 import csv,os
@@ -27,7 +26,7 @@ def read_csv():
     for row in file:
         # 각 열마다 어떤 데이터인지 읽고 dicts에 저장
         books = read_book(row[1])['items']
-        dict_data={"title":row[1],"author":books[0]['author'],'image':books[0]['image']}
+        dict_data={"title":row[1],"author":books[0]['author'],'image':books[0]['image'],'isbn':books[0]['isbn']}
         lists.append(dict_data)
     #dicts에 저장해서 return
     return lists
@@ -37,7 +36,7 @@ def read_borrow(borrow_list):
     # book api를 이용해서 이미지 등 읽어오기
     for title in borrow_list:
         books = read_book(title)['items']
-        book_data={"title":title,"author":books[0]['author'],'image':books[0]['image']}
+        book_data={"title":title,"author":books[0]['author'],'image':books[0]['image'],'isbn':books[0]['isbn']}
         borrow_lists.append(book_data)
     return borrow_lists
 
@@ -48,8 +47,10 @@ def read_data():
 
 
 @mypage_page.route('/',methods=['GET'])
-@login_require
 def mypage():
+    if not session.get('user_id'):
+        resultJson=json.dumps({"message": "not login"})
+        return Response(resultJson,mimetype="application/json",status=401)
     user_id=session.get('user_id')
     #borrow_list 불러오기
     borrow_list=database.User(user_id=user_id).objects.first().borrow_list
@@ -67,8 +68,10 @@ def mypage():
     return Response(resultJson,mimetype="application/json",status=200)
 
 @mypage_page.route('/borrow_list',methods=['GET'])
-@login_require
 def borrow():
+    if not session.get('user_id'):
+        resultJson=json.dumps({"message": "not login"})
+        return Response(resultJson,mimetype="application/json",status=401)
     user_id=session.get('user_id')
     borrow_list=database.User(user_id=user_id).objects.first().borrow_list
     borrow_lists=read_borrow(borrow_list)
@@ -76,13 +79,17 @@ def borrow():
     return Response(resultJson,mimetype="application/json",status=200)
 
 @mypage_page.route('/recommend_list',methods=['GET'])
-@login_require
 def recommend():
+    if not session.get('user_id'):
+        resultJson=json.dumps({"message": "not login"})
+        return Response(resultJson,mimetype="application/json",status=401)
     recommend_list=read_csv()
     resultJson=json.dumps(recommend_list, ensure_ascii=False)
     return Response(resultJson,mimetype="application/json",status=200)
 
 @mypage_page.route('/user_data',methods=['GET'])
-@login_require
 def user_data():
-    return ;
+    if not session.get('user_id'):
+        resultJson=json.dumps({"message": "not login"})
+        return Response(resultJson,mimetype="application/json",status=401)
+    return ""
