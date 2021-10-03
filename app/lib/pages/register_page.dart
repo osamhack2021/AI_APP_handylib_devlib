@@ -84,7 +84,6 @@ class _RegisterPageState extends State<RegisterPage> {
                 ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      debugPrint(_idController.value.text);
                       createUser(
                         _usernameController.value.text,
                         _idController.value.text,
@@ -101,6 +100,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   )
                 ),
                 SizedBox(height:xlarge_gap),
+                
         
               ])),
         ));
