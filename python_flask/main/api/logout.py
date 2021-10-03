@@ -1,4 +1,3 @@
-from main.api import login_require
 from flask import Blueprint, session,json,Response
 logout_page=Blueprint('logout',__name__)
 
