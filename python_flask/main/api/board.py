@@ -1,4 +1,3 @@
-from main.api import login_require
 from flask import Blueprint, json,request,Response,session
 from main.models import database
 from datetime import datetime
@@ -8,7 +7,6 @@ board_page=Blueprint('board',__name__)
 #메인 페이지 불러오는 라우터
 #page_id 는 맨 아래 페이지 아이디 한 페이지에 10개의 게시판 글 띄우기
 @board_page.route('/<int:page_id>',methods=['GET'])
-@login_require
 def boarding(page_id):
     limit=10
     start=(page_id-1)*limit
@@ -22,15 +20,21 @@ def boarding(page_id):
     return Response(resultJson,mimetype="application/json",status=200)
 #해당 페이지 불러오는 라우터
 @board_page.route('/page/<int:number>',methods=['GET'])
-@login_require
 def board_number(number):
-    board_item=database.Notice_board.objects(number=number,tag=request.args.get('tag')).first().to_json()
+    board_item=database.Notice_board.objects(number=number,tag=request.args.get('tag')).first()
+    comments= []
+    # 댓글 내용 comment 컬렉션에서 불러오기
+    for num in board_item.comment_list:
+        comments.append(database.Comment.objects(user_id=session.get('user_id'), comment_number=num).first().to_json)
+    board_item.comment_list=comments
     resultJson=json.dumps(board_item, ensure_ascii=False)
     return Response(resultJson,mimetype="application/json",status=200)
 #작성 요청 라우터
 @board_page.route('/write',methods=['POST'])
-@login_require     
 def write_board():
+    if not session.get('user_id'):
+        resultJson=json.dumps({"message": "not login"})
+        return Response(resultJson,mimetype="application/json",status=401)
     content=request.form.get('content')
     title = request.form.get('title')
     user_id=session.get('user_id')
@@ -41,8 +45,10 @@ def write_board():
     return Response(resultJson,mimetype="application/json",status=200)
 #수정 요청 라우터
 @board_page.route('/page/<int:number>/edit',methods=['PUT'])
-@login_require
 def edit_board(number):  
+    if not session.get('user_id'):
+        resultJson=json.dumps({"message": "not login"})
+        return Response(resultJson,mimetype="application/json",status=401)
     board_item = database.Notice_board.objects(number=number,tag=request.form.get('tag')).first()
     board_item.update(title=request.form.get('title'),content=request.form.get('content'))
     resultJson=json.dumps({"message": "edit success"})
@@ -50,8 +56,10 @@ def edit_board(number):
 
 #삭제 요청 라우터
 @board_page.route('/page/<int:number>/delete',methods=['DELETE'])
-@login_require
 def delete_board(number):
+    if not session.get('user_id'):
+        resultJson=json.dumps({"message": "not login"})
+        return Response(resultJson,mimetype="application/json",status=401)
     board_item = database.Notice_board.objects(number=number,tag=request.args.get('tag')).first()
     board_item.delete()
     resultJson=json.dumps({"message": "delete success"})

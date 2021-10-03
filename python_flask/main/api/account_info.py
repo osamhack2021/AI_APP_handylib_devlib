@@ -1,11 +1,12 @@
-from main.api import login_require
 from flask import Blueprint,request,session,Response,json
 from main.models import database
 info_page=Blueprint('info',__name__)
 
 @info_page.route('/',methods=['GET'])
-@login_require
 def info():
+    if not session.get('user_id'):
+        resultJson=json.dumps({"message": "not login"})
+        return Response(resultJson,mimetype="application/json",status=401)
     user_id=session.get('user_id')
     user=database.User(user_id=user_id).objects.first().to_json()
     resultJson=json.dumps(user, ensure_ascii=False)
@@ -13,8 +14,10 @@ def info():
     return Response(resultJson,mimetype="application/json",status=200)
 
 @info_page.route('/edit',methods=['PUT'])
-@login_require
 def info_edit():
+    if not session.get('user_id'):
+        resultJson=json.dumps({"message": "not login"})
+        return Response(resultJson,mimetype="application/json",status=401)
     # req user 객체명 필요!
     email=request.form.get('email')
     interest_tag=request.form.get('interest_tag')
