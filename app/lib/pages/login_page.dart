@@ -1,55 +1,79 @@
+// ignore_for_file: prefer_const_constructors
+
+import 'package:app/components/custom_text_form_field.dart';
+import 'package:app/components/logo.dart';
+import 'package:app/constants/colors.dart';
+import 'package:app/constants/size.dart';
+import 'package:app/controller/user_controller.dart';
+import 'package:app/screens/home_screen.dart';
 import 'package:flutter/material.dart';
-import '../size.dart';
+
 class LoginPage extends StatefulWidget {
-  LoginPage({Key? key}) : super(key: key);
+  const LoginPage({Key? key}) : super(key: key);
+
   @override
   _LoginPageState createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
+
+  final TextEditingController _idController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: ListView(children: [
-        SizedBox(height:xlarge_gap),
-        Logo(
-          "Login",
+          padding: const EdgeInsets.all(16.0),
+          child: ListView(children: [
+          SizedBox(height: xlarge_gap),
+          Logo(
+            "Login",
+          ),
+          CustomTextFormField(
+            title: "ID", 
+            hintText: "아이디",
+            controller: _idController,
+          ),
+          SizedBox(height: small_gap),
+          CustomTextFormField(
+            title: "password", 
+            hintText: "비밀번호",
+            controller : _passwordController,
+          ),
+          SizedBox(height: large_gap),
+          ElevatedButton(
+            onPressed: () {
+              var res = loginUser(
+                _idController.value.text, 
+                _passwordController.value.text,
+              );
+              if(res) {
+                debugPrint("login succeed");
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context)=> HomeScreen()),
+                );
+              }
+            }, 
+            child: Text(
+              '로그인',
+            ),
+            style:ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(Color(COLOR_PRIMARY)),
+            )
+          ),
+          SizedBox(height: medium_gap),
+          Center(
+            child: InkWell(
+              child:Text("아직 회원이 아니신가요?"),
+              onTap:() => Navigator.pushNamed(context,'/auth/register'),
+            ),
+          )
+          ]
         ),
-        CustomTextFormField(
-          title:"ID",
-          hintText: " Enter ID"
-        ),
-        SizedBox(height:small_gap),
-        CustomTextFormField(
-          title:"Password",
-          hintText: "Enter Password"
-        ),
-        SizedBox(height:large_gap),
-        TextButton(
-          onPressed:() {},
-          child: Text("Login"),
-        ),
-        Container(
-          width: 100,
-          height: 100,
-          child: IconButton(
-              onPressed: () {
-                Navigator.pushNamed(context, "/auth/register");
-              },
-              icon: Icon(Icons.flutter_dash)),
-        ),
-        Container(
-          width: 100,
-          height: 100,
-          child: IconButton(
-              onPressed: () {
-                Navigator.pushReplacementNamed(context, "/home");
-              },
-              icon: Icon(Icons.flutter_dash)),
-        )
-      ]),
-    ));
+      ),
+    );
   }
 }
+
