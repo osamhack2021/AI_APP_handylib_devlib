@@ -1,7 +1,6 @@
 import 'package:app/components/forum_page/board_selector.dart';
 import 'package:app/constants/colors.dart';
 import 'package:app/models/board_models.dart';
-import 'package:app/pages/contest_page.dart';
 import 'package:flutter/material.dart';
 
 class ForumScreen extends StatefulWidget {
@@ -24,7 +23,6 @@ class _ForumScreenState extends State<ForumScreen> {
       ),
       body: 
       ListView(
-        //padding: EdgeInsets.all(0.0),
         children: [
           ListTile(
             title:Text("   게시판 목록"),

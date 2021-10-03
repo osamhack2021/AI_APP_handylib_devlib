@@ -3,6 +3,7 @@ import 'package:app/pages/feed_page.dart';
 import 'package:app/pages/lib_page.dart';
 import 'package:app/pages/mybook_page.dart';
 import 'package:app/pages/post_list_page.dart';
+import 'package:app/pages/post_page.dart';
 import 'package:app/pages/register_page.dart';
 import 'package:app/pages/setting_page.dart';
 import 'package:app/screens/home_screen.dart';
@@ -21,6 +22,7 @@ final routes = {
   // '/home/lib': (BuildContext context) => LibPage(),
   '/home/forum' : (BuildContext context) => ForumScreen(),
   '/home/forum/post-list' : (BuildContext context) => PostListPage(),
+  '/home/forum/post-list/post' : (BuildContext context) => PostPage(),
   // '/home/setting': (BuildContext context) => SettingPage(),
 };
 

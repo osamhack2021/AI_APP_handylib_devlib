@@ -1,14 +1,11 @@
 import 'package:app/models/post_models.dart';
-import 'package:app/pages/post_list_page.dart';
 import 'package:flutter/material.dart';
 
-
-
 class PostSelector extends StatelessWidget {
-  final int? postId;
-  final String? postName, postAuthor;
+  final Post _thisPost;
+
+  const PostSelector(this._thisPost);
   
-  PostSelector(this.postId, this.postName, this.postAuthor);
   
   @override
   Widget build(BuildContext context) {    
@@ -19,12 +16,14 @@ class PostSelector extends StatelessWidget {
       child:
       ListTile(
         onTap: (){
-          //Navigator.of(context).pushNamed(
-            
+          Navigator.of(context).pushNamed(
+            '/home/forum/post-list/post',
+            arguments:_thisPost,
+          );
         },
         //dense:true,
-        title:Text('${postName}'),
-        subtitle: Text('$postAuthor'),
+        title:Text('PostSelector ${_thisPost.postName}'),
+        subtitle: Text('${_thisPost.postAuthor}'),
       )
     );
   }
