@@ -3,22 +3,20 @@ import 'package:app/components/homeScreen/feed_page_appbar.dart';
 import 'package:app/models/book_models.dart';
 import 'package:app/components/homeScreen/book_selector.dart';
 import 'package:app/components/homeScreen/content_scroll.dart';
-import 'package:app/hooks/useApi.dart';
+import 'package:app/hooks/use_api.dart';
 
 class FeedPage extends StatefulWidget {
-  FeedPage({Key? key}) : super(key: key);
+  const FeedPage({Key? key}) : super(key: key);
 
   @override
   _FeedPageState createState() => _FeedPageState();
 }
 
 class _FeedPageState extends State<FeedPage> {
-  PageController _topPageController =
+  final PageController _topPageController =
       PageController(initialPage: 0, viewportFraction: 0.6);
 
-  List<Book> bookData = [];
-  List<Book> bookData2 = [];
-  late Future<bool> isLoaded;
+  Future<List<List<Book>>>? data;
 
   List<int> isbnList = [
     9788901252438,
@@ -27,7 +25,6 @@ class _FeedPageState extends State<FeedPage> {
     9791197549304,
     9788954682152
   ];
-
   List<int> isbnList2 = [
     9788956609959,
     9788956604992,
@@ -36,60 +33,55 @@ class _FeedPageState extends State<FeedPage> {
     9788956602998
   ];
 
-  void apiCall(int isbn13) async {
-    Map<String, dynamic> param = aladinParam(isbn13.toString());
+  Future<List<List<Book>>> fetchData() async {
+    List<List<Book>> bookData = [];
     String host = "www.aladin.co.kr";
     String path = "ttb/api/ItemLookUp.aspx";
-    bookData.add(Book.fromJson(await api_get(param, host, path)));
-  }
-
-  void apiCall2(int isbn13) async {
-    Map<String, dynamic> param = aladinParam(isbn13.toString());
-    String host = "www.aladin.co.kr";
-    String path = "ttb/api/ItemLookUp.aspx";
-    bookData2.add(Book.fromJson(await api_get(param, host, path)));
-  }
-
-  Future<bool> fetchData() async {
-    isbnList.forEach((isbnNum) {
-      apiCall(isbnNum);
-    });
-    isbnList2.forEach((isbnNum) {
-      apiCall2(isbnNum);
-    });
-    return true;
+    List<Book> tmpBook = [];
+    for (int isbn13 in isbnList) {
+      tmpBook.add(Book.fromJson(
+          await apiGet(aladinParam(isbn13.toString()), host, path)));
+    }
+    bookData.add(tmpBook);
+    tmpBook = [];
+    for (int isbn13 in isbnList2) {
+      tmpBook.add(Book.fromJson(
+          await apiGet(aladinParam(isbn13.toString()), host, path)));
+    }
+    bookData.add(tmpBook);
+    return bookData;
   }
 
   @override
   void initState() {
     super.initState();
-    isLoaded = fetchData();
+    data = fetchData();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: FeedPageAppBar(),
-        body: FutureBuilder<bool>(
-          future: isLoaded,
+        body: FutureBuilder<List<List<Book>>>(
+          future: data,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return ListView(
                 children: <Widget>[
-                  Container(
+                  SizedBox(
                     height: 360.0,
                     width: double.infinity,
                     child: PageView.builder(
                       controller: _topPageController,
-                      itemCount: bookData.length,
+                      itemCount: snapshot.data![0].length,
                       itemBuilder: (BuildContext context, int index) {
-                        return BookSelector(index, bookData[index],
+                        return BookSelector(index, snapshot.data![0][index],
                             _topPageController, context);
                       },
                     ),
                   ),
                   ContentScroll(
-                    bookData2,
+                    snapshot.data == null ? [] : snapshot.data![1],
                     '정유정',
                     250.0,
                     150.0,
@@ -107,7 +99,7 @@ class _FeedPageState extends State<FeedPage> {
               return Text("${snapshot.error}");
             }
             // 기본적으로 로딩 Spinner를 보여줍니다.
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           },
         ));
   }

@@ -21,23 +21,23 @@ class ContentScroll extends StatelessWidget {
     return Column(
       children: <Widget>[
         Container(
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
             horizontal: 50.0,
           ),
           width: double.infinity,
           child: Text(
             listTitle,
             textAlign: TextAlign.left,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 21.0,
               fontWeight: FontWeight.bold,
             ),
           ),
         ),
-        Container(
+        SizedBox(
           height: imageHeight,
           child: ListView.builder(
-            padding: EdgeInsets.symmetric(horizontal: 30.0),
+            padding: const EdgeInsets.symmetric(horizontal: 30.0),
             scrollDirection: Axis.horizontal,
             itemCount: books.length,
             itemBuilder: (BuildContext context, int index) {
@@ -49,7 +49,7 @@ class ContentScroll extends StatelessWidget {
                   ),
                 ),
                 child: Container(
-                  margin: EdgeInsets.symmetric(
+                  margin: const EdgeInsets.symmetric(
                     horizontal: 10.0,
                     vertical: 20.0,
                   ),
