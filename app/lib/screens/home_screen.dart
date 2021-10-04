@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:app/navigation/routes.dart';
 import 'package:app/hooks/useApi.dart';
 
-User? myUser = User("홍길동", "eat333", "12345", "hi@gmail.com","군사안보지원사령부","상병");
+User? myUser;
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -32,8 +32,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-
-    //myUser = ModalRoute.of(context)!.settings.arguments as User?;
+    
+    myUser = ModalRoute.of(context)!.settings.arguments as User?;
+    
+    //below code is for debug 
+    myUser = User('defaultName', 'defaultId', 'defaultPassword', 'defaultEmail', 'defaultUnit', 'defaultRank');
+    
     return Scaffold(
       body: DefaultTabController(
           length: 5,
