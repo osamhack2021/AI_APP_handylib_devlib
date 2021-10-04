@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:app/constants/uri.dart';
 import 'package:crypt/crypt.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 Future<User> createUser(
@@ -16,7 +17,7 @@ Future<User> createUser(
     final encryptedPassword = Crypt.sha256(password).toString();
 
     final response = await http.post(
-      Uri.parse(''),
+      Uri.parse(proxyUri+ myUri+'sign_up'),
       headers: <String, String>{
         'Content-Type' : 'application/json; charset=UTF-8',
       },
@@ -29,13 +30,31 @@ Future<User> createUser(
         'rank' : rank,
       }),
     );
-    
-    if(response.statusCode ==201) {
+    debugPrint("responseBody: ${response.body}");
+    if(response.statusCode ==200) {
       return User.fromJson(jsonDecode(response.body));
     } else {
-      throw Exception('계정을 생성하는 데 실패했습니다.');
+      throw Exception('${response.statusCode} : 생성하는 데 실패했습니다.');
     }
 }
+/*
+void  testHttp() async{
+  final response = await http.get(
+    Uri.parse(proxyUri+myUri+'mypage'),
+   /* headers: <String, String>{
+      'Content-Type' : 'application/json; charset=UTF-8',
+    },*/
+  );
+  var statusCode = response.statusCode; 
+  var responseHeaders = response.headers;
+  var responseBody = response.body;
+
+  debugPrint("statusCode: ${statusCode}");
+  debugPrint("responseHeaders: ${responseHeaders}");
+  debugPrint("responseBody: ${responseBody}");
+
+}*/
+
 
 bool loginUser(String userId, String password) {
   final response =  http.post(

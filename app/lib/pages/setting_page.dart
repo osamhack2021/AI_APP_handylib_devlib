@@ -1,3 +1,4 @@
+import 'package:app/components/default_circle_avatar.dart';
 import 'package:app/components/settingPage/profile_edit_tile.dart';
 import 'package:app/constants/colors.dart';
 import 'package:app/constants/size.dart';
@@ -27,13 +28,11 @@ class _SettingPageState extends State<SettingPage> {
         padding: const EdgeInsets.all(16.0),
         child: ListView(children: [
           SizedBox(height:large_gap),
-           CircleAvatar(
-            backgroundImage: (
-              AssetImage('default_profile_image.png')
-            ),
-            backgroundColor: Color(COLOR_PRIMARY),
-            radius : 50,
-          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+            DefaultCircleAvatar(size:50),
+          ]),
           SizedBox(height : large_gap),
           ListTile(title:Text('아이디 : ${getPropertyValue(myUser!, 'userId')}')),
           ProfileEditTile(myUser!, "username"),

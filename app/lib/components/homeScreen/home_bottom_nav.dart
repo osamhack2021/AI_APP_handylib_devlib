@@ -18,6 +18,9 @@ class myBottomNavigation extends StatelessWidget {
           icon: Icon(Icons.search),
         ),
         Tab(
+          icon: Icon(Icons.forum)
+        ),
+        Tab(
           icon: Icon(Icons.account_circle),
         ),
       ],

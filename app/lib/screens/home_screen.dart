@@ -1,4 +1,5 @@
 import 'package:app/components/homeScreen/home_bottom_nav.dart';
+import 'package:app/constants/uri.dart';
 import 'package:app/controller/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:app/navigation/routes.dart';
@@ -35,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
     //myUser = ModalRoute.of(context)!.settings.arguments as User?;
     return Scaffold(
       body: DefaultTabController(
-          length: 4,
+          length: 5,
           child: Stack(children: [
             Container(
               height: double.infinity,
