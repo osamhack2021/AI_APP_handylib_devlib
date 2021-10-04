@@ -1,6 +1,8 @@
+import 'package:app/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
 import 'package:app/components/homeScreen/circular_clipper.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 Widget ClippedImageView(BuildContext context, String _imageUrl) {
   return Stack(
@@ -13,13 +15,15 @@ Widget ClippedImageView(BuildContext context, String _imageUrl) {
             clipper: CircularClipper(),
             shadow: Shadow(blurRadius: 20.0),
             child: Opacity(
-                opacity: 0.83,
-                child: Image(
-                    height: 400.0,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                    image: AssetImage(_imageUrl),
-                    colorBlendMode: BlendMode.modulate)),
+              opacity: 1,
+              child: FadeInImage.memoryNetwork(
+                placeholder: kTransparentImage,
+                image: _imageUrl,
+                height: 400.0,
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
         ), // Widget that is blurred
       ),
@@ -40,10 +44,12 @@ Widget ClippedImageView(BuildContext context, String _imageUrl) {
                       ),
                     ],
                   ),
-                  child: Image(
-                      fit: BoxFit.fitHeight,
-                      image: AssetImage(_imageUrl),
-                      colorBlendMode: BlendMode.modulate)),
+                  child: FadeInImage.memoryNetwork(
+                    placeholder: kTransparentImage,
+                    image: _imageUrl,
+                    width: double.infinity,
+                    fit: BoxFit.fitHeight,
+                  )),
             ),
           )),
       IconButton(
@@ -51,7 +57,7 @@ Widget ClippedImageView(BuildContext context, String _imageUrl) {
         onPressed: () => Navigator.pop(context),
         icon: Icon(Icons.arrow_back),
         iconSize: 30.0,
-        color: Colors.white,
+        color: Color(COLOR_PRIMARY),
       ),
     ],
   );

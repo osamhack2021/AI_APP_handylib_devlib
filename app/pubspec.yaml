@@ -38,6 +38,8 @@ dependencies:
   flutter_dotenv: ^5.0.2
   # sqflite:
   mongo_dart: ^0.7.2
+  transparent_image: ^2.0.0
+  xml2json: ^5.3.1
 
 dev_dependencies:
   flutter_test:
@@ -66,7 +68,6 @@ flutter:
     - assets/
     - assets/images/
     - setting.env
-
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

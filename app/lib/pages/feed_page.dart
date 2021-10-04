@@ -17,6 +17,8 @@ class _FeedPageState extends State<FeedPage> {
       PageController(initialPage: 0, viewportFraction: 0.6);
 
   List<Book> bookData = [];
+  List<Book> bookData2 = [];
+  late Future<bool> isLoaded;
 
   List<int> isbnList = [
     9788901252438,
@@ -26,34 +28,53 @@ class _FeedPageState extends State<FeedPage> {
     9788954682152
   ];
 
+  List<int> isbnList2 = [
+    9788956609959,
+    9788956604992,
+    9788956607030,
+    9791189982140,
+    9788956602998
+  ];
+
   void apiCall(int isbn13) async {
     Map<String, dynamic> param = aladinParam(isbn13.toString());
     String host = "www.aladin.co.kr";
     String path = "ttb/api/ItemLookUp.aspx";
     bookData.add(Book.fromJson(await api_get(param, host, path)));
-    print(bookData.length);
   }
 
-  void fetchData() async {
+  void apiCall2(int isbn13) async {
+    Map<String, dynamic> param = aladinParam(isbn13.toString());
+    String host = "www.aladin.co.kr";
+    String path = "ttb/api/ItemLookUp.aspx";
+    bookData2.add(Book.fromJson(await api_get(param, host, path)));
+  }
+
+  Future<bool> fetchData() async {
     isbnList.forEach((isbnNum) {
       apiCall(isbnNum);
     });
-    setState(() {});
+    isbnList2.forEach((isbnNum) {
+      apiCall2(isbnNum);
+    });
+    return true;
   }
 
   @override
   void initState() {
     super.initState();
-    fetchData();
+    isLoaded = fetchData();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: FeedPageAppBar(),
-        body: bookData.length == 0
-            ? Center(child: CircularProgressIndicator())
-            : ListView(
+        body: FutureBuilder<bool>(
+          future: isLoaded,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return ListView(
                 children: <Widget>[
                   Container(
                     height: 360.0,
@@ -67,12 +88,12 @@ class _FeedPageState extends State<FeedPage> {
                       },
                     ),
                   ),
-                  // ContentScroll(
-                  //   books: myList,
-                  //   listTitle: 'My List',
-                  //   imageHeight: 250.0,
-                  //   imageWidth: 150.0,
-                  // ),
+                  ContentScroll(
+                    bookData2,
+                    '정유정',
+                    250.0,
+                    150.0,
+                  ),
                   // SizedBox(height: 10.0),
                   // ContentScroll(
                   //   images: popular,
@@ -81,6 +102,13 @@ class _FeedPageState extends State<FeedPage> {
                   //   imageWidth: 150.0,
                   // ),
                 ],
-              ));
+              );
+            } else if (snapshot.hasError) {
+              return Text("${snapshot.error}");
+            }
+            // 기본적으로 로딩 Spinner를 보여줍니다.
+            return Center(child: CircularProgressIndicator());
+          },
+        ));
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:app/screens/detail_screen.dart';
 import 'package:app/models/book_models.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 BookSelector(int index, Book book, PageController _pageController,
     BuildContext context) {
@@ -45,8 +46,9 @@ BookSelector(int index, Book book, PageController _pageController,
               tag: book.coverUrl,
               child: ClipRRect(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
-                child: Image(
-                  image: AssetImage(book.coverUrl),
+                child: FadeInImage.memoryNetwork(
+                  placeholder: kTransparentImage,
+                  image: book.coverUrl,
                   height: 400.0,
                   fit: BoxFit.cover,
                 ),

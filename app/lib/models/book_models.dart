@@ -12,12 +12,12 @@ class Book {
       this.coverUrl, this.publisher, this.category);
 
   Book.fromJson(Map<String, dynamic> json)
-      : title = json['item'][0]['title'],
-        author = json['item'][0]['author'],
-        pubDate = json['item'][0]['pubDate'],
-        description = json['item'][0]['description'],
-        isbn13 = int.parse(json['item'][0]['isbn13']),
-        coverUrl = json['item'][0]['cover'],
-        publisher = json['item'][0]['publisher'],
-        category = json['item'][0]['categoryName'];
+      : title = json['title'],
+        author = json['author'],
+        pubDate = json['pubDate'],
+        description = json['description'],
+        isbn13 = int.parse(json['isbn13']),
+        coverUrl = json['cover'],
+        publisher = json['publisher'],
+        category = json['categoryName'];
 }

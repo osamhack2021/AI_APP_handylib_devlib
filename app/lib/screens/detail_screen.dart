@@ -25,14 +25,14 @@ class _DetailScreenState extends State<DetailScreen> {
               _title,
               style: TextStyle(
                 color: Colors.black54,
-                fontSize: 16.0,
+                fontSize: 14.0,
               ),
             ),
           ),
           Text(
             _subtitle,
             style: TextStyle(
-              fontSize: 20.0,
+              fontSize: 16.0,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -60,23 +60,42 @@ class _DetailScreenState extends State<DetailScreen> {
                         fontWeight: FontWeight.bold,
                         color: Colors.black87)),
                 SizedBox(height: 10.0),
-                Text(
-                  widget.book.category,
-                  style: TextStyle(
-                    color: Colors.black54,
-                    fontSize: 16.0,
+                SizedBox(
+                  width: double.infinity,
+                  height: 20,
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    reverse: true,
+                    child: Text(
+                      widget.book.category,
+                      style: TextStyle(
+                        color: Colors.black54,
+                      ),
+                    ),
                   ),
                 ),
-                SizedBox(height: 15.0),
+                Divider(
+                  height: 20,
+                  thickness: 3,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    title_subtitle_tile('저자', widget.book.author),
+                  ],
+                ),
+                SizedBox(height: 10.0),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
                     title_subtitle_tile('출판일', widget.book.pubDate),
                     title_subtitle_tile('출판사', widget.book.publisher),
-                    title_subtitle_tile('저자', widget.book.author),
                   ],
                 ),
-                SizedBox(height: 25.0),
+                Divider(
+                  height: 30,
+                  thickness: 3,
+                ),
                 Container(
                   child: Text(
                     widget.book.description,

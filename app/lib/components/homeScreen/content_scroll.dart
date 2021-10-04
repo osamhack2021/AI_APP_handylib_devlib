@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:app/screens/detail_screen.dart';
 import 'package:app/models/book_models.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class ContentScroll extends StatelessWidget {
   final List<Book> books;
@@ -67,8 +68,10 @@ class ContentScroll extends StatelessWidget {
                     tag: books[index].coverUrl,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10.0),
-                      child: Image(
-                        image: AssetImage(books[index].coverUrl),
+                      child: FadeInImage.memoryNetwork(
+                        placeholder: kTransparentImage,
+                        image: books[index].coverUrl,
+                        height: 400.0,
                         fit: BoxFit.cover,
                       ),
                     ),
