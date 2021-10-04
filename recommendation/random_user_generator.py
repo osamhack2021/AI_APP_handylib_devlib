@@ -12,7 +12,7 @@ import random
 
 def get_books(path, file_name):
     df_books = pd.read_csv(path+file_name, encoding='cp949')
-    df_books_category = pd.DataFrame(df_books, columns=['순번', '분야'])
+    df_books_category = pd.DataFrame(df_books, columns=['tag'])
     return df_books_category
 def get_categories(path, file_name):
     df_category = pd.read_csv(path+file_name, encoding='cp949')
@@ -44,7 +44,6 @@ def scenario1(df_category_count):
         for k in range(t):
             b += df_category_count[k]
         like_category.append(list(map(lambda x:x+b, i_book_list)))
-    #print(like_category)
 
     # 여러 카테고리를 읽은 300명의 선호 장르도 like_category 리스트에 추가
     for z in range(300):
@@ -62,21 +61,21 @@ def scenario1(df_category_count):
             j_book_list = []
             for j in range(tt):
                 a = random.randint(0, df_category_count[t]-1)
-                while a in j_book_list:                     # a가 이미 뽑은 리스트에 있을 때까지 다시 뽑자
+                while a in j_book_list:                     # 이미 선택한 책이 선택되면 다시 선택
                     a = random.randint(0, df_category_count[t]-1)
-                j_book_list.append(a)                       # 새로운 a 값을 리스트에 추가
+                j_book_list.append(a)
             b = 0
             for k in range(t-1):
                 b += df_category_count[k]
             i_book_list += list(map(lambda x:x+b, j_book_list))
         like_category.append(i_book_list)
     return like_category
-def scenario2(len_books, df_category_count):
+def scenario2(len_books):
     '''
-    <시나리오 2 생성>
-    300명은 5~50권의 책을 읽음
-    결과물은 like_category 에 들어있음
-    '''
+        <시나리오 2 생성>
+        300명은 5~50권의 책을 읽음
+        결과물은 like_category 에 들어있음
+        '''
     like_category = []
     for i in range(300):
         i_book_list = []
@@ -90,9 +89,9 @@ def scenario2(len_books, df_category_count):
     return like_category
 def scenario3(list_scenarios):
     '''
-    <시나리오 3 생성>
-    700명은 시나리오 1, 시나리오 2를 따르는 사용자가 읽은 책 리스트 중 일부를 읽음
-    결과물은 like_category 에 들어있음
+        <시나리오 3 생성>
+        나머지 700명은 기존에 만든 700명의 책 리스트 중 일부를 읽음
+        결과물은 like_category 에 들어있음
     '''
     like_category = []
     for i_list in list_scenarios:
@@ -117,7 +116,7 @@ def make_dataframe(list_scenarios):
         'borrowed':list_scenarios
     }
 
-    df = pd.DataFrame(td)
+    df = pd.DataFrame(to_df)
     df = df.fillna(0)
     return df
 
