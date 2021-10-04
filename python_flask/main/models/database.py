@@ -76,7 +76,7 @@ class Notice_board(db.Document):
     return {"number": self.number,
     "user_id": self.user_id,
     "title": self.title,
-    "comment_number":self.comment_list,
+    "comment_list":self.comment_list,
     "content":self.content,
     "tag":self.tag,
     "time_stamp":self.time_stamp
