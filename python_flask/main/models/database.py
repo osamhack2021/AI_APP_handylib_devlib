@@ -1,9 +1,12 @@
+import pymongo
+from pymongo import MongoClient
 from flask_mongoengine import MongoEngine
 from mongoengine import StringField,ListField,EmailField,IntField,ImageField,FloatField,DateField
 from ..app import app
 database_name = "API_test"
 uri  = "mongodb+srv://DevLib_Backend1:OSAMHackathonDevLibBackend1@cluster0.5ublg.mongodb.net/{}?retryWrites=true&w=majority".format(database_name) # 몽고db커넥트url 넣으면 되요
 app.config["MONGODB_HOST"] = uri
+client = MongoClient( uri )
 db = MongoEngine()
 db.init_app(app)
 
@@ -31,10 +34,10 @@ class User(db.Document):
     }
 class Book(db.Document):
   # objectid(고유번호) = auto_create or insert
-  isbn = IntField()
+  isbn = StringField()
   title = StringField()
   publication_date  = StringField() # API: 20200924 년월일까지 받아짐
-  tag = ListField()
+  tag = StringField()
   def to_json(self):
     return {"isbn": self.isbn,
     "title": self.title,
