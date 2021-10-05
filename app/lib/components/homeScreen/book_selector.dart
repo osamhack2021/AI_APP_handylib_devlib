@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:app/screens/movie_screen.dart';
-import 'package:app/models/movie_models.dart';
+import 'package:app/screens/detail_screen.dart';
+import 'package:app/models/book_models.dart';
+import 'package:transparent_image/transparent_image.dart';
 
-BookSelector(int index, PageController _pageController, BuildContext context) {
+BookSelector(int index, Book book, PageController _pageController,
+    BuildContext context) {
   return AnimatedBuilder(
     animation: _pageController,
     builder: (context, widget) {
@@ -13,8 +15,8 @@ BookSelector(int index, PageController _pageController, BuildContext context) {
       }
       return new Center(
         child: SizedBox(
-          height: Curves.easeInOut.transform(value) * 270.0,
-          width: Curves.easeInOut.transform(value) * 400.0,
+          height: Curves.easeInOut.transform(value) * 400.0,
+          width: Curves.easeInOut.transform(value) * 260.0,
           child: widget,
         ),
       );
@@ -23,59 +25,37 @@ BookSelector(int index, PageController _pageController, BuildContext context) {
       onTap: () => Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (_) => MovieScreen(movie: movies[index]),
+          builder: (_) => DetailScreen(book: book),
         ),
       ),
-      child: Stack(
-        children: <Widget>[
-          Center(
-            child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.0),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black54,
-                    offset: Offset(0.0, 4.0),
-                    blurRadius: 10.0,
-                  ),
-                ],
+      child: Center(
+        child: Container(
+          margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black54,
+                offset: Offset(0.0, 4.0),
+                blurRadius: 10.0,
               ),
-              child: Center(
-                child: Hero(
-                  tag: movies[index].imageUrl,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10.0),
-                    child: Image(
-                      image: AssetImage(movies[index].imageUrl),
-                      height: 220.0,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
+            ],
+          ),
+          child: Center(
+            child: Hero(
+              tag: book.coverUrl,
+              child: ClipRRect(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                child: FadeInImage.memoryNetwork(
+                  placeholder: kTransparentImage,
+                  image: book.coverUrl,
+                  height: 400.0,
+                  fit: BoxFit.cover,
                 ),
               ),
             ),
           ),
-          Positioned(
-            bottom: 20,
-            left: 10,
-            child: Container(
-              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.0),
-                color: Color.fromRGBO(0, 0, 0, 0.5),
-              ),
-              child: Text(
-                movies[index].title,
-                style: TextStyle(
-                  color: Colors.white,
-                  // backgroundColor: Color.fromRGBO(0, 0, 0, 0.5),
-                  fontSize: 16.0,
-                ),
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
     ),
   );

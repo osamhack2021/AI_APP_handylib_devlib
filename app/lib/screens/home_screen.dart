@@ -3,7 +3,7 @@ import 'package:app/constants/uri.dart';
 import 'package:app/controller/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:app/navigation/routes.dart';
-import 'package:app/hooks/useApi.dart';
+
 
 User? myUser;
 
@@ -14,21 +14,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  var data;
-
-  void fetchData() async {
-    Map<String, dynamic> param = aladinParam("9788901252438");
-    String host = "www.aladin.co.kr";
-    String path = "ttb/api/ItemLookUp.aspx";
-    data = await api_get(param, host, path);
-    print(data);
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    fetchData();
-  }
 
   @override
   Widget build(BuildContext context) {
