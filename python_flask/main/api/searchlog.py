@@ -1,7 +1,6 @@
 #search blueprint
-from flask import Blueprint
+from flask import Blueprint, json, Response
 from main.models import database
-import json
 
 search_page=Blueprint('search',__name__)
 
@@ -17,14 +16,16 @@ def search_keyword(user_id, keyword):
     else :
         u += '// {0}'.format(keyword)
     sob[0].update(log = u.split('// '))
-    return sob[0].to_json()
+    resultJson = sob[0].to_json()#.get('log')
+    return Response(resultJson,mimetype="application/json",status=200)
 
 @search_page.route('/<user_id>/searchlog',methods=['GET'])
 def search_log(user_id):
     sob = database.Searchlog.objects(user_id='{0}'.format(user_id))
     if len(sob) == 0 :
         database.Searchlog(user_id='{0}'.format(user_id)).save()
-    return sob[0].to_json()#.get('log')
+    resultJson = sob[0].to_json()#.get('log')
+    return Response(resultJson,mimetype="application/json",status=200)
 
 @search_page.route('/<user_id>/searchlog=10',methods=['POST'])
 def search_log_10(user_id):
@@ -32,11 +33,12 @@ def search_log_10(user_id):
     if len(sob) == 0 :
         sob.save()
     if len(sob[0]['log']) <= 10:
-        return sob[0].to_json()
+        resultJson = sob[0].to_json()#.get('log')
+        return Response(resultJson,mimetype="application/json",status=200)
     else :
         jsl = {'user_Id': '{0}'.format(user_id) , 'log': sob[0]['log'][len(sob[0]['log'])-10:len(sob[0]['log'])]}
-        jsl = json.dumps(jsl)
-    return jsl
+        resultJson = json.dumps(jsl)
+    return Response(resultJson,mimetype="application/json",status=200)
 
 @search_page.route('/<user_id>/searchlog=delete',methods=['POST'])
 def search_log_delete(user_id):
@@ -44,4 +46,5 @@ def search_log_delete(user_id):
     if len(sob) == 0 :
         database.Searchlog(user_id='{0}'.format(user_id)).save()
     sob[0].update(log = [])
-    return sob[0].to_json()#.get('log')
+    resultJson = sob[0].to_json()#.get('log')
+    return Response(resultJson,mimetype="application/json",status=200)
