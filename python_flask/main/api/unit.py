@@ -18,7 +18,7 @@ def unit_name():
 def Unit_books_list(Unit_name):
     c = 0
     for i in range(0,len(Unit.objects())):
-        if Unit.objects[i].name == '{0}'.format(Unit_name:
+        if Unit.objects[i].name == '{0}'.format(Unit_name):
             c += 1
     if c == 1 :
         u = ""
@@ -35,7 +35,7 @@ def Unit_books_list(Unit_name):
 def Unit_books_best(Unit_name):
     c = 0
     for i in range(0,len(Unit.objects())):
-        if Unit.objects[i].name == '{0}'.format(Unit_name:
+        if Unit.objects[i].name == '{0}'.format(Unit_name):
             c += 1
     if c == 1 :
         # u = ""

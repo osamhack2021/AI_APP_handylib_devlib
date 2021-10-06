@@ -50,7 +50,7 @@ class Ebook(db.Document):
   title = StringField()
   publication_date  = StringField() # API: 20200924 년월일까지 받아짐
   contents = ImageField() # Filefiled() or Imagefiled()
-  tag = ListField()
+  tag = StringField()
   def to_json(self):
     return {"isbn": self.isbn,
     "title": self.title,
