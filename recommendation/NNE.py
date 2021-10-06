@@ -1,6 +1,6 @@
 # NNE 생성
-#from keras.layers import Input, Embedding, Dot, Reshape, Dense
-#from keras.models import Model
+from keras.layers import Input, Embedding, Dot, Reshape, Dense
+from keras.models import Model
 import numpy as np
 import pandas as pd
 import random
@@ -32,8 +32,8 @@ def make_train_set(path, users_file_name, books_file_name):
     df_users_name_like = pd.DataFrame(df_users, columns=['name', 'like'])        # ex. 5, [11,27, 1120]
 
     df_books = pd.read_csv(path + books_file_name, encoding='cp949')
-    #df_books_title_tag = pd.DataFrame(df_books, columns=['title', 'tag'])
-    df_tag = pd.DataFrame(df_books, columns=['tag'])
+    df_books_title_tag = pd.DataFrame(df_books, columns=['title', 'tag'])
+    #df_tag = pd.DataFrame(df_books, columns=['tag'])
 
     train_set = []
 
@@ -44,21 +44,22 @@ def make_train_set(path, users_file_name, books_file_name):
         str_like[i] = str_like[i].lstrip('[').rstrip(']')
         list_like = str_like[i].split(', ')
         list_like = list(map(int, list_like))
-        df_tag = df_tag.iloc[list_like, :]
         for book_id in list_like:
             # @@@@@@@@@@@ 현재는 'like' 안에 book_id 를 넣었지만, title 로 바뀔 수 있음
             # [11, 27, 1120]
-            tags = np.array(df_tag.iloc[:, 0].tolist())
-            tags = list(map(lambda x: x.split('>'), tags))
+            df_book_title_tag = df_books_title_tag.iloc[book_id, :].tolist()
+            title = df_book_title_tag[0]
+            tags = df_book_title_tag[1]
+            tags = tags.split(">")
+            tags.remove("국내도서")
             for tag in tags:
-                tag.remove('국내도서')
-                for j in tag:
-                    train_set.append((book_id, str_name[i], j))##########################################################
+                train_set.append((title, str_name[i], tag))
 
-    print(train_set)
+
 
 file_path = 'C:/Users/admin/Documents/osam_ai/book_dataset/'  # 서버 폴더경로 맞춰서 다시 설정
 users_file_name = "rec_user_1.csv"
 books_file_name = "rec_books_1.csv"
 pred_file_name = "rec_pred_score_1.csv"
-make_train_set(file_path, users_file_name, books_file_name)
+traindata_name = "train_data_1.csv"
+make_train_set(file_path, users_file_name, books_file_name, traindata_name)
