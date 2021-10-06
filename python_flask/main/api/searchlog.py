@@ -6,6 +6,8 @@ search_page=Blueprint('search',__name__)
 
 @search_page.route('/<user_id>/search=<keyword>',methods=['POST'])
 def search_keyword(user_id, keyword):
+    if len(database.Searchlog.objects(user_id='{0}'.format(user_id))) == 0 :
+        database.Searchlog(user_id='{0}'.format(user_id)).save()
     u = []
     u = "// ".join(database.Searchlog.objects(user_id='{0}'.format(user_id))[0].log)
     if u == '' :
@@ -17,10 +19,11 @@ def search_keyword(user_id, keyword):
 
 @search_page.route('/<user_id>/searchlog',methods=['GET'])
 def search_log(user_id):
+    if len(database.Searchlog.objects(user_id='{0}'.format(user_id))) == 0 :
+        database.Searchlog(user_id='{0}'.format(user_id)).save()
     u = ""
     u = ", ".join(database.Searchlog.objects(user_id='{0}'.format(user_id))[0].log)
     return u
-    # 예외코드 아직 안만듬
 
 @search_page.route('/<user_id>/searchlog=delete',methods=['POST'])
 def search_log_delete(user_id):
