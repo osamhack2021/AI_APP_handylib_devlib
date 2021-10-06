@@ -53,7 +53,7 @@ def make_train_set(path, users_file_name, books_file_name):
             for tag in tags:
                 tag.remove('국내도서')
                 for j in tag:
-                    train_set.append((book_id, str_name[i], j))
+                    train_set.append((book_id, str_name[i], j))##########################################################
 
     print(train_set)
 
