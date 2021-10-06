@@ -27,7 +27,7 @@ def search_log(user_id):
     resultJson = sob[0].to_json()#.get('log')
     return Response(resultJson,mimetype="application/json",status=200)
 
-@search_page.route('/<user_id>/searchlog=10',methods=['POST'])
+@search_page.route('/<user_id>/searchlog=10',methods=['GET', 'POST'])
 def search_log_10(user_id):
     sob = database.Searchlog.objects(user_id='{0}'.format(user_id))
     if len(sob) == 0 :
