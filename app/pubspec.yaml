@@ -39,6 +39,7 @@ dependencies:
   xml: ^5.3.0
   intl: ^0.17.0
   crypt: ^4.0.1
+  modal_bottom_sheet: ^2.0.0
 
 dev_dependencies:
   flutter_test:
@@ -62,7 +63,6 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-
 
   assets:
     - assets/

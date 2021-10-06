@@ -61,7 +61,7 @@ class _FeedPageState extends State<FeedPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: FeedPageAppBar(),
+        appBar: FeedPageAppBar(context),
         body: FutureBuilder<List<List<Book>>>(
           future: data,
           builder: (context, snapshot) {
