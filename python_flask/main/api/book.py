@@ -11,5 +11,6 @@ def book_search():
     for o in range(len(a)):
         del(a[o]['_id'])
         ajson.append(json.dumps(a[o]))
-    return ajson[0]
-    #예외코드 안만듬, "[세트] 달러구트 꿈 백화점 1~2 - 전2권" 만 검색가능
+    result = {'list': ajson }
+    resultJson = json.dumps(result)
+    return Response(resultJson,mimetype="application/json",status=200)
