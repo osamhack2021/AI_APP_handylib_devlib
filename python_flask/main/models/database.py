@@ -33,17 +33,33 @@ class User(db.Document):
     "unit":self.unit,
     }
 class Book(db.Document):
-  # objectid(고유번호) = auto_create or insert
-  isbn = StringField()
   title = StringField()
-  publication_date  = StringField() # API: 20200924 년월일까지 받아짐
-  tag = StringField()
+  link = StringField()
+  author = StringField()
+  pubDate = StringField() # publication_date
+  description = StringField()
+  creator = StringField()
+  isbn = StringField()
+  isbn13 = StringField()
+  cover = StringField()
+  categoryId = FloatField()
+  categoryName = StringField() # tag
+  publisher = StringField()
+  customerReviewRank = FloatField()
   def to_json(self):
-    return {"isbn": self.isbn,
-    "title": self.title,
-    "publication_date": self.publication_date,
-    "tag": self.tag,}
-
+    return {"title": self.title,
+    "link": self.link,
+    "author": self.author,
+    "pubDate": self.pubDate,
+    "description": self.description,
+    "creator": self.creator,
+    "isbn": self.isbn,
+    "isbn13": self.isbn13,
+    "cover": self.cover,
+    "categoryId": self.categoryId,
+    "categoryName": self.categoryName,
+    "publisher": self.publisher,
+    "customerReviewRank": self.customerReviewRank,}
 class Ebook(db.Document):
   # objectid(고유번호) = auto_create or insert
   isbn = IntField()
