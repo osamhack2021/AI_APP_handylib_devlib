@@ -1,5 +1,7 @@
 import 'package:app/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:app/components/homeScreen/content_scroll.dart';
 
 class SearchModalBottomSheet extends StatefulWidget {
   SearchModalBottomSheet({Key? key}) : super(key: key);
@@ -11,6 +13,7 @@ class SearchModalBottomSheet extends StatefulWidget {
 class _SearchModalBottomSheetState extends State<SearchModalBottomSheet> {
   final FocusNode _focusNode = FocusNode();
   TextEditingController inputController = TextEditingController();
+  bool isSubmitted = false;
 
   List<String> searchLog = [
     "정유정",
@@ -29,9 +32,16 @@ class _SearchModalBottomSheetState extends State<SearchModalBottomSheet> {
     super.dispose();
   }
 
+  void _handleSubmit(String text) {
+    setState(() {
+      isSubmitted = true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
         body: Padding(
           padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 0),
@@ -55,7 +65,30 @@ class _SearchModalBottomSheetState extends State<SearchModalBottomSheet> {
                 child: searchBar(),
               ),
               sep(30),
-              searchLogWidget(),
+              Stack(
+                children: [
+                  Visibility(
+                    child: searchLogWidget(),
+                    visible: !isSubmitted,
+                  ),
+                  SingleChildScrollView(
+                    controller: ModalScrollController.of(context),
+                    child: Visibility(
+                      child: Container(
+                          width: double.infinity,
+                          height: MediaQuery.of(context).size.height * 0.6,
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          child: ContentScroll(
+                            [],
+                            '\"${inputController.text}\" 의 검색결과',
+                            250.0,
+                            150.0,
+                          )),
+                      visible: isSubmitted,
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ));
@@ -84,6 +117,7 @@ class _SearchModalBottomSheetState extends State<SearchModalBottomSheet> {
                           onPressed: () {
                             inputController.text = node;
                             FocusScope.of(context).unfocus();
+                            _handleSubmit(inputController.text);
                           },
                           child: Text(node,
                               style: const TextStyle(
@@ -126,6 +160,7 @@ class _SearchModalBottomSheetState extends State<SearchModalBottomSheet> {
             onChanged: (text) {
               // _streamSearch.add(text);
             },
+            onSubmitted: (text) => _handleSubmit(text),
             decoration: const InputDecoration(
                 hintText: "검색어를 입력해주세요",
                 hintStyle: TextStyle(color: Colors.black38),

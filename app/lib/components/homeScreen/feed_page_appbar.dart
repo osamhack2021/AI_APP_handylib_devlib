@@ -28,6 +28,7 @@ AppBar FeedPageAppBar(BuildContext context) {
           expand: true,
           context: context,
           backgroundColor: Colors.transparent,
+          
           builder: (context) => SearchModalBottomSheet(),
         ),
         icon: const Icon(Icons.search),
