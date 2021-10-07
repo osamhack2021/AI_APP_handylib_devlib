@@ -15,7 +15,7 @@ def book_search():
     resultJson = json.dumps(result, ensure_ascii=False)
     return Response(resultJson,mimetype="application/json",status=200)
 
-@book_page.route('/search/categoryId=<categoryId>/page=<page>',methods=['GET','POST'])
+@book_page.route('/search/categoryId=<categoryId>&page=<page>',methods=['GET','POST'])
 def book_search_categoryId(categoryId, page):
     categoryId = int(categoryId)
     page = int(page)
@@ -31,3 +31,24 @@ def book_search_categoryId(categoryId, page):
     result = {'list': ajson }
     resultJson = json.dumps(result, ensure_ascii=False)
     return Response(resultJson,mimetype="application/json",status=200)
+
+@book_page.route('/feed/category/cat=<categoryId>&page=<page>',methods=['GET','POST'])
+def book_search_feed_categoryId(categoryId, page):
+    categoryId = int(categoryId)
+    page = int(page)
+    ajson = []
+    if page <= 1:
+        page = 0
+    else:
+        page = page-1
+    a = list (database.client.DevLib.book.find( {'categoryId': categoryId} ).skip(page*5).limit(5))
+    for o in range(len(a)):
+        del(a[o]['_id'])
+        ajson.append((a[o]))
+    result = {'list': ajson }
+    resultJson = json.dumps(result, ensure_ascii=False)
+    return Response(resultJson,mimetype="application/json",status=200)
+
+@book_page.route('/feed/best/page=<page>',methods=['GET','POST'])
+def book_search_feed_best(page):
+    return "NULL"
