@@ -1,4 +1,6 @@
 import 'package:app/constants/colors.dart';
+import 'package:app/hooks/use_api.dart';
+import 'package:app/models/book_models.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:app/components/homeScreen/content_scroll.dart';
@@ -14,6 +16,20 @@ class _SearchModalBottomSheetState extends State<SearchModalBottomSheet> {
   final FocusNode _focusNode = FocusNode();
   TextEditingController inputController = TextEditingController();
   bool isSubmitted = false;
+
+  Future<List<Book>>? data;
+
+  Future<List<Book>> fetchQuery(String query) async {
+    List<Book> books = [];
+    List<dynamic> res;
+    res = (await searchAladinApiGet(query, 1))["item"];
+    for (var item in res) {
+      item["description"] = item["description"]
+          .replaceAllMapped(RegExp('(&lt;)|(&gt;)|(<.+?\/>)'), (Match m) => "");
+      books.add(Book.fromJson(item));
+    }
+    return books;
+  }
 
   List<String> searchLog = [
     "정유정",
@@ -36,6 +52,7 @@ class _SearchModalBottomSheetState extends State<SearchModalBottomSheet> {
     setState(() {
       isSubmitted = true;
     });
+    data = fetchQuery(text);
   }
 
   @override
@@ -64,7 +81,14 @@ class _SearchModalBottomSheetState extends State<SearchModalBottomSheet> {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: searchBar(),
               ),
-              sep(30),
+              sep(20),
+              const Divider(
+                height: 10,
+                endIndent: 10,
+                indent: 10,
+                color: Colors.black12,
+                thickness: 3,
+              ),
               Stack(
                 children: [
                   Visibility(
@@ -76,18 +100,37 @@ class _SearchModalBottomSheetState extends State<SearchModalBottomSheet> {
                     child: Visibility(
                       child: Container(
                           width: double.infinity,
-                          height: MediaQuery.of(context).size.height * 0.6,
+                          height: 420,
                           padding: const EdgeInsets.symmetric(vertical: 10),
-                          child: ContentScroll(
-                            [],
-                            '\"${inputController.text}\" 의 검색결과',
-                            250.0,
-                            150.0,
+                          child: FutureBuilder<List<Book>>(
+                            future: data,
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                return ContentScroll(
+                                  snapshot.data!,
+                                  '\"${inputController.text}\" 의 검색결과',
+                                  350.0,
+                                  200.0,
+                                );
+                              } else if (snapshot.hasError) {
+                                throw snapshot.error!;
+                              }
+                              // 기본적으로 로딩 Spinner를 보여줍니다.
+                              return const Center(
+                                  child: CircularProgressIndicator());
+                            },
                           )),
                       visible: isSubmitted,
                     ),
                   ),
                 ],
+              ),
+              const Divider(
+                height: 10,
+                endIndent: 10,
+                indent: 10,
+                color: Colors.black12,
+                thickness: 3,
               ),
             ],
           ),

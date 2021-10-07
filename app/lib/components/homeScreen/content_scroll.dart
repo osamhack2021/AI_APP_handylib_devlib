@@ -17,6 +17,18 @@ class ContentScroll extends StatelessWidget {
     this.imageWidth,
   );
 
+  _onStartScroll(ScrollMetrics metrics) {
+    print("Scroll Start");
+  }
+
+  _onUpdateScroll(ScrollMetrics metrics) {
+    print("Scroll Update");
+  }
+
+  _onEndScroll(ScrollMetrics metrics) {
+    print("Scroll End");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -36,59 +48,81 @@ class ContentScroll extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: imageHeight,
-          child: books.isEmpty == true
-              ? const Center(
-                  child: Text("결과가 없습니다.",
-                      style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.black54,
-                          fontWeight: FontWeight.bold)))
-              : ListView.builder(
-                  padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                  scrollDirection: Axis.horizontal,
-                  itemCount: books.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return GestureDetector(
-                      onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => DetailScreen(book: books[index]),
-                        ),
-                      ),
-                      child: Container(
-                        margin: const EdgeInsets.symmetric(
-                          horizontal: 10.0,
-                          vertical: 20.0,
-                        ),
-                        width: imageWidth,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                          boxShadow: [
-                            const BoxShadow(
-                              color: Colors.black54,
-                              offset: Offset(0.0, 4.0),
-                              blurRadius: 6.0,
-                            ),
-                          ],
-                        ),
-                        child: Hero(
-                          tag: books[index].coverUrl,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10.0),
-                            child: FadeInImage.memoryNetwork(
-                              placeholder: kTransparentImage,
-                              image: books[index].coverUrl,
-                              height: 400.0,
-                              fit: BoxFit.cover,
+            height: imageHeight,
+            child: books.isEmpty == true
+                ? const Center(
+                    child: Text("결과가 없습니다.",
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black54,
+                            fontWeight: FontWeight.bold)))
+                : NotificationListener<ScrollNotification>(
+                    onNotification: (scrollNotification) {
+                      // if (scrollNotification is ScrollStartNotification) {
+                      //   _onStartScroll(scrollNotification.metrics);
+                      // } else if (scrollNotification
+                      //     is ScrollUpdateNotification) {
+                      //   _onUpdateScroll(scrollNotification.metrics);
+                      // } else if (scrollNotification is ScrollEndNotification) {
+                      //   _onEndScroll(scrollNotification.metrics);
+                      // }
+                      // print(scrollNotification );
+                      return true;
+                    },
+                    child: ListView.builder(
+                      padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                      scrollDirection: Axis.horizontal,
+                      itemCount: books.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return GestureDetector(
+                          onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => DetailScreen(book: books[index]),
                             ),
                           ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-        ),
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(
+                              horizontal: 10.0,
+                              vertical: 20.0,
+                            ),
+                            width: imageWidth,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10.0),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black54,
+                                  offset: Offset(0.0, 4.0),
+                                  blurRadius: 6.0,
+                                ),
+                              ],
+                            ),
+                            child: Hero(
+                              tag: books[index].coverUrl,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10.0),
+                                child: FadeInImage.memoryNetwork(
+                                  imageErrorBuilder:
+                                      (context, error, stackTrace) {
+                                    return const Center(
+                                        child: Text("결과가 없습니다.",
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              color: Colors.black54,
+                                            )));
+                                  },
+                                  placeholder: kTransparentImage,
+                                  image: books[index].coverUrl,
+                                  height: 400.0,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  )),
       ],
     );
   }

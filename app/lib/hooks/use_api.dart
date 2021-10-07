@@ -29,9 +29,10 @@ Map<String, dynamic> _aladinSearchParam(String query, int page) {
     "ttbkey": dotenv.env["TTBKEY"],
     "query": query,
     "output": "js",
-    "start": page,
-    "maxresults": 10,
-    "Version": 20131101
+    "start": page.toString(),
+    "maxresults": "10",
+    "Version": "20131101",
+    "Cover": "Big"
   };
   return ret;
 }
@@ -43,7 +44,7 @@ Future<Map<String, dynamic>> searchAladinApiGet(String query, int page) async {
       Uri(
           scheme: "http",
           host: aladinHost,
-          path: aladinFeedPath,
+          path: aladinSearchPath,
           queryParameters: _param),
       headers: {"Accept": "application/json"});
   return jsonDecode(response.body);
@@ -86,7 +87,8 @@ Future<Map<String, dynamic>> feedAladinApiGet(String isbn13) async {
     "author": document.findAllElements("author").toList()[0].text,
     "pubDate": formatDateTime,
     "cover": document.findAllElements("cover").toList()[0].text,
-    "isbn13": document.findAllElements("isbn13").toList()[0].text,
+    // "isbn13": document.findAllElements("isbn13").toList()[0].text,
+    "isbn": document.findAllElements("isbn").toList()[0].text,
     "publisher": document.findAllElements("publisher").toList()[0].text,
     "categoryName": document.findAllElements("categoryName").toList()[0].text,
     "description": document
