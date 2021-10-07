@@ -1,10 +1,10 @@
 #book blueprint
-from flask import Blueprint, json
+from flask import Blueprint, json, Response
 from main.models import database
 
-unit_page=Blueprint('book',__name__)
+book_page=Blueprint('book',__name__)
 
-@book_page.route('/search=<title>',methods=['GET','POST'])
+@book_page.route('/search/title=<title>',methods=['GET','POST'])
 def book_search():
     ajson = []
     a = list (database.client.DevLib.book.find( {'title': { '$regex': '{}'.format(title), '$options': 'i' }} ))
@@ -12,5 +12,22 @@ def book_search():
         del(a[o]['_id'])
         ajson.append(json.dumps(a[o]))
     result = {'list': ajson }
-    resultJson = json.dumps(result)
+    resultJson = json.dumps(result, ensure_ascii=False)
+    return Response(resultJson,mimetype="application/json",status=200)
+
+@book_page.route('/search/categoryId=<categoryId>/page=<page>',methods=['GET','POST'])
+def book_search_categoryId(categoryId, page):
+    categoryId = int(categoryId)
+    page = int(page)
+    ajson = []
+    if page <= 1:
+        page = 0
+    else:
+        page = page-1
+    a = list (database.client.DevLib.book.find( {'categoryId': categoryId} ).skip(page*5).limit(5))
+    for o in range(len(a)):
+        del(a[o]['_id'])
+        ajson.append((a[o]))
+    result = {'list': ajson }
+    resultJson = json.dumps(result, ensure_ascii=False)
     return Response(resultJson,mimetype="application/json",status=200)
