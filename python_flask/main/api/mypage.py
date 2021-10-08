@@ -36,7 +36,8 @@ def read_borrow(borrow_list):
     # book api를 이용해서 이미지 등 읽어오기
     for title in borrow_list:
         books = read_book(title)['items']
-        book_data={"title":title,"author":books[0]['author'],'image':books[0]['image'],'isbn':books[0]['isbn']}
+        isbn = books[0]['isbn']
+        book_data={"title":title,"author":books[0]['author'],'image':books[0]['image'],'isbn':isbn[11:]}
         borrow_lists.append(book_data)
     return borrow_lists
 
