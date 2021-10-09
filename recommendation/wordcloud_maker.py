@@ -12,9 +12,6 @@ def make_wordcloud(file_path, users_file_name, books_file_name, user_id):
     df_users_like_borrowed_interesttags = pd.DataFrame(df_users, columns=['user_id', 'like', 'borrowed', 'interest_tag'])
     df_users_like_borrowed_interesttags = df_users_like_borrowed_interesttags[df_users_like_borrowed_interesttags['user_id']==user_id]
 
-    sr_users = []
-    sr_books = []
-    sr_ratings = []
     str_like = list(np.array(df_users_like_borrowed_interesttags['like'].tolist()))
     i = str_like[0].lstrip('[').rstrip(']')
     i = i.split(', ')
