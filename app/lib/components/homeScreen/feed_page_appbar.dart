@@ -1,11 +1,13 @@
+import 'package:app/components/homeScreen/search_modal_bottom_sheet.dart';
 import 'package:app/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-AppBar FeedPageAppBar() {
+AppBar FeedPageAppBar(BuildContext context) {
   return AppBar(
     backgroundColor: Colors.white,
     elevation: 0.0,
-    title: Center(
+    title: const Center(
       child: Image(
         image: AssetImage('assets/images/logo.png'),
         width: 100,
@@ -13,19 +15,25 @@ AppBar FeedPageAppBar() {
       ),
     ),
     leading: IconButton(
-      padding: EdgeInsets.only(left: 30.0),
+      padding: const EdgeInsets.only(left: 30.0),
       onPressed: () => print('Menu'),
-      icon: Icon(Icons.menu),
+      icon: const Icon(Icons.menu),
       iconSize: 30.0,
-      color: Colors.black,
+      color: const Color(COLOR_PRIMARY),
     ),
     actions: <Widget>[
       IconButton(
-        padding: EdgeInsets.only(right: 30.0),
-        onPressed: () => print('Search'),
-        icon: Icon(Icons.search),
+        padding: const EdgeInsets.only(right: 30.0),
+        onPressed: () => showCupertinoModalBottomSheet(
+          expand: true,
+          context: context,
+          backgroundColor: Colors.transparent,
+          
+          builder: (context) => SearchModalBottomSheet(),
+        ),
+        icon: const Icon(Icons.search),
         iconSize: 30.0,
-        color: Color(COLOR_PRIMARY),
+        color: const Color(COLOR_PRIMARY),
       ),
     ],
   );

@@ -6,7 +6,7 @@ class myBottomNavigation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TabBar(
+    return const TabBar(
       tabs: <Widget>[
         Tab(
           icon: Icon(Icons.home),

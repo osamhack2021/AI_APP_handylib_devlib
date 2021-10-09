@@ -23,7 +23,7 @@ class _DetailScreenState extends State<DetailScreen> {
           Center(
             child: Text(
               _title,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.black54,
                 fontSize: 14.0,
               ),
@@ -31,7 +31,7 @@ class _DetailScreenState extends State<DetailScreen> {
           ),
           Text(
             _subtitle,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 16.0,
               fontWeight: FontWeight.bold,
             ),
@@ -48,18 +48,19 @@ class _DetailScreenState extends State<DetailScreen> {
         children: <Widget>[
           ClippedImageView(context, widget.book.coverUrl),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 EllipsisText(
                     350,
                     widget.book.title,
-                    TextStyle(
+                    const TextStyle(
                         fontSize: 20.0,
                         fontWeight: FontWeight.bold,
                         color: Colors.black87)),
-                SizedBox(height: 10.0),
+                const SizedBox(height: 10.0),
                 SizedBox(
                   width: double.infinity,
                   height: 20,
@@ -68,13 +69,13 @@ class _DetailScreenState extends State<DetailScreen> {
                     reverse: true,
                     child: Text(
                       widget.book.category,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.black54,
                       ),
                     ),
                   ),
                 ),
-                Divider(
+                const Divider(
                   height: 20,
                   thickness: 3,
                 ),
