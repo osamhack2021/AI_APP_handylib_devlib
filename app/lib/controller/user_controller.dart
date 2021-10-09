@@ -1,11 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:app/constants/uri.dart';
+import 'package:app/controller/message_controller.dart';
 import 'package:crypt/crypt.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-Future<User> createUser(
+Future<int> createUser(
   String name, 
   String userId, 
   String password, 
@@ -30,20 +31,20 @@ Future<User> createUser(
         'rank' : rank,
       }),
     );
-    debugPrint("responseBody: ${response.body}");
+    //debugPrint("responseBody: ${response.body}");
     if(response.statusCode ==200) {
-      return User.fromJson(jsonDecode(response.body));
+      return response.statusCode;
     } else {
-      throw Exception('${response.statusCode} : 생성하는 데 실패했습니다.');
+      return response.statusCode;
     }
 }
-/*
+
 void  testHttp() async{
   final response = await http.get(
     Uri.parse(proxyUri+myUri+'mypage'),
-   /* headers: <String, String>{
+    headers: <String, String>{
       'Content-Type' : 'application/json; charset=UTF-8',
-    },*/
+    },
   );
   var statusCode = response.statusCode; 
   var responseHeaders = response.headers;
@@ -53,22 +54,33 @@ void  testHttp() async{
   debugPrint("responseHeaders: ${responseHeaders}");
   debugPrint("responseBody: ${responseBody}");
 
-}*/
+}
 
 
-bool loginUser(String userId, String password) {
-  final response =  http.post(
-      Uri.parse(''),
+Future<int> loginUser(String userId, String password) async {
+  final encryptedPassword = Crypt.sha256(password).toString();
+  final response = await http.post(
+      Uri.parse(proxyUri + myUri + 'sign_in'),
       headers: <String, String>{
         'Content-Type' : 'application/json; charset=UTF-8',
       },
       body : jsonEncode(<String, String>{
         'user_id' : userId,
-        'password' : password,
-      }),
-    );
-    
-    return true; //Response 협의 후 수정 예정
+        'password' : encryptedPassword,
+      },
+    ),
+  );
+  
+  //Message responseMessage = Message.fromJson(jsonDecode(response.body));
+
+  return response.statusCode;
+  /*
+  if(responseMessage.message == "login success") {
+    return true;
+  }
+  else {
+    return false;
+    */
 }
 
 String? getPropertyTitle(User myUser, String prop) {
@@ -100,12 +112,12 @@ Future<User> loadUserInfo(String userId) async {
 }
 
 class User{
-  final String? username;
-  final String? userId;
-  final String? password;
-  final String? email;
-  final String? unit;
-  final String? rank;
+  String username = "defaultName";
+  String userId = "defaultUserId";
+  String password = "defaultPassword";
+  String email = "defaultEmail";
+  String unit = "defaultUnit";
+  String rank = "defaultRank";
 
   User(this.username, this.userId, this.password, this.email, this.unit, this.rank);
 
@@ -116,5 +128,4 @@ class User{
     email = json["email"],
     unit = json["unit"],
     rank = json["rank"];
-
 }

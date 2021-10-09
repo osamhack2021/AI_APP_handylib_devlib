@@ -15,7 +15,7 @@ class myBottomNavigation extends StatelessWidget {
           icon: Icon(Icons.calendar_today),
         ),
         Tab(
-          icon: Icon(Icons.search),
+          icon: Icon(Icons.local_library),
         ),
         Tab(
           icon: Icon(Icons.forum)
