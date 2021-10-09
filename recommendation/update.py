@@ -14,3 +14,5 @@ def updater(file_path, users_file_name, books_file_name):
     for i in range(len(df_users)):
         rec_file_name = str(i).zfill(5) + ".csv"
         recommendation(file_path, users_file_name, books_file_name, pred_file_name, rec_file_name, user_id=i)
+
+#updater('C:/Users/admin/Documents/osam_ai/book_dataset/', "rec_user_1.csv", "rec_books_1.csv")
