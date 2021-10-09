@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 def get_ratings(path, users_file_name):
-    df_users = pd.read_csv(path + users_file_name, encoding='UTF8')
+    df_users = pd.read_csv(path + users_file_name, encoding='cp949')
     df_users_books = pd.DataFrame(df_users, columns=['user_id', 'like'])
     sr_users = []
     sr_books = []
@@ -88,15 +88,15 @@ def predict(file_path, users_file_name, pred_score_file_name):
         regularization_list.append(regularization)
         total_losses.append(total_loss)
 
-        print('-----------step %d------------' % i)
-        print("predict error: %f" % predict_error)
-        print("confidence error: %f" % confidence_error)
-        print("regularization: %f" % regularization)
-        print("total_loss: %f" % total_loss)
+        #print('-----------step %d------------' % i)
+        #print("predict error: %f" % predict_error)
+        #print("confidence error: %f" % confidence_error)
+        #print("regularization: %f" % regularization)
+        #print("total_loss: %f" % total_loss)
 
     predict = np.matmul(X, np.transpose(Y))
-    print('final predict')
-    print(predict)
+    #print('final predict')
+    #print(predict)
 
     df_predict = pd.DataFrame(predict, columns=range(len(R[0]))).fillna(0)  # user-item = 1400 x 1125
     df_predict.to_csv(file_path + pred_score_file_name)
