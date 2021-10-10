@@ -1,8 +1,5 @@
 import 'package:app/components/default_circle_avatar.dart';
 import 'package:app/components/settingPage/profile_edit_tile.dart';
-import 'package:app/constants/colors.dart';
-import 'package:app/constants/size.dart';
-import 'package:app/controller/user_controller.dart';
 import 'package:app/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:app/components/titled_appbar.dart';
