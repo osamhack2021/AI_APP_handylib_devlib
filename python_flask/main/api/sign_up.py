@@ -18,7 +18,6 @@ def sign_up():
         password=request.form.get('password'),
         name=request.form.get('name'),
         email=request.form.get('email'),
-        interest_tag=list(request.form.get('interest_tag')),
         rank=request.form.get('rank'),
         unit=request.form.get('unit')
     ).save()

@@ -16,7 +16,6 @@ class User(db.Document):
   user_id = StringField()
   email = EmailField()
   password = StringField()
-  interest_tag = ListField()
   like = ListField()
   borrowed = ListField()
   rank = StringField()
@@ -26,7 +25,6 @@ class User(db.Document):
     "email": self.email,
     "password": self.password,
     "user_id": self.user_id,
-    "interest_tag": self.interest_tag,
     "like": self.like,
     "borrowed": self.borrowed,
     "rank":self.rank,
