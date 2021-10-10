@@ -40,6 +40,7 @@ dependencies:
   intl: ^0.17.0
   crypt: ^4.0.1
   modal_bottom_sheet: ^2.0.0
+  shared_preferences: ^2.0.8
   # flutter_image: ^4.1.0
 
 dev_dependencies:
