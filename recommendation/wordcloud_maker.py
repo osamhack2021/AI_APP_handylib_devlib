@@ -5,16 +5,13 @@ import pandas as pd
 import numpy as np
 import os, shutil
 
-def make_wordcloud(file_path, users_file_name, books_file_name, user_id):
+def make_wordcloud(file_path, save_path, font_path, users_file_name, books_file_name, user_id):
     stopwords = set(STOPWORDS)
     stopwords.add("국내도서")
     df_users = pd.read_csv(file_path + users_file_name, encoding='cp949')
     df_users_like_borrowed_interesttags = pd.DataFrame(df_users, columns=['user_id', 'like', 'borrowed', 'interest_tag'])
     df_users_like_borrowed_interesttags = df_users_like_borrowed_interesttags[df_users_like_borrowed_interesttags['user_id']==user_id]
 
-    sr_users = []
-    sr_books = []
-    sr_ratings = []
     str_like = list(np.array(df_users_like_borrowed_interesttags['like'].tolist()))
     i = str_like[0].lstrip('[').rstrip(']')
     i = i.split(', ')
@@ -30,7 +27,7 @@ def make_wordcloud(file_path, users_file_name, books_file_name, user_id):
     list_books_tag = sum(list_books_tag, [])
     str_books_tag = " ".join(list_books_tag)
 
-    wc = WordCloud(font_path="C:/Users/admin/Documents/osam_ai/dev_rec/NanumFontSetup_TTF_BARUNPEN/NanumBarunpenR.ttf",
+    wc = WordCloud(font_path=font_path, #"C:/Users/admin/Documents/osam_ai/dev_rec/NanumFontSetup_TTF_BARUNPEN/NanumBarunpenR.ttf",
             background_color="white",
             width=1000,
             height=1000,
@@ -43,11 +40,14 @@ def make_wordcloud(file_path, users_file_name, books_file_name, user_id):
     wc.to_file(file_name)
 
     path = os.getcwd()
-    shutil.move(path+"\\"+file_name, file_path)
+    shutil.move(path+"\\"+file_name, save_path+"\\"+file_name)
 
-
+'''
 file_path = 'C:/Users/admin/Documents/osam_ai/book_dataset/'
+save_path = file_path
 users_file_name = "rec_user_1.csv"
 books_file_name = "rec_books_1.csv"
-user_id = 500
-make_wordcloud(file_path, users_file_name, books_file_name, user_id)
+font_path = "C:/Users/admin/Documents/osam_ai/dev_rec/NanumFontSetup_TTF_BARUNPEN/NanumBarunpenR.ttf"
+user_id = 499
+make_wordcloud(file_path, save_path, font_path, users_file_name, books_file_name, user_id)
+'''

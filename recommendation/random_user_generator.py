@@ -106,14 +106,24 @@ def scenario3(list_scenarios):
     return like_category
 
 def make_dataframe(list_scenarios):
+    list_unit = []
+    list_rank = []
+    int_rank = ['이등병', '일병', '상병', '병장']
+    for i in range(len(list_scenarios)):
+        list_unit.append("53사단" if random.randint(0, 1) else "31사단")
+        list_rank.append(int_rank[random.randint(0, 3)])
+
+
     to_df = {
         'name': range(len(list_scenarios)),
-        'user_id': range(len(list_scenarios)),
         'email': range(len(list_scenarios)),
         'password': range(len(list_scenarios)),
+        'user_id': range(len(list_scenarios)),
         'interest_tag': range(len(list_scenarios)),
         'like':list_scenarios,
-        'borrowed':list_scenarios
+        'borrowed':list_scenarios,
+        'rank': list_rank,
+        'unit': list_unit
     }
 
     df = pd.DataFrame(to_df)
@@ -125,11 +135,12 @@ def user_generator(file_path, books_file_name, categories_file_name, users_file_
     list_category_count = get_categories(file_path, categories_file_name)
 
     list_scenario1 = scenario1(list_category_count)
-    list_scenario2 = scenario2(len(books), list_category_count)
+    list_scenario2 = scenario2(len(books))
     list_scenario3 = scenario3(list_scenario1+list_scenario2)
 
     df = make_dataframe(list_scenario1+list_scenario2+list_scenario3)
     df.to_csv(file_path + users_file_name)
+    print(df)
 
 file_path = "C:/Users/admin/Documents/osam_ai/book_dataset/"
 books_file_name = "rec_books_1.csv"
