@@ -21,12 +21,15 @@ def read_book(query):
 
 def read_csv():
     user_id = session.get('user_id')
-    file = csv.reader(open('/{}.csv'.format(user_id),'r'))
+    file = csv.reader(open('../models/{}.csv'.format(user_id),'r'))
     lists=[]
     for row in file:
         # 각 열마다 어떤 데이터인지 읽고 dicts에 저장
-        books = read_book(row[1])['items']
-        dict_data={"title":row[1],"author":books[0]['author'],'image':books[0]['image'],'isbn':books[0]['isbn']}
+        if row[2]=='title':
+            continue
+        books = read_book(row[2])['items']
+        isbn = books[0]['isbn']
+        dict_data={"title":row[2],"author":books[0]['author'],'image':books[0]['image'],'isbn':isbn[11:]}
         lists.append(dict_data)
     #dicts에 저장해서 return
     return lists
