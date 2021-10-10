@@ -4,7 +4,6 @@ import 'package:app/controller/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:app/navigation/routes.dart';
 
-
 User? myUser;
 
 class HomeScreen extends StatefulWidget {
@@ -14,16 +13,16 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   @override
   Widget build(BuildContext context) {
-    
     myUser = ModalRoute.of(context)!.settings.arguments as User?;
-    
-    //below code is for debug 
-    myUser = User('defaultName', 'defaultId', 'defaultPassword', 'defaultEmail', 'defaultUnit', 'defaultRank');
-    
+
+    //below code is for debug
+    myUser = User('defaultName', 'defaultId', 'defaultPassword', 'defaultEmail',
+        'defaultUnit', 'defaultRank');
+
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: DefaultTabController(
           length: 5,
           child: Stack(children: [
@@ -32,6 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
               width: double.infinity,
             ),
             Scaffold(
+              resizeToAvoidBottomInset: false,
               bottomNavigationBar: myBottomNavigation(),
               body: TabBarView(children: homeRoute),
             )

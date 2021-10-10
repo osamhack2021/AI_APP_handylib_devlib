@@ -13,7 +13,7 @@ Widget ClippedImageView(BuildContext context, String _imageUrl) {
           transform: Matrix4.translationValues(0.0, -20.0, 0.0),
           child: ClipShadowPath(
             clipper: CircularClipper(),
-            shadow: Shadow(blurRadius: 20.0),
+            shadow: const Shadow(blurRadius: 20.0),
             child: Opacity(
               opacity: 1,
               child: FadeInImage.memoryNetwork(
@@ -52,12 +52,21 @@ Widget ClippedImageView(BuildContext context, String _imageUrl) {
                   )),
             ),
           )),
-      IconButton(
-        padding: EdgeInsets.only(left: 30.0),
-        onPressed: () => Navigator.pop(context),
-        icon: Icon(Icons.arrow_back),
-        iconSize: 30.0,
-        color: Color(COLOR_PRIMARY),
+      Positioned(
+        left: 20,
+        top: 5,
+        child: CircleAvatar(
+          radius: 25,
+          backgroundColor: const Color(COLOR_PRIMARY).withOpacity(0.5),
+          child: IconButton(
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+              size: 25,
+            ),
+            onPressed: () => Navigator.pop(context),
+          ),
+        ),
       ),
     ],
   );
