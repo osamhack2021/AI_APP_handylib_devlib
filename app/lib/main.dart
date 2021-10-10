@@ -1,3 +1,4 @@
+import 'package:app/screens/ebook_viewer.dart';
 import 'package:app/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:app/navigation/routes.dart';
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: HomeScreen(),
+      // home: EbookReader(),
       routes: routes,
       debugShowCheckedModeBanner: false,
     );

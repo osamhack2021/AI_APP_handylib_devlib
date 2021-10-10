@@ -41,6 +41,7 @@ dependencies:
   crypt: ^4.0.1
   modal_bottom_sheet: ^2.0.0
   shared_preferences: ^2.0.8
+  epub_viewer: ^0.2.4
   # flutter_image: ^4.1.0
 
 dev_dependencies:
@@ -69,6 +70,7 @@ flutter:
   assets:
     - assets/
     - assets/images/
+    - assets/ebooks/
     - setting.env
 
   # An image asset can refer to one or more resolution-specific "variants", see
