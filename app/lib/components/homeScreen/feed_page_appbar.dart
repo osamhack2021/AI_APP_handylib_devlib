@@ -2,6 +2,7 @@ import 'package:app/components/homeScreen/search_modal_bottom_sheet.dart';
 import 'package:app/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 AppBar FeedPageAppBar(BuildContext context) {
   return AppBar(
@@ -25,12 +26,11 @@ AppBar FeedPageAppBar(BuildContext context) {
       IconButton(
         padding: const EdgeInsets.only(right: 30.0),
         onPressed: () => showCupertinoModalBottomSheet(
-          expand: true,
-          context: context,
-          backgroundColor: Colors.transparent,
-          
-          builder: (context) => SearchModalBottomSheet(),
-        ),
+    expand: true,
+    context: context,
+    backgroundColor: Colors.transparent,
+    builder: (context) => SearchModalBottomSheet(),
+  ),
         icon: const Icon(Icons.search),
         iconSize: 30.0,
         color: const Color(COLOR_PRIMARY),

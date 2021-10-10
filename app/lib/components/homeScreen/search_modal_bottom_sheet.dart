@@ -1,9 +1,11 @@
 import 'package:app/constants/colors.dart';
 import 'package:app/hooks/use_api.dart';
 import 'package:app/models/book_models.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:app/components/homeScreen/content_scroll.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SearchModalBottomSheet extends StatefulWidget {
   SearchModalBottomSheet({Key? key}) : super(key: key);
@@ -16,8 +18,8 @@ class _SearchModalBottomSheetState extends State<SearchModalBottomSheet> {
   final FocusNode _focusNode = FocusNode();
   TextEditingController inputController = TextEditingController();
   bool isSubmitted = false;
-
   Future<List<Book>>? data;
+  List<String> _searchHistory = [];
 
   Future<List<Book>> fetchQuery(String query) async {
     List<Book> books = [];
@@ -31,16 +33,18 @@ class _SearchModalBottomSheetState extends State<SearchModalBottomSheet> {
     return books;
   }
 
-  List<String> searchLog = [
-    "정유정",
-    "베르나르 베르베르",
-    "성공하는법",
-    "C언어",
-    "해커톤",
-    "오픈소스",
-    "github",
-    "우승"
-  ];
+  void fetchSearchHistory() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _searchHistory = (prefs.getStringList("searchHistory") ?? []);
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchSearchHistory();
+  }
 
   @override
   void dispose() {
@@ -48,11 +52,18 @@ class _SearchModalBottomSheetState extends State<SearchModalBottomSheet> {
     super.dispose();
   }
 
-  void _handleSubmit(String text) {
+  void _handleSubmit(String text) async {
     setState(() {
       isSubmitted = true;
     });
     data = fetchQuery(text);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if(_searchHistory.length == 10){
+      _searchHistory = _searchHistory.sublist(0,9);
+    }
+    _searchHistory.insert(0,text);
+    // searchLog.add(text);
+    prefs.setStringList('searchHistory', _searchHistory);
   }
 
   @override
@@ -147,7 +158,7 @@ class _SearchModalBottomSheetState extends State<SearchModalBottomSheet> {
               spacing: 5,
               runSpacing: -10.0,
               alignment: WrapAlignment.start,
-              children: searchLog
+              children: _searchHistory
                   .map((node) => Container(
                       margin: const EdgeInsets.all(5),
                       child: ClipRRect(

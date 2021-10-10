@@ -6,9 +6,7 @@ import 'package:intl/date_symbol_data_local.dart';
 
 Future main() async {
   await dotenv.load(fileName: "setting.env");
-  initializeDateFormatting('ko_KR', null).then((_) => {
-  runApp(const MyApp())
-  });
+  initializeDateFormatting('ko_KR', null).then((_) => {runApp(const MyApp())});
 }
 
 class MyApp extends StatelessWidget {
