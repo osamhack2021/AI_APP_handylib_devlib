@@ -51,8 +51,7 @@ def read_data():
 
 @mypage_page.route('/',methods=['GET'])
 def mypage():
-    params=request.get_json()
-    user_id=params['user_id']
+    user_id=request.args.get('user_id')
     if not user_id:
         resultJson=json.dumps({"message": "not login"})
         return Response(resultJson,mimetype="application/json",status=401)
@@ -73,8 +72,7 @@ def mypage():
 
 @mypage_page.route('/borrow_list',methods=['GET'])
 def borrow():
-    params=request.get_json()
-    user_id=params['user_id']
+    user_id=request.args.get('user_id')
     if not user_id:
         resultJson=json.dumps({"message": "not login"})
         return Response(resultJson,mimetype="application/json",status=401)
@@ -85,8 +83,7 @@ def borrow():
 
 @mypage_page.route('/recommend_list',methods=['GET'])
 def recommend():
-    params=request.get_json()
-    user_id=params['user_id']
+    user_id=request.args.get('user_id')
     if not user_id:
         resultJson=json.dumps({"message": "not login"})
         return Response(resultJson,mimetype="application/json",status=401)
@@ -96,8 +93,7 @@ def recommend():
 
 @mypage_page.route('/user_data',methods=['GET'])
 def user_data():
-    params=request.get_json()
-    user_id=params['user_id']
+    user_id=request.args.get('user_id')
     if not user_id:
         resultJson=json.dumps({"message": "not login"})
         return Response(resultJson,mimetype="application/json",status=401)

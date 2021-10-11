@@ -4,8 +4,7 @@ info_page=Blueprint('info',__name__)
 
 @info_page.route('/',methods=['GET'])
 def info():
-    params=request.get_json()
-    user_id=params['user_id']
+    user_id=request.args.get('user_id')
     if not user_id:
         resultJson=json.dumps({"message": "not login"})
         return Response(resultJson,mimetype="application/json",status=401)
@@ -17,7 +16,7 @@ def info():
 @info_page.route('/edit',methods=['PUT'])
 def info_edit():
     params=request.get_json()
-    user_id=params['user_id']
+    user_id=request.args.get('user_id')
     if not user_id:
         resultJson=json.dumps({"message": "not login"})
         return Response(resultJson,mimetype="application/json",status=401)

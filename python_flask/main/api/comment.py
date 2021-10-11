@@ -4,8 +4,7 @@ comment_page=Blueprint('comment',__name__)
 
 @comment_page.route('/<int:number>/<int:comment_number>',methods=['GET'])
 def com_get(comment_number):
-    params=request.get_json()
-    user_id=params['user_id']
+    user_id=request.args.get('user_id')
     data=database.Comment.objects(user_id=user_id, comment_number=comment_number).first()
     resultJson=json.dumps(data.content, ensure_ascii=False)
     return Response(resultJson,mimetype="application/json",status=200)
@@ -14,7 +13,7 @@ def com_get(comment_number):
 def com_write(number):
     #comment db 추가
     params=request.get_json()
-    user_id=params['user_id']
+    user_id=request.args.get('user_id')
     if not user_id:
         resultJson=json.dumps({"message": "not login"})
         return Response(resultJson,mimetype="application/json",status=401)
@@ -32,7 +31,7 @@ def com_write(number):
 @comment_page.route('/<int:number>/<int:comment_number>/edit',methods=['PUT'])
 def com_edit(number,comment_number):
     params=request.get_json()
-    user_id=params['user_id']
+    user_id=request.args.get('user_id')
     if not user_id:
         resultJson=json.dumps({"message": "not login"})
         return Response(resultJson,mimetype="application/json",status=401)
@@ -43,8 +42,7 @@ def com_edit(number,comment_number):
 
 @comment_page.route('/<int:number>/<int:comment_number>/delete',methods=['DELETE'])
 def com_delete(number,comment_number):
-    params=request.get_json()
-    user_id=params['user_id']
+    user_id=request.args.get('user_id')
     if not user_id:
         resultJson=json.dumps({"message": "not login"})
         return Response(resultJson,mimetype="application/json",status=401)
