@@ -11,7 +11,7 @@ def boarding(page_id):
     limit=10
     start=(page_id-1)*limit
     end=page_id*limit
-    lists=database.Notice_board.objects(tag=request.args.get('tag'))
+    lists=database.Notice_board.objects(tag=request.values.get('tag'))
     if end > lists.count():
         end=lists.count()
     #pageid에 따라 게시판 수량 띄우기
@@ -21,8 +21,8 @@ def boarding(page_id):
 #해당 페이지 불러오는 라우터
 @board_page.route('/page/<int:number>',methods=['GET'])
 def board_number(number):
-    user_id=request.args.get('user_id')
-    board_item=database.Notice_board.objects(number=number,tag=request.args.get('tag')).first()
+    user_id=request.values.get('user_id')
+    board_item=database.Notice_board.objects(number=number,tag=request.values.get('tag')).first()
     comments= []
     # 댓글 내용 comment 컬렉션에서 불러오기
     for num in board_item.comment_list:
@@ -34,7 +34,7 @@ def board_number(number):
 @board_page.route('/write',methods=['POST'])
 def write_board():
     params=request.get_json()
-    user_id=request.args.get('user_id')
+    user_id=request.values.get('user_id')
     if not user_id:
         resultJson=json.dumps({"message": "not login"})
         return Response(resultJson,mimetype="application/json",status=401)
@@ -49,7 +49,7 @@ def write_board():
 @board_page.route('/page/<int:number>/edit',methods=['PUT'])
 def edit_board(number):
     params=request.get_json()
-    user_id=request.args.get('user_id')
+    user_id=request.values.get('user_id')
     if not user_id:
         resultJson=json.dumps({"message": "not login"})
         return Response(resultJson,mimetype="application/json",status=401)
@@ -61,11 +61,11 @@ def edit_board(number):
 #삭제 요청 라우터
 @board_page.route('/page/<int:number>/delete',methods=['DELETE'])
 def delete_board(number):
-    user_id=request.args.get('user_id')
+    user_id=request.values.get('user_id')
     if not user_id:
         resultJson=json.dumps({"message": "not login"})
         return Response(resultJson,mimetype="application/json",status=401)
-    board_item = database.Notice_board.objects(number=number,tag=request.args.get('tag')).first()
+    board_item = database.Notice_board.objects(number=number,tag=request.values.get('tag')).first()
     board_item.delete()
     resultJson=json.dumps({"message": "delete success"})
     return Response(resultJson,mimetype="application/json",status=200)

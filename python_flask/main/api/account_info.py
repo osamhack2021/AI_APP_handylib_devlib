@@ -4,11 +4,11 @@ info_page=Blueprint('info',__name__)
 
 @info_page.route('/',methods=['GET'])
 def info():
-    user_id=request.args.get('user_id')
+    user_id=request.values.get('user_id')
     if not user_id:
         resultJson=json.dumps({"message": "not login"})
         return Response(resultJson,mimetype="application/json",status=401)
-    user=database.User(user_id=user_id).objects.first().to_json()
+    user=database.User.objects(user_id=user_id).first().to_json()
     resultJson=json.dumps(user, ensure_ascii=False)
     # user 정보 전체
     return Response(resultJson,mimetype="application/json",status=200)
@@ -16,7 +16,7 @@ def info():
 @info_page.route('/edit',methods=['PUT'])
 def info_edit():
     params=request.get_json()
-    user_id=request.args.get('user_id')
+    user_id=request.values.get('user_id')
     if not user_id:
         resultJson=json.dumps({"message": "not login"})
         return Response(resultJson,mimetype="application/json",status=401)
