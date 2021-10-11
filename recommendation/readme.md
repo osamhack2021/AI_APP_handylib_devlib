@@ -19,7 +19,13 @@ pip install wordcloud
 ------------
 + recommendation
     + Alternating_Least_Squares.py
-    + example_file
+    + example_file_path
+        + recommend_list
+            + 0000.csv
+            + 1401.csv
+        + favoriteCategory
+            + favoriteCategory_0.png
+            + favoriteCategory_499.png
         + APP_test_books.csv
         + APP_test_users.csv
         + rec_pred_score_1.csv
