@@ -1,4 +1,4 @@
-from flask import Blueprint, json,request,Response,session
+from flask import Blueprint, json,request,Response
 from main.models import database
 from datetime import datetime
 import time
@@ -21,11 +21,13 @@ def boarding(page_id):
 #해당 페이지 불러오는 라우터
 @board_page.route('/page/<int:number>',methods=['GET'])
 def board_number(number):
+    params=request.get_json()
+    user_id=params['user_id']
     board_item=database.Notice_board.objects(number=number,tag=request.args.get('tag')).first()
     comments= []
     # 댓글 내용 comment 컬렉션에서 불러오기
     for num in board_item.comment_list:
-        comments.append(database.Comment.objects(user_id=session.get('user_id'), comment_number=num).first().to_json)
+        comments.append(database.Comment.objects(user_id=user_id, comment_number=num).first().to_json)
     board_item.comment_list=comments
     resultJson=json.dumps(board_item, ensure_ascii=False)
     return Response(resultJson,mimetype="application/json",status=200)
@@ -33,12 +35,12 @@ def board_number(number):
 @board_page.route('/write',methods=['POST'])
 def write_board():
     params=request.get_json()
-    if not session.get('user_id'):
+    user_id=params['user_id']
+    if not user_id:
         resultJson=json.dumps({"message": "not login"})
         return Response(resultJson,mimetype="application/json",status=401)
     content=params['content']
     title = params['title']
-    user_id=session.get('user_id')
     tag=params['tag']
     count=database.Notice_board.objects(tag=tag).count()+1
     database.Notice_board(content=content, title=title, user_id=user_id, tag=tag, time_stamp=datetime.fromtimestamp(time.time()), number=count).save()
@@ -48,7 +50,8 @@ def write_board():
 @board_page.route('/page/<int:number>/edit',methods=['PUT'])
 def edit_board(number):
     params=request.get_json()
-    if not session.get('user_id'):
+    user_id=params['user_id']
+    if not user_id:
         resultJson=json.dumps({"message": "not login"})
         return Response(resultJson,mimetype="application/json",status=401)
     board_item = database.Notice_board.objects(number=number,tag=params['tag']).first()
@@ -59,7 +62,9 @@ def edit_board(number):
 #삭제 요청 라우터
 @board_page.route('/page/<int:number>/delete',methods=['DELETE'])
 def delete_board(number):
-    if not session.get('user_id'):
+    params=request.get_json()
+    user_id=params['user_id']
+    if not user_id:
         resultJson=json.dumps({"message": "not login"})
         return Response(resultJson,mimetype="application/json",status=401)
     board_item = database.Notice_board.objects(number=number,tag=request.args.get('tag')).first()

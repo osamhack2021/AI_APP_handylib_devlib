@@ -1,4 +1,4 @@
-from flask import Blueprint,request,session,json,Response
+from flask import Blueprint,request,json,Response
 from main.models import database
 sign_in_page=Blueprint('sign_in',__name__)
 
@@ -14,9 +14,6 @@ def sign_in():
         return Response(resultJson,mimetype="application/json",status=401)
     else:
         if users.password == pwd:
-            session["user_id"] = user_id
-            session["name"] = users.name
-            session.permanent = True
             #성공시 response 200 status
             resultJson=json.dumps({"message": "login success"})
             return Response(resultJson,mimetype="application/json",status=200)
