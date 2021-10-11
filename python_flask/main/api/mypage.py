@@ -1,4 +1,4 @@
-from flask import Blueprint,request,session,Response,json
+from flask import Blueprint,request,Response,json
 from main.models import database
 import csv,os
 from dotenv import load_dotenv
@@ -19,8 +19,7 @@ def read_book(query):
     result = json.loads(response)
     return result
 
-def read_csv():
-    user_id = session.get('user_id')
+def read_csv(user_id):
     file = csv.reader(open('../models/{}.csv'.format(user_id),'r'))
     lists=[]
     for row in file:
@@ -52,15 +51,16 @@ def read_data():
 
 @mypage_page.route('/',methods=['GET'])
 def mypage():
-    if not session.get('user_id'):
+    params=request.get_json()
+    user_id=params['user_id']
+    if not user_id:
         resultJson=json.dumps({"message": "not login"})
         return Response(resultJson,mimetype="application/json",status=401)
-    user_id=session.get('user_id')
     #borrow_list 불러오기
     borrow_list=database.User(user_id=user_id).objects.first().borrow_list
     borrow_lists=read_borrow(borrow_list)
     # recommend_list 불러오기(csv파일을 불러올 예정)
-    recommend_list=read_csv()
+    recommend_list=read_csv(user_id)
     #user_data 불러오기
 
     # res
@@ -73,10 +73,11 @@ def mypage():
 
 @mypage_page.route('/borrow_list',methods=['GET'])
 def borrow():
-    if not session.get('user_id'):
+    params=request.get_json()
+    user_id=params['user_id']
+    if not user_id:
         resultJson=json.dumps({"message": "not login"})
         return Response(resultJson,mimetype="application/json",status=401)
-    user_id=session.get('user_id')
     borrow_list=database.User(user_id=user_id).objects.first().borrow_list
     borrow_lists=read_borrow(borrow_list)
     resultJson=json.dumps(borrow_lists, ensure_ascii=False)
@@ -84,7 +85,9 @@ def borrow():
 
 @mypage_page.route('/recommend_list',methods=['GET'])
 def recommend():
-    if not session.get('user_id'):
+    params=request.get_json()
+    user_id=params['user_id']
+    if not user_id:
         resultJson=json.dumps({"message": "not login"})
         return Response(resultJson,mimetype="application/json",status=401)
     recommend_list=read_csv()
@@ -93,7 +96,9 @@ def recommend():
 
 @mypage_page.route('/user_data',methods=['GET'])
 def user_data():
-    if not session.get('user_id'):
+    params=request.get_json()
+    user_id=params['user_id']
+    if not user_id:
         resultJson=json.dumps({"message": "not login"})
         return Response(resultJson,mimetype="application/json",status=401)
     return ""
