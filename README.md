@@ -80,8 +80,6 @@
 
 ## 분야별 설명요약
 
----
-
 ### - 프론트엔드
 
 크로스 플랫폼 SDK인 flutter을 이용하여 어플리케이션을 개발하였습니다. 로그인/회원가입 기능으로 어플리케이션을 개인화였고, 도서 추천, 나의 서재, 부대 도서관, 게시판, 개인정보 수정 기능을 가지고 있습니다.<br/>
@@ -92,14 +90,14 @@
 ### - 백엔드
 
 Python의 웹 프레임워크 중 하나인 Flask를 이용하여 어플리케이션의 요청을 처리하는 REST API를 개발하였습니다. 어플리케이션에 정보 저장에 필요한 데이터베이스는 Mongodb를 이용하였고 apache를 이용하여 서버를 자동화하였습니다.<br/>
-자세한 내용은 이하의 백엔드의 [Readme](https://github.com/osamhack2021/AI_APP_handylib_devlib/tree/main/server)를 참고해주세요.
+자세한 내용은 이하의 백엔드의 [Readme](https://github.com/osamhack2021/AI_APP_handylib_devlib/tree/main/python_flask)를 참고해주세요.
 
 ---
 
 ### - 추천알고리즘
 
 collaborative filtering 중 하나인 matrix factorization을 이용하여 추천시스템을 개발하였습니다. 신규사용자에겐 도서 이용 기록등이 없으므로 전체 책 중 무작위로 추천리스트가 제공되고, 사용자가 좋아하는 도서에 좋아요를 누르면 매일 밤 21시 추천점수가 업데이트되어 맞춤형 도서를 추천받을 수 있습니다.<br/>
-자세한 내용은 AI의 [Readme](https://github.com/osamhack2021/AI_APP_handylib_devlib/tree/main/ai)를 참고해주세요.
+자세한 내용은 AI의 [Readme](https://github.com/osamhack2021/AI_APP_handylib_devlib/tree/main/recommendation)를 참고해주세요.
 
 </br>
 
