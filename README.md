@@ -1,11 +1,19 @@
 <div id="top"></div>
 
+
+
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
   <a href="https://github.com/osamhack2021/AI_APP_handylib_devlib">
     <img src="images/logo.ico" alt="Logo" width="80" height="80">
   </a>
+
+  ![license](https://img.shields.io/github/license/osamhack2021/AI_APP_handylib_devlib.svg)
+![repo size in bytes](https://img.shields.io/github/repo-size/osamhack2021/AI_APP_handylib_devlib.svg)
+![GitHub contributors](https://img.shields.io/github/contributors/osamhack2021/AI_APP_handylib_devlib.svg)
+![GitHub commit](https://img.shields.io/github/last-commit/osamhack2021/AI_APP_handylib_devlib.svg)
+![GitHub commit interval](https://img.shields.io/github/commit-activity/w/osamhack2021/AI_APP_handylib_devlib.svg)
 
   <h3 align="center">내 손 안의 진중문고, HandyLib</h3>
 
@@ -18,11 +26,7 @@
   </p>
 </div>
 
-![license](https://img.shields.io/github/license/osamhack2021/AI_APP_handylib_devlib.svg)
-![repo size in bytes](https://img.shields.io/github/repo-size/osamhack2021/AI_APP_handylib_devlib.svg)
-![GitHub contributors](https://img.shields.io/github/contributors/osamhack2021/AI_APP_handylib_devlib.svg)
-![GitHub commit](https://img.shields.io/github/last-commit/osamhack2021/AI_APP_handylib_devlib.svg)
-![GitHub commit interval](https://img.shields.io/github/commit-activity/w/osamhack2021/AI_APP_handylib_devlib.svg)
+
 
 <!-- TABLE OF CONTENTS -->
 
