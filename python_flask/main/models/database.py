@@ -98,6 +98,22 @@ class Unit(db.Document):
     "name":self.name,
     "books_list":self.books_list,
     }
+class Embook(db.EmbeddedDocument):
+  title = db.StringField()
+  isbn = db.StringField()
+  isbn13 = db.StringField()
+  state = db.IntField()
+  user_id = db.StringField()
+  score = db.IntField()
+  def to_json(self):
+    return {
+    "title":self.title,
+    "isbn":self.isbn,
+    "isbn13":self.isbn13,
+    "state":self.state,
+    "user_id":self.user_id,
+    "score":self.score,
+    }
 class Searchlog(db.Document):
   # objectid(고유번호) = auto_create or insert
   user_id = StringField()
