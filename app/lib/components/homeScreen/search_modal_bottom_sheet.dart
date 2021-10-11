@@ -58,10 +58,10 @@ class _SearchModalBottomSheetState extends State<SearchModalBottomSheet> {
     });
     data = fetchQuery(text);
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    if(_searchHistory.length == 10){
-      _searchHistory = _searchHistory.sublist(0,9);
+    if (_searchHistory.length == 10) {
+      _searchHistory = _searchHistory.sublist(0, 9);
     }
-    _searchHistory.insert(0,text);
+    _searchHistory.insert(0, text);
     // searchLog.add(text);
     prefs.setStringList('searchHistory', _searchHistory);
   }
@@ -154,31 +154,39 @@ class _SearchModalBottomSheetState extends State<SearchModalBottomSheet> {
         children: [
           subtitle("최근 검색 기록"),
           sep(10),
-          Wrap(
-              spacing: 5,
-              runSpacing: -10.0,
-              alignment: WrapAlignment.start,
-              children: _searchHistory
-                  .map((node) => Container(
-                      margin: const EdgeInsets.all(5),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(100.0),
-                        child: ElevatedButton(
-                          style: ButtonStyle(
-                              elevation: MaterialStateProperty.all(0),
-                              backgroundColor:
-                                  MaterialStateProperty.all(Colors.black12)),
-                          onPressed: () {
-                            inputController.text = node;
-                            FocusScope.of(context).unfocus();
-                            _handleSubmit(inputController.text);
-                          },
-                          child: Text(node,
-                              style: const TextStyle(
-                                  fontSize: 14, color: Colors.black87)),
-                        ),
-                      )))
-                  .toList()),
+          _searchHistory.isEmpty
+              ? const Center(
+                  child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 30),
+                  child: Text("최근 검색기록이 없습니다.",
+                      style:
+                          const TextStyle(fontSize: 14, color: Colors.black54)),
+                ))
+              : Wrap(
+                  spacing: 5,
+                  runSpacing: -10.0,
+                  alignment: WrapAlignment.start,
+                  children: _searchHistory
+                      .map((node) => Container(
+                          margin: const EdgeInsets.all(5),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(100.0),
+                            child: ElevatedButton(
+                              style: ButtonStyle(
+                                  elevation: MaterialStateProperty.all(0),
+                                  backgroundColor: MaterialStateProperty.all(
+                                      Colors.black12)),
+                              onPressed: () {
+                                inputController.text = node;
+                                FocusScope.of(context).unfocus();
+                                _handleSubmit(inputController.text);
+                              },
+                              child: Text(node,
+                                  style: const TextStyle(
+                                      fontSize: 14, color: Colors.black87)),
+                            ),
+                          )))
+                      .toList()),
         ],
       ),
     );
