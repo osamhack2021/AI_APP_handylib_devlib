@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import os
 
 def get_ratings(path, users_file_name):
     df_users = pd.read_csv(path + users_file_name, encoding='cp949')
@@ -102,9 +103,9 @@ def predict(file_path, users_file_name, pred_score_file_name):
     df_predict.to_csv(file_path + pred_score_file_name)
 
 
-file_path = 'C:/Users/admin/Documents/osam_ai/book_dataset/'
-users_file_name = "rec_user_1.csv"
-books_file_name = "rec_books_1.csv"
+file_path = '/var/www/python_flask/main/models/'
+users_file_name = "API_test_users.csv"
+books_file_name = "API_test_books.csv"
 pred_file_name = "rec_pred_score_1.csv"
 
 predict(file_path, users_file_name, pred_file_name)
