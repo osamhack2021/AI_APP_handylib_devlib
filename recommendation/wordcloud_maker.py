@@ -18,8 +18,8 @@ def make_wordcloud(file_path, save_path, font_path, users_file_name, books_file_
     i = list(map(int, i))
     list_like = i
 
-    df_books = pd.read_csv(file_path + books_file_name, encoding='cp949')
-    df_books_tag = pd.DataFrame(df_books, columns=['tag'])
+    df_books = pd.read_csv(file_path + books_file_name, encoding='UTF8')
+    df_books_tag = pd.DataFrame(df_books, columns=['categoryName'])
     df_books_tag = df_books_tag.iloc[list_like, :]
 
     list_books_tag = np.array(df_books_tag.iloc[:, 0].tolist())
@@ -29,10 +29,10 @@ def make_wordcloud(file_path, save_path, font_path, users_file_name, books_file_
 
     wc = WordCloud(font_path=font_path, #"C:/Users/admin/Documents/osam_ai/dev_rec/NanumFontSetup_TTF_BARUNPEN/NanumBarunpenR.ttf",
             background_color="white",
-            width=1000,
-            height=1000,
-            max_words=100,
-            max_font_size=300,
+            width=400,
+            height=300,
+            max_words=50,
+            max_font_size=100,
             stopwords=stopwords)
 
     wc.generate(str_books_tag)
@@ -42,12 +42,11 @@ def make_wordcloud(file_path, save_path, font_path, users_file_name, books_file_
     path = os.getcwd()
     shutil.move(path+"\\"+file_name, save_path+"\\"+file_name)
 
-'''
+
 file_path = 'C:/Users/admin/Documents/osam_ai/book_dataset/'
 save_path = file_path
-users_file_name = "rec_user_1.csv"
-books_file_name = "rec_books_1.csv"
+users_file_name = "API_test_users.csv"
+books_file_name = "API_test_books.csv"
 font_path = "C:/Users/admin/Documents/osam_ai/dev_rec/NanumFontSetup_TTF_BARUNPEN/NanumBarunpenR.ttf"
-user_id = 499
+user_id = 0
 make_wordcloud(file_path, save_path, font_path, users_file_name, books_file_name, user_id)
-'''

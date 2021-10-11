@@ -1,4 +1,4 @@
-from Alternating_Least_Squares import predict
+from ALS import predict
 from apscheduler.schedulers.background import BackgroundScheduler
 
 def job():
