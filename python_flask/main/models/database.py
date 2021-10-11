@@ -58,20 +58,6 @@ class Book(db.Document):
     "categoryName": self.categoryName,
     "publisher": self.publisher,
     "customerReviewRank": self.customerReviewRank,}
-class Ebook(db.Document):
-  # objectid(고유번호) = auto_create or insert
-  isbn = IntField()
-  title = StringField()
-  publication_date  = StringField() # API: 20200924 년월일까지 받아짐
-  contents = ImageField() # Filefiled() or Imagefiled()
-  tag = StringField()
-  def to_json(self):
-    return {"isbn": self.isbn,
-    "title": self.title,
-    "publication_date": self.publication_date,
-    "tag": self.tag,
-    "contents":self.contents}
-
 class Notice_board(db.Document):
   # objectid(고유번호) = auto_create or insert
   number = IntField()

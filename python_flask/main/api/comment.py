@@ -11,11 +11,12 @@ def com_get(comment_number):
 @comment_page.route('/<int:number>/comment_write',methods=['POST'])
 def com_write(number):
     #comment db 추가
+    params=request.get_json()
     if not session.get('user_id'):
         resultJson=json.dumps({"message": "not login"})
         return Response(resultJson,mimetype="application/json",status=401)
     user_id=session.get('user_id')
-    content=request.form.get('content')
+    content=params['content']
     com_num=database.Comment.objects().count()+1
     database.Comment(user_id=user_id,content=content,comment_number=com_num).save()
     #board db 해당 number에 comment 추가 
@@ -28,11 +29,12 @@ def com_write(number):
 
 @comment_page.route('/<int:number>/<int:comment_number>/edit',methods=['PUT'])
 def com_edit(number,comment_number):
+    params=request.get_json()
     if not session.get('user_id'):
         resultJson=json.dumps({"message": "not login"})
         return Response(resultJson,mimetype="application/json",status=401)
     data=database.Comment.objects(user_id=session.get('user_id'), comment_number=comment_number).first()
-    data.update(content=request.form.get('content'))
+    data.update(content=params['content'])
     resultJson=json.dumps({"message": "edit success"})
     return Response(resultJson,mimetype="application/json",status=200)
 

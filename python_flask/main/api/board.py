@@ -32,25 +32,27 @@ def board_number(number):
 #작성 요청 라우터
 @board_page.route('/write',methods=['POST'])
 def write_board():
+    params=request.get_json()
     if not session.get('user_id'):
         resultJson=json.dumps({"message": "not login"})
         return Response(resultJson,mimetype="application/json",status=401)
-    content=request.form.get('content')
-    title = request.form.get('title')
+    content=params['content']
+    title = params['title']
     user_id=session.get('user_id')
-    tag=request.form.get('tag')
+    tag=params['tag']
     count=database.Notice_board.objects(tag=tag).count()+1
     database.Notice_board(content=content, title=title, user_id=user_id, tag=tag, time_stamp=datetime.fromtimestamp(time.time()), number=count).save()
     resultJson=json.dumps({"message": "write success"})
     return Response(resultJson,mimetype="application/json",status=200)
 #수정 요청 라우터
 @board_page.route('/page/<int:number>/edit',methods=['PUT'])
-def edit_board(number):  
+def edit_board(number):
+    params=request.get_json()
     if not session.get('user_id'):
         resultJson=json.dumps({"message": "not login"})
         return Response(resultJson,mimetype="application/json",status=401)
-    board_item = database.Notice_board.objects(number=number,tag=request.form.get('tag')).first()
-    board_item.update(title=request.form.get('title'),content=request.form.get('content'))
+    board_item = database.Notice_board.objects(number=number,tag=params['tag']).first()
+    board_item.update(title=params['title'],content=params['content'])
     resultJson=json.dumps({"message": "edit success"})
     return Response(resultJson,mimetype="application/json",status=200)
 
