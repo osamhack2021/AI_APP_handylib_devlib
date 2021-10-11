@@ -1,6 +1,5 @@
 import pandas as pd
 import numpy as np
-import os
 
 def get_ratings(path, users_file_name):
     df_users = pd.read_csv(path + users_file_name, encoding='cp949')
