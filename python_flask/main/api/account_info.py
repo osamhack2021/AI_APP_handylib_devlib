@@ -19,14 +19,14 @@ def info_edit():
         resultJson=json.dumps({"message": "not login"})
         return Response(resultJson,mimetype="application/json",status=401)
     # req user 객체명 필요!
-    email=request.form.get('email')
-    interest_tag=request.form.get('interest_tag')
-    name=request.form.get('name')
-    unit=request.form.get('unit')
-    rank=request.form.get('rank')
+    params=request.get_json()
+    email=params['email']
+    name=params['name']
+    unit=params['unit']
+    rank=params['rank']
     user_id=session.get('user_id')
     user=database.User.objects(user_id=user_id).first()
-    user.update(email=email, interest_tag=interest_tag, name= name, unit=unit, rank=rank)
+    user.update(email=email, name= name, unit=unit, rank=rank)
     # 수정 여부 확인 메시지
     resultJson=json.dumps({"message": "edit success"})
     return Response(resultJson,mimetype="application/json",status=200)
