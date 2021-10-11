@@ -71,15 +71,7 @@ class Ebook(db.Document):
     "publication_date": self.publication_date,
     "tag": self.tag,
     "contents":self.contents}
-class Review(db.Document):
-  # objectid(고유번호) = auto_create or insert
-  user_id = StringField()
-  isbn = IntField()
-  score = FloatField() # min:0 max:5 interval: 0.1
-  def to_json(self):
-    return {"user_id": self.user_id,
-    "isbn": self.isbn,
-    "score": self.score,}
+
 class Notice_board(db.Document):
   # objectid(고유번호) = auto_create or insert
   number = IntField()
