@@ -35,37 +35,47 @@ def board_number(number):
 def write_board():
     params=request.get_json()
     user_id=request.values.get('user_id')
-    if not user_id:
-        resultJson=json.dumps({"message": "not login"})
-        return Response(resultJson,mimetype="application/json",status=401)
-    content=params['content']
-    title = params['title']
-    tag=params['tag']
-    count=database.Notice_board.objects(tag=tag).count()+1
-    database.Notice_board(content=content, title=title, user_id=user_id, tag=tag, time_stamp=datetime.fromtimestamp(time.time()), number=count).save()
-    resultJson=json.dumps({"message": "write success"})
-    return Response(resultJson,mimetype="application/json",status=200)
+    if user_id:
+        user = database.User.objects(user_id=user_id).first()
+        if user:
+            content=params['content']
+            title = params['title']
+            tag=params['tag']
+            count=database.Notice_board.objects(tag=tag).count()+1
+            database.Notice_board(content=content, title=title, user_id=user_id, tag=tag, time_stamp=datetime.fromtimestamp(time.time()), number=count).save()
+            resultJson=json.dumps({"message": "write success"})
+            return Response(resultJson,mimetype="application/json",status=200)
+    resultJson=json.dumps({"message": "not login"})
+    return Response(resultJson,mimetype="application/json",status=401)
+    
 #수정 요청 라우터
 @board_page.route('/page/<int:number>/edit',methods=['PUT'])
 def edit_board(number):
     params=request.get_json()
     user_id=request.values.get('user_id')
-    if not user_id:
-        resultJson=json.dumps({"message": "not login"})
-        return Response(resultJson,mimetype="application/json",status=401)
-    board_item = database.Notice_board.objects(number=number,tag=params['tag']).first()
-    board_item.update(title=params['title'],content=params['content'])
-    resultJson=json.dumps({"message": "edit success"})
-    return Response(resultJson,mimetype="application/json",status=200)
+    if user_id:
+        user = database.User.objects(user_id=user_id).first()
+        if user:
+            board_item = database.Notice_board.objects(number=number,tag=params['tag']).first()
+            board_item.update(title=params['title'],content=params['content'])
+            resultJson=json.dumps({"message": "edit success"})
+            return Response(resultJson,mimetype="application/json",status=200)
+
+    resultJson=json.dumps({"message": "not login"})
+    return Response(resultJson,mimetype="application/json",status=401)
+   
 
 #삭제 요청 라우터
 @board_page.route('/page/<int:number>/delete',methods=['DELETE'])
 def delete_board(number):
     user_id=request.values.get('user_id')
-    if not user_id:
-        resultJson=json.dumps({"message": "not login"})
-        return Response(resultJson,mimetype="application/json",status=401)
-    board_item = database.Notice_board.objects(number=number,tag=request.values.get('tag')).first()
-    board_item.delete()
-    resultJson=json.dumps({"message": "delete success"})
-    return Response(resultJson,mimetype="application/json",status=200)
+    if user_id:
+        user = database.User.objects(user_id=user_id).first()
+        if user:
+            board_item = database.Notice_board.objects(number=number,tag=request.values.get('tag')).first()
+            board_item.delete()
+            resultJson=json.dumps({"message": "delete success"})
+            return Response(resultJson,mimetype="application/json",status=200)
+
+    resultJson=json.dumps({"message": "not login"})
+    return Response(resultJson,mimetype="application/json",status=401)

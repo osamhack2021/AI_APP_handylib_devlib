@@ -32,27 +32,33 @@ def com_write(number):
 def com_edit(number,comment_number):
     params=request.get_json()
     user_id=request.values.get('user_id')
-    if not user_id:
-        resultJson=json.dumps({"message": "not login"})
-        return Response(resultJson,mimetype="application/json",status=401)
-    data=database.Comment.objects(user_id=user_id, comment_number=comment_number).first()
-    data.update(content=params['content'])
-    resultJson=json.dumps({"message": "edit success"})
-    return Response(resultJson,mimetype="application/json",status=200)
+    if user_id:
+        user = database.User.objects(user_id=user_id).first()
+        if user:
+            data=database.Comment.objects(user_id=user_id, comment_number=comment_number).first()
+            data.update(content=params['content'])
+            resultJson=json.dumps({"message": "edit success"})
+            return Response(resultJson,mimetype="application/json",status=200)
+
+    resultJson=json.dumps({"message": "not login"})
+    return Response(resultJson,mimetype="application/json",status=401)
 
 @comment_page.route('/<int:number>/<int:comment_number>/delete',methods=['DELETE'])
 def com_delete(number,comment_number):
     user_id=request.values.get('user_id')
-    if not user_id:
-        resultJson=json.dumps({"message": "not login"})
-        return Response(resultJson,mimetype="application/json",status=401)
-    data=database.Comment.objects(user_id=user_id, comment_number=comment_number).first()
-    board_data=database.Notice_board.objects(number=number,tag=request.values.get('tag')).first()
-    #board comment_number list에서 삭제
-    lists=board_data.comment_list
-    lists.remove(comment_number)
-    board_data.update(comment_list=lists)
-     #comment collection삭제
-    data.delete()
-    resultJson=json.dumps({"message": "delete success"})
-    return Response(resultJson,mimetype="application/json",status=200)
+    if user_id:
+        user = database.User.objects(user_id=user_id).first()
+        if user:
+            data=database.Comment.objects(user_id=user_id, comment_number=comment_number).first()
+            board_data=database.Notice_board.objects(number=number,tag=request.values.get('tag')).first()
+            #board comment_number list에서 삭제
+            lists=board_data.comment_list
+            lists.remove(comment_number)
+            board_data.update(comment_list=lists)
+            #comment collection삭제
+            data.delete()
+            resultJson=json.dumps({"message": "delete success"})
+            return Response(resultJson,mimetype="application/json",status=200)
+
+    resultJson=json.dumps({"message": "not login"})
+    return Response(resultJson,mimetype="application/json",status=401)

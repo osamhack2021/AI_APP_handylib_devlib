@@ -52,49 +52,61 @@ def read_data():
 @mypage_page.route('/',methods=['GET'])
 def mypage():
     user_id=request.values.get('user_id')
-    if not user_id:
-        resultJson=json.dumps({"message": "not login"})
-        return Response(resultJson,mimetype="application/json",status=401)
-    #borrow_list 불러오기
-    borrow_list=database.User(user_id=user_id).objects.first().borrow_list
-    borrow_lists=read_borrow(borrow_list)
-    # recommend_list 불러오기(csv파일을 불러올 예정)
-    recommend_list=read_csv(user_id)
-    #user_data 불러오기
+    if user_id:
+        user = database.User.objects(user_id=user_id).first()
+        if user:
+            #borrow_list 불러오기
+            borrow_list = database.User(user_id=user_id).objects.first().borrow_list
+            borrow_lists = read_borrow(borrow_list)
+            # recommend_list 불러오기(csv파일을 불러올 예정)
+            recommend_list = read_csv(user_id)
+            #user_data 불러오기
 
-    # res
-    dicts={
-        "borrow_list": borrow_lists,
-        "recommend_list":recommend_list,
-    }
-    resultJson=json.dumps(dicts, ensure_ascii=False)
-    return Response(resultJson,mimetype="application/json",status=200)
+            # res
+            dicts = {
+                "borrow_list": borrow_lists,
+                "recommend_list": recommend_list,
+            }
+            resultJson = json.dumps(dicts, ensure_ascii=False)
+            return Response(resultJson, mimetype="application/json", status=200)
+
+    resultJson=json.dumps({"message": "not login"})
+    return Response(resultJson,mimetype="application/json",status=401)
 
 @mypage_page.route('/borrow_list',methods=['GET'])
 def borrow():
     user_id=request.values.get('user_id')
-    if not user_id:
-        resultJson=json.dumps({"message": "not login"})
-        return Response(resultJson,mimetype="application/json",status=401)
-    borrow_list=database.User(user_id=user_id).objects.first().borrow_list
-    borrow_lists=read_borrow(borrow_list)
-    resultJson=json.dumps(borrow_lists, ensure_ascii=False)
-    return Response(resultJson,mimetype="application/json",status=200)
+    if user_id:
+        user = database.User.objects(user_id=user_id).first()
+        if user:
+            borrow_list=database.User(user_id=user_id).objects.first().borrow_list
+            borrow_lists=read_borrow(borrow_list)
+            resultJson=json.dumps(borrow_lists, ensure_ascii=False)
+            return Response(resultJson,mimetype="application/json",status=200)
+
+    resultJson=json.dumps({"message": "not login"})
+    return Response(resultJson,mimetype="application/json",status=401)
 
 @mypage_page.route('/recommend_list',methods=['GET'])
 def recommend():
     user_id=request.values.get('user_id')
-    if not user_id:
-        resultJson=json.dumps({"message": "not login"})
-        return Response(resultJson,mimetype="application/json",status=401)
-    recommend_list=read_csv()
-    resultJson=json.dumps(recommend_list, ensure_ascii=False)
-    return Response(resultJson,mimetype="application/json",status=200)
+    if user_id:
+        user = database.User.objects(user_id=user_id).first()
+        if user:
+            recommend_list=read_csv()
+            resultJson=json.dumps(recommend_list, ensure_ascii=False)
+            return Response(resultJson,mimetype="application/json",status=200)
+
+    resultJson=json.dumps({"message": "not login"})
+    return Response(resultJson,mimetype="application/json",status=401)
 
 @mypage_page.route('/user_data',methods=['GET'])
 def user_data():
     user_id=request.values.get('user_id')
-    if not user_id:
-        resultJson=json.dumps({"message": "not login"})
-        return Response(resultJson,mimetype="application/json",status=401)
-    return ""
+    if user_id:
+        user = database.User.objects(user_id=user_id).first()
+        if user:
+            return ""
+
+    resultJson=json.dumps({"message": "not login"})
+    return Response(resultJson,mimetype="application/json",status=401)
