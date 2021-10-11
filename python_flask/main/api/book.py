@@ -48,3 +48,19 @@ def book_search_feed_categoryId(categoryId, page):
     result = {'list': ajson }
     resultJson = json.dumps(result, ensure_ascii=False)
     return Response(resultJson,mimetype="application/json",status=200)
+
+@book_page.route('/search/isbn=<isbn>&page=<page>',methods=['GET','POST'])
+def book_search_isbn(isbn, page):
+    page = int(page)
+    ajson = []
+    if page <= 1:
+        page = 0
+    else:
+        page = page - 1
+    a = list (database.client.API_test.book.find( {'isbn': '{}'.format(isbn)} ).skip(page*5).limit(5))
+    for o in range(len(a)):
+        del(a[o]['_id'])
+        ajson.append((a[o]))
+    result = {'list': ajson }
+    resultJson = json.dumps(result, ensure_ascii=False)
+    return Response(resultJson,mimetype="application/json",status=200)
