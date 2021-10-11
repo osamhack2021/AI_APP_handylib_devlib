@@ -102,10 +102,10 @@ def predict(file_path, users_file_name, pred_score_file_name):
     df_predict = pd.DataFrame(predict, columns=range(len(R[0]))).fillna(0)  # user-item = 1400 x 1125
     df_predict.to_csv(file_path + pred_score_file_name)
 
-
+'''
 file_path = '/var/www/python_flask/main/models/'
 users_file_name = "API_test_users.csv"
 books_file_name = "API_test_books.csv"
 pred_file_name = "rec_pred_score_1.csv"
 
-predict(file_path, users_file_name, pred_file_name)
+predict(file_path, users_file_name, pred_file_name)'''

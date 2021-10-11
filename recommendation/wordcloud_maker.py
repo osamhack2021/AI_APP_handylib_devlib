@@ -36,7 +36,7 @@ def make_wordcloud(file_path, save_path, font_path, users_file_name, books_file_
             stopwords=stopwords)
 
     wc.generate(str_books_tag)
-    file_name = 'liketag_'+str(user_id)+'.png'
+    file_name = 'favoriteCategory_'+str(user_id)+'.png'
     wc.to_file(file_name)
 
     path = os.getcwd()

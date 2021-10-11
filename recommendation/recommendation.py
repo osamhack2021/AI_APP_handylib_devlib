@@ -46,7 +46,7 @@ def recommendation(file_path, save_path, users_file_name, books_file_name, rec_f
     except:
         df_recommendation_newUser = df_books.sample(n=30, replace=False)
         df_recommendation_newUser.to_csv(rec_file_name)
-        shutil.move(rec_file_name, file_path + save_path + "/" + rec_file_name)
+        shutil.move(rec_file_name, file_path + save_path + rec_file_name)
         return
 
     ratings_row = df_ratings.iloc[user_id]
@@ -65,10 +65,10 @@ def recommendation(file_path, save_path, users_file_name, books_file_name, rec_f
     df_recommendation = pd.DataFrame(df_recommendation, columns=['isbn', 'isbn13', 'title'])
     # print(user_id)
     df_recommendation.to_csv(rec_file_name)
-    shutil.move(rec_file_name, file_path + save_path + "/" + rec_file_name)
-
-file_path = 'C:/Users/admin/Documents/osam_ai/book_dataset/'  # 서버 폴더경로 맞춰서 다시 설정
-save_path = 'recommend_list'
+    shutil.move(rec_file_name, file_path + save_path + rec_file_name)
+'''
+file_path = '/var/www/python_flask/main/models/'  # 서버 폴더경로 맞춰서 다시 설정
+save_path = 'recommend_list/'
 users_file_name = "API_test_users.csv"
 books_file_name = "API_test_books.csv"
 
@@ -77,3 +77,4 @@ df_users = pd.read_csv(file_path + users_file_name, encoding='cp949')
 for i in range(1401,1402):  #len(df_users)):
     rec_file_name = str(i).zfill(4) + ".csv"
     recommendation(file_path, save_path, users_file_name, books_file_name, rec_file_name, user_id=i)
+'''
