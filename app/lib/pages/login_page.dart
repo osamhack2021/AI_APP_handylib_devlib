@@ -16,16 +16,15 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   final TextEditingController _idController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: ListView(children: [
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: ListView(children: [
           SizedBox(height: xlarge_gap),
           Logo(
             "Login",
@@ -43,17 +42,28 @@ class _LoginPageState extends State<LoginPage> {
           ),
           SizedBox(height: large_gap),
           ElevatedButton(
-            onPressed: () {
-              var res = loginUser(
-                _idController.value.text, 
-                _passwordController.value.text,
-              );
-              if(res) {
-                debugPrint("login succeed");
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context)=> HomeScreen()),
-                );
+            onPressed: () async {
+               int res = await loginUser(
+                 _idController.value.text,
+                 _passwordController.value.text,
+               );
+               if(true) {
+                /*final snackbar = SnackBar(content:Text('로그인에 성공했습니다.'));
+                ScaffoldMessenger.of(context).showSnackBar(snackbar);*/
+                Navigator.of(context).pushReplacementNamed(
+                   
+                   '/home',
+                   arguments: User("name","id","pa","e","b","d"), //loadUserInfo(_idController.value.text),
+                 );
+               }
+              else if(res == 401){
+                 final snackbar = SnackBar(content:Text('아이디 또는 비밀번호를 확인하여 주십시오.'));
+                ScaffoldMessenger.of(context).showSnackBar(snackbar);
+               }
+              else {
+                debugPrint("login server failed");
+                final snackbar = SnackBar(content:Text('로그인 서버에 연결하지 못했습니다.'));
+                ScaffoldMessenger.of(context).showSnackBar(snackbar);
               }
             }, 
             child: Text(
@@ -76,4 +86,3 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
-

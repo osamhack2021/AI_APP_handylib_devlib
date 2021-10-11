@@ -6,7 +6,7 @@ class myBottomNavigation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TabBar(
+    return const TabBar(
       tabs: <Widget>[
         Tab(
           icon: Icon(Icons.home),
@@ -15,7 +15,10 @@ class myBottomNavigation extends StatelessWidget {
           icon: Icon(Icons.calendar_today),
         ),
         Tab(
-          icon: Icon(Icons.search),
+          icon: Icon(Icons.local_library),
+        ),
+        Tab(
+          icon: Icon(Icons.forum)
         ),
         Tab(
           icon: Icon(Icons.account_circle),

@@ -7,7 +7,6 @@ import 'package:app/constants/size.dart';
 import 'package:app/controller/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:crypt/crypt.dart';
 
 class RegisterPage extends StatefulWidget {
 
@@ -24,7 +23,9 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _rankController = TextEditingController();
 
   var myId='testID';
-  
+  late int _registerResponse;
+  late User myUser;
+
   final _formKey = GlobalKey<FormState>();
   @override
 
@@ -46,7 +47,6 @@ class _RegisterPageState extends State<RegisterPage> {
                 Logo("Register"),
                 
                 CustomTextFormField(
-        
                   title: "name", 
                   hintText: "성명",
                   controller: _usernameController,
@@ -83,10 +83,10 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 SizedBox(height:large_gap),
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
+                    testHttp();/*
                     if (_formKey.currentState!.validate()) {
-                      debugPrint(_idController.value.text);
-                      createUser(
+                      _registerResponse = await createUser(
                         _usernameController.value.text,
                         _idController.value.text,
                         _passwordController.value.text,
@@ -95,6 +95,26 @@ class _RegisterPageState extends State<RegisterPage> {
                         _rankController.value.text,
                       );
                     }
+                    if(_registerResponse == 200) {
+                      final snackbar = SnackBar(content:Text('회원가입에 성공했습니다.'));
+                      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                    
+                      Navigator.of(context).pushNamed(
+                        '/home',
+                        arguments : User(
+                          _usernameController.value.text,
+                        _idController.value.text,
+                        _passwordController.value.text,
+                        _emailController.value.text,
+                        _unitController.value.text,
+                        _rankController.value.text,
+                        ),
+                      );
+                    }
+                    else {
+                      final snackbar = SnackBar(content:Text('회원가입에 실패했습니다. 에러코드 : ${_registerResponse}'));
+                      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                    }*/
                   }, 
                   child: Text('회원가입'),
                   style : ButtonStyle(
@@ -102,6 +122,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   )
                 ),
                 SizedBox(height:xlarge_gap),
+                
         
               ])),
         ));
