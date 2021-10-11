@@ -1,7 +1,5 @@
 <div id="top"></div>
 
-
-
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
@@ -9,7 +7,7 @@
     <img src="images/logo.ico" alt="Logo" width="80" height="80">
   </a>
 
-  ![license](https://img.shields.io/github/license/osamhack2021/AI_APP_handylib_devlib.svg)
+![license](https://img.shields.io/github/license/osamhack2021/AI_APP_handylib_devlib.svg)
 ![repo size in bytes](https://img.shields.io/github/repo-size/osamhack2021/AI_APP_handylib_devlib.svg)
 ![GitHub contributors](https://img.shields.io/github/contributors/osamhack2021/AI_APP_handylib_devlib.svg)
 ![GitHub commit](https://img.shields.io/github/last-commit/osamhack2021/AI_APP_handylib_devlib.svg)
@@ -25,8 +23,6 @@
     <a href="https://github.com/othneildrew/Best-README-Template"><strong>[ 데모버전 ]</strong></a>
   </p>
 </div>
-
-
 
 <!-- TABLE OF CONTENTS -->
 
@@ -60,9 +56,9 @@
 <br/>
 
 ## 프로젝트 요약
-</br>
+
 <img src="images/sample.png" alt="Logo" height=800>
-</br></br>
+</br>
 '내 손안의 진중문고'는 진중(陣中)에 위치한 손 안의 도서관이라는 뜻으로, 현재 각 군부대에 위치한 북카페/도서관을 현역 군인들이 보다 손쉽게 사용할 수 있도록 어플리케이션으로 만들어졌습니다.
 
 '내 손안의 진중문고'는 다음과 같은 장점이 있습니다:
@@ -95,65 +91,51 @@
 
 ### - 백엔드
 
-자세한 내용은 이하의 백엔드의 [Readme](https://github.com/osamhack2021/AI_APP_handylib_devlib/tree/main/python_flask)를 참고해주세요.
+Python의 웹 프레임워크 중 하나인 Flask를 이용하여 어플리케이션의 요청을 처리하는 REST API를 개발하였습니다. 어플리케이션에 정보 저장에 필요한 데이터베이스는 Mongodb를 이용하였고 apache를 이용하여 서버를 자동화하였습니다.<br/>
+자세한 내용은 이하의 백엔드의 [Readme](https://github.com/osamhack2021/AI_APP_handylib_devlib/tree/main/server)를 참고해주세요.
 
 ---
 
 ### - 추천알고리즘
 
-자세한 내용은 이하의 [Readme](https://github.com/osamhack2021/AI_APP_handylib_devlib/tree/main/recommendation)를 참고해주세요.
+collaborative filtering 중 하나인 matrix factorization을 이용하여 추천시스템을 개발하였습니다. 신규사용자에겐 도서 이용 기록등이 없으므로 전체 책 중 무작위로 추천리스트가 제공되고, 사용자가 좋아하는 도서에 좋아요를 누르면 매일 밤 21시 추천점수가 업데이트되어 맞춤형 도서를 추천받을 수 있습니다.<br/>
+자세한 내용은 AI의 [Readme](https://github.com/osamhack2021/AI_APP_handylib_devlib/tree/main/ai)를 참고해주세요.
+
+</br>
 
 ## 사용법
 
-This is an example of how to list things you need to use the software and how to install them.
+사용자는 안드로이드/ios 스마트폰을 이용하여 어플리케이션을 설치하여 기능을 사용할 수 있습니다. 현재는 ios 빌드가 유료인 관계로 안드로이드만을 지원하며, 추후 ios빌드를 제공할 계획입니다.
 
-- npm
-  ```sh
-  npm install npm@latest -g
-  ```
+### 설치
 
-### Installation
+1. 다음 링크에서 어플리케이션을 다운받으세요. [https://example.com](https://example.com)
+2. 어플리케이션을 설치해 주세요.
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-   ```sh
-   git clone https://github.com/your_username_/Project-Name.git
-   ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = "ENTER YOUR API";
-   ```
+3. 어플리케이션의 권한을 설정해 주세요.
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+각 기능별 개발을 위한 설치방법은 기능별 README를 참고해주세요.
 
 <!-- USAGE EXAMPLES -->
 
-## 사용법
+### 어플리케이션 사용법
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
-
-<p align="right">(<a href="#top">back to top</a>)</p>
+개발이 완료된 후 이미지가 추가 될 예정입니다.
 
 <!-- LICENSE -->
 
 ## 라이센스
 
-Distributed under the MIT License. See `LICENSE.txt` for more information.
-
-<p align="right">(<a href="#top">back to top</a>)</p>
+MIT라이센스가 적용되었습니다. `LICENSE` 파일을 통해 확인할 수 있습니다. 프로젝트에 사용된 오픈소스 라이브러리에 대한 라이센스는 `DEPENDENCIES` 파일을 통해 확인해주세요.
 
 <!-- CONTACT -->
 
 ## 개발자 정보
 
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
+김민준 - mamy0320@naver.com</br>
+홍지환 - eat333@naver.com </br>
+김수민 - kdg97811@naver.com</br>
+고명진 - mj2000go@naver.com</br>
+김승하 - kstream35@gmail.com</br>
 
-Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
-
-<p align="right">(<a href="#top">back to top</a>)</p>
+군장병 온라인 해커톤: [https://osam.kr/home](https://osam.kr/home)
