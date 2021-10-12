@@ -1,13 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:app/components/custom_text_form_field.dart';
 import 'package:app/components/login_page/rounded_button.dart';
-import 'package:app/components/logo.dart';
 import 'package:app/components/login_page/rounded_input_field.dart';
 import 'package:app/components/login_page/rounded_password_field.dart';
 import 'package:app/components/underlined_text.dart';
 import 'package:app/constants/colors.dart';
-import 'package:app/constants/size.dart';
 import 'package:app/controller/user_controller.dart';
 
 import 'package:flutter/material.dart';
