@@ -25,7 +25,8 @@ def info_edit():
             name = params['name']
             unit = params['unit']
             rank = params['rank']
-            user.update(email=email, name= name, unit=unit, rank=rank)
+            password=params['password']
+            user.update(email=email, name= name, unit=unit, rank=rank,password=password)
             resultJson=json.dumps({"message": "edit success"})
             return Response(resultJson,mimetype="application/json",status=200)
     resultJson=json.dumps({"message": "not login"})
