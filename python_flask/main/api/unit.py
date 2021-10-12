@@ -36,7 +36,7 @@ def Unit_books_list(Unit_name):
             resultJson = json.dumps(jsl, ensure_ascii=False)
             return Response(resultJson,mimetype="application/json",status=201)
 
-@unit_page.route('/<Unit_name>/best', methods=['GET', 'POST'])
+@unit_page.route('/best/Unit_name=<Unit_name>', methods=['GET', 'POST'])
 def Unit_books_best(Unit_name):
     c = 0
     for i in range(0,len(database.Unit.objects())):
@@ -83,7 +83,7 @@ def Unit_books_list_brr(Unit_name, isbn, user_id):
     return Response(resultJson,mimetype="application/json",status=200)
 
 @unit_page.route('/ret/Unit_name=<Unit_name>&isbn=<isbn>&user_id=<user_id>', methods=['POST'])
-def Unit_books_list_brr(Unit_name, isbn, user_id):
+def Unit_books_list_ret(Unit_name, isbn, user_id):
     c = []
     for i in database.Unit.objects(name='{}'.format(Unit_name))[0]['books_list']:
         if i['isbn'] == '{}'.format(isbn):
@@ -105,7 +105,7 @@ def Unit_books_list_brr(Unit_name, isbn, user_id):
     return Response(resultJson,mimetype="application/json",status=200)
 
 @unit_page.route('/chk/Unit_name=<Unit_name>&isbn=<isbn>', methods=['GET', 'POST'])
-def Unit_books_list_brr(Unit_name, isbn):
+def Unit_books_list_chk(Unit_name, isbn):
     c = []
     for i in database.Unit.objects(name='{}'.format(Unit_name))[0]['books_list']:
         if i['isbn'] == '{}'.format(isbn):
