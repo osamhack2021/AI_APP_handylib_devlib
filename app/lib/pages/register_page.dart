@@ -1,5 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:io';
+
+import 'package:app/components/default_circle_avatar.dart';
 import 'package:app/constants/colors.dart';
 import 'package:app/controller/user_controller.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +12,9 @@ import 'package:app/components/login_page/rounded_input_field.dart';
 import 'package:app/components/login_page/rounded_password_field.dart';
 import 'package:app/components/underlined_text.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -25,6 +31,9 @@ class _RegisterPageState extends State<RegisterPage> {
     "unit": [TextEditingController(), false, false],
     "rank": [TextEditingController(), false, false],
   };
+  ImagePicker imagePicker = ImagePicker();
+
+  File? _image;
 
   var myId = 'testID';
   late int _registerResponse;
@@ -102,6 +111,39 @@ class _RegisterPageState extends State<RegisterPage> {
                       style: const TextStyle(
                           fontSize: 24, fontWeight: FontWeight.bold),
                       thickness: 7),
+                  SizedBox(height: size.height * 0.03),
+                  InkWell(
+                      onTap: _onCameraClick,
+                      child: Stack(
+                        alignment: Alignment.bottomCenter,
+                        children: <Widget>[
+                          _image != null
+                              ? CircleAvatar(
+                                  radius: 100,
+                                  backgroundColor: Colors.white,
+                                  child: ClipOval(
+                                    child: SizedBox(
+                                      width: 190,
+                                      height: 190,
+                                      child: Image.file(
+                                        _image!,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              : DefaultCircleAvatar(size: 100),
+                          Positioned(
+                            left: 80,
+                            right: 0,
+                            child: FloatingActionButton(
+                                backgroundColor: Color(COLOR_PRIMARY),
+                                child: Icon(Icons.camera_alt),
+                                mini: true,
+                                onPressed: _onCameraClick),
+                          )
+                        ],
+                      )),
                   SizedBox(height: size.height * 0.03),
                   RoundedInputField(
                     hintText: "성명",
@@ -194,6 +236,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                       GestureDetector(
                         onTap: () => Navigator.of(context).pop(),
+                        // onTap: _onCameraClick,
                         child: Text(
                           "로그인",
                           style: TextStyle(
@@ -203,98 +246,23 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                       )
                     ],
-                  )
+                  ),
+                  SizedBox(height: size.height * 0.03),
                 ],
               ),
             )));
   }
+
+  _onCameraClick() async {
+    ImagePicker _imagePicker = imagePicker;
+    XFile? image = await _imagePicker.pickImage(source: ImageSource.gallery);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (image != null) {
+      prefs.setString('profileImage', image.path);
+
+      setState(() {
+        _image = File(image.path);
+      });
+    }
+  }
 }
-
-
-
-// Form(
-//           key: _formKey,
-//           child: Padding(
-//               padding: const EdgeInsets.all(16.0),
-//               child: ListView(children: [
-//                 SizedBox(height: xlarge_gap),
-//                 Logo("Register"),
-                
-//                 CustomTextFormField(
-//                   title: "name", 
-//                   hintText: "성명",
-//                   controller: _usernameController,
-//                 ),
-//                 SizedBox(height: medium_gap),
-//                 CustomTextFormField(
-//                   title: "ID", 
-//                   hintText: "아이디",
-//                   controller: _idController,
-//                 ),
-//                 SizedBox(height: medium_gap),
-//                 CustomTextFormField(
-//                     title: "password", 
-//                     hintText: "비밀번호(8자 이상)",
-//                     controller: _passwordController,
-//                 ),
-//                 SizedBox(height:medium_gap),
-//                 CustomTextFormField(
-//                     title: "email", 
-//                     hintText: "이메일 주소",
-//                     controller: _emailController,
-//                 ),
-//                 SizedBox(height:medium_gap),
-//                 CustomTextFormField(
-//                     title: "unit", 
-//                     hintText: "소속 부대",
-//                     controller: _unitController,
-//                 ),
-//                 SizedBox(height:medium_gap),
-//                 CustomTextFormField(
-//                     title: "rank", 
-//                     hintText: "계급",
-//                     controller: _rankController,
-//                 ),
-//                 SizedBox(height:large_gap),
-//                 ElevatedButton(
-//                   onPressed: () async {
-                  //   testHttp();/*
-                  //   if (_formKey.currentState!.validate()) {
-                  //     _registerResponse = await createUser(
-                  //       _usernameController.value.text,
-                  //       _idController.value.text,
-                  //       _passwordController.value.text,
-                  //       _emailController.value.text,
-                  //       _unitController.value.text,
-                  //       _rankController.value.text,
-                  //     );
-                  //   }
-                  //   if(_registerResponse == 200) {
-                  //     final snackbar = SnackBar(content:Text('회원가입에 성공했습니다.'));
-                  //     ScaffoldMessenger.of(context).showSnackBar(snackbar);
-                    
-                  //     Navigator.of(context).pushNamed(
-                  //       '/home',
-                  //       arguments : User(
-                  //         _usernameController.value.text,
-                  //       _idController.value.text,
-                  //       _passwordController.value.text,
-                  //       _emailController.value.text,
-                  //       _unitController.value.text,
-                  //       _rankController.value.text,
-                  //       ),
-                  //     );
-                  //   }
-                  //   else {
-                  //     final snackbar = SnackBar(content:Text('회원가입에 실패했습니다. 에러코드 : ${_registerResponse}'));
-                  //     ScaffoldMessenger.of(context).showSnackBar(snackbar);
-                  //   }*/
-                  // }, 
-//                   child: Text('회원가입'),
-//                   style : ButtonStyle(
-//                     backgroundColor : MaterialStateProperty.all<Color>(Color(COLOR_PRIMARY)),
-//                   )
-//                 ),
-//                 SizedBox(height:xlarge_gap),
-//               ])),
-//         )
