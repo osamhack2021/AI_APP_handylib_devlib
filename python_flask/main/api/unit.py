@@ -9,7 +9,7 @@ def unit_name():
     u = []
     for i in range(0,len(database.Unit.objects())):
         u.append(database.Unit.objects[i].name)
-    jsl = {'Unit_names': u }
+    jsl = {'Unit_name': u }
     resultJson = json.dumps(jsl, ensure_ascii=False)
     return Response(resultJson,mimetype="application/json",status=200)
 
@@ -21,9 +21,9 @@ def Unit_books_list(Unit_name):
             c += 1
     if c == 1 :
         q = []
-        for i in database.Unit.objects(name='test1')[0]['books_list']:
+        for i in database.Unit.objects(name='{}'.format(Unit_name))[0]['books_list']:
             q.append(i.to_json())
-        result = {'books_list': q}
+        result = {'name': '{}'.format(Unit_name), 'books_list': q}
         resultJson = json.dumps(result, ensure_ascii=False)
         return Response(resultJson,mimetype="application/json",status=200)
     else :
@@ -36,25 +36,30 @@ def Unit_books_list(Unit_name):
             resultJson = json.dumps(jsl, ensure_ascii=False)
             return Response(resultJson,mimetype="application/json",status=201)
 
-# @unit_page.route('/<Unit_name>/best', methods=['GET', 'POST'])
-# def Unit_books_best(Unit_name):
-#     c = 0
-#     for i in range(0,len(database.Unit.objects())):
-#         if database.Unit.objects[i].name == '{0}'.format(Unit_name):
-#             c += 1
-#     if c == 1 :
-#         # jsl = {'name': '{0}'.format(Unit_name), 'books_list': database.Unit.objects(name='{0}'.format(Unit_name))[0].books_list[0:9] } *score기반으로 best선정예정
-#         resultJson = json.dumps(jsl, ensure_ascii=False)
-#         return Response(resultJson,mimetype="application/json",status=200)
-#     else :
-#         if c == 0 :
-#             jsl = {'Error': '부대가 없거나 올바른 부대를 입력해주세요.'}
-#             resultJson = json.dumps(jsl, ensure_ascii=False)
-#             return Response(resultJson,mimetype="application/json",status=201)
-#         else :
-#             jsl = {'Error': '동일한 부대 데이터가 2개이상 존재합니다.'}
-#             resultJson = json.dumps(jsl, ensure_ascii=False)
-#             return Response(resultJson,mimetype="application/json",status=201)
+@unit_page.route('/<Unit_name>/best', methods=['GET', 'POST'])
+def Unit_books_best(Unit_name):
+    c = 0
+    for i in range(0,len(database.Unit.objects())):
+        if database.Unit.objects[i].name == '{0}'.format(Unit_name):
+            c += 1
+    if c == 1 :
+        q = []
+        for i in database.Unit.objects(name='{}'.format(Unit_name))[0]['books_list']:
+            q.append(i.to_json())
+        jsl = sorted(q, key=(lambda x: x['score']) , reverse=True)
+        jsl = jsl[0:9]
+        jsl = {'name': '{}'.format(Unit_name), 'books_list': jsl}
+        resultJson = json.dumps(jsl, ensure_ascii=False)
+        return Response(resultJson,mimetype="application/json",status=200)
+    else :
+        if c == 0 :
+            jsl = {'Error': '부대가 없거나 올바른 부대를 입력해주세요.'}
+            resultJson = json.dumps(jsl, ensure_ascii=False)
+            return Response(resultJson,mimetype="application/json",status=201)
+        else :
+            jsl = {'Error': '동일한 부대 데이터가 2개이상 존재합니다.'}
+            resultJson = json.dumps(jsl, ensure_ascii=False)
+            return Response(resultJson,mimetype="application/json",status=201)
 
 @unit_page.route('/brr/Unit_name=<Unit_name>&isbn=<isbn>&user_id=<user_id>', methods=['POST'])
 def Unit_books_list_brr(Unit_name, isbn, user_id):
