@@ -1,4 +1,7 @@
+import 'dart:convert';
+import 'package:app/constants/uri.dart';
 import 'package:app/models/post_models.dart';
+import 'package:http/http.dart' as http;
 
 class Board {
   int? boardId;
@@ -16,6 +19,28 @@ List<Board> boardDataList = [
   Board(2, "독서 토론 게시판", "debate"),
   Board(3, "자유게시판", "free"),
 ];
+
+List<Post> parsePost(String responseBody) {
+  final parsed = json.decode(responseBody).cast<Map<String,dynamic>>();
+  return parsed.map<Post>((json)=>Post.fromJson(json)).toList();
+}
+
+Future<List<Post>> getPostListbyTag(String tag) async {
+  final response = await http.post(
+      Uri.parse(proxyUri +  myUri + 'board/1'),
+      headers: <String, String>{
+        'Content-Type' : 'application/json; charset=UTF-8',
+      },
+      body :
+        jsonEncode(<String, dynamic>{
+        'tag' : tag,
+        'page_id' : 1,
+        },
+    ),
+  );
+  return parsePost(response.body);
+}
+
 
 getBoardbyId(int? boardIdQuery) {
   for(Board myBoard in boardDataList) {

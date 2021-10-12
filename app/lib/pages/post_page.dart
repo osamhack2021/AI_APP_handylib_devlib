@@ -33,7 +33,7 @@ class PostPage extends StatelessWidget {
                   SizedBox(width:large_gap),
                   Column(children: [
                     Text(
-                      '${thisPost.postAuthor}',
+                      '${thisPost.author}',
                       style:TextStyle(
                         fontWeight:FontWeight.bold,
                         fontSize:16,
@@ -72,7 +72,7 @@ class PostPage extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            '${thisPost.postContent}',
+                            '${thisPost.content}',
                             textAlign: TextAlign.left,
                             overflow: TextOverflow.clip,
                           ),

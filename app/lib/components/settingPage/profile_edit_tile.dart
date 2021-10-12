@@ -2,6 +2,7 @@ import 'package:app/components/settingPage/show_modify_dialog.dart';
 import 'package:app/controller/user_controller.dart';
 import 'package:flutter/material.dart';
 
+
 class ProfileEditTile extends StatelessWidget {
 
   String title;
@@ -23,10 +24,10 @@ class ProfileEditTile extends StatelessWidget {
 
           ),
           onPressed: () => {
-            showModifyDialog(context, title)            
-          },
-        ),
-      ),
+            showModifyDialog(context, title)
+          }
+        )          
+      )
     );
   }
 

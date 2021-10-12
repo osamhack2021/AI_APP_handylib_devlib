@@ -21,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
     myUser = ModalRoute.of(context)!.settings.arguments as User?;
     
     //below code is for debug 
-    myUser = User('defaultName', 'defaultId', 'defaultPassword', 'defaultEmail', 'defaultUnit', 'defaultRank');
+    //myUser = User('defaultName', 'defaultId', 'defaultPassword', 'defaultEmail', 'defaultUnit', 'defaultRank');
     
     return Scaffold(
       body: DefaultTabController(

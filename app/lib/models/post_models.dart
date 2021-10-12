@@ -2,20 +2,29 @@ import 'comment_models.dart';
 
 class Post {
   int? postId;
-  String? postName, postTag, postAuthor, postContent;
-  List<Comment> postCommentList = [];
+  String? postName, postTag, author, content, timeStamp;
+  List<int> postCommentList = [];
 
   Post(
     int myPostId, 
     String myPostName,
-    String myPostAuthor,
+    String myauthor,
     String myPostTag,
-    String myPostContent,
+    String mycontent,
     ){
     postId = myPostId;
     postName = myPostName;
-    postAuthor = myPostAuthor;
+    author = myauthor;
     postTag = myPostTag;
-    postContent = myPostContent;
+    content = mycontent;
   }
+
+  Post.fromJson(Map<String, dynamic> json)
+  : postId = json["number"],
+    author = json["user_id"],
+    postName = json["title"],
+    content = json["content"],
+    postTag = json["tag"],
+    timeStamp = json["time_stamp"];
+    
 }

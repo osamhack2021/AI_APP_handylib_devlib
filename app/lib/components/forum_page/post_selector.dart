@@ -23,7 +23,7 @@ class PostSelector extends StatelessWidget {
         },
         //dense:true,
         title:Text('PostSelector ${_thisPost.postName}'),
-        subtitle: Text('${_thisPost.postAuthor}'),
+        subtitle: Text('${_thisPost.author}'),
       )
     );
   }

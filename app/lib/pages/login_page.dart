@@ -47,13 +47,15 @@ class _LoginPageState extends State<LoginPage> {
                  _idController.value.text,
                  _passwordController.value.text,
                );
-               if(true) {
-                /*final snackbar = SnackBar(content:Text('로그인에 성공했습니다.'));
-                ScaffoldMessenger.of(context).showSnackBar(snackbar);*/
+               debugPrint('${res}');
+               if(res == 200) {
+                //final snackbar = SnackBar(content:Text('로그인에 성공했습니다.'));
+                //ScaffoldMessenger.of(context).showSnackBar(snackbar);*/
                 Navigator.of(context).pushReplacementNamed(
                    
                    '/home',
-                   arguments: User("name","id","pa","e","b","d"), //loadUserInfo(_idController.value.text),
+                   arguments:await loadUserInfo(_idController.value.text),
+                   //arguments: User('test','test','test','test','test','test'),
                  );
                }
               else if(res == 401){
@@ -61,7 +63,6 @@ class _LoginPageState extends State<LoginPage> {
                 ScaffoldMessenger.of(context).showSnackBar(snackbar);
                }
               else {
-                debugPrint("login server failed");
                 final snackbar = SnackBar(content:Text('로그인 서버에 연결하지 못했습니다.'));
                 ScaffoldMessenger.of(context).showSnackBar(snackbar);
               }

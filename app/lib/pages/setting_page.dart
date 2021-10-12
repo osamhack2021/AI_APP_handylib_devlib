@@ -35,7 +35,7 @@ class _SettingPageState extends State<SettingPage> {
           ]),
           SizedBox(height : large_gap),
           ListTile(title:Text('아이디 : ${getPropertyValue(myUser!, 'userId')}')),
-          ProfileEditTile(myUser!, "username"),
+          ProfileEditTile(myUser!, "name"),
           ProfileEditTile(myUser!, "password"),
           ProfileEditTile(myUser!, "email"),
           ProfileEditTile(myUser!, "unit"),
