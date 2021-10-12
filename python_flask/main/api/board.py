@@ -21,12 +21,11 @@ def boarding(page_id):
 #해당 페이지 불러오는 라우터
 @board_page.route('/page/<int:number>',methods=['GET'])
 def board_number(number):
-    user_id=request.values.get('user_id')
     board_item=database.Notice_board.objects(number=number,tag=request.values.get('tag')).first()
     comments= []
     # 댓글 내용 comment 컬렉션에서 불러오기
     for num in board_item.comment_list:
-        comments.append(database.Comment.objects(user_id=user_id, comment_number=num).first().to_json)
+        comments.append(database.Comment.objects(user_id=board_item.user_id, comment_number=num).first().to_json)
     board_item.comment_list=comments
     resultJson=json.dumps(board_item, ensure_ascii=False)
     return Response(resultJson,mimetype="application/json",status=200)

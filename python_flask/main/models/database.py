@@ -82,12 +82,16 @@ class Comment(db.Document):
   user_id = StringField()
   content = StringField()
   time_stamp=DateField()
+  board_number=IntField()
+  tag=StringField()
   def to_json(self):
     return {
     "user_id": self.user_id,
     "comment_number":self.comment_number,
     "content":self.content,
-    "time_stamp":self.time_stamp
+    "time_stamp":self.time_stamp,
+    "board_number":self.board_number,
+    "tag":tag
     }
 class Unit(db.Document):
   # objectid(고유번호) = auto_create or insert
