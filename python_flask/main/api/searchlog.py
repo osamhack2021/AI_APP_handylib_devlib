@@ -4,7 +4,7 @@ from main.models import database
 
 search_page=Blueprint('search',__name__)
 
-@search_page.route('/<user_id>/search=<keyword>',methods=['POST'])
+@search_page.route('/<user_id>/searchkeyword=<keyword>',methods=['POST'])
 def search_keyword(user_id, keyword):
     sob = database.Searchlog.objects(user_id='{0}'.format(user_id))
     if len(sob) == 0 :
