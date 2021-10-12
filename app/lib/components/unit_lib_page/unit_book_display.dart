@@ -1,5 +1,6 @@
 
 import 'package:app/constants/size.dart';
+import 'package:app/models/unit_book_models.dart';
 import 'package:flutter/material.dart';
 
 class UnitBookDisplay extends StatelessWidget {
@@ -8,10 +9,11 @@ class UnitBookDisplay extends StatelessWidget {
     required this.imageHeight,
     required this.imageWidth,
   }) : super(key: key);*/
+  final UnitBook? bookData;
   final double? imageHeight;
   final double? imageWidth;
 
-  const UnitBookDisplay({this.imageHeight, this.imageWidth});
+  const UnitBookDisplay({this.bookData, this.imageHeight, this.imageWidth});
   
   @override
 
@@ -48,7 +50,7 @@ class UnitBookDisplay extends StatelessWidget {
           ),
         ),
         
-      Text("BookName"),
+      Text(bookData!.title),
       ],
     );
     

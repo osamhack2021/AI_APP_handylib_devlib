@@ -8,10 +8,34 @@ import 'package:crypt/crypt.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+List<String> rankList = [
+  "이병",
+  "이등병",
+  "일병",
+  "상병",
+  "병장",
+  "하사",
+  "중사",
+  "상사",
+  "원사",
+  "소위",
+  "중위",
+  "대위",
+  "소령",
+  "중령",
+  "대령",
+  "준장",
+  "소장",
+  "중장",
+  "대장",
+  "군무원",
+  "test"
+];
+
 Future<int> createUser(
-  String name, 
-  String userId, 
-  String password, 
+  String name,
+  String userId,
+  String password,
   String email,
   String unit,
   String rank,
@@ -48,23 +72,21 @@ Future<int> createUser(
     }
 }
 
-void  testHttp() async{
+void testHttp() async {
   final response = await http.get(
     Uri.parse(proxyUri+ myUri+'mypage/'),
     headers: <String, String>{
-      'Content-Type' : 'application/json; charset=UTF-8',
+      'Content-Type': 'application/json; charset=UTF-8',
     },
   );
-  var statusCode = response.statusCode; 
+  var statusCode = response.statusCode;
   var responseHeaders = response.headers;
   var responseBody = response.body;
 
   debugPrint("statusCode: ${statusCode}");
   debugPrint("responseHeaders: ${responseHeaders}");
   debugPrint("responseBody: ${responseBody}");
-
 }
-
 
 Future<int> loginUser(String userId, String password) async {
   final encryptedPassword = Crypt.sha256(password, salt:mySalt).toString();
@@ -80,7 +102,7 @@ Future<int> loginUser(String userId, String password) async {
       },
     ),
   );
-  
+
   //Message responseMessage = Message.fromJson(jsonDecode(response.body));
 
   return response.statusCode;
@@ -154,7 +176,8 @@ class User{
   String unit = "defaultUnit";
   String rank = "defaultRank";
 
-  User(this.username, this.userId, this.password, this.email, this.unit, this.rank);
+  User(this.username, this.userId, this.password, this.email, this.unit,
+      this.rank);
 
   User.fromJson(Map<String, dynamic> json)
   : userId = json["user_id"],

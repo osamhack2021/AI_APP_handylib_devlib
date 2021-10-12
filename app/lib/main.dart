@@ -1,3 +1,4 @@
+import 'package:app/screens/ebook_viewer.dart';
 import 'package:app/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:app/navigation/routes.dart';
@@ -6,9 +7,7 @@ import 'package:intl/date_symbol_data_local.dart';
 
 Future main() async {
   await dotenv.load(fileName: "setting.env");
-  initializeDateFormatting('ko_KR', null).then((_) => {
-  runApp(const MyApp())
-  });
+  initializeDateFormatting('ko_KR', null).then((_) => {runApp(const MyApp())});
 }
 
 class MyApp extends StatelessWidget {
@@ -18,6 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: HomeScreen(),
+      // home: EbookReader(),
       routes: routes,
       debugShowCheckedModeBanner: false,
     );

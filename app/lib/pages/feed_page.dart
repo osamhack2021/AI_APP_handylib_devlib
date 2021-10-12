@@ -35,18 +35,16 @@ class _FeedPageState extends State<FeedPage> {
 
   Future<List<List<Book>>> fetchData() async {
     List<List<Book>> bookData = [];
-    String host = "www.aladin.co.kr";
-    String path = "ttb/api/ItemLookUp.aspx";
     List<Book> tmpBook = [];
     for (int isbn13 in isbnList) {
-      tmpBook.add(Book.fromJson(
-          await apiGet(aladinParam(isbn13.toString()), host, path)));
+      tmpBook.add(
+          Book.fromJson(await feedAladinApiGet(isbn13.toString())));
     }
     bookData.add(tmpBook);
     tmpBook = [];
     for (int isbn13 in isbnList2) {
-      tmpBook.add(Book.fromJson(
-          await apiGet(aladinParam(isbn13.toString()), host, path)));
+      tmpBook.add(
+          Book.fromJson(await feedAladinApiGet(isbn13.toString())));
     }
     bookData.add(tmpBook);
     return bookData;
@@ -61,7 +59,7 @@ class _FeedPageState extends State<FeedPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: FeedPageAppBar(),
+        appBar: FeedPageAppBar(context),
         body: FutureBuilder<List<List<Book>>>(
           future: data,
           builder: (context, snapshot) {

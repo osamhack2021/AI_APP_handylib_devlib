@@ -1,4 +1,5 @@
 import 'package:app/components/forum_page/post_selector.dart';
+import 'package:app/components/titled_appbar.dart';
 import 'package:app/constants/colors.dart';
 import 'package:app/constants/size.dart';
 import 'package:app/models/board_models.dart';
@@ -6,7 +7,7 @@ import 'package:app/models/post_models.dart';
 import 'package:flutter/material.dart';
 
 class PostListPage extends StatefulWidget {
-  const PostListPage({ Key? key }) : super(key: key);
+  const PostListPage({Key? key}) : super(key: key);
 
   @override
   State<PostListPage> createState() => _PostListPageState();
@@ -22,31 +23,25 @@ class _PostListPageState extends State<PostListPage> {
 
   @override
   Widget build(BuildContext context) {
-
     final thisBoard = ModalRoute.of(context)!.settings.arguments as Board;
     
     _getPostList(thisBoard.boardTag);
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color(COLOR_PRIMARY),
-        centerTitle: true,
-        title : (
-          Text("${thisBoard.boardName}")
-        ),
-      ),
+      appBar: TitledAppbar(thisBoard.boardName!),
       bottomNavigationBar: BottomAppBar(
         color: Color(COLOR_PRIMARY2),
-        child:Row(children: [
+        child: Row(children: [
           IconButton(
             padding: EdgeInsets.fromLTRB(16.0, 10.0, 16.0, 10.0),
-              onPressed: (){},
-              icon: Icon(
-                Icons.home,
-                color: Colors.black54,
-                ),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            icon: Icon(
+              Icons.home,
+              color: Colors.black54,
+            ),
           ),
-          Expanded(child:Row()
-          ),
+          Expanded(child: Row()),
           IconButton(
             onPressed: (){},
               icon: Icon(
@@ -69,6 +64,7 @@ class _PostListPageState extends State<PostListPage> {
         ]
         )
       ),
+      
     );
   }
 }

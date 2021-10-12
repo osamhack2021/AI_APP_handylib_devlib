@@ -4,17 +4,9 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:xml/xml.dart';
 import 'package:intl/intl.dart';
 
-Map<String, dynamic> aladinParam(String isbn13) {
-  Map<String, dynamic> ret = {
-    "ttbkey": dotenv.env["TTBKEY"],
-    "itemIdType": "ISBN13",
-    "ItemId": isbn13,
-    "output": "XML",
-    "Omitkey": "1",
-    "Cover": "Big"
-  };
-  return ret;
-}
+String aladinHost = "www.aladin.co.kr";
+String aladinFeedPath = "ttb/api/ItemLookUp.aspx";
+String aladinSearchPath = "ttb/api/ItemSearch.aspx";
 
 Map<String, String> _monthMap = {
   "Jan": "01",
@@ -31,57 +23,81 @@ Map<String, String> _monthMap = {
   "Dec": "12"
 };
 
-Future<Map<String, dynamic>> apiGet(
-    Map<String, dynamic> _param, String _host, String _path) async {
+///////////////////// search //////////////////////
+Map<String, dynamic> _aladinSearchParam(String query, int page) {
+  Map<String, dynamic> ret = {
+    "ttbkey": dotenv.env["TTBKEY"],
+    "query": query,
+    "output": "js",
+    "start": page.toString(),
+    "maxresults": "10",
+    "Version": "20131101",
+    "Cover": "Big"
+  };
+  return ret;
+}
+
+Future<Map<String, dynamic>> searchAladinApiGet(String query, int page) async {
+  Map<String, dynamic> _param = _aladinSearchParam(query, page);
+
   http.Response response = await http.get(
-      Uri(scheme: "http", host: _host, path: _path, queryParameters: _param),
+      Uri(
+          scheme: "http",
+          host: aladinHost,
+          path: aladinSearchPath,
+          queryParameters: _param),
+      headers: {"Accept": "application/json"});
+  return jsonDecode(response.body);
+}
+
+Map<String, dynamic> _aladinFeedParam(String isbn13) {
+  Map<String, dynamic> ret = {
+    "ttbkey": dotenv.env["TTBKEY"],
+    "itemIdType": "ISBN13",
+    "ItemId": isbn13,
+    "output": "XML",
+    "Omitkey": "1",
+    "Cover": "Big"
+  };
+  return ret;
+}
+
+///////////////////// search //////////////////////
+///////////////////// feed //////////////////////
+Future<Map<String, dynamic>> feedAladinApiGet(String isbn13) async {
+  Map<String, dynamic> _param = _aladinFeedParam(isbn13);
+
+  http.Response response = await http.get(
+      Uri(
+          scheme: "http",
+          host: aladinHost,
+          path: aladinFeedPath,
+          queryParameters: _param),
       headers: {"Accept": "application/json"});
   Map<String, dynamic> res;
-  if (_host == "www.aladin.co.kr") {
-    String body = response.body;
-    final document = XmlDocument.parse(body);
-    List<String> t =
-        document.findAllElements("pubDate").toList()[1].text.split(" ");
-    String formatDateTime = DateFormat.yMMMd("ko_KR")
-        .format(DateTime.parse(t[3] + "-" + _monthMap[t[2]]! + "-" + t[1]));
+  String body = response.body;
+  final document = XmlDocument.parse(body);
+  List<String> t =
+      document.findAllElements("pubDate").toList()[1].text.split(" ");
+  String formatDateTime = DateFormat.yMMMd("ko_KR")
+      .format(DateTime.parse(t[3] + "-" + _monthMap[t[2]]! + "-" + t[1]));
 
-    // print(DateTime.parse(t[0]+t));
-    res = {
-      "title": document.findAllElements("title").toList()[1].text,
-      "author": document.findAllElements("author").toList()[0].text,
-      "pubDate": formatDateTime,
-      "cover": document.findAllElements("cover").toList()[0].text,
-      "isbn13": document.findAllElements("isbn13").toList()[0].text,
-      "publisher": document.findAllElements("publisher").toList()[0].text,
-      "categoryName": document.findAllElements("categoryName").toList()[0].text,
-      "description": document
-          .findAllElements("description")
-          .toList()[0]
-          .text
-          .replaceAllMapped(RegExp('(&lt;)|(&gt;)|(<.+?\/>)'),
-              (Match m) => ""), //(&lt;)|(&gt;)|(<.+?\/>)
-    };
-  } else {
-    res = jsonDecode(response.body);
-  }
-
+  res = {
+    "title": document.findAllElements("title").toList()[1].text,
+    "author": document.findAllElements("author").toList()[0].text,
+    "pubDate": formatDateTime,
+    "cover": document.findAllElements("cover").toList()[0].text,
+    // "isbn13": document.findAllElements("isbn13").toList()[0].text,
+    "isbn": document.findAllElements("isbn").toList()[0].text,
+    "publisher": document.findAllElements("publisher").toList()[0].text,
+    "categoryName": document.findAllElements("categoryName").toList()[0].text,
+    "description": document
+        .findAllElements("description")
+        .toList()[0]
+        .text
+        .replaceAllMapped(RegExp('(&lt;)|(&gt;)|(<.+?\/>)'),
+            (Match m) => ""), //(&lt;)|(&gt;)|(<.+?\/>)
+  };
   return res;
 }
-// Map<String, dynamic> param = {
-//   "ttbkey": "ttbmj2000go2316005",
-//   "itemIdType": "ISBN13",
-//   "ItemId": "9788901252438",
-//   "output": "JS",
-//   "Omitkey": "1"
-// };
-
-// http.Response response = await http.get(
-//     Uri(
-//         scheme: "http",
-//         host: "www.aladin.co.kr",
-//         path: "ttb/api/ItemLookUp.aspx",
-//         queryParameters: param),
-//     headers: {"Accept": "application/json"});
-// Map<String, dynamic> responseBodyMap =
-//     jsonDecode(response.body.substring(0, response.body.length - 1));
-// print(responseBodyMap["version"]); // 결과 출력 ==> get
+///////////////////// feed //////////////////////

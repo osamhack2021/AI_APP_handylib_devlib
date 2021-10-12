@@ -18,6 +18,14 @@ class UnitBook {
 
   
 }*/
+/* ///////////////////1012
+class UnitBookList {
+  final List<UnitBook> unitBooks;
+
+  UnitBookList ({
+    required this.unitBooks,
+  });
+}*/
 
 class UnitBook {
   final String title;
@@ -53,10 +61,12 @@ List<UnitBook> getUnitBookList_test() {
 }
 
 List<UnitBook> parseUnitBook(String responseBody) {
+  
   final parsed = json.decode(responseBody).cast<Map<String,dynamic>>();
   return parsed.map<UnitBook>((json)=>UnitBook.fromJson(json)).toList();
 }
 
+//부대 전체 책 리스트 가져오기
 Future<List<UnitBook>> getUnitBookList(String unit) async {
   
   final response = await http.post(

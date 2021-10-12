@@ -53,6 +53,7 @@ class UnitLibContentScroll extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) {
                 return 
                   UnitBookDisplay(
+                    bookData : unitBookList![index],
                     imageHeight:bookImageHeightConst,
                     imageWidth:bookImageWidthConst
                   );
