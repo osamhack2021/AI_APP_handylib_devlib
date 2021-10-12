@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:app/constants/uri.dart';
 import 'package:app/models/post_models.dart';
 import 'package:http/http.dart' as http;
@@ -26,18 +27,21 @@ List<Post> parsePost(String responseBody) {
 }
 
 Future<List<Post>> getPostListbyTag(String tag) async {
-  final response = await http.post(
+  final _queryPatameters = {
+    'tag' : tag,
+    'page_id' : 1,
+  };
+
+  final uri = Uri.http(proxyUri+ myUri, 'unit/', _queryPatameters);
+  final headers = {HttpHeaders.contentTypeHeader: 'application/json'};
+  final response = await http.get(uri, headers:headers);
+/*
+  final response = await http.get(
       Uri.parse(proxyUri +  myUri + 'board/1'),
       headers: <String, String>{
         'Content-Type' : 'application/json; charset=UTF-8',
       },
-      body :
-        jsonEncode(<String, dynamic>{
-        'tag' : tag,
-        'page_id' : 1,
-        },
-    ),
-  );
+  );*/
   return parsePost(response.body);
 }
 

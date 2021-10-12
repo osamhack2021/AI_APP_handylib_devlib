@@ -120,7 +120,7 @@ Future<User> loadUserInfo(String userId) async {
   );
   
   if(response.statusCode == 200) {
-    return User.fromJson(jsonDecode(response.body));
+    return User.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
   } else {
     throw Exception('Failed to load User data');
   }
@@ -128,8 +128,8 @@ Future<User> loadUserInfo(String userId) async {
 
 Future<int> modifyUserInfo(User myUser) async{
   
-  final response = await http.post(
-    Uri.parse(proxyUri +  myUri+'info/edit/' /*+ '/?user_id=' + myUser.userId*/),
+  final response = await http.put(
+    Uri.parse(proxyUri +  myUri+'info/edit' + '/?user_id=${myUser.userId}'),
     headers: <String, String>{
       'Content-Type' : 'application/json; charset=UTF-8',
     },

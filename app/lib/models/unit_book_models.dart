@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:app/constants/uri.dart';
 /*
@@ -57,8 +58,9 @@ List<UnitBook> parseUnitBook(String responseBody) {
 }
 
 Future<List<UnitBook>> getUnitBookList(String unit) async {
+  
   final response = await http.post(
-      Uri.parse(proxyUri +  myUri + 'unit/' + unit),
+      Uri.parse(proxyUri +  myUri + 'unit/' + Uri.encodeComponent(unit)),
       headers: <String, String>{
         'Content-Type' : 'application/json; charset=UTF-8',
       },
