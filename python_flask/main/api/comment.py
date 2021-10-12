@@ -3,7 +3,6 @@ from main.models import database
 from datetime import datetime
 import time
 
-from python_flask.main.api.board import board_number
 comment_page=Blueprint('comment',__name__)
 
 
