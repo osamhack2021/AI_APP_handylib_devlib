@@ -4,8 +4,8 @@ import csv
 import os
 from dotenv import load_dotenv
 from urllib.request import Request, urlopen
-from urllib.parse import urlencode, quote
-import os
+from urllib.parse import quote
+
 
 
 mypage_page = Blueprint('mypage', __name__)
@@ -52,11 +52,6 @@ def read_borrow(borrow_list):
         borrow_lists.append(book_data)
     return borrow_lists
 
-
-def read_data():
-    return ''
-
-
 @mypage_page.route('/', methods=['GET'])
 def mypage():
     user_id = request.values.get('user_id')
@@ -70,11 +65,12 @@ def mypage():
             # recommend_list 불러오기(csv파일을 불러올 예정)
             recommend_list = read_csv(user_id)
             # user_data 불러오기
-
+            user_data='https://www.projectlib.tk/image/favoriteCategory_{}.png'.format(user_id)
             # res
             dicts = {
                 "borrow_list": borrow_lists,
                 "recommend_list": recommend_list,
+                "user_data":user_data
             }
             resultJson = json.dumps(dicts, ensure_ascii=False)
             return Response(resultJson, mimetype="application/json", status=200)
@@ -108,18 +104,6 @@ def recommend():
             recommend_list = read_csv()
             resultJson = json.dumps(recommend_list, ensure_ascii=False)
             return Response(resultJson, mimetype="application/json", status=200)
-
-    resultJson = json.dumps({"message": "not login"})
-    return Response(resultJson, mimetype="application/json", status=401)
-
-
-@mypage_page.route('/user_data', methods=['GET'])
-def user_data():
-    user_id = request.values.get('user_id')
-    if user_id:
-        user = database.User.objects(user_id=user_id).first()
-        if user:
-            return ""
 
     resultJson = json.dumps({"message": "not login"})
     return Response(resultJson, mimetype="application/json", status=401)
