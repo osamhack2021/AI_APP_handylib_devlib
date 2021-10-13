@@ -6,12 +6,12 @@ class Post {
   List<int> postCommentList = [];
 
   Post(
-    int myPostId, 
+    int myPostId,
     String myPostName,
     String myauthor,
     String myPostTag,
     String mycontent,
-    ){
+  ) {
     postId = myPostId;
     postName = myPostName;
     author = myauthor;
@@ -20,11 +20,11 @@ class Post {
   }
 
   Post.fromJson(Map<String, dynamic> json)
-  : postId = json["number"],
-    author = json["user_id"],
-    postName = json["title"],
-    content = json["content"],
-    postTag = json["tag"],
-    timeStamp = json["time_stamp"];
-    
+      : postId = json["number"],
+        author = json["user_id"],
+        postName = json["title"],
+        content = json["content"],
+        postTag = json["tag"];
+  //timeStamp = json["time_stamp"];
+
 }

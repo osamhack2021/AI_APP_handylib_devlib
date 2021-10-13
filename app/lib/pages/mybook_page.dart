@@ -45,10 +45,10 @@ class _MyBookPageState extends State<MyBookPage> {
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10.0),
-              child: Image(
-                image: AssetImage('images/sample_graph_image.jpg'),
-                fit: BoxFit.cover,
-              ),
+              child: Image.network(
+                'https://github.com/flutter/plugins/raw/master/packages/video_player/video_player/doc/demo_ipod.gif?raw=true',
+                fit:BoxFit.cover,
+              )               
             ),
           ),
 

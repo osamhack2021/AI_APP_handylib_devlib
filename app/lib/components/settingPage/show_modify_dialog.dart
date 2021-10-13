@@ -84,7 +84,7 @@ class __ModifyContentState extends State<_ModifyContent> {
         actions: <Widget>[
           Center(
             child: TextButton(
-              onPressed: () {
+              onPressed: () async {
                 User newUserInfo;
                 newUserInfo = userCopy(myUser!);
                 if (widget.title == 'email') {
@@ -100,14 +100,16 @@ class __ModifyContentState extends State<_ModifyContent> {
                       SnackBar(content: Text('변경에 실패했습니다 : 잘못된 title값 전달'));
                   ScaffoldMessenger.of(context).showSnackBar(snackbar);
                 }
-                dynamic res = modifyUserInfo(newUserInfo);
+                int res = await modifyUserInfo(newUserInfo);
                 if (res == 200) {
                   final snackbar = SnackBar(content: Text('변경하였습니다.'));
                   ScaffoldMessenger.of(context).showSnackBar(snackbar);
+     
                   myUser = userCopy(newUserInfo);
+                  
                   Navigator.pop(context);
                 } else {
-                  debugPrint('변경에 실패했습니다. ${res.toString()}');
+                  debugPrint('변경에 실패했습니다. ${res}');
                   final snackbar =
                       SnackBar(content: Text('변경에 실패했습니다 : ${res.toString()}'));
                   ScaffoldMessenger.of(context).showSnackBar(snackbar);

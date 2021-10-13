@@ -21,28 +21,26 @@ List<Board> boardDataList = [
   Board(3, "자유게시판", "free"),
 ];
 
-List<Post> parsePost(String responseBody) {
-  final parsed = json.decode(responseBody).cast<Map<String,dynamic>>();
-  return parsed.map<Post>((json)=>Post.fromJson(json)).toList();
+List<Post> parsePost(dynamic decodedResponseBody) {
+  return (decodedResponseBody as List)
+      .map((i) => Post.fromJson(i))
+      .toList();
 }
 
-Future<List<Post>> getPostListbyTag(String tag) async {
+Future<List<Post>> getPostListbyTag(String tag, int pageId) async {
   final _queryPatameters = {
     'tag' : tag,
-    'page_id' : 1,
+    'page_id' : pageId,
   };
 
-  final uri = Uri.http(proxyUri+ myUri, 'unit/', _queryPatameters);
-  final headers = {HttpHeaders.contentTypeHeader: 'application/json'};
-  final response = await http.get(uri, headers:headers);
-/*
+  
   final response = await http.get(
-      Uri.parse(proxyUri +  myUri + 'board/1'),
+      Uri.parse(proxyUri +  myUri + 'board/$pageId?tag=$tag'),
       headers: <String, String>{
         'Content-Type' : 'application/json; charset=UTF-8',
       },
-  );*/
-  return parsePost(response.body);
+  );
+  return parsePost(jsonDecode(utf8.decode(response.bodyBytes)));
 }
 
 
@@ -53,4 +51,25 @@ getBoardbyId(int? boardIdQuery) {
     }
   } 
   throw Exception('Could not find the board by boardId');
+}
+
+Future<int> writePost(
+  String content,
+  String title,
+  String tag,
+  String userId,
+) async {
+  final response = await http.post(
+    Uri.parse(proxyUri + myUri + 'board/write' + '?user_id=${userId}'),
+    headers: <String, String> {
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, String>{
+      'content' : content,
+      'title' : title,
+      'tag' : tag,
+      'user_id' : userId,
+    }),
+  );
+  return response.statusCode;
 }

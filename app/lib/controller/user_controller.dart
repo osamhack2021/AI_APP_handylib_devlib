@@ -132,7 +132,7 @@ String? getPropertyValue(User myUser, String prop) {
 
 Future<User> loadUserInfo(String userId) async {
   final response = await http.get(
-    Uri.parse(proxyUri + myUri + 'info/' + '/?user_id=${userId}'),
+    Uri.parse(proxyUri + myUri + 'info/' + '?user_id=${userId}'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -146,8 +146,9 @@ Future<User> loadUserInfo(String userId) async {
 }
 
 Future<int> modifyUserInfo(User myUser) async {
+  String _userId = myUser.userId;
   final response = await http.put(
-    Uri.parse(proxyUri + myUri + 'info/edit' + '/?user_id=${myUser.userId}'),
+    Uri.parse(proxyUri + myUri + 'info/edit?user_id=$_userId'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -185,13 +186,13 @@ class User {
 }
 
 User userCopy(User fromUser) {
-    User newUser = User(
-      fromUser.username,
-      fromUser.userId,
-      fromUser.password,
-      fromUser.email,
-      fromUser.unit,
-      fromUser.rank,
-    );
-    return newUser;
-  }
+  User newUser = User(
+    fromUser.username,
+    fromUser.userId,
+    fromUser.password,
+    fromUser.email,
+    fromUser.unit,
+    fromUser.rank,
+  );
+  return newUser;
+}
