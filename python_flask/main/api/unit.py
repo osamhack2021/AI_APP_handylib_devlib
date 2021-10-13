@@ -13,7 +13,7 @@ def unit_name():
     resultJson = json.dumps(jsl, ensure_ascii=False)
     return Response(resultJson,mimetype="application/json",status=200)
 
-@unit_page.route('/<Unit_name>', methods=['POST'])
+@unit_page.route('/<Unit_name>', methods=['GET', 'POST'])
 def Unit_books_list(Unit_name):
     c = 0
     for i in range(0,len(database.Unit.objects())):
@@ -22,7 +22,10 @@ def Unit_books_list(Unit_name):
     if c == 1 :
         q = []
         for i in database.Unit.objects(name='{}'.format(Unit_name))[0]['books_list']:
-            q.append(i.to_json())
+            if unit_name == 'Test1unit':
+                q.append(i)
+            else :
+                q.append(i.to_json())
         result = {'name': '{}'.format(Unit_name), 'books_list': q}
         resultJson = json.dumps(result, ensure_ascii=False)
         return Response(resultJson,mimetype="application/json",status=200)
