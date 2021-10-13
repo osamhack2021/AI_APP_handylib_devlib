@@ -22,7 +22,7 @@ def Unit_books_list(Unit_name):
     if c == 1 :
         q = []
         for i in database.Unit.objects(name='{}'.format(Unit_name))[0]['books_list']:
-            if unit_name == 'Test1unit':
+            if Unit_name == 'Test1unit':
                 q.append(i)
             else :
                 q.append(i.to_json())
