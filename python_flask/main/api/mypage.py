@@ -6,10 +6,7 @@ from dotenv import load_dotenv
 from urllib.request import Request, urlopen
 from urllib.parse import quote
 
-
-
 mypage_page = Blueprint('mypage', __name__)
-
 
 def read_book(query):
     # book api를 이용해서 이미지 등 읽어오기
@@ -23,7 +20,6 @@ def read_book(query):
     response = urlopen(request).read().decode('utf-8')
     result = json.loads(response)
     return result
-
 
 def read_csv(user_id):
     file = csv.reader(open('../models/{}.csv'.format(user_id), 'r'))
@@ -39,7 +35,6 @@ def read_csv(user_id):
         lists.append(dict_data)
     # dicts에 저장해서 return
     return lists
-
 
 def read_borrow(borrow_list):
     borrow_lists = []
@@ -74,10 +69,8 @@ def mypage():
             }
             resultJson = json.dumps(dicts, ensure_ascii=False)
             return Response(resultJson, mimetype="application/json", status=200)
-
     resultJson = json.dumps({"message": "not login"})
     return Response(resultJson, mimetype="application/json", status=401)
-
 
 @mypage_page.route('/borrow_list', methods=['GET'])
 def borrow():
@@ -90,10 +83,8 @@ def borrow():
             borrow_lists = read_borrow(borrow_list)
             resultJson = json.dumps(borrow_lists, ensure_ascii=False)
             return Response(resultJson, mimetype="application/json", status=200)
-
     resultJson = json.dumps({"message": "not login"})
     return Response(resultJson, mimetype="application/json", status=401)
-
 
 @mypage_page.route('/recommend_list', methods=['GET'])
 def recommend():
@@ -104,6 +95,5 @@ def recommend():
             recommend_list = read_csv()
             resultJson = json.dumps(recommend_list, ensure_ascii=False)
             return Response(resultJson, mimetype="application/json", status=200)
-
     resultJson = json.dumps({"message": "not login"})
     return Response(resultJson, mimetype="application/json", status=401)

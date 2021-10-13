@@ -15,7 +15,7 @@ def boarding(page_id):
     if end > lists.count():
         end=lists.count()
     #pageid에 따라 게시판 수량 띄우기
-    to_list = lists[start:end].to_json()
+    to_list = lists[start:end]
     resultJson=json.dumps(to_list, ensure_ascii=False)
     return Response(resultJson,mimetype="application/json",status=200)
 #해당 페이지 불러오는 라우터
@@ -59,7 +59,6 @@ def edit_board(number):
             board_item.update(title=params['title'],content=params['content'])
             resultJson=json.dumps({"message": "edit success"})
             return Response(resultJson,mimetype="application/json",status=200)
-
     resultJson=json.dumps({"message": "not login"})
     return Response(resultJson,mimetype="application/json",status=401)
    
@@ -75,6 +74,5 @@ def delete_board(number):
             board_item.delete()
             resultJson=json.dumps({"message": "delete success"})
             return Response(resultJson,mimetype="application/json",status=200)
-
     resultJson=json.dumps({"message": "not login"})
     return Response(resultJson,mimetype="application/json",status=401)
