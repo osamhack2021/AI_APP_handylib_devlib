@@ -1,3 +1,5 @@
+import 'package:app/components/underlined_text.dart';
+import 'package:app/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:app/components/homeScreen/feed_page_appbar.dart';
 import 'package:app/models/book_models.dart';
@@ -16,89 +18,163 @@ class _FeedPageState extends State<FeedPage> {
   final PageController _topPageController =
       PageController(initialPage: 0, viewportFraction: 0.6);
 
-  Future<List<List<Book>>>? data;
+  Future<List<Book>>? jinjungList;
+  List<Future<List<Book>>> categoryList = [];
+  List<String> categoryName = [];
+  final Map<String, bool> filter = {};
 
-  List<int> isbnList = [
-    9788901252438,
-    9791160947540,
-    9791165797096,
-    9791197549304,
-    9788954682152
-  ];
-  List<int> isbnList2 = [
-    9788956609959,
-    9788956604992,
-    9788956607030,
-    9791189982140,
-    9788956602998
-  ];
-
-  Future<List<List<Book>>> fetchData() async {
-    List<List<Book>> bookData = [];
+  Future<List<Book>> fetchJinjung() async {
     List<Book> tmpBook = [];
-    for (int isbn13 in isbnList) {
-      tmpBook.add(
-          Book.fromJson(await feedAladinApiGet(isbn13.toString())));
+    for (int isbn13 in jinjungIsbnList) {
+      tmpBook.add(Book.fromJson(await feedAladinApiGet(isbn13.toString())));
     }
-    bookData.add(tmpBook);
-    tmpBook = [];
-    for (int isbn13 in isbnList2) {
-      tmpBook.add(
-          Book.fromJson(await feedAladinApiGet(isbn13.toString())));
+    return tmpBook;
+  }
+
+  Future<List<Book>> fetchCategory(int categoryNum) async {
+    List<Book> books = [];
+    List<dynamic> res;
+    res = (await feedAladinCategoryApi(categoryNum, 1))["item"];
+    for (var item in res) {
+      item["description"] = item["description"]
+          .replaceAllMapped(RegExp('(&lt;)|(&gt;)|(<.+?\/>)'), (Match m) => "");
+      books.add(Book.fromJson(item));
     }
-    bookData.add(tmpBook);
-    return bookData;
+    return books;
   }
 
   @override
   void initState() {
     super.initState();
-    data = fetchData();
+    jinjungList = fetchJinjung();
+    categoryMap.forEach((key, value) {
+      categoryList.add(fetchCategory(key));
+      categoryName.add(value);
+      filter[value] = true;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: FeedPageAppBar(context),
-        body: FutureBuilder<List<List<Book>>>(
-          future: data,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return ListView(
-                children: <Widget>[
-                  SizedBox(
-                    height: 360.0,
-                    width: double.infinity,
-                    child: PageView.builder(
-                      controller: _topPageController,
-                      itemCount: snapshot.data![0].length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return BookSelector(index, snapshot.data![0][index],
-                            _topPageController, context);
-                      },
-                    ),
-                  ),
-                  ContentScroll(
-                    snapshot.data == null ? [] : snapshot.data![1],
-                    '정유정',
-                    250.0,
-                    150.0,
-                  ),
-                  // SizedBox(height: 10.0),
-                  // ContentScroll(
-                  //   images: popular,
-                  //   title: 'Popular',
-                  //   imageHeight: 250.0,
-                  //   imageWidth: 150.0,
-                  // ),
-                ],
-              );
-            } else if (snapshot.hasError) {
-              return Text("${snapshot.error}");
-            }
-            // 기본적으로 로딩 Spinner를 보여줍니다.
-            return const Center(child: CircularProgressIndicator());
-          },
+        drawer: NavDrawer(),
+        body: ListView(
+          children: <Widget>[
+            jinjungTitle(),
+            SizedBox(
+                height: 360.0,
+                width: double.infinity,
+                child: _builder(jinjungList, (data) {
+                  return PageView.builder(
+                    controller: _topPageController,
+                    itemCount: data!.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return BookSelector(
+                          index, data[index], _topPageController, context);
+                    },
+                  );
+                })),
+            Column(
+              children: _categoryBuilder(),
+            )
+          ],
         ));
+  }
+
+  List<Widget> _categoryBuilder() {
+    List<Widget> tmp = [];
+    for (int i = 0; i < categoryList.length; i++) {
+      tmp.add(SizedBox(
+          width: double.infinity,
+          height: 290,
+          child: _builder(categoryList[i], (snapshotData) {
+            return ContentScroll(
+              snapshotData ?? [],
+              categoryName[i],
+              250.0,
+              150.0,
+            );
+          })));
+    }
+    return tmp;
+  }
+
+  Container jinjungTitle() {
+    return Container(
+      padding: const EdgeInsets.fromLTRB(50.0, 10, 150, 0),
+      width: double.infinity,
+      child: const UnderLinedText(
+        text: "이번분기의 진중문고",
+        thickness: 7,
+        style: TextStyle(
+          fontSize: 21.0,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+  }
+
+  FutureBuilder<List<Book>> _builder(Future<List<Book>>? expectedFuture,
+      Function(List<Book>? snapshotData) success) {
+    return FutureBuilder<List<Book>>(
+        future: expectedFuture,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return success(snapshot.data);
+          } else if (snapshot.hasError) {
+            return Container();
+          }
+          // 기본적으로 로딩 Spinner를 보여줍니다.
+          return const Center(
+              child: CircularProgressIndicator(color: Color(COLOR_PRIMARY)));
+        });
+  }
+}
+
+class NavDrawer extends StatelessWidget {
+  const NavDrawer({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: <Widget>[
+          const DrawerHeader(
+            child: Text(
+              'Side menu',
+              style: TextStyle(color: Colors.white, fontSize: 25),
+            ),
+            decoration: BoxDecoration(color: Color(COLOR_PRIMARY)),
+          ),
+          ListTile(
+            leading: Icon(Icons.input),
+            title: Text('Welcome'),
+            onTap: () => {},
+          ),
+          ListTile(
+            leading: Icon(Icons.verified_user),
+            title: Text('Profile'),
+            onTap: () => {Navigator.of(context).pop()},
+          ),
+          ListTile(
+            leading: Icon(Icons.settings),
+            title: Text('Settings'),
+            onTap: () => {Navigator.of(context).pop()},
+          ),
+          ListTile(
+            leading: Icon(Icons.border_color),
+            title: Text('Feedback'),
+            onTap: () => {Navigator.of(context).pop()},
+          ),
+          ListTile(
+            leading: Icon(Icons.exit_to_app),
+            title: Text('Logout'),
+            onTap: () => {Navigator.of(context).pop()},
+          ),
+        ],
+      ),
+    );
   }
 }
