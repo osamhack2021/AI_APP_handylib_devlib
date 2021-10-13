@@ -39,42 +39,38 @@ Future<int> createUser(
   String email,
   String unit,
   String rank,
-  ) async{
+) async {
+  final encryptedPassword = Crypt.sha256(password, salt: mySalt).toString();
 
-    final encryptedPassword = Crypt.sha256(password, salt:mySalt).toString();
-
-    final response = await http.post(
-      Uri.parse(proxyUri +  myUri+'sign_up' ),
-      headers: <String, String>{
-        
-        
-        
-        //"Accept":"application/json",
-        //"Access-Control-Allow-Origin":"*",
-        'Content-Type' : 'application/json; charset=UTF-8',
-      },
-      /*headers: {
+  final response = await http.post(
+    Uri.parse(proxyUri + myUri + 'sign_up'),
+    headers: <String, String>{
+      //"Accept":"application/json",
+      //"Access-Control-Allow-Origin":"*",
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    /*headers: {
       },*/
-      body : jsonEncode(<String, String>{
-        'name' : name,
-        'user_id' : userId,
-        'password' : encryptedPassword,
-        'email' : email,
-        'unit' : unit,
-        'rank' : rank,
-      }),
-    );
-    debugPrint("responseBody: ${response.body}");
-    if(response.statusCode ==200) {
-      return response.statusCode;
-    } else {
-      return response.statusCode;
-    }
+    body: jsonEncode(<String, String>{
+      'name': name,
+      'user_id': userId,
+      'password': encryptedPassword,
+      'email': email,
+      'unit': unit,
+      'rank': rank,
+    }),
+  );
+  debugPrint("responseBody: ${response.body}");
+  if (response.statusCode == 200) {
+    return response.statusCode;
+  } else {
+    return response.statusCode;
+  }
 }
 
 void testHttp() async {
   final response = await http.get(
-    Uri.parse(proxyUri+ myUri+'mypage/'),
+    Uri.parse(proxyUri + myUri + 'mypage/'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -89,16 +85,17 @@ void testHttp() async {
 }
 
 Future<int> loginUser(String userId, String password) async {
-  final encryptedPassword = Crypt.sha256(password, salt:mySalt).toString();
+  final encryptedPassword = Crypt.sha256(password, salt: mySalt).toString();
   debugPrint(encryptedPassword + " " + password);
   final response = await http.post(
-      Uri.parse(proxyUri +  myUri + 'sign_in'),
-      headers: <String, String>{
-        'Content-Type' : 'application/json; charset=UTF-8',
-      },
-      body : jsonEncode(<String, String>{
-        'user_id' : userId,
-        'password' : encryptedPassword,
+    Uri.parse(proxyUri + myUri + 'sign_in'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(
+      <String, String>{
+        'user_id': userId,
+        'password': encryptedPassword,
       },
     ),
   );
@@ -116,59 +113,58 @@ Future<int> loginUser(String userId, String password) async {
 }
 
 String? getPropertyTitle(User myUser, String prop) {
-    if(prop == 'name') return '이름';
-    if(prop == 'userId') return '아이디';
-    if(prop == 'password') return '비밀번호';
-    if(prop == 'email') return '이메일';
-    if(prop == 'unit') return '소속 부대';
-    if(prop == 'rank') return '계급';
+  if (prop == 'name') return '이름';
+  if (prop == 'userId') return '아이디';
+  if (prop == 'password') return '비밀번호';
+  if (prop == 'email') return '이메일';
+  if (prop == 'unit') return '소속 부대';
+  if (prop == 'rank') return '계급';
 }
 
 String? getPropertyValue(User myUser, String prop) {
-    if(prop == 'name') return myUser.username;
-    if(prop == 'userId') return myUser.userId;
-    if(prop == 'password') return myUser.password;
-    if(prop == 'email') return myUser.email;
-    if(prop == 'unit') return myUser.unit;
-    if(prop == 'rank') return myUser.rank;
+  if (prop == 'name') return myUser.username;
+  if (prop == 'userId') return myUser.userId;
+  if (prop == 'password') return myUser.password;
+  if (prop == 'email') return myUser.email;
+  if (prop == 'unit') return myUser.unit;
+  if (prop == 'rank') return myUser.rank;
 }
 
 Future<User> loadUserInfo(String userId) async {
   final response = await http.get(
-    Uri.parse(proxyUri+ myUri + 'info/' + '/?user_id=${userId}'),
+    Uri.parse(proxyUri + myUri + 'info/' + '/?user_id=${userId}'),
     headers: <String, String>{
-      'Content-Type' : 'application/json; charset=UTF-8',
+      'Content-Type': 'application/json; charset=UTF-8',
     },
   );
-  
-  if(response.statusCode == 200) {
+
+  if (response.statusCode == 200) {
     return User.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
   } else {
     throw Exception('Failed to load User data');
   }
 }
 
-Future<int> modifyUserInfo(User myUser) async{
-  
+Future<int> modifyUserInfo(User myUser) async {
   final response = await http.put(
-    Uri.parse(proxyUri +  myUri+'info/edit' + '/?user_id=${myUser.userId}'),
+    Uri.parse(proxyUri + myUri + 'info/edit' + '/?user_id=${myUser.userId}'),
     headers: <String, String>{
-      'Content-Type' : 'application/json; charset=UTF-8',
+      'Content-Type': 'application/json; charset=UTF-8',
     },
-    body : jsonEncode(<String, String>{
-        'name' : myUser.username,
-        'user_id' : myUser.userId,
-        'password' : myUser.password,
-        'email' : myUser.email,
-        'unit' : myUser.unit,
-        'rank' : myUser.rank,
-      }),
-    );
+    body: jsonEncode(<String, String>{
+      'name': myUser.username,
+      'user_id': myUser.userId,
+      'password': myUser.password,
+      'email': myUser.email,
+      'unit': myUser.unit,
+      'rank': myUser.rank,
+    }),
+  );
 
-    return response.statusCode;
+  return response.statusCode;
 }
 
-class User{
+class User {
   String username = "defaultName";
   String userId = "defaultUserId";
   String password = "defaultPassword";
@@ -180,10 +176,22 @@ class User{
       this.rank);
 
   User.fromJson(Map<String, dynamic> json)
-  : userId = json["user_id"],
-    username = json["name"],
-    password = json["password"],
-    email = json["email"],
-    unit = json["unit"],
-    rank = json["rank"];
+      : userId = json["user_id"],
+        username = json["name"],
+        password = json["password"],
+        email = json["email"],
+        unit = json["unit"],
+        rank = json["rank"];
 }
+
+User userCopy(User fromUser) {
+    User newUser = User(
+      fromUser.username,
+      fromUser.userId,
+      fromUser.password,
+      fromUser.email,
+      fromUser.unit,
+      fromUser.rank,
+    );
+    return newUser;
+  }

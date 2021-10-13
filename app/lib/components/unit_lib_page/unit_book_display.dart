@@ -50,7 +50,8 @@ class UnitBookDisplay extends StatelessWidget {
           ),
         ),
         
-      Text(bookData!.title),
+        
+      Text((bookData!.title==null)? 'unNamed' : bookData!.title! ),
       ],
     );
     
