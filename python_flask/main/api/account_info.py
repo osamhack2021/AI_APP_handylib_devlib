@@ -31,5 +31,3 @@ def info_edit():
             return Response(resultJson,mimetype="application/json",status=200)
     resultJson=json.dumps({"message": "not login"})
     return Response(resultJson,mimetype="application/json",status=401)
-
-    
