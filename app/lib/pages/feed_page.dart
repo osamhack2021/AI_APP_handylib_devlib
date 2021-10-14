@@ -102,7 +102,7 @@ class _FeedPageState extends State<FeedPage> {
 
   Container jinjungTitle() {
     return Container(
-      padding: const EdgeInsets.fromLTRB(50.0, 10, 150, 0),
+      padding: const EdgeInsets.fromLTRB(20.0, 10, 20, 0),
       width: double.infinity,
       child: const UnderLinedText(
         text: "이번분기의 진중문고",
