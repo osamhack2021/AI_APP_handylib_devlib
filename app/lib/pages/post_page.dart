@@ -2,6 +2,7 @@ import 'package:app/components/custom_text_form_field.dart';
 import 'package:app/components/default_circle_avatar.dart';
 import 'package:app/constants/colors.dart';
 import 'package:app/constants/size.dart';
+import 'package:app/models/comment_models.dart';
 import 'package:app/models/post_models.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -33,13 +34,14 @@ class PostPage extends StatelessWidget {
                   SizedBox(width:large_gap),
                   Column(children: [
                     Text(
-                      '${thisPost.postAuthor}',
+                      '${thisPost.author}',
                       style:TextStyle(
                         fontWeight:FontWeight.bold,
                         fontSize:16,
+                        overflow:TextOverflow.clip,
                       ) 
                     ),
-                    Text('time'),
+                    Text('${thisPost.timestamp}'),
                   ],)
                 ]
               ),
@@ -72,7 +74,7 @@ class PostPage extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            '${thisPost.postContent}',
+                            '${thisPost.content}',
                             textAlign: TextAlign.left,
                             overflow: TextOverflow.clip,
                           ),
@@ -86,8 +88,8 @@ class PostPage extends StatelessWidget {
           ),
           Column(children: 
                     List<Widget>.generate(
-                      10, //(thisPost.postCommentList).length,
-                      (index) => _SingleComment()
+                      (thisPost.postCommentList).length,
+                      (index) => _SingleComment(thisPost.postCommentList[index])
                     ),
           ),
           
@@ -132,9 +134,9 @@ class CommentBottomBar extends StatelessWidget {
 
 
 class _SingleComment extends StatelessWidget {
-  const _SingleComment({
-    Key? key,
-  }) : super(key: key);
+  final Comment thisComment;
+
+  const _SingleComment(this.thisComment);
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,7 @@
 import 'package:app/pages/login_page.dart';
 import 'package:app/screens/ebook_viewer.dart';
 import 'package:app/screens/home_screen.dart';
+import 'package:app/test/test_page.dart';
 import 'package:flutter/material.dart';
 import 'package:app/navigation/routes.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -17,7 +18,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomeScreen(),
+      //home:TestPage(),
+      //home: HomeScreen(),
+      home:LoginPage(),
       // home: EbookReader(),
       // home: LoginPage(),
       routes: routes,
