@@ -9,7 +9,7 @@ const String proxyUri = 'https://cors-anywhere.herokuapp.com/';
 String aladinFeedPath = "ttb/api/ItemLookUp.aspx";
 String aladinSearchPath = "ttb/api/ItemSearch.aspx";
 String aladinCategoryPath = "ttb/api/ItemList.aspx";
-
+String proxy = "http://175.210.134.48:5000/";
 //https://cors-anywhere.herokuapp.com/
 
 Map<String, String> _monthMap = {
@@ -45,9 +45,11 @@ Future<Map<String, dynamic>> searchAladinApiGet(String query, int page) async {
   Map<String, dynamic> _param = _aladinSearchParam(query, page);
 
   http.Response response = await http.get(
-      Uri.parse(proxyUri +
+
+      Uri.parse(proxy +
           Uri(
-                  scheme: "http",
+                  scheme: "https",
+
                   host: aladinHost,
                   path: aladinSearchPath,
                   queryParameters: _param)
@@ -75,9 +77,11 @@ Future<Map<String, dynamic>> feedAladinApiGet(String isbn13) async {
   Map<String, dynamic> _param = _aladinFeedParam(isbn13);
 
   http.Response response = await http.get(
-      Uri.parse(proxyUri +
+
+      Uri.parse(proxy +
           Uri(
-                  scheme: "http",
+                  scheme: "https",
+
                   host: aladinHost,
                   path: aladinFeedPath,
                   queryParameters: _param)
@@ -132,9 +136,11 @@ Future<Map<String, dynamic>> feedAladinCategoryApi(
   Map<String, dynamic> _param = _aladinCategoryParam(categoryNum, page);
 
   http.Response response = await http.get(
-      Uri.parse(proxyUri +
+
+      Uri.parse(proxy +
           Uri(
-                  scheme: "http",
+                  scheme: "https",
+
                   host: aladinHost,
                   path: aladinCategoryPath,
                   queryParameters: _param)
