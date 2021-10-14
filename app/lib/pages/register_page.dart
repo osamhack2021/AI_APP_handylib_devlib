@@ -49,17 +49,13 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   void handleSubmit() async {
-    //testHttp();
-    debugPrint(form["userName"].value.text);
-    debugPrint(form["id"].value.text);
-
     _registerResponse = await createUser(
-      form["userName"].value.text,
-      form["id"].value.text,
-      form["password"].value.text,
-      form["email"].value.text,
-      form["unit"].value.text,
-      form["rank"].value.text,
+      form["userName"][0].value.text,
+      form["id"][0].value.text,
+      form["password"][0].value.text,
+      form["email"][0].value.text,
+      form["unit"][0].value.text,
+      form["rank"][0].value.text,
     );
 
     if (_registerResponse == 200) {
@@ -69,12 +65,12 @@ class _RegisterPageState extends State<RegisterPage> {
       Navigator.of(context).pushNamed(
         '/home',
         arguments: User(
-          form["userName"].value.text,
-          form["id"].value.text,
-          form["password"].value.text,
-          form["email"].value.text,
-          form["unit"].value.text,
-          form["rank"].value.text,
+          form["userName"][0].value.text,
+          form["id"][0].value.text,
+          form["password"][0].value.text,
+          form["email"][0].value.text,
+          form["unit"][0].value.text,
+          form["rank"][0].value.text,
         ),
       );
     } else {
@@ -153,6 +149,12 @@ class _RegisterPageState extends State<RegisterPage> {
                     textInputAction: TextInputAction.next,
                     onEditingComplete: () => node.nextFocus(),
                   ),
+                  RoundedInputField(
+                    hintText: "아이디",
+                    controller: form["id"][0],
+                    textInputAction: TextInputAction.next,
+                    onEditingComplete: () => node.nextFocus(),
+                  ),
                   RoundedPasswordField(
                     textInputAction: TextInputAction.done,
                     onEditingComplete: () {
@@ -160,6 +162,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     },
                     controller: form["password"][0],
                   ),
+                  
                   RoundedInputField(
                       hintText: "이메일",
                       controller: form["email"][0],

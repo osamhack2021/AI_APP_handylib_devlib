@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:app/models/book_models.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:app/constants/uri.dart';
@@ -34,7 +35,7 @@ class UnitBook {
   final String? pubDate;
   final String? description;
   final String? isbn13;
-  final String? coverUrl;
+  late final String? coverUrl;
   final String? publisher;
   final String? category;
 
@@ -53,8 +54,8 @@ class UnitBook {
 }
 
 UnitBook defaultUnitBookModel() {
-  return UnitBook('text book title', 'author', '2000-01-01',
-      'book description', '123456789', null, 'publisher', 'category');
+  return UnitBook('text book title', 'author', '2000-01-01', 'book description',
+      '123456789', null, 'publisher', 'category');
 }
 
 List<UnitBook> getUnitBookList_test() {
@@ -116,4 +117,16 @@ Future<List<UnitBook>> getUnitTagBookList(String unit, String tag) async {
     ),
   );
   return parseUnitBook(jsonDecode(utf8.decode(response.bodyBytes)));
+}
+
+Book convertUnitBooktoBook(UnitBook _unitBook) {
+  return Book(
+    _unitBook.title!,
+    _unitBook.author!,
+    _unitBook.pubDate!,
+    _unitBook.description!,
+    _unitBook.coverUrl!.replaceAll('\\/', '/'),
+    _unitBook.publisher!,
+    _unitBook.category!,
+  );
 }
