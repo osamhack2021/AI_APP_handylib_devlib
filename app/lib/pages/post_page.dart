@@ -37,6 +37,7 @@ class PostPage extends StatelessWidget {
                       style:TextStyle(
                         fontWeight:FontWeight.bold,
                         fontSize:16,
+                        overflow:TextOverflow.clip,
                       ) 
                     ),
                     Text('time'),

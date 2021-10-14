@@ -32,8 +32,6 @@ Future<List<Post>> getPostListbyTag(String tag, int pageId) async {
     'tag' : tag,
     'page_id' : pageId,
   };
-
-  
   final response = await http.get(
       Uri.parse(proxyUri +  myUri + 'board/$pageId?tag=$tag'),
       headers: <String, String>{
