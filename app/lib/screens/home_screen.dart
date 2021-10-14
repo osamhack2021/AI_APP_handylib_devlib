@@ -16,11 +16,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     myUser = ModalRoute.of(context)!.settings.arguments as User?;
-
-    //below code is for debug
-    myUser = User('defaultName', 'defaultId', 'defaultPassword', 'defaultEmail',
-        'defaultUnit', 'defaultRank');
-
+    
+    //below code is for debug 
+    //myUser = User('defaultName', 'defaultId', 'defaultPassword', 'defaultEmail', 'defaultUnit', 'defaultRank');
+    
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: DefaultTabController(

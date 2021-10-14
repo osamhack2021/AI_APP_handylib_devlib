@@ -1,16 +1,26 @@
 import 'package:app/constants/colors.dart';
 import 'package:app/models/board_models.dart';
+import 'package:app/models/post_models.dart';
 import 'package:app/pages/post_list_page.dart';
 import 'package:flutter/material.dart';
 
 class BoardSelector extends StatelessWidget {
   final int? boardId;
-
   BoardSelector(this.boardId);
+
+  List<Post> nowPostList = [];
+
+  Future<List<Post>> _getPostList(String? tag) async {
+    List<Post> _previewPosts = await getPostListbyTag(tag!, 1);
+    _previewPosts = _previewPosts.sublist(0,3);
+    return _previewPosts;
+  }
+
 
   @override
   Widget build(BuildContext context) {
     Board thisBoard = getBoardbyId(boardId);
+
 
     return Card(
       elevation: 4,
@@ -34,6 +44,43 @@ class BoardSelector extends StatelessWidget {
           indent: 10,
           endIndent: 10,
         ),
+        FutureBuilder<List<Post>> (
+          future:_getPostList(thisBoard.boardTag),
+          builder:(BuildContext context, nowPostList) {
+            
+              List<Widget> children;
+              if(nowPostList.hasData) {
+                children = <Widget> [
+                  for (Post curPost in nowPostList.data!)
+                    _PostPreviewTile(thisBoard: thisBoard, curPost: curPost)
+                ];
+                  
+              }
+              else if(nowPostList.hasError) {
+                children =<Widget>[
+                  Text('An error occured'),
+                ];
+              }
+              else {
+                children = const <Widget>[
+                  SizedBox(
+                  child: CircularProgressIndicator(),
+                  width: 60,
+                  height: 60,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 16),
+                      child: Text('Awaiting result...'),
+                  )
+                ];
+              }
+              return Column(
+                children: children,
+              );
+
+          }
+        )
+        /*
         ListView.separated(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
@@ -48,7 +95,6 @@ class BoardSelector extends StatelessWidget {
                 },
                 //dense:true,
                 title: Text('${thisBoard.boardName}'),
-                trailing: (const Icon(Icons.chevron_right)),
               );
             },
             separatorBuilder: (context, index) {
@@ -60,6 +106,7 @@ class BoardSelector extends StatelessWidget {
                 endIndent: 15,
               );
             })
+            */
       ]),
       // ListTile(
       //   onTap: () {
@@ -72,6 +119,42 @@ class BoardSelector extends StatelessWidget {
       //   title: Text('${thisBoard.boardName}'),
       //   trailing: (const Icon(Icons.chevron_right)),
       // )
+    );
+  }
+}
+
+class _PostPreviewTile extends StatelessWidget {
+  const _PostPreviewTile({
+    Key? key,
+    required this.thisBoard,
+    required this.curPost,
+  }) : super(key: key);
+
+  final Board thisBoard;
+  final Post curPost;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        ListTile(
+          onTap: () {
+            Navigator.of(context).pushNamed(
+              '/home/forum/post-list',
+              arguments: thisBoard,
+            );
+          },
+          title: Text('${curPost.postName}'),
+          
+        ),
+        const Divider(
+          color: Colors.black12,
+          height: 0,
+          thickness: 1,
+          indent: 15,
+          endIndent: 15,
+        )
+      ],
     );
   }
 }

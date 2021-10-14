@@ -84,7 +84,9 @@ class _RegisterPageState extends State<RegisterPage> {
                 SizedBox(height:large_gap),
                 ElevatedButton(
                   onPressed: () async {
-                    testHttp();/*
+                    //testHttp();
+                    debugPrint(_usernameController.value.text);
+                    debugPrint(_idController.value.text);
                     if (_formKey.currentState!.validate()) {
                       _registerResponse = await createUser(
                         _usernameController.value.text,
@@ -114,7 +116,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     else {
                       final snackbar = SnackBar(content:Text('회원가입에 실패했습니다. 에러코드 : ${_registerResponse}'));
                       ScaffoldMessenger.of(context).showSnackBar(snackbar);
-                    }*/
+                    }
                   }, 
                   child: Text('회원가입'),
                   style : ButtonStyle(
