@@ -21,10 +21,10 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _passwordController = TextEditingController();
 
   void handleSubmit() async {
-    int res = await loginUser(
-      _idController.value.text,
-      _passwordController.value.text,
-    );
+    // int res = await loginUser(
+    //   _idController.value.text,
+    //   _passwordController.value.text,
+    // );
     if (true) {
       final snackbar = SnackBar(content: Text('로그인에 성공했습니다.'));
       ScaffoldMessenger.of(context).showSnackBar(snackbar);

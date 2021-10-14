@@ -1,3 +1,7 @@
+import 'dart:io';
+
+import 'package:app/components/default_circle_avatar.dart';
+import 'package:app/screens/home_screen.dart';
 import 'package:app/components/underlined_text.dart';
 import 'package:app/constants/colors.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +10,7 @@ import 'package:app/models/book_models.dart';
 import 'package:app/components/homeScreen/book_selector.dart';
 import 'package:app/components/homeScreen/content_scroll.dart';
 import 'package:app/hooks/use_api.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class FeedPage extends StatefulWidget {
   const FeedPage({Key? key}) : super(key: key);
@@ -22,6 +27,22 @@ class _FeedPageState extends State<FeedPage> {
   List<Future<List<Book>>> categoryList = [];
   List<String> categoryName = [];
   final Map<String, bool> filter = {};
+  File? _profileImage;
+  SharedPreferences? prefs;
+
+  void fetchPref() async {
+    prefs = await SharedPreferences.getInstance();
+    String imagePath;
+    imagePath = prefs!.getString('profileImage')!;
+
+    categoryMap.forEach((key, value) {
+      filter[value] = prefs!.getBool(value) ?? true;
+    });
+
+    setState(() {
+      _profileImage = File(imagePath);
+    });
+  }
 
   Future<List<Book>> fetchJinjung() async {
     List<Book> tmpBook = [];
@@ -46,11 +67,11 @@ class _FeedPageState extends State<FeedPage> {
   @override
   void initState() {
     super.initState();
+    fetchPref();
     jinjungList = fetchJinjung();
     categoryMap.forEach((key, value) {
       categoryList.add(fetchCategory(key));
       categoryName.add(value);
-      filter[value] = true;
     });
   }
 
@@ -82,20 +103,77 @@ class _FeedPageState extends State<FeedPage> {
         ));
   }
 
+  Drawer NavDrawer() {
+    List<Widget> drawerOptions = [];
+    return Drawer(
+        child: SingleChildScrollView(
+      child: Column(
+        children: <Widget>[
+          UserAccountsDrawerHeader(
+            decoration: BoxDecoration(color: Color(COLOR_PRIMARY)),
+            accountName: Text(myUser!.username),
+            accountEmail: Text(myUser!.userId),
+            currentAccountPicture: _profileImage != null
+                ? CircleAvatar(
+                    radius: 100,
+                    backgroundColor: Colors.white,
+                    child: ClipOval(
+                      child: SizedBox(
+                        width: 190,
+                        height: 190,
+                        child: Image.file(
+                          _profileImage!,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                  )
+                : const DefaultCircleAvatar(size: 80),
+          ),
+          Column(children: drawerChildren()),
+        ],
+      ),
+    ));
+  }
+
+  List<Widget> drawerChildren() {
+    List<Widget> tmp = [];
+    filter.forEach((key, value) {
+      tmp.add(ListTile(
+        trailing: Switch(
+          activeColor: Color(COLOR_PRIMARY),
+          hoverColor: Color(COLOR_PRIMARY2),
+          value: value,
+          onChanged: (value) {
+            setState(() {
+              filter[key] = value ? true : false;
+              prefs!.setBool(key, filter[key]!);
+            });
+          },
+        ),
+        title: Text(key),
+      ));
+    });
+
+    return tmp;
+  }
+
   List<Widget> _categoryBuilder() {
     List<Widget> tmp = [];
     for (int i = 0; i < categoryList.length; i++) {
-      tmp.add(SizedBox(
-          width: double.infinity,
-          height: 290,
-          child: _builder(categoryList[i], (snapshotData) {
-            return ContentScroll(
-              snapshotData ?? [],
-              categoryName[i],
-              250.0,
-              150.0,
-            );
-          })));
+      tmp.add(Visibility(
+          visible: filter[categoryName[i]]!,
+          child: SizedBox(
+              width: double.infinity,
+              height: 290,
+              child: _builder(categoryList[i], (snapshotData) {
+                return ContentScroll(
+                  snapshotData ?? [],
+                  categoryName[i],
+                  250.0,
+                  150.0,
+                );
+              }))));
     }
     return tmp;
   }
@@ -129,52 +207,5 @@ class _FeedPageState extends State<FeedPage> {
           return const Center(
               child: CircularProgressIndicator(color: Color(COLOR_PRIMARY)));
         });
-  }
-}
-
-class NavDrawer extends StatelessWidget {
-  const NavDrawer({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: <Widget>[
-          const DrawerHeader(
-            child: Text(
-              'Side menu',
-              style: TextStyle(color: Colors.white, fontSize: 25),
-            ),
-            decoration: BoxDecoration(color: Color(COLOR_PRIMARY)),
-          ),
-          ListTile(
-            leading: Icon(Icons.input),
-            title: Text('Welcome'),
-            onTap: () => {},
-          ),
-          ListTile(
-            leading: Icon(Icons.verified_user),
-            title: Text('Profile'),
-            onTap: () => {Navigator.of(context).pop()},
-          ),
-          ListTile(
-            leading: Icon(Icons.settings),
-            title: Text('Settings'),
-            onTap: () => {Navigator.of(context).pop()},
-          ),
-          ListTile(
-            leading: Icon(Icons.border_color),
-            title: Text('Feedback'),
-            onTap: () => {Navigator.of(context).pop()},
-          ),
-          ListTile(
-            leading: Icon(Icons.exit_to_app),
-            title: Text('Logout'),
-            onTap: () => {Navigator.of(context).pop()},
-          ),
-        ],
-      ),
-    );
   }
 }
