@@ -52,10 +52,15 @@ class UnitBook {
         category = json['categoryName'];
 }
 
+UnitBook defaultUnitBookModel() {
+  return UnitBook('text book title', 'author', '2000-01-01',
+      'book description', '123456789', null, 'publisher', 'category');
+}
+
 List<UnitBook> getUnitBookList_test() {
   List<UnitBook> myUnitBookList = [];
   UnitBook myUnitBook = UnitBook('text book title', 'author', '2000-01-01',
-      'book description', '123456789', 'url', 'publisher', 'category');
+      'book description', '123456789', null, 'publisher', 'category');
   for (int i = 1; i <= 10; i++) {
     myUnitBookList.add(myUnitBook);
   }
@@ -63,11 +68,11 @@ List<UnitBook> getUnitBookList_test() {
 }
 
 List<UnitBook> parseUnitBook(dynamic decodedResponseBody) {
-  debugPrint(decodedResponseBody.toString());
-  debugPrint(decodedResponseBody['books_list'].toString());
-  debugPrint((decodedResponseBody['books_list'] as List)
+  //debugPrint(decodedResponseBody.toString());
+  //debugPrint(decodedResponseBody['books_list'].toString());
+  /*debugPrint((decodedResponseBody['books_list'] as List)
       .map((i) => UnitBook.fromJson(i))
-      .toList().toString());
+      .toList().toString());*/
   return (decodedResponseBody['books_list'] as List)
       .map((i) => UnitBook.fromJson(i))
       .toList();

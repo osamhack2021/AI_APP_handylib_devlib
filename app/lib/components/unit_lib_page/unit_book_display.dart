@@ -16,8 +16,11 @@ class UnitBookDisplay extends StatelessWidget {
   const UnitBookDisplay({this.bookData, this.imageHeight, this.imageWidth});
   
   @override
-
+  
   Widget build(BuildContext context) {
+    //debugPrint('cover : ${bookData!.coverUrl!}');
+    //debugPrint('cover : ${bookData!.coverUrl!.replaceAll('\\/', '/')}' );
+    if(bookData == null) debugPrint('bookData is null!!');
     return Column(
       children: [
         GestureDetector(
@@ -42,16 +45,28 @@ class UnitBookDisplay extends StatelessWidget {
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10.0),
-              child: Image(
-                image: AssetImage('images/default_book_cover_image.png'),
-                fit: BoxFit.cover,
-              ),
+              child: (bookData!.coverUrl==null) ? 
+                (Image(
+                  image: AssetImage('images/default_book_cover_image.png'),
+                  fit: BoxFit.cover,
+                ) ):
+                (Image.network('${bookData!.coverUrl!.replaceAll('\\/', '/')}',
+                  fit : BoxFit.cover,
+                ))
+              ,
             ),
           ),
         ),
         
         
-      Text((bookData!.title==null)? 'unNamed' : bookData!.title! ),
+      SizedBox(
+        child: 
+          Text(
+            (bookData!.title==null)? 'unNamed' : bookData!.title!,
+            overflow: TextOverflow.ellipsis
+            ),
+          width:imageWidth,
+        ),
       ],
     );
     

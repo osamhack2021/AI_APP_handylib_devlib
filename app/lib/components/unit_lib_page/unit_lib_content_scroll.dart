@@ -17,27 +17,22 @@ class UnitLibContentScroll extends StatefulWidget {
 class _UnitLibContentScrollState extends State<UnitLibContentScroll> {
   List<UnitBook>? unitBookList;
 
-  Future getTotalList() async {
+  Future<List<UnitBook>> _getUnitBooksList() async {
     if (widget.tag == 'total') {
-      debugPrint('total list loading start');
-      unitBookList = await getUnitBookList(myUser!.unit);
-      debugPrint('total list loaded');
-      for (int i = 1; i < 10; i++) {
+      return await getUnitBookList(myUser!.unit);
+      /*for (int i = 1; i < 10; i++) {
         debugPrint(unitBookList![i].title);
-      }
+        debugPrint(unitBookList![i].coverUrl);
+      }*/
     } else {
-      unitBookList = getUnitBookList_test();
+      return getUnitBookList_test();
     }
   }
 
   @override
   Widget build(BuildContext context) {
     
-    getTotalList();
-    debugPrint(widget.tag);
-    debugPrint('$unitBookList');
-    debugPrint(unitBookList![4].title);
-
+    _getUnitBooksList();
 
     return Card(
       margin: EdgeInsets.all(1.0),
@@ -55,17 +50,59 @@ class _UnitLibContentScrollState extends State<UnitLibContentScroll> {
           ),
           SizedBox(
             height: 200,
+            child: FutureBuilder<List<UnitBook>> (
+              future: _getUnitBooksList(),
+              builder:(BuildContext context, unitBookList) {
+                List<Widget> children;
+                if(unitBookList.hasData) {
+                  children = <Widget> [
+                    for(UnitBook _thisUnitBook in unitBookList.data!) 
+                      UnitBookDisplay(
+                        bookData: _thisUnitBook,
+                        imageHeight: bookImageHeightConst,
+                        imageWidth: bookImageWidthConst
+                      ),
+                  ];
+                }
+                else if(unitBookList.hasError) {
+                  children =<Widget>[
+                    Text('오류로 인하여 책 목록을 로드하지 못했습니다.'),
+                  ];
+                }
+                else {
+                  children = const <Widget>[
+                    SizedBox(
+                      child: CircularProgressIndicator(),
+                      width: 60,
+                      height: 60,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 16),
+                      child: Text('로딩 중입니다...'),
+                    )
+                  ];
+                }
+                return ListView(
+                  
+                  padding: EdgeInsets.all(8.0),
+                  scrollDirection: Axis.horizontal,
+                  children:children,
+                );
+              }
+            )
+            
+            /*
             child: ListView.builder(
               padding: EdgeInsets.all(8.0),
               scrollDirection: Axis.horizontal,
               itemCount: 10,
               itemBuilder: (BuildContext context, int index) {
                 return UnitBookDisplay(
-                    bookData: unitBookList![index],
+                    bookData: (unitBookList==null)? defaultUnitBookModel(): unitBookList![index],
                     imageHeight: bookImageHeightConst,
                     imageWidth: bookImageWidthConst);
               },
-            ),
+            ),*/
           ),
         ],
       ),
