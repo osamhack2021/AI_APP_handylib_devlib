@@ -25,10 +25,10 @@ class _SettingPageState extends State<SettingPage> {
 
   void fetchProfileImage() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String imagePath;
-    imagePath = prefs.getString('profileImage')!;
+    String? imagePath;
+    imagePath = prefs.getString('profileImage');
     setState(() {
-      _profileImage = File(imagePath);
+      _profileImage = imagePath==null ? null : File(imagePath);
     });
   }
 

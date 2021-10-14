@@ -8,7 +8,7 @@ String aladinHost = "www.aladin.co.kr";
 String aladinFeedPath = "ttb/api/ItemLookUp.aspx";
 String aladinSearchPath = "ttb/api/ItemSearch.aspx";
 String aladinCategoryPath = "ttb/api/ItemList.aspx";
-
+String proxy = "http://175.210.134.48:5000/";
 //https://cors-anywhere.herokuapp.com/
 
 Map<String, String> _monthMap = {
@@ -44,11 +44,13 @@ Future<Map<String, dynamic>> searchAladinApiGet(String query, int page) async {
   Map<String, dynamic> _param = _aladinSearchParam(query, page);
 
   http.Response response = await http.get(
-      Uri(
-          scheme: "http",
-          host: aladinHost,
-          path: aladinSearchPath,
-          queryParameters: _param),
+      Uri.parse(proxy +
+          Uri(
+                  scheme: "https",
+                  host: aladinHost,
+                  path: aladinSearchPath,
+                  queryParameters: _param)
+              .toString()),
       headers: {"Accept": "application/json"});
   return jsonDecode(response.body);
 }
@@ -68,16 +70,17 @@ Map<String, dynamic> _aladinFeedParam(String isbn13) {
   return ret;
 }
 
-
 Future<Map<String, dynamic>> feedAladinApiGet(String isbn13) async {
   Map<String, dynamic> _param = _aladinFeedParam(isbn13);
 
   http.Response response = await http.get(
-      Uri(
-          scheme: "http",
-          host: aladinHost,
-          path: aladinFeedPath,
-          queryParameters: _param),
+      Uri.parse(proxy +
+          Uri(
+                  scheme: "https",
+                  host: aladinHost,
+                  path: aladinFeedPath,
+                  queryParameters: _param)
+              .toString()),
       headers: {"Accept": "application/json"});
   Map<String, dynamic> res;
   String body = response.body;
@@ -105,13 +108,14 @@ Future<Map<String, dynamic>> feedAladinApiGet(String isbn13) async {
   };
   return res;
 }
+
 ///////////////////// feed //////////////////////
 ///
 Map<String, dynamic> _aladinCategoryParam(int categoryNum, int page) {
   Map<String, dynamic> ret = {
     "ttbkey": dotenv.env["TTBKEY"],
     "QueryType": "Bestseller",
-    "MaxResults":"10",
+    "MaxResults": "10",
     "output": "js",
     "start": page.toString(),
     "SearchTarget": "Book",
@@ -122,15 +126,18 @@ Map<String, dynamic> _aladinCategoryParam(int categoryNum, int page) {
   return ret;
 }
 
-Future<Map<String, dynamic>> feedAladinCategoryApi(int categoryNum, int page) async {
+Future<Map<String, dynamic>> feedAladinCategoryApi(
+    int categoryNum, int page) async {
   Map<String, dynamic> _param = _aladinCategoryParam(categoryNum, page);
 
   http.Response response = await http.get(
-      Uri(
-          scheme: "http",
-          host: aladinHost,
-          path: aladinCategoryPath,
-          queryParameters: _param),
+      Uri.parse(proxy +
+          Uri(
+                  scheme: "https",
+                  host: aladinHost,
+                  path: aladinCategoryPath,
+                  queryParameters: _param)
+              .toString()),
       headers: {"Accept": "application/json"});
   return jsonDecode(response.body);
 }

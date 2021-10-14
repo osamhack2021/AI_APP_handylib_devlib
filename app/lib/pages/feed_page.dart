@@ -28,19 +28,21 @@ class _FeedPageState extends State<FeedPage> {
   List<String> categoryName = [];
   final Map<String, bool> filter = {};
   File? _profileImage;
-  SharedPreferences? prefs;
+  SharedPreferences? _prefs;
 
   void fetchPref() async {
-    prefs = await SharedPreferences.getInstance();
-    String imagePath;
-    imagePath = prefs!.getString('profileImage')!;
+    SharedPreferences.getInstance().then((SharedPreferences prefs) {
+      _prefs = prefs;
+      String? imagePath;
+      imagePath = prefs.getString('profileImage');
 
-    categoryMap.forEach((key, value) {
-      filter[value] = prefs!.getBool(value) ?? true;
-    });
+      categoryMap.forEach((key, value) {
+        filter[value] = prefs.getBool(value) ?? true;
+      });
 
-    setState(() {
-      _profileImage = File(imagePath);
+      setState(() {
+        _profileImage = imagePath == null ? null : File(imagePath);
+      });
     });
   }
 
@@ -67,6 +69,9 @@ class _FeedPageState extends State<FeedPage> {
   @override
   void initState() {
     super.initState();
+    categoryMap.forEach((key, value) {
+      filter[value] = true;
+    });
     fetchPref();
     jinjungList = fetchJinjung();
     categoryMap.forEach((key, value) {
@@ -141,20 +146,19 @@ class _FeedPageState extends State<FeedPage> {
     filter.forEach((key, value) {
       tmp.add(ListTile(
         trailing: Switch(
-          activeColor: Color(COLOR_PRIMARY),
-          hoverColor: Color(COLOR_PRIMARY2),
+          activeColor: const Color(COLOR_PRIMARY),
+          hoverColor: const Color(COLOR_PRIMARY2),
           value: value,
           onChanged: (value) {
             setState(() {
               filter[key] = value ? true : false;
-              prefs!.setBool(key, filter[key]!);
+              _prefs!.setBool(key, filter[key]!);
             });
           },
         ),
         title: Text(key),
       ));
     });
-
     return tmp;
   }
 
@@ -180,7 +184,7 @@ class _FeedPageState extends State<FeedPage> {
 
   Container jinjungTitle() {
     return Container(
-      padding: const EdgeInsets.fromLTRB(50.0, 10, 150, 0),
+      padding: const EdgeInsets.fromLTRB(50.0, 10, 50, 0),
       width: double.infinity,
       child: const UnderLinedText(
         text: "이번분기의 진중문고",
