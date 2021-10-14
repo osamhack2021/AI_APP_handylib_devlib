@@ -2,6 +2,7 @@ import 'package:app/components/custom_text_form_field.dart';
 import 'package:app/components/default_circle_avatar.dart';
 import 'package:app/constants/colors.dart';
 import 'package:app/constants/size.dart';
+import 'package:app/models/comment_models.dart';
 import 'package:app/models/post_models.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +41,7 @@ class PostPage extends StatelessWidget {
                         overflow:TextOverflow.clip,
                       ) 
                     ),
-                    Text('time'),
+                    Text('${thisPost.timestamp}'),
                   ],)
                 ]
               ),
@@ -87,8 +88,8 @@ class PostPage extends StatelessWidget {
           ),
           Column(children: 
                     List<Widget>.generate(
-                      10, //(thisPost.postCommentList).length,
-                      (index) => _SingleComment()
+                      (thisPost.postCommentList).length,
+                      (index) => _SingleComment(thisPost.postCommentList[index])
                     ),
           ),
           
@@ -133,9 +134,9 @@ class CommentBottomBar extends StatelessWidget {
 
 
 class _SingleComment extends StatelessWidget {
-  const _SingleComment({
-    Key? key,
-  }) : super(key: key);
+  final Comment thisComment;
+
+  const _SingleComment(this.thisComment);
 
   @override
   Widget build(BuildContext context) {

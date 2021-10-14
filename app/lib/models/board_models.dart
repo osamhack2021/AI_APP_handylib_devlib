@@ -28,10 +28,6 @@ List<Post> parsePost(dynamic decodedResponseBody) {
 }
 
 Future<List<Post>> getPostListbyTag(String tag, int pageId) async {
-  final _queryPatameters = {
-    'tag' : tag,
-    'page_id' : pageId,
-  };
   final response = await http.get(
       Uri.parse(proxyUri +  myUri + 'board/$pageId?tag=$tag'),
       headers: <String, String>{
@@ -51,23 +47,3 @@ getBoardbyId(int? boardIdQuery) {
   throw Exception('Could not find the board by boardId');
 }
 
-Future<int> writePost(
-  String content,
-  String title,
-  String tag,
-  String userId,
-) async {
-  final response = await http.post(
-    Uri.parse(proxyUri + myUri + 'board/write' + '?user_id=${userId}'),
-    headers: <String, String> {
-      'Content-Type': 'application/json; charset=UTF-8',
-    },
-    body: jsonEncode(<String, String>{
-      'content' : content,
-      'title' : title,
-      'tag' : tag,
-      'user_id' : userId,
-    }),
-  );
-  return response.statusCode;
-}

@@ -1,6 +1,7 @@
 import 'package:app/components/custom_text_form_field.dart';
 import 'package:app/constants/colors.dart';
 import 'package:app/models/board_models.dart';
+import 'package:app/models/post_models.dart';
 import 'package:app/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
