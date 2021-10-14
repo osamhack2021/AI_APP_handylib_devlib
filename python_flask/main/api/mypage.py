@@ -22,7 +22,7 @@ def read_book(query):
     return result
 
 def read_csv(user_id):
-    file = csv.reader(open('../models/{}.csv'.format(user_id), 'r'))
+    file = csv.reader(open('/main/recommedation/recommend_list/{}.csv'.format(user_id), 'r'))
     lists = []
     for row in file:
         # 각 열마다 어떤 데이터인지 읽고 dicts에 저장
@@ -60,7 +60,7 @@ def mypage():
             # recommend_list 불러오기(csv파일을 불러올 예정)
             recommend_list = read_csv(user_id)
             # user_data 불러오기
-            user_data='https://www.projectlib.tk/image/favoriteCategory_{}.png'.format(user_id)
+            user_data='https://www.projectlib.tk/image/{}.png'.format(user_id)
             # res
             dicts = {
                 "borrow_list": borrow_lists,
