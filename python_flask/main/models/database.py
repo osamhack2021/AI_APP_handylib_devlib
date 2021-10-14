@@ -1,7 +1,7 @@
 import pymongo
 from pymongo import MongoClient
 from flask_mongoengine import MongoEngine
-from mongoengine import StringField,ListField,EmailField,IntField,ImageField,FloatField,DateField
+from mongoengine import StringField,ListField,EmailField,IntField,ImageField,DateField
 from ..app import app
 database_name = "API_test"
 uri  = "mongodb+srv://DevLib_Backend1:OSAMHackathonDevLibBackend1@cluster0.5ublg.mongodb.net/{}?retryWrites=true&w=majority".format(database_name) # 몽고db커넥트url 넣으면 되요
@@ -19,7 +19,7 @@ class User(db.Document):
   like = ListField()
   borrowed = ListField()
   rank = StringField()
-  unit=StringField()
+  unit = StringField()
   def to_json(self):
     return {"name": self.name,
     "email": self.email,
@@ -40,10 +40,10 @@ class Book(db.Document):
   isbn = StringField()
   isbn13 = StringField()
   cover = StringField()
-  categoryId = FloatField()
+  categoryId = IntField()
   categoryName = StringField() # tag
   publisher = StringField()
-  customerReviewRank = FloatField()
+  customerReviewRank = IntField()
   def to_json(self):
     return {"title": self.title,
     "link": self.link,
@@ -82,12 +82,16 @@ class Comment(db.Document):
   user_id = StringField()
   content = StringField()
   time_stamp=DateField()
+  board_number=IntField()
+  tag=StringField()
   def to_json(self):
     return {
     "user_id": self.user_id,
     "comment_number":self.comment_number,
     "content":self.content,
-    "time_stamp":self.time_stamp
+    "time_stamp":self.time_stamp,
+    "board_number":self.board_number,
+    "tag":tag
     }
 class Unit(db.Document):
   # objectid(고유번호) = auto_create or insert
@@ -97,6 +101,22 @@ class Unit(db.Document):
     return {
     "name":self.name,
     "books_list":self.books_list,
+    }
+class Embook(db.EmbeddedDocument):
+  title = db.StringField()
+  isbn = db.StringField()
+  isbn13 = db.StringField()
+  state = db.IntField()
+  user_id = db.StringField()
+  score = db.IntField()
+  def to_json(self):
+    return {
+    "title":self.title,
+    "isbn":self.isbn,
+    "isbn13":self.isbn13,
+    "state":self.state,
+    "user_id":self.user_id,
+    "score":self.score,
     }
 class Searchlog(db.Document):
   # objectid(고유번호) = auto_create or insert

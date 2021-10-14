@@ -1,6 +1,8 @@
+import 'package:app/constants/size.dart';
 import 'package:app/controller/user_controller.dart';
 import 'package:app/pages/setting_page.dart';
 import 'package:app/screens/home_screen.dart';
+import 'package:crypt/crypt.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 
@@ -82,10 +84,41 @@ class __ModifyContentState extends State<_ModifyContent> {
         actions: <Widget>[
           Center(
             child: TextButton(
-              onPressed: () {
-                final snackbar = SnackBar(content: Text('변경에 실패했습니다.'));
+              onPressed: () async {
+                User newUserInfo;
+                newUserInfo = userCopy(myUser!);
+                if (widget.title == 'email') {
+                  newUserInfo.email = modifySettingController.value.text;
+                } else if (widget.title == 'unit') {
+                  newUserInfo.unit = modifySettingController.value.text;
+                } else if (widget.title == 'rank') {
+                  newUserInfo.rank = modifySettingController.value.text;
+                } else {
+                  debugPrint('잘못된 title값이 전달되었습니다. show_modify_dialog');
+                  Navigator.pop(context);
+                  final snackbar =
+                      SnackBar(content: Text('변경에 실패했습니다 : 잘못된 title값 전달'));
+                  ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                }
+                int res = await modifyUserInfo(newUserInfo);
+                if (res == 200) {
+                  final snackbar = SnackBar(content: Text('변경하였습니다.'));
+                  ScaffoldMessenger.of(context).showSnackBar(snackbar);
+     
+                  myUser = userCopy(newUserInfo);
+                  
+                  Navigator.pop(context);
+                } else {
+                  debugPrint('변경에 실패했습니다. ${res}');
+                  final snackbar =
+                      SnackBar(content: Text('변경에 실패했습니다 : ${res.toString()}'));
+                  ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                  Navigator.pop(context);
+                }
+
+                /*final snackbar = SnackBar(content: Text('변경에 실패했습니다.'));
                 ScaffoldMessenger.of(context).showSnackBar(snackbar);
-                Navigator.pop(context);
+                Navigator.pop(context);*/
               },
               child: const Text('변경'),
             ),

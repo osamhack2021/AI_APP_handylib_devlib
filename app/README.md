@@ -31,7 +31,7 @@
 <span>Readme 목차</span>
   <ol>
     <li>
-      <a href="#about-the-project">프로젝트 설명</a>
+      <a href="#about-the-project">프론트엔드</a>
       <ul>
         <li><a href="#built-with">개발 도구</a></li>
       </ul>
@@ -50,24 +50,54 @@
 
 <!-- ABOUT THE PROJECT -->
 
-## About The Project
+# 프론트엔드
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-There are many great README templates available on GitHub; however, I didn't find one that really suited my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
+프론트엔드에서는 flutter를 이용하여 앱 UI/UX 및 개인화 기능을 개발하였습니다. 
 
-Here's why:
+## 개인화 기능
+회원가입이 가능합니다.
 
-- Your time should be focused on creating something amazing. A project that solves a problem and helps others
-- You shouldn't be doing the same tasks over and over like creating a README from scratch
-- You should implement DRY principles to the rest of your life :smile:
+## UI/UX
 
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have contributed to expanding this template!
+메인 페이지는 총 다섯 개의 탭으로 구성되어 있습니다. 탭 구성은 아래와 같습니다.
+<ol>
+  <li><a href = "#ebookLib">전자 도서관</a></li>
+  <li><a href = "#myBook">나의 서재</a></li>
+  <li><a href = "#unitLib">부대 도서관</a></li>
+  <li><a href = "#board">게시판</a></li>
+  <li><a href = "#myPage">마이페이지</a></li>
+ </ol>
+ 
+<a id = "ebookLib"></a>
+### 전자도서관
 
-Use the `BLANK_README.md` to get started.
+<img><
+전자도서관은 기존의 각 군 전자도서관 시스템이 나누어져 있던 것을 하나로 통합한 시스템입니다. 여기서는 책을 대출하고, 반납하고 관람하는 것이 가능합니다. 
+  
+<a id = "myBook"></a>
+### 나의 서재
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+나의 서재는 내가 빌린 책, ai 기반의 나에게 추천하는 책, 나의 책 선택 성향을 워드클라우드로 볼 수 있는 기능을 제공합니다.
 
+<a id = "unitLib"></a>
+### 부대 도서관
+
+부대 도서관은 우리 부대의 인기있는 책, 새로 들어온 책 등 부대 내 진중문고의 대출 가능 여부와 목록을 볼 수 있도록 합니다.
+
+
+<a id = "board"></a>
+### 게시판
+
+게시판은 전군의 장병들이 자유롭게 독서와 관련한 토론과 이야기를 나누거나, 관리자가 독서 관련 대회를 개최할 수 있는 플랫폼을 제공합니다.
+
+
+<a id = "myPage"></a>
+### 마이페이지
+내 개인정보를 수정하는 기능을 제공합니다.
+  
+  
 ### Built With
 
 This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
