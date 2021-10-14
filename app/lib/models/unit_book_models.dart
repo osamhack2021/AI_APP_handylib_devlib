@@ -102,3 +102,18 @@ Future<List<UnitBook>> getUnitBookList(String unit) async {
   return parseUnitBook(jsonDecode(utf8.decode(response.bodyBytes)));
 }
 //User.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
+
+Future<List<UnitBook>> getUnitTagBookList(String unit, String tag) async {
+  final response = await http.post(
+    Uri.parse(proxyUri + myUri + 'unit/$tag/' + Uri.encodeComponent(unit)),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(
+      <String, String>{
+        'Unit_name': unit,
+      },
+    ),
+  );
+  return parseUnitBook(jsonDecode(utf8.decode(response.bodyBytes)));
+}

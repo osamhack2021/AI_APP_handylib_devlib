@@ -43,7 +43,7 @@ Future<int> createUser(
   final encryptedPassword = Crypt.sha256(password, salt: mySalt).toString();
 
   final response = await http.post(
-    Uri.parse(proxyUri + myUri + 'sign_up'),
+    Uri.parse(proxyUri + myUri + 'sign_up/'),
     headers: <String, String>{
       //"Accept":"application/json",
       //"Access-Control-Allow-Origin":"*",
@@ -88,7 +88,7 @@ Future<int> loginUser(String userId, String password) async {
   final encryptedPassword = Crypt.sha256(password, salt: mySalt).toString();
   debugPrint(encryptedPassword + " " + password);
   final response = await http.post(
-    Uri.parse(proxyUri + myUri + 'sign_in'),
+    Uri.parse(proxyUri + myUri + 'sign_in/'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
