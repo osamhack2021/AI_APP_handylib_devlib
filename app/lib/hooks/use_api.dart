@@ -5,6 +5,7 @@ import 'package:xml/xml.dart';
 import 'package:intl/intl.dart';
 
 String aladinHost = "www.aladin.co.kr";
+const String proxyUri = 'https://cors-anywhere.herokuapp.com/';
 String aladinFeedPath = "ttb/api/ItemLookUp.aspx";
 String aladinSearchPath = "ttb/api/ItemSearch.aspx";
 String aladinCategoryPath = "ttb/api/ItemList.aspx";
@@ -44,9 +45,11 @@ Future<Map<String, dynamic>> searchAladinApiGet(String query, int page) async {
   Map<String, dynamic> _param = _aladinSearchParam(query, page);
 
   http.Response response = await http.get(
+
       Uri.parse(proxy +
           Uri(
                   scheme: "https",
+
                   host: aladinHost,
                   path: aladinSearchPath,
                   queryParameters: _param)
@@ -74,9 +77,11 @@ Future<Map<String, dynamic>> feedAladinApiGet(String isbn13) async {
   Map<String, dynamic> _param = _aladinFeedParam(isbn13);
 
   http.Response response = await http.get(
+
       Uri.parse(proxy +
           Uri(
                   scheme: "https",
+
                   host: aladinHost,
                   path: aladinFeedPath,
                   queryParameters: _param)
@@ -131,9 +136,11 @@ Future<Map<String, dynamic>> feedAladinCategoryApi(
   Map<String, dynamic> _param = _aladinCategoryParam(categoryNum, page);
 
   http.Response response = await http.get(
+
       Uri.parse(proxy +
           Uri(
                   scheme: "https",
+
                   host: aladinHost,
                   path: aladinCategoryPath,
                   queryParameters: _param)
