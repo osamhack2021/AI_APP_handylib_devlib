@@ -27,6 +27,7 @@ class UnitBookDisplay extends StatelessWidget {
           onTap: () {
             Navigator.of(context).pushNamed(
               '/home/unitlib/book-detail',
+              arguments: bookData,
             );
           },
           child: Container(

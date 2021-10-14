@@ -24,6 +24,8 @@ class _UnitLibContentScrollState extends State<UnitLibContentScroll> {
         debugPrint(unitBookList![i].title);
         debugPrint(unitBookList![i].coverUrl);
       }*/
+    } else if (widget.tag == 'best' || widget.tag == 'new') {
+      return await getUnitTagBookList(myUser!.unit, widget.tag);
     } else {
       return getUnitBookList_test();
     }
@@ -31,7 +33,6 @@ class _UnitLibContentScrollState extends State<UnitLibContentScroll> {
 
   @override
   Widget build(BuildContext context) {
-    
     _getUnitBooksList();
 
     return Card(
@@ -49,49 +50,44 @@ class _UnitLibContentScrollState extends State<UnitLibContentScroll> {
             ),
           ),
           SizedBox(
-            height: 200,
-            child: FutureBuilder<List<UnitBook>> (
-              future: _getUnitBooksList(),
-              builder:(BuildContext context, unitBookList) {
-                List<Widget> children;
-                if(unitBookList.hasData) {
-                  children = <Widget> [
-                    for(UnitBook _thisUnitBook in unitBookList.data!) 
-                      UnitBookDisplay(
-                        bookData: _thisUnitBook,
-                        imageHeight: bookImageHeightConst,
-                        imageWidth: bookImageWidthConst
-                      ),
-                  ];
-                }
-                else if(unitBookList.hasError) {
-                  children =<Widget>[
-                    Text('오류로 인하여 책 목록을 로드하지 못했습니다.'),
-                  ];
-                }
-                else {
-                  children = const <Widget>[
-                    SizedBox(
-                      child: CircularProgressIndicator(),
-                      width: 60,
-                      height: 60,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 16),
-                      child: Text('로딩 중입니다...'),
-                    )
-                  ];
-                }
-                return ListView(
-                  
-                  padding: EdgeInsets.all(8.0),
-                  scrollDirection: Axis.horizontal,
-                  children:children,
-                );
-              }
-            )
-            
-            /*
+              height: 200,
+              child: FutureBuilder<List<UnitBook>>(
+                  future: _getUnitBooksList(),
+                  builder: (BuildContext context, unitBookList) {
+                    List<Widget> children;
+                    if (unitBookList.hasData) {
+                      children = <Widget>[
+                        for (UnitBook _thisUnitBook in unitBookList.data!)
+                          UnitBookDisplay(
+                              bookData: _thisUnitBook,
+                              imageHeight: bookImageHeightConst,
+                              imageWidth: bookImageWidthConst),
+                      ];
+                    } else if (unitBookList.hasError) {
+                      children = <Widget>[
+                        Text('오류로 인하여 책 목록을 로드하지 못했습니다.'),
+                      ];
+                    } else {
+                      children = const <Widget>[
+                        SizedBox(
+                          child: CircularProgressIndicator(),
+                          width: 60,
+                          height: 60,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 16),
+                          child: Text('로딩 중입니다...'),
+                        )
+                      ];
+                    }
+                    return ListView(
+                      padding: EdgeInsets.all(8.0),
+                      scrollDirection: Axis.horizontal,
+                      children: children,
+                    );
+                  })
+
+              /*
             child: ListView.builder(
               padding: EdgeInsets.all(8.0),
               scrollDirection: Axis.horizontal,
@@ -103,7 +99,7 @@ class _UnitLibContentScrollState extends State<UnitLibContentScroll> {
                     imageWidth: bookImageWidthConst);
               },
             ),*/
-          ),
+              ),
         ],
       ),
     );

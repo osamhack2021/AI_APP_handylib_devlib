@@ -5,7 +5,7 @@ import 'package:xml/xml.dart';
 import 'package:intl/intl.dart';
 
 String aladinHost = "www.aladin.co.kr";
-const String proxyUri = 'https://cors-anywhere.herokuapp.com/';
+const String proxyUri = '';
 String aladinFeedPath = "ttb/api/ItemLookUp.aspx";
 String aladinSearchPath = "ttb/api/ItemSearch.aspx";
 String aladinCategoryPath = "ttb/api/ItemList.aspx";
