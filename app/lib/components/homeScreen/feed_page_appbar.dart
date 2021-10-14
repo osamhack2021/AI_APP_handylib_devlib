@@ -55,13 +55,13 @@ AppBar FeedPageAppBar(BuildContext context) {
         color: Color(COLOR_PRIMARY2),
       ),
     ),
-    leading: IconButton(
-      padding: const EdgeInsets.only(left: 30.0),
-      onPressed: () => print('Menu'),
-      icon: const Icon(Icons.menu),
-      iconSize: 30.0,
-      color: Colors.white,
-    ),
+    // leading: IconButton(
+    //   padding: const EdgeInsets.only(left: 30.0),
+    //   onPressed: () => print('Menu'),
+    //   icon: const Icon(Icons.menu),
+    //   iconSize: 30.0,
+    //   color: Colors.white,
+    // ),
     // leading: const SizedBox(
     //   width: 100,
     //   height: 100,

@@ -8,9 +8,8 @@ def autoPull():
         ["git", "pull"])
     os.execl(sys.executable, sys.executable, *sys.argv)
 
+
 if __name__=='__main__':
     
     app.run('0.0.0.0')
 
-
-   

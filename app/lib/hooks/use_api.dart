@@ -7,6 +7,9 @@ import 'package:intl/intl.dart';
 String aladinHost = "www.aladin.co.kr";
 String aladinFeedPath = "ttb/api/ItemLookUp.aspx";
 String aladinSearchPath = "ttb/api/ItemSearch.aspx";
+String aladinCategoryPath = "ttb/api/ItemList.aspx";
+
+//https://cors-anywhere.herokuapp.com/
 
 Map<String, String> _monthMap = {
   "Jan": "01",
@@ -50,6 +53,9 @@ Future<Map<String, dynamic>> searchAladinApiGet(String query, int page) async {
   return jsonDecode(response.body);
 }
 
+///////////////////// search //////////////////////
+///////////////////// feed //////////////////////
+
 Map<String, dynamic> _aladinFeedParam(String isbn13) {
   Map<String, dynamic> ret = {
     "ttbkey": dotenv.env["TTBKEY"],
@@ -62,8 +68,7 @@ Map<String, dynamic> _aladinFeedParam(String isbn13) {
   return ret;
 }
 
-///////////////////// search //////////////////////
-///////////////////// feed //////////////////////
+
 Future<Map<String, dynamic>> feedAladinApiGet(String isbn13) async {
   Map<String, dynamic> _param = _aladinFeedParam(isbn13);
 
@@ -101,3 +106,31 @@ Future<Map<String, dynamic>> feedAladinApiGet(String isbn13) async {
   return res;
 }
 ///////////////////// feed //////////////////////
+///
+Map<String, dynamic> _aladinCategoryParam(int categoryNum, int page) {
+  Map<String, dynamic> ret = {
+    "ttbkey": dotenv.env["TTBKEY"],
+    "QueryType": "Bestseller",
+    "MaxResults":"10",
+    "output": "js",
+    "start": page.toString(),
+    "SearchTarget": "Book",
+    "Version": "20131101",
+    "Cover": "Big",
+    "CategoryId": categoryNum.toString()
+  };
+  return ret;
+}
+
+Future<Map<String, dynamic>> feedAladinCategoryApi(int categoryNum, int page) async {
+  Map<String, dynamic> _param = _aladinCategoryParam(categoryNum, page);
+
+  http.Response response = await http.get(
+      Uri(
+          scheme: "http",
+          host: aladinHost,
+          path: aladinCategoryPath,
+          queryParameters: _param),
+      headers: {"Accept": "application/json"});
+  return jsonDecode(response.body);
+}

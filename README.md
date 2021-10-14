@@ -18,9 +18,9 @@
   <p align="center">
     진중문고를 내 손안으로!
     <br />
-    <a href="https://humdrum-anise-0dc.notion.site/DevLib-0960a793aa544b2bbc3038d309ad2c47"><strong>[ 개발문서 보기 ]</strong></a>
+    <a target="_blank" href="https://humdrum-anise-0dc.notion.site/DevLib-0960a793aa544b2bbc3038d309ad2c47"><strong>[ 개발문서 보기 ]</strong></a>
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template"><strong>[ 데모버전 ]</strong></a>
+    <a target="_blank" href="https://github.com/othneildrew/Best-README-Template"><strong>[ 데모버전 ]</strong></a>
   </p>
 </div>
 

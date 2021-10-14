@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
       //home: HomeScreen(),
       home:LoginPage(),
       // home: EbookReader(),
+      // home: LoginPage(),
       routes: routes,
       debugShowCheckedModeBanner: false,
     );

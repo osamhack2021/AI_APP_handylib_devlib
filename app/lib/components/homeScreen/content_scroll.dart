@@ -1,3 +1,4 @@
+import 'package:app/components/underlined_text.dart';
 import 'package:flutter/material.dart';
 import 'package:app/screens/detail_screen.dart';
 import 'package:app/models/book_models.dart';
@@ -34,13 +35,11 @@ class ContentScroll extends StatelessWidget {
     return Column(
       children: <Widget>[
         Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 50.0,
-          ),
+          padding: const EdgeInsets.fromLTRB(20.0, 0, 10, 0),
           width: double.infinity,
-          child: Text(
-            listTitle,
-            textAlign: TextAlign.left,
+          child: UnderLinedText(
+            text: listTitle,
+            thickness: 7,
             style: const TextStyle(
               fontSize: 21.0,
               fontWeight: FontWeight.bold,
