@@ -4,7 +4,7 @@ from main.models import database
 
 book_page=Blueprint('book',__name__)
 
-@book_page.route('/search/title=<title>&page=<page>',methods=['GET','POST'])
+@book_page.route('/search/title=<title>&page=<page>',methods=['GET'])
 def book_search(title, page):
     page = int(page)
     ajson = []
@@ -16,7 +16,7 @@ def book_search(title, page):
     resultJson = json.dumps(result, ensure_ascii=False)
     return Response(resultJson,mimetype="application/json",status=200)
 
-@book_page.route('/search/categoryId=<categoryId>&page=<page>',methods=['GET','POST'])
+@book_page.route('/search/categoryId=<categoryId>&page=<page>',methods=['GET'])
 def book_search_categoryId(categoryId, page):
     categoryId = int(categoryId)
     page = int(page)
@@ -33,7 +33,7 @@ def book_search_categoryId(categoryId, page):
     resultJson = json.dumps(result, ensure_ascii=False)
     return Response(resultJson,mimetype="application/json",status=200)
 
-@book_page.route('/feed/category/cat=<categoryId>&page=<page>',methods=['GET','POST'])
+@book_page.route('/feed/category/cat=<categoryId>&page=<page>',methods=['GET'])
 def book_search_feed_categoryId(categoryId, page):
     categoryId = int(categoryId)
     page = int(page)
@@ -50,7 +50,7 @@ def book_search_feed_categoryId(categoryId, page):
     resultJson = json.dumps(result, ensure_ascii=False)
     return Response(resultJson,mimetype="application/json",status=200)
 
-@book_page.route('/search/isbn=<isbn>&page=<page>',methods=['GET','POST'])
+@book_page.route('/search/isbn=<isbn>&page=<page>',methods=['GET'])
 def book_search_isbn(isbn, page):
     page = int(page)
     ajson = []

@@ -4,7 +4,7 @@ from main.models import database
 
 unit_page=Blueprint('unit',__name__)
 
-@unit_page.route('/',methods=['GET','POST'])
+@unit_page.route('/',methods=['GET'])
 def unit_name():
     u = []
     for i in range(0,len(database.Unit.objects())):
@@ -13,7 +13,7 @@ def unit_name():
     resultJson = json.dumps(jsl, ensure_ascii=False)
     return Response(resultJson,mimetype="application/json",status=200)
 
-@unit_page.route('/<Unit_name>', methods=['GET', 'POST'])
+@unit_page.route('/<Unit_name>', methods=['GET'])
 def Unit_books_list(Unit_name):
     c = 0
     for i in range(0,len(database.Unit.objects())):
@@ -22,10 +22,7 @@ def Unit_books_list(Unit_name):
     if c == 1 :
         q = []
         for i in database.Unit.objects(name='{}'.format(Unit_name))[0]['books_list']:
-            if Unit_name == 'Test1unit':
-                q.append(i)
-            else :
-                q.append(i.to_json())
+            q.append(database.Book.objects(isbn=i['isbn'])[0].to_json())
         result = {'name': '{}'.format(Unit_name), 'books_list': q}
         resultJson = json.dumps(result, ensure_ascii=False)
         return Response(resultJson,mimetype="application/json",status=200)
@@ -39,7 +36,7 @@ def Unit_books_list(Unit_name):
             resultJson = json.dumps(jsl, ensure_ascii=False)
             return Response(resultJson,mimetype="application/json",status=201)
 
-@unit_page.route('/best/Unit_name=<Unit_name>', methods=['GET', 'POST'])
+@unit_page.route('/best/Unit_name=<Unit_name>', methods=['GET'])
 def Unit_books_best(Unit_name):
     c = 0
     for i in range(0,len(database.Unit.objects())):
@@ -50,8 +47,10 @@ def Unit_books_best(Unit_name):
         for i in database.Unit.objects(name='{}'.format(Unit_name))[0]['books_list']:
             q.append(i.to_json())
         jsl = sorted(q, key=(lambda x: x['score']) , reverse=True)
-        jsl = jsl[0:9]
-        jsl = {'name': '{}'.format(Unit_name), 'books_list': jsl}
+        q = []
+        for i in jsl:
+            q.append(database.Book.objects(isbn=i['isbn'])[0].to_json())
+        jsl = {'name': '{}'.format(Unit_name), 'books_list': q[0:10]}
         resultJson = json.dumps(jsl, ensure_ascii=False)
         return Response(resultJson,mimetype="application/json",status=200)
     else :
@@ -63,6 +62,20 @@ def Unit_books_best(Unit_name):
             jsl = {'Error': '동일한 부대 데이터가 2개이상 존재합니다.'}
             resultJson = json.dumps(jsl, ensure_ascii=False)
             return Response(resultJson,mimetype="application/json",status=201)
+
+@unit_page.route('/chk/Unit_name=<Unit_name>&isbn=<isbn>', methods=['GET'])
+def Unit_books_list_chk(Unit_name, isbn):
+    c = []
+    for i in database.Unit.objects(name='{}'.format(Unit_name))[0]['books_list']:
+        if i['isbn'] == '{}'.format(isbn):
+            c = {'title': i['title'],'isbn': i['isbn'],'isbn13': i['isbn13'],'state': i['state'],'user_id': i['user_id'],'score': i['score'],'_cls': 'Embook'}
+    if c == []:
+        result = {'Error': 'Unit_name, isbn를 다시 한번 확인해주세요.'}
+        resultJson = json.dumps(result, ensure_ascii=False)
+        return Response(resultJson,mimetype="application/json",status=201)
+    else :
+        resultJson = json.dumps(c, ensure_ascii=False)
+    return Response(resultJson,mimetype="application/json",status=200)
 
 @unit_page.route('/brr/Unit_name=<Unit_name>&isbn=<isbn>&user_id=<user_id>', methods=['POST'])
 def Unit_books_list_brr(Unit_name, isbn, user_id):
@@ -105,18 +118,4 @@ def Unit_books_list_ret(Unit_name, isbn, user_id):
         database.client.API_test.unit.update({'name':'{}'.format(Unit_name)}, {'$pull': {'books_list': {'isbn':'{}'.format(isbn)}}})
         database.client.API_test.unit.update({'name':'{}'.format(Unit_name)}, {'$push': {'books_list': c}})
     resultJson = json.dumps(c, ensure_ascii=False)
-    return Response(resultJson,mimetype="application/json",status=200)
-
-@unit_page.route('/chk/Unit_name=<Unit_name>&isbn=<isbn>', methods=['GET', 'POST'])
-def Unit_books_list_chk(Unit_name, isbn):
-    c = []
-    for i in database.Unit.objects(name='{}'.format(Unit_name))[0]['books_list']:
-        if i['isbn'] == '{}'.format(isbn):
-            c = {'title': i['title'],'isbn': i['isbn'],'isbn13': i['isbn13'],'state': i['state'],'user_id': i['user_id'],'score': i['score'],'_cls': 'Embook'}
-    if c == []:
-        result = {'Error': 'Unit_name, isbn를 다시 한번 확인해주세요.'}
-        resultJson = json.dumps(result, ensure_ascii=False)
-        return Response(resultJson,mimetype="application/json",status=201)
-    else :
-        resultJson = json.dumps(c, ensure_ascii=False)
     return Response(resultJson,mimetype="application/json",status=200)
