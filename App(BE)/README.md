@@ -1,56 +1,4 @@
 
-# Technologies
-------------
-+ python, Flask
-+ MongoDB, mongoengine
-+ Azure cloud, VM
-+ Git
-
-
-## Install
-------------
-```python
-pip install flask
-pip install flask-mongoengine
-pip install PILLOW
-pip install wheel
-pip install python-dotenv
-```
-
-# Documentation
-------------
-REST API 및 DB 구조 설계
-[notion](https://www.notion.so/backend-c26e987ceb954576b7578e6503940495)
-
-## Directory
-------------
-+ App(BE)
-    + main
-        + api
-        + models
-        + static
-          + img
-          + templates
-        + app.py
-    + app_start.py
-    + config.py
-    + README.md
-    +.gitignore
-    + requirements.txt
-
-# Test
-------------
-테스트 코드 입력
-
-
-# Contact
--------------
-김수민  Eeap
-고명진  B-1Go
-
-
-
-<br />
 <div align="center">
 
   <h3 align="center">내 손 안의 진중문고, HandyLib</h3>
@@ -130,5 +78,5 @@ Distributed under the MIT License. See [LICENSE.txt](https://github.com/osamhack
 <a id = "contact"></a>
 
 ## 개발자 정보
-김수민 - kdg97811@naver.com</br>
-고명진 - mj2000go@naver.com</br>
+김수민(Eeap) - kdg97811@naver.com    </br>
+고명진(B-1GO) - mj2000go@naver.com    </br>
