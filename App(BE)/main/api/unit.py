@@ -21,6 +21,8 @@ def Unit_books_list(Unit_name, page):
         page = 0
     else:
         page = page - 1
+    if len(database.Unit.objects(name='{}'.format(Unit_name))[0]['books_list'])/5 <= page:
+        page = database.Unit.objects(name='{}'.format(Unit_name))[0]['books_list']/5 - 1
     for i in range(0,len(database.Unit.objects())):
         if database.Unit.objects[i].name == '{0}'.format(Unit_name):
             c += 1
