@@ -103,17 +103,37 @@ class Unit(db.Document):
     "books_list":self.books_list,
     }
 class Embook(db.EmbeddedDocument):
-  title = db.StringField()
-  isbn = db.StringField()
-  isbn13 = db.StringField()
-  state = db.IntField()
-  user_id = db.StringField()
-  score = db.IntField()
+  title = StringField()
+  isbn = StringField()
+  isbn13 = StringField()
+  link = StringField()
+  author = StringField()
+  pubDate = StringField() # publication_date
+  description = StringField()
+  creator = StringField()
+  cover = StringField()
+  categoryId = IntField()
+  categoryName = StringField() # tag
+  publisher = StringField()
+  customerReviewRank = IntField()
+  state = IntField()
+  user_id = StringField()
+  score = IntField()
   def to_json(self):
     return {
     "title":self.title,
     "isbn":self.isbn,
     "isbn13":self.isbn13,
+    "link": self.link,
+    "author": self.author,
+    "pubDate": self.pubDate,
+    "description": self.description,
+    "creator": self.creator,
+    "cover": self.cover,
+    "categoryId": self.categoryId,
+    "categoryName": self.categoryName,
+    "publisher": self.publisher,
+    "customerReviewRank": self.customerReviewRank,
     "state":self.state,
     "user_id":self.user_id,
     "score":self.score,
