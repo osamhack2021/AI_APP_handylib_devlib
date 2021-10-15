@@ -3,6 +3,7 @@ import 'package:app/components/unit_lib_page/unit_book_display.dart';
 import 'package:app/constants/size.dart';
 import 'package:app/models/unit_book_class_models.dart';
 import 'package:app/models/unit_book_models.dart';
+import 'package:app/pages/unit_lib_book_list_page.dart';
 import 'package:app/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -20,14 +21,17 @@ class _UnitLibContentScrollState extends State<UnitLibContentScroll> {
 
   Future<List<UnitBook>> _getUnitBooksList() async {
     if (widget.tag == 'total') {
-      return await getUnitBookList(myUser!.unit);
+      return await getUnitBookList(myUser!.unit, 1);
       /*for (int i = 1; i < 10; i++) {
         debugPrint(unitBookList![i].title);
         debugPrint(unitBookList![i].coverUrl);
       }*/
     } else if (widget.tag == 'best' || widget.tag == 'new') {
       return await getUnitTagBookList(myUser!.unit, widget.tag);
+    } else if (widget.tag == 'borrow') {
+      return await getBorrowBookList(myUser!.unit);
     } else {
+      debugPrint('unitbooklist의 태그가 잘못되었습니다 : unit_lib_content_scroll');
       return getUnitBookList_test();
     }
   }
@@ -42,14 +46,48 @@ class _UnitLibContentScrollState extends State<UnitLibContentScroll> {
         children: [
           ListTile(
             title: Text("${getUnitBookClassTitlebyTag(widget.tag)}"),
-            trailing: IconButton(
+            trailing: FutureBuilder<List<UnitBook>>(
+                future: _getUnitBooksList(),
+                builder: (BuildContext context, unitBookList) {
+                  bool useable = false;
+                  if (unitBookList.hasData) {
+                    useable = true;
+                  } else if (unitBookList.hasError) {
+                    //unable
+                    useable = false;
+                  } else
+                    useable = false;
+                  return IconButton(
+                    onPressed: () {
+                      if (useable) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => UnitLibBookListPage(
+                                unitBookList: unitBookList.data,
+                                tag: widget.tag),
+                          ),
+                        );
+                      } else
+                        null;
+                    },
+                    icon: Icon(Icons.arrow_forward),
+                  );
+                }),
+          ),
+
+          /*IconButton(
               onPressed: () {
-                Navigator.of(context)
-                    .pushNamed('/home/unitlib/list', arguments: widget.tag);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) =>
+                      UnitLibBookListPage(unitBookList: unitBookList, tag : widget.tag),
+                  ),
+                );
               },
               icon: Icon(Icons.arrow_forward),
-            ),
-          ),
+            ),*/
           SizedBox(
               height: 200,
               child: FutureBuilder<List<UnitBook>>(
@@ -58,19 +96,22 @@ class _UnitLibContentScrollState extends State<UnitLibContentScroll> {
                     List<Widget> children;
                     if (unitBookList.hasData) {
                       return ListView(
-                      padding: EdgeInsets.all(8.0),
-                      scrollDirection: Axis.horizontal,
-                      children: <Widget>[
-                        for (UnitBook _thisUnitBook in unitBookList.data!)
-                          UnitBookDisplay(
-                              bookData: _thisUnitBook,
-                              imageHeight: bookImageHeightConst,
-                              imageWidth: bookImageWidthConst),
-                      ],
-                    );
+                        padding: EdgeInsets.all(8.0),
+                        scrollDirection: Axis.horizontal,
+                        children: <Widget>[
+                          for (UnitBook _thisUnitBook in unitBookList.data!)
+                            UnitBookDisplay(
+                                bookData: _thisUnitBook,
+                                imageHeight: bookImageHeightConst,
+                                imageWidth: bookImageWidthConst),
+                        ],
+                      );
                     } else if (unitBookList.hasError) {
                       children = <Widget>[
-                        ErrorNotifier(errorMessage:'우리 부대는 아직 책이 등록되지 않았어요.')
+                        if (widget.tag == 'borrow')
+                          ErrorNotifier(errorMessage: '아직 대출한 책이 없어요.')
+                        else
+                          ErrorNotifier(errorMessage: '우리 부대는 아직 책이 등록되지 않았어요.')
                       ];
                     } else {
                       children = const <Widget>[

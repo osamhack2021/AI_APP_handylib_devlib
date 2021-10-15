@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:app/models/book_models.dart';
+import 'package:app/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:app/constants/uri.dart';
@@ -88,33 +89,35 @@ List<UnitBook> parseUnitBook(dynamic decodedResponseBody) {
 }
 
 //부대 전체 책 리스트 가져오기
-Future<List<UnitBook>> getUnitBookList(String unit) async {
-  final response = await http.post(
-    Uri.parse(proxyUri + myUri + 'unit/' + Uri.encodeComponent(unit)),
+Future<List<UnitBook>> getUnitBookList(String unit, int page) async {
+  if ( page == null) page = 1;
+  final response = await http.get(
+    Uri.parse(proxyUri + myUri + 'unit/' + Uri.encodeComponent(unit) + '&$page'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
-    body: jsonEncode(
-      <String, String>{
-        'Unit_name': unit,
-      },
-    ),
   );
   return parseUnitBook(jsonDecode(utf8.decode(response.bodyBytes)));
 }
 //User.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
 
 Future<List<UnitBook>> getUnitTagBookList(String unit, String tag) async {
-  final response = await http.post(
+  final response = await http.get(
     Uri.parse(proxyUri + myUri + 'unit/$tag/Unit_name=' + Uri.encodeComponent(unit)),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
-    body: jsonEncode(
-      <String, String>{
-        'Unit_name': unit,
-      },
-    ),
+  );
+  return parseUnitBook(jsonDecode(utf8.decode(response.bodyBytes)));
+}
+
+Future<List<UnitBook>> getBorrowBookList(String unit) async {
+  final response = await http.get(
+    Uri.parse(proxyUri + myUri + 'mypage/borrow_list?user_id=${myUser!.userId}'),
+    
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
   );
   return parseUnitBook(jsonDecode(utf8.decode(response.bodyBytes)));
 }
