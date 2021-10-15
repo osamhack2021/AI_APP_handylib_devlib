@@ -10,9 +10,18 @@ class UnitLibBookListPage extends StatelessWidget {
   final List<UnitBook>? unitBookList;
   final String? tag;
 
-  const UnitLibBookListPage({this.unitBookList, this.tag});
+  UnitLibBookListPage({this.unitBookList, this.tag});
+
+  final _key = GlobalKey();
 
   @override
+
+  void _getSize() {   
+    final _size = _key.currentContext!.size;
+    final _width = _size!.width; 
+    final _height = _size.height;
+  } 
+
   Widget build(BuildContext context) {
     if (unitBookList == null) {
       return Scaffold(
@@ -30,27 +39,30 @@ class UnitLibBookListPage extends StatelessWidget {
         backgroundColor: Color(COLOR_PRIMARY),
         centerTitle: true,
       ),
-      body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: CustomScrollView(
-            primary: false,
-            slivers: <Widget>[
-              SliverPadding(
-                padding: const EdgeInsets.all(20),sliver: SliverGrid.count(
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: bookImageHeightConst,
-                  crossAxisCount: 3,
-                  children: <Widget>[
-                    for (UnitBook _curUnitBook in unitBookList!)
-                      UnitBookDisplay(
-                          bookData: _curUnitBook,
-                          imageHeight: bookImageHeightConst,
-                          imageWidth: bookImageWidthConst),
-                  ],
+      body: SafeArea(
+        child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: CustomScrollView(
+              primary: false,
+              slivers: <Widget>[
+                SliverPadding(
+                  padding: const EdgeInsets.all(20),
+                  sliver: SliverGrid.count(
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                    crossAxisCount: 3,
+                    children: <Widget>[
+                      for (UnitBook _curUnitBook in unitBookList!)
+                        UnitBookDisplay(
+                            bookData: _curUnitBook,
+                            imageHeight: null,
+                            imageWidth: null),
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          )),
+              ],
+            )),
+      ),
     );
   }
 }
