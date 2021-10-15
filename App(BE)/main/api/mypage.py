@@ -2,7 +2,7 @@ from flask import Blueprint, request, Response, json
 from main.models import database
 import csv
 import os
-from dotenv import load_dotenv
+from dotenv import load_dotenv,find_dotenv
 from urllib.request import Request, urlopen
 from urllib.parse import quote
 
@@ -10,9 +10,9 @@ mypage_page = Blueprint('mypage', __name__)
 
 def read_book(query):
     # book api를 이용해서 이미지 등 읽어오기
-    load_dotenv()
-    client_id = os.environ.get('Client_ID')
-    client_secret = os.environ.get('Client_Secret')
+    load_dotenv(find_dotenv())
+    client_id = os.getenv('Client_ID')
+    client_secret = os.getenv('Client_Secret')
     request = Request(
         'https://openapi.naver.com/v1/search/book?query='+quote(query))
     request.add_header('X-Naver-Client-Id', client_id)
