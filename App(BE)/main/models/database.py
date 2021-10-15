@@ -17,7 +17,6 @@ class User(db.Document):
   email = EmailField()
   password = StringField()
   like = ListField()
-  borrowed = ListField()
   rank = StringField()
   unit = StringField()
   def to_json(self):
@@ -26,7 +25,6 @@ class User(db.Document):
     "password": self.password,
     "user_id": self.user_id,
     "like": self.like,
-    "borrowed": self.borrowed,
     "rank":self.rank,
     "unit":self.unit,
     }
@@ -91,7 +89,7 @@ class Comment(db.Document):
     "content":self.content,
     "time_stamp":self.time_stamp,
     "board_number":self.board_number,
-    "tag":tag
+    "tag":self.tag
     }
 class Unit(db.Document):
   # objectid(고유번호) = auto_create or insert
