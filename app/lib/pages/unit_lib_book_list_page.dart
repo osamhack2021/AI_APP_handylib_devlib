@@ -39,30 +39,27 @@ class UnitLibBookListPage extends StatelessWidget {
         backgroundColor: Color(COLOR_PRIMARY),
         centerTitle: true,
       ),
-      body: SafeArea(
-        child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: CustomScrollView(
-              primary: false,
-              slivers: <Widget>[
-                SliverPadding(
-                  padding: const EdgeInsets.all(20),
-                  sliver: SliverGrid.count(
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                    crossAxisCount: 3,
-                    children: <Widget>[
-                      for (UnitBook _curUnitBook in unitBookList!)
-                        UnitBookDisplay(
-                            bookData: _curUnitBook,
-                            imageHeight: null,
-                            imageWidth: null),
-                    ],
-                  ),
+      body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: CustomScrollView(
+            primary: false,
+            slivers: <Widget>[
+              SliverPadding(
+                padding: const EdgeInsets.all(20),
+                sliver: SliverGrid.count(
+                  crossAxisCount: 3,
+                  children: <Widget>[
+                    for (UnitBook _curUnitBook in unitBookList!)
+                      UnitBookDisplay(
+                          bookData: _curUnitBook,
+                          imageHeight: null,
+                          imageWidth: null),
+                  ],
                 ),
-              ],
-            )),
-      ),
+              ),
+            ],
+          )
+        ),
     );
   }
 }
