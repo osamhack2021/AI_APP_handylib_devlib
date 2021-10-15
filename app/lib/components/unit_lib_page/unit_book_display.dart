@@ -1,6 +1,6 @@
-
 import 'package:app/constants/size.dart';
 import 'package:app/models/unit_book_models.dart';
+import 'package:app/screens/detail_screen.dart';
 import 'package:flutter/material.dart';
 
 class UnitBookDisplay extends StatelessWidget {
@@ -14,21 +14,29 @@ class UnitBookDisplay extends StatelessWidget {
   final double? imageWidth;
 
   const UnitBookDisplay({this.bookData, this.imageHeight, this.imageWidth});
-  
+
+
   @override
-  
   Widget build(BuildContext context) {
+    //bookDataReplace();
     //debugPrint('cover : ${bookData!.coverUrl!}');
     //debugPrint('cover : ${bookData!.coverUrl!.replaceAll('\\/', '/')}' );
-    if(bookData == null) debugPrint('bookData is null!!');
+    if (bookData == null) debugPrint('bookData is null!!');
     return Column(
       children: [
         GestureDetector(
           onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) =>
+                    DetailScreen(book: convertUnitBooktoBook(bookData!)),
+              ),
+            ); /*
             Navigator.of(context).pushNamed(
               '/home/unitlib/book-detail',
               arguments: bookData,
-            );
+            );*/
           },
           child: Container(
             margin: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 10.0),
@@ -46,30 +54,24 @@ class UnitBookDisplay extends StatelessWidget {
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10.0),
-              child: (bookData!.coverUrl==null) ? 
-                (Image(
-                  image: AssetImage('images/default_book_cover_image.png'),
-                  fit: BoxFit.cover,
-                ) ):
-                (Image.network('${bookData!.coverUrl!.replaceAll('\\/', '/')}',
-                  fit : BoxFit.cover,
-                ))
-              ,
+              child: (bookData!.coverUrl == null)
+                  ? (Image(
+                      image: AssetImage('images/default_book_cover_image.png'),
+                      fit: BoxFit.cover,
+                    ))
+                  : (Image.network(
+                      '${bookData!.coverUrl!.replaceAll('\\/', '/')}',
+                      fit: BoxFit.cover,
+                    )),
             ),
           ),
         ),
-        
-        
-      SizedBox(
-        child: 
-          Text(
-            (bookData!.title==null)? 'unNamed' : bookData!.title!,
-            overflow: TextOverflow.ellipsis
-            ),
-          width:imageWidth,
+        SizedBox(
+          child: Text((bookData!.title == null) ? 'unNamed' : bookData!.title!,
+              overflow: TextOverflow.ellipsis),
+          width: imageWidth,
         ),
       ],
     );
-    
   }
 }

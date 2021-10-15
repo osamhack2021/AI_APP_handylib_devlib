@@ -1,13 +1,14 @@
 import 'dart:ui';
 
 import 'package:app/components/ellipsis_text.dart';
+import 'package:app/components/error_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:app/models/book_models.dart';
 import 'package:app/components/homeScreen/clipped_image_view.dart';
 
 class DetailScreen extends StatefulWidget {
   final Book book;
-
+  
   DetailScreen({required this.book});
 
   @override
@@ -43,6 +44,7 @@ class _DetailScreenState extends State<DetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: ListView(
         children: <Widget>[

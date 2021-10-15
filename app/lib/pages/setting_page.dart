@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:app/components/default_circle_avatar.dart';
+import 'package:app/components/error_notifier.dart';
 import 'package:app/components/login_page/rounded_button.dart';
 import 'package:app/components/settingPage/profile_edit_tile.dart';
 import 'package:app/constants/colors.dart';
@@ -28,7 +29,7 @@ class _SettingPageState extends State<SettingPage> {
     String? imagePath;
     imagePath = prefs.getString('profileImage');
     setState(() {
-      _profileImage = imagePath==null ? null : File(imagePath);
+      _profileImage = imagePath == null ? null : File(imagePath);
     });
   }
 
@@ -56,6 +57,13 @@ class _SettingPageState extends State<SettingPage> {
 
   @override
   Widget build(BuildContext context) {
+    if (myUser == null)
+      return Scaffold(
+        body: ErrorNotifier(
+          errorMessage: '유저 정보를 불러오지 못했어요. 앱을 다시 실행해주세요.',
+        ),
+      );
+
     return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: TitledAppbar("나의 프로필"),
