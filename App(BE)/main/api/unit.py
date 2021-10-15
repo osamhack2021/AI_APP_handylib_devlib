@@ -21,15 +21,15 @@ def Unit_books_list(Unit_name, page):
         page = 0
     else:
         page = page - 1
-    if len(database.Unit.objects(name='{}'.format(Unit_name))[0]['books_list'])/5 <= page:
-        page = len(database.Unit.objects(name='{}'.format(Unit_name))[0]['books_list'])/5 - 1
+    if len(database.Unit.objects(name='{}'.format(Unit_name))[0]['books_list'])/20 <= page:
+        page = len(database.Unit.objects(name='{}'.format(Unit_name))[0]['books_list'])/20 - 1
     page = int(page)
     for i in range(0,len(database.Unit.objects())):
         if database.Unit.objects[i].name == '{0}'.format(Unit_name):
             c += 1
     if c == 1 :
         q = []
-        for i in database.Unit.objects(name='{}'.format(Unit_name))[0]['books_list'][page*5:(page+1)*5]:
+        for i in database.Unit.objects(name='{}'.format(Unit_name))[0]['books_list'][page*20:(page+1)*20]:
             q.append(database.Book.objects(isbn=i['isbn'])[0].to_json())
         result = {'name': '{}'.format(Unit_name), 'books_list': q}
         resultJson = json.dumps(result, ensure_ascii=False)
@@ -46,6 +46,33 @@ def Unit_books_list(Unit_name, page):
 
 @unit_page.route('/best/Unit_name=<Unit_name>', methods=['GET'])
 def Unit_books_best(Unit_name):
+    c = 0
+    for i in range(0,len(database.Unit.objects())):
+        if database.Unit.objects[i].name == '{0}'.format(Unit_name):
+            c += 1
+    if c == 1 :
+        q = []
+        for i in database.Unit.objects(name='{}'.format(Unit_name))[0]['books_list']:
+            q.append(i.to_json())
+        jsl = sorted(q, key=(lambda x: x['score']) , reverse=True)
+        q = []
+        for i in jsl[0:10]:
+            q.append(database.Book.objects(isbn=i['isbn'])[0].to_json())
+        jsl = {'name': '{}'.format(Unit_name), 'books_list': q}
+        resultJson = json.dumps(jsl, ensure_ascii=False)
+        return Response(resultJson,mimetype="application/json",status=200)
+    else :
+        if c == 0 :
+            jsl = {'Error': '부대가 없거나 올바른 부대를 입력해주세요.'}
+            resultJson = json.dumps(jsl, ensure_ascii=False)
+            return Response(resultJson,mimetype="application/json",status=201)
+        else :
+            jsl = {'Error': '동일한 부대 데이터가 2개이상 존재합니다.'}
+            resultJson = json.dumps(jsl, ensure_ascii=False)
+            return Response(resultJson,mimetype="application/json",status=201)
+
+@unit_page.route('/new/Unit_name=<Unit_name>', methods=['GET'])
+def Unit_books_new(Unit_name):
     c = 0
     for i in range(0,len(database.Unit.objects())):
         if database.Unit.objects[i].name == '{0}'.format(Unit_name):
