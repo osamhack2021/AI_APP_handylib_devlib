@@ -1,3 +1,4 @@
+import 'package:app/components/error_notifier.dart';
 import 'package:app/components/unit_lib_page/unit_book_display.dart';
 import 'package:app/constants/size.dart';
 import 'package:app/models/unit_book_class_models.dart';
@@ -56,16 +57,20 @@ class _UnitLibContentScrollState extends State<UnitLibContentScroll> {
                   builder: (BuildContext context, unitBookList) {
                     List<Widget> children;
                     if (unitBookList.hasData) {
-                      children = <Widget>[
+                      return ListView(
+                      padding: EdgeInsets.all(8.0),
+                      scrollDirection: Axis.horizontal,
+                      children: <Widget>[
                         for (UnitBook _thisUnitBook in unitBookList.data!)
                           UnitBookDisplay(
                               bookData: _thisUnitBook,
                               imageHeight: bookImageHeightConst,
                               imageWidth: bookImageWidthConst),
-                      ];
+                      ],
+                    );
                     } else if (unitBookList.hasError) {
                       children = <Widget>[
-                        Text('오류로 인하여 책 목록을 로드하지 못했습니다.'),
+                        ErrorNotifier(errorMessage:'우리 부대는 아직 책이 등록되지 않았어요.')
                       ];
                     } else {
                       children = const <Widget>[
@@ -80,9 +85,8 @@ class _UnitLibContentScrollState extends State<UnitLibContentScroll> {
                         )
                       ];
                     }
-                    return ListView(
-                      padding: EdgeInsets.all(8.0),
-                      scrollDirection: Axis.horizontal,
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: children,
                     );
                   })

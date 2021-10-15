@@ -20,7 +20,7 @@ class UnitBookClass {
 }
 
 List<UnitBookClass> myUnitBookClassList = [
-  UnitBookClass("popular", "우리 부대 인기 도서", 0),
+  UnitBookClass("best", "우리 부대 인기 도서", 0),
   UnitBookClass("new", "새로 들어온 책", 1),
   UnitBookClass("total", "전체 책", 2),
   UnitBookClass("borrowed", "대출한 도서", 100),

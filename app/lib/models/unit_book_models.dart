@@ -106,7 +106,7 @@ Future<List<UnitBook>> getUnitBookList(String unit) async {
 
 Future<List<UnitBook>> getUnitTagBookList(String unit, String tag) async {
   final response = await http.post(
-    Uri.parse(proxyUri + myUri + 'unit/$tag/' + Uri.encodeComponent(unit)),
+    Uri.parse(proxyUri + myUri + 'unit/$tag/Unit_name=' + Uri.encodeComponent(unit)),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
