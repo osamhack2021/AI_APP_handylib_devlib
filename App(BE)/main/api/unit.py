@@ -30,10 +30,7 @@ def Unit_books_list(Unit_name, page):
     if c == 1 :
         q = []
         for i in database.Unit.objects(name='{}'.format(Unit_name))[0]['books_list'][page*5:(page+1)*5]:
-            a = list (database.client.API_test.book.find({'isbn': i['isbn']}))
-        for o in range(len(a)):
-            del(a[o]['_id'])
-            q.append(a[o])
+            q.append(database.Book.objects(isbn=i['isbn'])[0].to_json())
         result = {'name': '{}'.format(Unit_name), 'books_list': q}
         resultJson = json.dumps(result, ensure_ascii=False)
         return Response(resultJson,mimetype="application/json",status=200)
