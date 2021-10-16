@@ -37,8 +37,8 @@ class _LoginPageState extends State<LoginPage> {
         '/home',
         (route) => false,
         // arguments: await loadUserInfo(_idController.value.text),
-        arguments: User(
-            '관리자', 'admin', 'test', 'admin@admin.admin', 'Test1unit', '준장'),
+        arguments:
+            User('관리자', 'admin', 'test', 'admin@admin.admin', '1unit', '준장'),
       );
     }
     // else if (res == 401) {

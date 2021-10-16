@@ -20,13 +20,11 @@ class FeedPage extends StatefulWidget {
 }
 
 class _FeedPageState extends State<FeedPage> {
-  final PageController _topPageController =
-      PageController(initialPage: 0, viewportFraction: 0.6);
-
   Future<List<Book>>? jinjungList;
+  Future<List<Book>>? recommendList;
   List<Future<List<Book>>> categoryList = [];
   List<String> categoryName = [];
-  final Map<String, bool> filter = {};
+  final Map<String, bool> filter = {"이번 분기의 진중문고": true};
   File? _profileImage;
   SharedPreferences? _prefs;
 
@@ -54,6 +52,14 @@ class _FeedPageState extends State<FeedPage> {
     return tmpBook;
   }
 
+  Future<List<Book>> fetchRecommend() async {
+    List<Book> tmpBook = [];
+    // for (int isbn13 in jinjungIsbnList) {
+    //   tmpBook.add(Book.fromJson(await feedAladinApiGet(isbn13.toString())));
+    // }
+    return tmpBook;
+  }
+
   Future<List<Book>> fetchCategory(int categoryNum) async {
     List<Book> books = [];
     List<dynamic> res;
@@ -74,11 +80,15 @@ class _FeedPageState extends State<FeedPage> {
     });
     fetchPref();
     jinjungList = fetchJinjung();
+    recommendList = fetchRecommend();
     categoryMap.forEach((key, value) {
       categoryList.add(fetchCategory(key));
       categoryName.add(value);
     });
   }
+
+  final PageController _topPageController =
+      PageController(initialPage: 0, viewportFraction: 0.85);
 
   @override
   Widget build(BuildContext context) {
@@ -87,11 +97,12 @@ class _FeedPageState extends State<FeedPage> {
         drawer: NavDrawer(),
         body: ListView(
           children: <Widget>[
-            jinjungTitle(),
+            feedTitle(),
             SizedBox(
-                height: 360.0,
+                height: 350.0,
                 width: double.infinity,
                 child: _builder(jinjungList, (data) {
+                  // child: _builder(recommendList, (data) {
                   return PageView.builder(
                     controller: _topPageController,
                     itemCount: data!.length,
@@ -101,6 +112,19 @@ class _FeedPageState extends State<FeedPage> {
                     },
                   );
                 })),
+            Visibility(
+                visible: filter["이번 분기의 진중문고"]!,
+                child: SizedBox(
+                    width: double.infinity,
+                    height: 290,
+                    child: _builder(jinjungList, (snapshotData) {
+                      return ContentScroll(
+                        snapshotData ?? [],
+                        "이번 분기의 진중문고",
+                        250.0,
+                        150.0,
+                      );
+                    }))),
             Column(
               children: _categoryBuilder(),
             )
@@ -182,20 +206,21 @@ class _FeedPageState extends State<FeedPage> {
     return tmp;
   }
 
-  Container jinjungTitle() {
+  Container feedTitle() {
     return Container(
-
-      padding: const EdgeInsets.fromLTRB(20.0, 10, 20, 0),
-      width: double.infinity,
-      child: const UnderLinedText(
-        text: "이번분기의 진중문고",
-        thickness: 7,
-        style: TextStyle(
-          fontSize: 21.0,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-    );
+        padding: const EdgeInsets.fromLTRB(20.0, 10, 20, 0),
+        width: double.infinity,
+        child: const Align(
+          alignment: Alignment.bottomLeft,
+          child: UnderLinedText(
+            text: "당신을 위한 AI의 Pick",
+            thickness: 7,
+            style: TextStyle(
+              fontSize: 21.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ));
   }
 
   FutureBuilder<List<Book>> _builder(Future<List<Book>>? expectedFuture,

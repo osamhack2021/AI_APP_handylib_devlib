@@ -1,7 +1,7 @@
-
 import 'package:app/components/underlined_text.dart';
 import 'package:app/components/error_notifier.dart';
 import 'package:app/components/unit_lib_page/unit_book_display.dart';
+import 'package:app/constants/colors.dart';
 import 'package:app/constants/size.dart';
 import 'package:app/models/unit_book_class_models.dart';
 import 'package:app/models/unit_book_models.dart';
@@ -47,7 +47,6 @@ class _UnitLibContentScrollState extends State<UnitLibContentScroll> {
       child: Column(
         children: [
           ListTile(
-
             title: Align(
               alignment: Alignment.bottomLeft,
               child: UnderLinedText(
@@ -82,7 +81,6 @@ class _UnitLibContentScrollState extends State<UnitLibContentScroll> {
                   );
                 }),
           ),
-
           SizedBox(
               height: 200,
               child: FutureBuilder<List<UnitBook>>(
@@ -111,7 +109,10 @@ class _UnitLibContentScrollState extends State<UnitLibContentScroll> {
                     } else {
                       children = const <Widget>[
                         SizedBox(
-                          child: CircularProgressIndicator(),
+                          child: CircularProgressIndicator(
+                            valueColor:
+                                AlwaysStoppedAnimation(Color(COLOR_PRIMARY)),
+                          ),
                           width: 60,
                           height: 60,
                         ),

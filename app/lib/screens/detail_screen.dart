@@ -8,7 +8,7 @@ import 'package:app/components/homeScreen/clipped_image_view.dart';
 
 class DetailScreen extends StatefulWidget {
   final Book book;
-  
+
   DetailScreen({required this.book});
 
   @override
@@ -42,9 +42,16 @@ class _DetailScreenState extends State<DetailScreen> {
     );
   }
 
+// 대여하기/대여불가능(부대에 없음), 누군가가 대여중입니다./대여중
+// enum BookStatusType {
+//   available,
+//   unavailableNobook,
+//   unavailableBorrowing,
+//   borrowing
+// }
   @override
   Widget build(BuildContext context) {
-
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: ListView(
         children: <Widget>[
@@ -62,7 +69,7 @@ class _DetailScreenState extends State<DetailScreen> {
                         fontSize: 20.0,
                         fontWeight: FontWeight.bold,
                         color: Colors.black87)),
-                const SizedBox(height: 10.0),
+                const SizedBox(height: 5.0),
                 SizedBox(
                   width: double.infinity,
                   height: 20,
@@ -75,6 +82,18 @@ class _DetailScreenState extends State<DetailScreen> {
                         color: Colors.black54,
                       ),
                     ),
+                  ),
+                ),
+                const SizedBox(height: 10.0),
+                Container(
+                  width: size.width,
+                  decoration: new BoxDecoration(
+                      color: Colors.lightBlue,
+                      borderRadius: BorderRadius.circular(10)),
+                  child: ListTile(
+                    enabled: false,
+                    leading: Icon(Icons.book_outlined, size: 35),
+                    title: Text('대여불가능 - (대여중)'),
                   ),
                 ),
                 const Divider(

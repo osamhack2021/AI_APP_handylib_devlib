@@ -15,12 +15,11 @@ class UnitLibBookListPage extends StatelessWidget {
   final _key = GlobalKey();
 
   @override
-
-  void _getSize() {   
+  void _getSize() {
     final _size = _key.currentContext!.size;
-    final _width = _size!.width; 
+    final _width = _size!.width;
     final _height = _size.height;
-  } 
+  }
 
   Widget build(BuildContext context) {
     if (unitBookList == null) {
@@ -46,17 +45,19 @@ class UnitLibBookListPage extends StatelessWidget {
               primary: false,
               slivers: <Widget>[
                 SliverPadding(
-                  padding: const EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(0),
                   sliver: SliverGrid.count(
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10,
-                    crossAxisCount: 3,
+                    crossAxisCount: 2,
+                    childAspectRatio: 0.7,
                     children: <Widget>[
                       for (UnitBook _curUnitBook in unitBookList!)
                         UnitBookDisplay(
-                            bookData: _curUnitBook,
-                            imageHeight: null,
-                            imageWidth: null),
+                          bookData: _curUnitBook,
+                          imageWidth: 300,
+                          imageHeight: 600,
+                        ),
                     ],
                   ),
                 ),

@@ -5,10 +5,12 @@ class UnderLinedText extends StatelessWidget {
   final String text;
   final TextStyle style;
   final double thickness;
+  final TextOverflow? overflow;
   const UnderLinedText(
       {Key? key,
       required this.text,
       this.style = const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+      this.overflow,
       required this.thickness})
       : super(key: key);
 
@@ -21,6 +23,7 @@ class UnderLinedText extends StatelessWidget {
           child: Text(
             text,
             style: style,
+            overflow: overflow,
           ), // Text
         ), // Padding
         Positioned(
