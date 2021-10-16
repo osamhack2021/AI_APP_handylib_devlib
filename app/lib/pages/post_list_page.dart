@@ -18,15 +18,21 @@ class _PostListPageState extends State<PostListPage> {
   List<Post> nowPostList = [];
 
   Future<List<Post>> _getPostList(String? tag) async {
-    //nowPostList = await getPostListbyTag(tag!, 1);
     return await getPostListbyTag(tag!, 1);
-    //debugPrint(nowPostList.toString());
   }
 
   @override
   Widget build(BuildContext context) {
-    final thisBoard = ModalRoute.of(context)!.settings.arguments as Board;
+    if (ModalRoute.of(context)!.settings.arguments == null) {
+      return Scaffold(
+        body: ErrorNotifier(
+          errorMessage: '게시판 정보를 불러오지 못했어요. 앱을 다시 실행해주세요.',
+        ),
+      );
+    }
 
+    final thisBoard = ModalRoute.of(context)!.settings.arguments as Board;
+    
     _getPostList(thisBoard.boardTag);
     debugPrint('in build ' + nowPostList.toString());
     return Scaffold(

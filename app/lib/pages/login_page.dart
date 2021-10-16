@@ -28,24 +28,26 @@ class _LoginPageState extends State<LoginPage> {
     //   _passwordController.value.text,
     // );
 
-    // debugPrint('${res}');
-    // if (res == 200) {
-    if (true) {
+    int res = await loginUser(
+      _idController.value.text,
+      _passwordController.value.text,
+    );
+    if (res == 200) {
       final snackbar = SnackBar(content: Text('로그인에 성공했습니다.'));
       ScaffoldMessenger.of(context).showSnackBar(snackbar);
       Navigator.of(context).pushReplacementNamed(
         '/home',
-        // arguments: await loadUserInfo(_idController.value.text),
-        arguments: User('test', 'test', 'test', 'test', 'test', 'test'),
+         arguments: await loadUserInfo(_idController.value.text),
+        //arguments: User('test', 'test', 'test', 'test', 'test', 'test'),
       );
     } 
-    // else if (res == 401) {
-    //   final snackbar = SnackBar(content: Text('아이디 또는 비밀번호를 확인하여 주십시오.'));
-    //   ScaffoldMessenger.of(context).showSnackBar(snackbar);
-    // } else {
-    //   final snackbar = SnackBar(content: Text('로그인 서버에 연결하지 못했습니다.'));
-    //   ScaffoldMessenger.of(context).showSnackBar(snackbar);
-    // }
+     else if (res == 401) {
+       final snackbar = SnackBar(content: Text('아이디 또는 비밀번호를 확인하여 주십시오.'));
+       ScaffoldMessenger.of(context).showSnackBar(snackbar);
+     } else {
+       final snackbar = SnackBar(content: Text('로그인 서버에 연결하지 못했습니다.'));
+       ScaffoldMessenger.of(context).showSnackBar(snackbar);
+     }
   }
 
   @override

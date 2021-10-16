@@ -30,7 +30,8 @@ class Post {
       : postId = json["number"],
         author = json["user_id"],
         postName = json["title"],
-        content = json["content"],
+        
+        content = (json["content"].runtimeType==String)? json["content"]: null,
         postTag = json["tag"],
         postCommentList = parseComment(json["comment_list"]),
         timestamp = readTimestamp(parseTimestamp(json["time_stamp"]));
