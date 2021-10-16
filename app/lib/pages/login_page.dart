@@ -33,12 +33,14 @@ class _LoginPageState extends State<LoginPage> {
     if (true) {
       final snackbar = SnackBar(content: Text('로그인에 성공했습니다.'));
       ScaffoldMessenger.of(context).showSnackBar(snackbar);
-      Navigator.of(context).pushReplacementNamed(
+      Navigator.of(context).pushNamedAndRemoveUntil(
         '/home',
+        (route) => false,
         // arguments: await loadUserInfo(_idController.value.text),
-        arguments: User('test', 'test', 'test', 'test', 'test', 'test'),
+        arguments: User(
+            '관리자', 'admin', 'test', 'admin@admin.admin', 'Test1unit', '준장'),
       );
-    } 
+    }
     // else if (res == 401) {
     //   final snackbar = SnackBar(content: Text('아이디 또는 비밀번호를 확인하여 주십시오.'));
     //   ScaffoldMessenger.of(context).showSnackBar(snackbar);
@@ -73,7 +75,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   SizedBox(height: size.height * 0.03),
                   RoundedInputField(
-                    hintText: "이메일",
+                    hintText: "아이디",
                     controller: _idController,
                     textInputAction: TextInputAction.next,
                     onEditingComplete: () => node.nextFocus(),

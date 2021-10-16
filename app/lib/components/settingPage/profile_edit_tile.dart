@@ -1,12 +1,13 @@
 import 'package:app/components/settingPage/show_modify_dialog.dart';
 import 'package:app/controller/user_controller.dart';
+import 'package:app/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class ProfileEditTile extends StatefulWidget {
   String title;
-  User myUser;
+  Function() callback;
 
-  ProfileEditTile(this.myUser, this.title);
+  ProfileEditTile(this.title,this.callback);
 
   @override
   State<ProfileEditTile> createState() => _ProfileEditTileState();
@@ -17,18 +18,14 @@ class _ProfileEditTileState extends State<ProfileEditTile> {
   Widget build(BuildContext context) {
     return Card(
         child: ListTile(
-            onTap: () {
-              null;
-            },
             title: Text(
-                '${getPropertyTitle(widget.myUser, widget.title)} : ${getPropertyValue(widget.myUser, widget.title)}'),
+                '${getPropertyTitle(myUser!, widget.title)} : ${getPropertyValue(myUser!, widget.title)}'),
             trailing: IconButton(
                 icon: Icon(
                   Icons.create,
                 ),
-                onPressed: () => {
-                      showModifyDialog(context, widget.title),
-                      
-                    })));
+                onPressed: () async {
+                  showModifyDialog(context, widget.title,widget.callback);
+                })));
   }
 }

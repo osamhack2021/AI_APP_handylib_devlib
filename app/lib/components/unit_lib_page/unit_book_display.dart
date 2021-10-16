@@ -2,6 +2,7 @@ import 'package:app/constants/size.dart';
 import 'package:app/models/unit_book_models.dart';
 import 'package:app/screens/detail_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class UnitBookDisplay extends StatelessWidget {
   /*const UnitBookDisplay({
@@ -14,7 +15,6 @@ class UnitBookDisplay extends StatelessWidget {
   final double? imageWidth;
 
   const UnitBookDisplay({this.bookData, this.imageHeight, this.imageWidth});
-
 
   @override
   Widget build(BuildContext context) {
@@ -55,14 +55,16 @@ class UnitBookDisplay extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10.0),
               child: (bookData!.coverUrl == null)
-                  ? (Image(
-                      image: AssetImage('images/default_book_cover_image.png'),
+                  ? const Image(
+                      image: AssetImage('assets/images/default_book_cover_image.png'),
                       fit: BoxFit.cover,
-                    ))
-                  : (Image.network(
-                      '${bookData!.coverUrl!.replaceAll('\\/', '/')}',
+                    )
+                  : FadeInImage.memoryNetwork(
+                      placeholder: kTransparentImage,
+                      image: "http://175.210.134.48:5000/" +
+                          bookData!.coverUrl!.replaceAll('\\/', '/'),
                       fit: BoxFit.cover,
-                    )),
+                    ),
             ),
           ),
         ),
