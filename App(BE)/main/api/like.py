@@ -17,10 +17,12 @@ def like_append():
 @like_page.route('/',methods=['GET'])
 def like_get():
     user_id = request.values.get('user_id')
-    isbn = request.values.get('isbn')
-    user=database.User.objects(user_id=user_id,isbn=isbn).first()
+    isbn = request.values.get('isbn')        
+    user=database.User.objects(user_id=user_id).first()
     if user:
-        resultJson=json.dumps({"message": "True"})
-        return Response(resultJson,mimetype="application/json",status=200)
+        for item in user.like:
+            if item==isbn:
+                resultJson=json.dumps({"message": "True"})
+                return Response(resultJson,mimetype="application/json",status=200)
     resultJson=json.dumps({"message": "False"})
     return Response(resultJson,mimetype="application/json",status=404)
