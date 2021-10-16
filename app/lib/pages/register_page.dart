@@ -50,11 +50,8 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   void handleSubmit() async {
-    //testHttp();
-    debugPrint(form["userName"][0].value.text);
-    debugPrint(form["id"][0].value.text);
-    myShowDialog(context, "회원가입중입니다..");
 
+  myShowDialog(context, "회원가입중입니다..");
     _registerResponse = await createUser(
       form["userName"][0].value.text,
       form["id"][0].value.text,
@@ -155,6 +152,12 @@ class _RegisterPageState extends State<RegisterPage> {
                     textInputAction: TextInputAction.next,
                     onEditingComplete: () => node.nextFocus(),
                   ),
+                  RoundedInputField(
+                    hintText: "아이디",
+                    controller: form["id"][0],
+                    textInputAction: TextInputAction.next,
+                    onEditingComplete: () => node.nextFocus(),
+                  ),
                   RoundedPasswordField(
                     textInputAction: TextInputAction.done,
                     onEditingComplete: () {
@@ -162,6 +165,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     },
                     controller: form["password"][0],
                   ),
+                  
                   RoundedInputField(
                       hintText: "이메일",
                       controller: form["email"][0],

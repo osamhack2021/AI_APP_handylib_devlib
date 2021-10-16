@@ -1,9 +1,11 @@
 import 'package:app/components/custom_text_form_field.dart';
 import 'package:app/components/default_circle_avatar.dart';
+import 'package:app/components/error_notifier.dart';
 import 'package:app/constants/colors.dart';
 import 'package:app/constants/size.dart';
 import 'package:app/models/comment_models.dart';
 import 'package:app/models/post_models.dart';
+import 'package:app/screens/home_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -15,6 +17,14 @@ class PostPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final thisPost = ModalRoute.of(context)!.settings.arguments as Post;
     print(thisPost.toString());
+    
+     if (myUser == null) {
+      return Scaffold(
+        body: ErrorNotifier(
+          errorMessage: '유저 정보를 불러오지 못했어요. 앱을 다시 실행해주세요.',
+        ),
+      );
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -22,6 +32,7 @@ class PostPage extends StatelessWidget {
         backgroundColor: Color(COLOR_PRIMARY),
         // title: Text(_thisBoard.boardName!,
         // style: const TextStyle(fontWeight: FontWeight.bold)),
+
       ),
       body: ListView(
         children: [
@@ -85,15 +96,19 @@ class PostPage extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: CommentBottomBar(),
+      bottomNavigationBar:
+          CommentBottomBar(thisPost: thisPost, author: myUser!.userId),
     );
   }
 }
 
 class CommentBottomBar extends StatelessWidget {
-  const CommentBottomBar({
-    Key? key,
-  }) : super(key: key);
+  TextEditingController _commentController = TextEditingController();
+
+  final Post thisPost;
+  final String author;
+
+  CommentBottomBar({required this.thisPost, required this.author});
 
   @override
   Widget build(BuildContext context) {
@@ -102,15 +117,24 @@ class CommentBottomBar extends StatelessWidget {
         children: [
           Expanded(
             child: TextFormField(
-                //controller: ,
+
+                controller: _commentController,
                 decoration: InputDecoration(
-              hintText: '댓글을 입력하세요.',
-              contentPadding: EdgeInsets.fromLTRB(20.0, 5.0, 20.0, 5.0),
-            )),
+                  hintText: '댓글을 입력하세요.',
+                  contentPadding: EdgeInsets.fromLTRB(20.0, 5.0, 20.0, 5.0),
+                )),
           ),
           IconButton(
             icon: Icon(Icons.send),
-            onPressed: () {},
+            onPressed: () {
+              writeComment(
+                _commentController.value.text,
+                thisPost.postId!,
+                thisPost.postTag!,
+                author,
+              );
+              _commentController.clear();
+            },
           )
         ],
       )),

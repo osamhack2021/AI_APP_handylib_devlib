@@ -1,3 +1,4 @@
+import 'package:app/components/error_notifier.dart';
 import 'package:app/constants/colors.dart';
 import 'package:app/models/board_models.dart';
 import 'package:app/models/post_models.dart';
@@ -52,9 +53,9 @@ class BoardSelector extends StatelessWidget {
                     _PostPreviewTile(thisBoard: thisBoard, curPost: curPost)
                 ];
               } else if (nowPostList.hasError) {
-                children = <Widget>[
-                  Text('An error occured'),
-                ];
+
+                return ErrorNotifier(errorMessage: '게시판 정보를 불러오지 못했어요. 나중에 다시 시도해주세요.');
+
               } else {
                 children = const <Widget>[
                   SizedBox(
@@ -64,7 +65,8 @@ class BoardSelector extends StatelessWidget {
                   ),
                   Padding(
                     padding: EdgeInsets.only(top: 16),
-                    child: Text('Awaiting result...'),
+
+                    child: Text('게시판을 불러오는 중입니다...'),
                   )
                 ];
               }
@@ -114,6 +116,7 @@ class BoardSelector extends StatelessWidget {
     );
   }
 }
+
 
 class _PostPreviewTile extends StatelessWidget {
   const _PostPreviewTile({
