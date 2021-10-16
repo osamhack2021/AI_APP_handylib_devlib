@@ -86,7 +86,6 @@ void testHttp() async {
 
 Future<int> loginUser(String userId, String password) async {
   final encryptedPassword = Crypt.sha256(password, salt: mySalt).toString();
-  debugPrint(encryptedPassword + " " + password);
   final response = await http.post(
     Uri.parse(proxyUri + myUri + 'sign_in/'),
     headers: <String, String>{
@@ -99,17 +98,7 @@ Future<int> loginUser(String userId, String password) async {
       },
     ),
   );
-
-  //Message responseMessage = Message.fromJson(jsonDecode(response.body));
-
   return response.statusCode;
-  /*
-  if(responseMessage.message == "login success") {
-    return true;
-  }
-  else {
-    return false;
-    */
 }
 
 String? getPropertyTitle(User myUser, String prop) {

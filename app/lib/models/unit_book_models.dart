@@ -5,30 +5,6 @@ import 'package:app/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:app/constants/uri.dart';
-/*
-class UnitBook {
-  final String title, pubDate, tag;
-  final int isbn, bookId;
-
-  UnitBook(this.title, this.pubDate, this.tag, this.isbn, this.bookId);
-  
-  UnitBook.fromJson(Map<String, dynamic> json)
-  : isbn = json["isbn"],
-    title = json["title"],
-    pubDate = json["publication_date"],
-    tag = json["tag"],
-    bookId = json["bookId"];
-
-  
-}*/
-/* ///////////////////1012
-class UnitBookList {
-  final List<UnitBook> unitBooks;
-
-  UnitBookList ({
-    required this.unitBooks,
-  });
-}*/
 
 class UnitBook {
   final String? title;
@@ -70,22 +46,15 @@ List<UnitBook> getUnitBookList_test() {
 }
 
 List<UnitBook> parseUnitBook(dynamic decodedResponseBody) {
-  //debugPrint(decodedResponseBody.toString());
-  //debugPrint(decodedResponseBody['books_list'].toString());
-  /*debugPrint((decodedResponseBody['books_list'] as List)
-      .map((i) => UnitBook.fromJson(i))
-      .toList().toString());*/
   return (decodedResponseBody['books_list'] as List)
       .map((i) => UnitBook.fromJson(i))
       .toList();
-  /*return (json.decode(responseBody) as List)
-      .map((i) => UnitBook.fromJson(i))
-      .toList();*/
+}
 
-  /*
-  final parsed = json.decode(responseBody).cast<Map<String,dynamic>>();
-  return parsed.map<UnitBook>((json)=>UnitBook.fromJson(json)).toList();
-  */
+List<UnitBook> parseBorrowBook(dynamic decodedResponseBody) {
+  return (decodedResponseBody as List)
+      .map((i) => UnitBook.fromJson(i))
+      .toList();
 }
 
 //부대 전체 책 리스트 가져오기
@@ -99,7 +68,6 @@ Future<List<UnitBook>> getUnitBookList(String unit, int page) async {
   );
   return parseUnitBook(jsonDecode(utf8.decode(response.bodyBytes)));
 }
-//User.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
 
 Future<List<UnitBook>> getUnitTagBookList(String unit, String tag) async {
   final response = await http.get(
@@ -119,7 +87,7 @@ Future<List<UnitBook>> getBorrowBookList(String unit) async {
       'Content-Type': 'application/json; charset=UTF-8',
     },
   );
-  return parseUnitBook(jsonDecode(utf8.decode(response.bodyBytes)));
+  return parseBorrowBook(jsonDecode(utf8.decode(response.bodyBytes)));
 }
 
 Book convertUnitBooktoBook(UnitBook _unitBook) {
