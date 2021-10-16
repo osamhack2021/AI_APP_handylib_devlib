@@ -28,7 +28,11 @@ def mypage():
         user = database.User.objects(user_id=user_id).first()
         if user:
             # borrow_list 불러오기
-            borrow_list = database.Embook.objects(user_id=user_id)
+            borrow_list = []
+            for embook in database.Unit.objects(name=user.unit).first().books_list:
+                if embook['user_id']==user_id:
+                    borrow_list.append(embook)
+
             borrow_lists = read_borrow(borrow_list)
             # recommend_list 불러오기(csv파일을 불러올 예정)
             recommend_list = read_csv(user_id)
@@ -51,7 +55,10 @@ def borrow():
     if user_id:
         user = database.User.objects(user_id=user_id).first()
         if user:
-            borrow_list = database.Embook.objects(user_id=user_id)
+            borrow_list = []
+            for embook in database.Unit.objects(name=user.unit).first().books_list:
+                if embook['user_id']==user_id:
+                    borrow_list.append(embook)
             borrow_lists = read_borrow(borrow_list)
             resultJson = json.dumps(borrow_lists, ensure_ascii=False)
             return Response(resultJson, mimetype="application/json", status=200)
