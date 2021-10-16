@@ -23,11 +23,21 @@ def boarding(page_id):
 def board_number(number):
     board_item=database.Notice_board.objects(number=number,tag=request.values.get('tag')).first()
     comments= []
+    item = board_item.comment_list
     # 댓글 내용 comment 컬렉션에서 불러오기
-    for num in board_item.comment_list:
-        comments.append(database.Comment.objects(user_id=board_item.user_id, comment_number=num).first().to_json)
-    board_item.comment_list=comments
-    resultJson=json.dumps(board_item, ensure_ascii=False)
+    if not item==comments:
+        for num in item:
+            comments.append(database.Comment.objects(board_number=number, comment_number=num).first())
+    result={
+        "number": number,
+    "user_id": board_item.user_id,
+    "title": board_item.title,
+    "comment_list":comments,
+    "content":board_item.content,
+    "tag":board_item.tag,
+    "time_stamp":board_item.time_stamp
+    }
+    resultJson=json.dumps(result, ensure_ascii=False)
     return Response(resultJson,mimetype="application/json",status=200)
 #작성 요청 라우터
 @board_page.route('/write',methods=['POST'])

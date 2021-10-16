@@ -18,7 +18,7 @@ def com_write(number):
     content=params['content']
     com_num=database.Comment.objects(tag=tag,board_number=number).count()+1
     database.Comment(tag=tag,board_number=number,user_id=user_id,content=content,comment_number=com_num,time_stamp=datetime.fromtimestamp(time.time())).save()
-    #board db 해당 number에 comment 추가 
+    #board db 해당 number에 comment 추가
     data=database.Notice_board.objects(number=number,tag=tag).first()
     lists=data.comment_list
     lists.append(com_num)
