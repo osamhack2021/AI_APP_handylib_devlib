@@ -35,17 +35,19 @@ class ContentScroll extends StatelessWidget {
     return Column(
       children: <Widget>[
         Container(
-          padding: const EdgeInsets.fromLTRB(20.0, 0, 10, 0),
-          width: double.infinity,
-          child: UnderLinedText(
-            text: listTitle,
-            thickness: 7,
-            style: const TextStyle(
-              fontSize: 21.0,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
+            padding: const EdgeInsets.fromLTRB(20.0, 0, 10, 0),
+            width: double.infinity,
+            child: Align(
+              alignment: Alignment.bottomLeft,
+              child: UnderLinedText(
+                text: listTitle,
+                thickness: 7,
+                style: const TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            )),
         SizedBox(
             height: imageHeight,
             child: books.isEmpty == true
@@ -96,25 +98,22 @@ class ContentScroll extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            child: Hero(
-                              tag: books[index].coverUrl,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10.0),
-                                child: FadeInImage.memoryNetwork(
-                                  imageErrorBuilder:
-                                      (context, error, stackTrace) {
-                                    return const Center(
-                                        child: Text("결과가 없습니다.",
-                                            style: TextStyle(
-                                              fontSize: 14,
-                                              color: Colors.black54,
-                                            )));
-                                  },
-                                  placeholder: kTransparentImage,
-                                  image: books[index].coverUrl,
-                                  height: 400.0,
-                                  fit: BoxFit.cover,
-                                ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10.0),
+                              child: FadeInImage.memoryNetwork(
+                                imageErrorBuilder:
+                                    (context, error, stackTrace) {
+                                  return const Center(
+                                      child: Text("결과가 없습니다.",
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            color: Colors.black54,
+                                          )));
+                                },
+                                placeholder: kTransparentImage,
+                                image: books[index].coverUrl,
+                                height: 400.0,
+                                fit: BoxFit.cover,
                               ),
                             ),
                           ),

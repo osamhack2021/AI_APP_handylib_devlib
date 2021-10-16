@@ -14,6 +14,7 @@ class UnitLibBookListPage extends StatefulWidget {
   UnitLibBookListPage({this.unitBookList, this.tag});
 
   @override
+
   State<UnitLibBookListPage> createState() => _UnitLibBookListPageState();
 }
 
@@ -34,7 +35,6 @@ class _UnitLibBookListPageState extends State<UnitLibBookListPage> {
   }
 
   @override
-
   Widget build(BuildContext context) {
     if (widget.unitBookList == null || widget.tag == null) {
       return Scaffold(
@@ -59,6 +59,22 @@ class _UnitLibBookListPageState extends State<UnitLibBookListPage> {
               primary: false,
               slivers: <Widget>[
                 SliverPadding(
+//                   padding: const EdgeInsets.all(0),
+//                   sliver: SliverGrid.count(
+//                     crossAxisSpacing: 10,
+//                     mainAxisSpacing: 10,
+//                     crossAxisCount: 2,
+//                     childAspectRatio: 0.7,
+//                     children: <Widget>[
+//                       for (UnitBook _curUnitBook in unitBookList!)
+//                         UnitBookDisplay(
+//                           bookData: _curUnitBook,
+//                           imageWidth: 300,
+//                           imageHeight: 600,
+//                         ),
+//                     ],
+//                   ),
+//                 ),
                 padding: const EdgeInsets.all(20),
                 sliver: SliverGrid.count(
                  crossAxisCount: 3,
@@ -223,6 +239,7 @@ class _UnitLibBookListPageState extends State<UnitLibBookListPage> {
                       bookData: _curUnitBook,
                       imageHeight: null,
                       imageWidth: null),
+
               ],
             ),
           ),

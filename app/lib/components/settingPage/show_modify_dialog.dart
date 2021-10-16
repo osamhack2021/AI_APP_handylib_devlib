@@ -8,7 +8,8 @@ import 'package:email_validator/email_validator.dart';
 
 class _ModifyContent extends StatefulWidget {
   String title;
-  _ModifyContent({Key? key, required this.title}) : super(key: key);
+  Function()? callback;
+  _ModifyContent({Key? key, required this.title, this.callback}) : super(key: key);
 
   @override
   __ModifyContentState createState() => __ModifyContentState();
@@ -109,7 +110,7 @@ class __ModifyContentState extends State<_ModifyContent> {
                   ScaffoldMessenger.of(context).showSnackBar(snackbar);
 
                   myUser = userCopy(newUserInfo);
-
+                  widget.callback!();
                   Navigator.pop(context);
                 } else {
                   debugPrint('변경에 실패했습니다. ${res}');
@@ -130,10 +131,11 @@ class __ModifyContentState extends State<_ModifyContent> {
   }
 }
 
-Future<dynamic> showModifyDialog(BuildContext context, String? title) {
+Future<dynamic> showModifyDialog(BuildContext context, String? title,Function() callback) {
+  
   return showDialog(
       context: context,
       builder: (BuildContext context) {
-        return _ModifyContent(title: title!);
+        return _ModifyContent(title: title!,callback:callback);
       });
 }
