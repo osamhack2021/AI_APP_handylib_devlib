@@ -45,11 +45,9 @@ Future<Map<String, dynamic>> searchAladinApiGet(String query, int page) async {
   Map<String, dynamic> _param = _aladinSearchParam(query, page);
 
   http.Response response = await http.get(
-
       Uri.parse(proxy +
           Uri(
-                  scheme: "https",
-
+                  scheme: "http",
                   host: aladinHost,
                   path: aladinSearchPath,
                   queryParameters: _param)
@@ -77,16 +75,14 @@ Future<Map<String, dynamic>> feedAladinApiGet(String isbn13) async {
   Map<String, dynamic> _param = _aladinFeedParam(isbn13);
 
   http.Response response = await http.get(
-
       Uri.parse(proxy +
           Uri(
-                  scheme: "https",
-
+                  scheme: "http",
                   host: aladinHost,
                   path: aladinFeedPath,
                   queryParameters: _param)
               .toString()),
-      headers: {"Accept": "application/json"});
+      headers: {});
   Map<String, dynamic> res;
   String body = response.body;
   final document = XmlDocument.parse(body);
@@ -136,11 +132,9 @@ Future<Map<String, dynamic>> feedAladinCategoryApi(
   Map<String, dynamic> _param = _aladinCategoryParam(categoryNum, page);
 
   http.Response response = await http.get(
-
       Uri.parse(proxy +
           Uri(
-                  scheme: "https",
-
+                  scheme: "http",
                   host: aladinHost,
                   path: aladinCategoryPath,
                   queryParameters: _param)

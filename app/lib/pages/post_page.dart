@@ -11,11 +11,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class PostPage extends StatelessWidget {
+  const PostPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final thisPost = ModalRoute.of(context)!.settings.arguments as Post;
-
-    if (myUser == null) {
+    print(thisPost.toString());
+    
+     if (myUser == null) {
       return Scaffold(
         body: ErrorNotifier(
           errorMessage: '유저 정보를 불러오지 못했어요. 앱을 다시 실행해주세요.',
@@ -25,7 +28,11 @@ class PostPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        elevation: 0.0,
         backgroundColor: Color(COLOR_PRIMARY),
+        // title: Text(_thisBoard.boardName!,
+        // style: const TextStyle(fontWeight: FontWeight.bold)),
+
       ),
       body: ListView(
         children: [
@@ -110,6 +117,7 @@ class CommentBottomBar extends StatelessWidget {
         children: [
           Expanded(
             child: TextFormField(
+
                 controller: _commentController,
                 decoration: InputDecoration(
                   hintText: '댓글을 입력하세요.',

@@ -11,7 +11,11 @@ import 'package:app/components/titled_appbar.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-final TextEditingController modifySettingController = TextEditingController();
+final Map<String, TextEditingController> modifySettingController = {
+  "email": TextEditingController(),
+  "unit": TextEditingController(),
+  "rank": TextEditingController()
+};
 
 class SettingPage extends StatefulWidget {
   SettingPage({Key? key}) : super(key: key);
@@ -70,88 +74,90 @@ class _SettingPageState extends State<SettingPage> {
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Card(
-            color: Colors.white,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8.0)),
-            elevation: 10,
-            child: Container(
-                width: double.infinity,
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    children: [
-                      Align(
-                        alignment: Alignment.center,
-                        child: InkWell(
-                            onTap: _onCameraClick,
-                            child: Stack(
-                              alignment: Alignment.bottomCenter,
-                              children: <Widget>[
-                                _profileImage != null
-                                    ? CircleAvatar(
-                                        radius: 100,
-                                        backgroundColor: Colors.white,
-                                        child: ClipOval(
-                                          child: SizedBox(
-                                            width: 190,
-                                            height: 190,
-                                            child: Image.file(
-                                              _profileImage!,
-                                              fit: BoxFit.cover,
+              color: Colors.white,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0)),
+              elevation: 10,
+              child: SingleChildScrollView(
+                child: Container(
+                    width: double.infinity,
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        children: [
+                          Align(
+                            alignment: Alignment.center,
+                            child: InkWell(
+                                onTap: _onCameraClick,
+                                child: Stack(
+                                  alignment: Alignment.bottomCenter,
+                                  children: <Widget>[
+                                    _profileImage != null
+                                        ? CircleAvatar(
+                                            radius: 100,
+                                            backgroundColor: Colors.white,
+                                            child: ClipOval(
+                                              child: SizedBox(
+                                                width: 190,
+                                                height: 190,
+                                                child: Image.file(
+                                                  _profileImage!,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ),
                                             ),
-                                          ),
-                                        ),
-                                      )
-                                    : const DefaultCircleAvatar(size: 80),
-                                Positioned(
-                                  left: 80,
-                                  right: 0,
-                                  child: FloatingActionButton(
-                                      backgroundColor: Color(COLOR_PRIMARY),
-                                      child: Icon(Icons.camera_alt),
-                                      mini: true,
-                                      onPressed: _onCameraClick),
-                                )
-                              ],
-                            )),
-                      ),
-                      const SizedBox(height: 35),
-                      Text(
-                        myUser!.username,
-                        style: const TextStyle(
-                            fontSize: 22, fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(
-                        height: 2,
-                      ),
-                      Text(
-                        myUser!.userId,
-                        style: const TextStyle(
-                            fontSize: 15, color: Colors.black54),
-                      ),
-                      // ProfileEditTile(myUser!, "username"),
-                      ProfileEditTile(myUser!, "email"),
-                      ProfileEditTile(myUser!, "unit"),
-                      ProfileEditTile(myUser!, "rank"),
-                      const SizedBox(height: 15),
+                                          )
+                                        : const DefaultCircleAvatar(size: 80),
+                                    Positioned(
+                                      left: 80,
+                                      right: 0,
+                                      child: FloatingActionButton(
+                                          backgroundColor: Color(COLOR_PRIMARY),
+                                          child: Icon(Icons.camera_alt),
+                                          mini: true,
+                                          onPressed: _onCameraClick),
+                                    )
+                                  ],
+                                )),
+                          ),
+                          const SizedBox(height: 35),
+                          Text(
+                            myUser!.username,
+                            style: const TextStyle(
+                                fontSize: 22, fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(
+                            height: 2,
+                          ),
+                          Text(
+                            myUser!.userId,
+                            style: const TextStyle(
+                                fontSize: 15, color: Colors.black54),
+                          ),
+                          // ProfileEditTile(myUser!, "username"),
+                          ProfileEditTile(myUser!, "email"),
+                          ProfileEditTile(myUser!, "unit"),
+                          ProfileEditTile(myUser!, "rank"),
+                          const SizedBox(height: 15),
 
-                      RoundedButton(
-                        text: "로그아웃",
-                        press: () {
-                          Future.delayed(const Duration(milliseconds: 500), () {
-                            final snackbar =
-                                SnackBar(content: Text('성공적으로 로그아웃되었습니다.'));
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(snackbar);
-                            Navigator.of(context)
-                                .pushReplacementNamed('/auth/login');
-                          });
-                        },
+                          RoundedButton(
+                            text: "로그아웃",
+                            press: () {
+                              Future.delayed(const Duration(milliseconds: 500),
+                                  () {
+                                final snackbar =
+                                    SnackBar(content: Text('성공적으로 로그아웃되었습니다.'));
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackbar);
+                                Navigator.of(context)
+                                    .pushReplacementNamed('/auth/login');
+                              });
+                            },
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                )),
-          ),
+                    )),
+              )),
         ));
   }
 }

@@ -46,7 +46,7 @@ Future<int> createUser(
     Uri.parse(proxyUri + myUri + 'sign_up/'),
     headers: <String, String>{
       //"Accept":"application/json",
-      //"Access-Control-Allow-Origin":"*",
+      //"Access-Control-Allow-Origin":"*",W
       'Content-Type': 'application/json; charset=UTF-8',
     },
     /*headers: {

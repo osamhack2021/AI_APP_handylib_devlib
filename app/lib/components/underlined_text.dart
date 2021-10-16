@@ -8,7 +8,7 @@ class UnderLinedText extends StatelessWidget {
   const UnderLinedText(
       {Key? key,
       required this.text,
-      this.style = const TextStyle(),
+      this.style = const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
       required this.thickness})
       : super(key: key);
 
