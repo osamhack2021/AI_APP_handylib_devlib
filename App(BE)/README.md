@@ -206,12 +206,12 @@ Back-End에서는 python flask와 mongodb를 사용하여 데이터베이스를 
 
 
 ```https
-  GET /unit/<Unit_name>
+  GET /unit/<Unit_name>&<page>
 ```
 
 | method | response     | request                |
 | :-------- | :------- | :------------------------- |
-| `GET` | `전체 Embook 리스트 json (1440개)` | `Unit_name` |
+| `GET` | `전체 Embook 리스트 json (18개씩 book json 리턴)` | `Unit_name` |
 
 ```https
   GET /unit/best/Unit_name=<Unit_name>
