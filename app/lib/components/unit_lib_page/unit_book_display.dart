@@ -69,6 +69,7 @@ class UnitBookDisplay extends StatelessWidget {
               overflow: TextOverflow.ellipsis),
           width: imageWidth,
         ),
+        SizedBox(height:large_gap),
       ],
     );
   }

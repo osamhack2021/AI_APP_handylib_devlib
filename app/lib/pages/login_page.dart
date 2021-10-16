@@ -26,7 +26,6 @@ class _LoginPageState extends State<LoginPage> {
       _idController.value.text,
       _passwordController.value.text,
     );
-    debugPrint('${res}');
     if (res == 200) {
       final snackbar = SnackBar(content: Text('로그인에 성공했습니다.'));
       ScaffoldMessenger.of(context).showSnackBar(snackbar);
