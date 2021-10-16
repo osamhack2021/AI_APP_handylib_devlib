@@ -1,3 +1,4 @@
+import 'package:app/components/underlined_text.dart';
 import 'package:app/components/unit_lib_page/unit_book_display.dart';
 import 'package:app/constants/size.dart';
 import 'package:app/models/unit_book_class_models.dart';
@@ -40,7 +41,11 @@ class _UnitLibContentScrollState extends State<UnitLibContentScroll> {
       child: Column(
         children: [
           ListTile(
-            title: Text("${getUnitBookClassTitlebyTag(widget.tag)}"),
+            title: Align(
+              alignment: Alignment.bottomLeft,
+              child: UnderLinedText(
+                  text: getUnitBookClassTitlebyTag(widget.tag)!, thickness: 7),
+            ),
             trailing: IconButton(
               onPressed: () {
                 Navigator.of(context)

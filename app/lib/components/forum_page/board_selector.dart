@@ -12,15 +12,13 @@ class BoardSelector extends StatelessWidget {
 
   Future<List<Post>> _getPostList(String? tag) async {
     List<Post> _previewPosts = await getPostListbyTag(tag!, 1);
-    _previewPosts = _previewPosts.sublist(0,3);
+    _previewPosts = _previewPosts.sublist(0, 3);
     return _previewPosts;
   }
-
 
   @override
   Widget build(BuildContext context) {
     Board thisBoard = getBoardbyId(boardId);
-
 
     return Card(
       elevation: 4,
@@ -44,42 +42,36 @@ class BoardSelector extends StatelessWidget {
           indent: 10,
           endIndent: 10,
         ),
-        FutureBuilder<List<Post>> (
-          future:_getPostList(thisBoard.boardTag),
-          builder:(BuildContext context, nowPostList) {
-            
+        FutureBuilder<List<Post>>(
+            future: _getPostList(thisBoard.boardTag),
+            builder: (BuildContext context, nowPostList) {
               List<Widget> children;
-              if(nowPostList.hasData) {
-                children = <Widget> [
+              if (nowPostList.hasData) {
+                children = <Widget>[
                   for (Post curPost in nowPostList.data!)
                     _PostPreviewTile(thisBoard: thisBoard, curPost: curPost)
                 ];
-                  
-              }
-              else if(nowPostList.hasError) {
-                children =<Widget>[
+              } else if (nowPostList.hasError) {
+                children = <Widget>[
                   Text('An error occured'),
                 ];
-              }
-              else {
+              } else {
                 children = const <Widget>[
                   SizedBox(
-                  child: CircularProgressIndicator(),
-                  width: 60,
-                  height: 60,
+                    child: CircularProgressIndicator(),
+                    width: 60,
+                    height: 60,
                   ),
                   Padding(
                     padding: EdgeInsets.only(top: 16),
-                      child: Text('Awaiting result...'),
+                    child: Text('Awaiting result...'),
                   )
                 ];
               }
               return Column(
                 children: children,
               );
-
-          }
-        )
+            })
         /*
         ListView.separated(
             physics: const NeverScrollableScrollPhysics(),
@@ -145,7 +137,6 @@ class _PostPreviewTile extends StatelessWidget {
             );
           },
           title: Text('${curPost.postName}'),
-          
         ),
         const Divider(
           color: Colors.black12,

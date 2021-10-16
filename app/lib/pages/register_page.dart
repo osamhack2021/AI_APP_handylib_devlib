@@ -3,6 +3,7 @@
 import 'dart:io';
 
 import 'package:app/components/default_circle_avatar.dart';
+import 'package:app/components/loading_dialog.dart';
 import 'package:app/constants/colors.dart';
 import 'package:app/controller/user_controller.dart';
 import 'package:flutter/material.dart';
@@ -50,16 +51,17 @@ class _RegisterPageState extends State<RegisterPage> {
 
   void handleSubmit() async {
     //testHttp();
-    debugPrint(form["userName"].value.text);
-    debugPrint(form["id"].value.text);
+    debugPrint(form["userName"][0].value.text);
+    debugPrint(form["id"][0].value.text);
+    myShowDialog(context, "회원가입중입니다..");
 
     _registerResponse = await createUser(
-      form["userName"].value.text,
-      form["id"].value.text,
-      form["password"].value.text,
-      form["email"].value.text,
-      form["unit"].value.text,
-      form["rank"].value.text,
+      form["userName"][0].value.text,
+      form["id"][0].value.text,
+      form["password"][0].value.text,
+      form["email"][0].value.text,
+      form["unit"][0].value.text,
+      form["rank"][0].value.text,
     );
 
     if (_registerResponse == 200) {
@@ -69,12 +71,12 @@ class _RegisterPageState extends State<RegisterPage> {
       Navigator.of(context).pushNamed(
         '/home',
         arguments: User(
-          form["userName"].value.text,
-          form["id"].value.text,
-          form["password"].value.text,
-          form["email"].value.text,
-          form["unit"].value.text,
-          form["rank"].value.text,
+          form["userName"][0].value.text,
+          form["id"][0].value.text,
+          form["password"][0].value.text,
+          form["email"][0].value.text,
+          form["unit"][0].value.text,
+          form["rank"][0].value.text,
         ),
       );
     } else {

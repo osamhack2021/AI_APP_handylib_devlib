@@ -46,7 +46,7 @@ class __ModifyContentState extends State<_ModifyContent> {
             },
             onSaved: (String? _value) {},
             validator: (_value) {},
-            controller: modifySettingController,
+            controller: modifySettingController[widget.title],
           ),
           Visibility(
               visible: _isChanged && widget.title == "rank",
@@ -88,11 +88,14 @@ class __ModifyContentState extends State<_ModifyContent> {
                 User newUserInfo;
                 newUserInfo = userCopy(myUser!);
                 if (widget.title == 'email') {
-                  newUserInfo.email = modifySettingController.value.text;
+                  newUserInfo.email =
+                      modifySettingController[widget.title]!.value.text;
                 } else if (widget.title == 'unit') {
-                  newUserInfo.unit = modifySettingController.value.text;
+                  newUserInfo.unit =
+                      modifySettingController[widget.title]!.value.text;
                 } else if (widget.title == 'rank') {
-                  newUserInfo.rank = modifySettingController.value.text;
+                  newUserInfo.rank =
+                      modifySettingController[widget.title]!.value.text;
                 } else {
                   debugPrint('잘못된 title값이 전달되었습니다. show_modify_dialog');
                   Navigator.pop(context);
@@ -104,9 +107,9 @@ class __ModifyContentState extends State<_ModifyContent> {
                 if (res == 200) {
                   final snackbar = SnackBar(content: Text('변경하였습니다.'));
                   ScaffoldMessenger.of(context).showSnackBar(snackbar);
-     
+
                   myUser = userCopy(newUserInfo);
-                  
+
                   Navigator.pop(context);
                 } else {
                   debugPrint('변경에 실패했습니다. ${res}');

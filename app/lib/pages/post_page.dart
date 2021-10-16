@@ -9,95 +9,83 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class PostPage extends StatelessWidget {
-  const PostPage({ Key? key }) : super(key: key);
+  const PostPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
     final thisPost = ModalRoute.of(context)!.settings.arguments as Post;
-    
+    print(thisPost.toString());
+
     return Scaffold(
-      appBar:AppBar(
-        backgroundColor : Color(COLOR_PRIMARY),
+      appBar: AppBar(
+        elevation: 0.0,
+        backgroundColor: Color(COLOR_PRIMARY),
+        // title: Text(_thisBoard.boardName!,
+        // style: const TextStyle(fontWeight: FontWeight.bold)),
       ),
-      body : ListView(
-        children:[
+      body: ListView(
+        children: [
           //Author Profile
           Card(
-            margin : EdgeInsets.all(1.0),
+            margin: EdgeInsets.all(1.0),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children:[
-                  SizedBox(width: small_gap),
-                  DefaultCircleAvatar(size:20),
-                  SizedBox(width:large_gap),
-                  Column(children: [
-                    Text(
-                      '${thisPost.author}',
-                      style:TextStyle(
-                        fontWeight:FontWeight.bold,
-                        fontSize:16,
-                        overflow:TextOverflow.clip,
-                      ) 
-                    ),
+              child: Row(children: [
+                SizedBox(width: small_gap),
+                DefaultCircleAvatar(size: 20),
+                SizedBox(width: large_gap),
+                Column(
+                  children: [
+                    Text('${thisPost.author}',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                          overflow: TextOverflow.clip,
+                        )),
                     Text('${thisPost.timestamp}'),
-                  ],)
-                ]
-              ),
+                  ],
+                )
+              ]),
             ),
           ),
           //
           //Post Content
-          Card(  //Content
-            margin : EdgeInsets.all(1.0),
-            child:
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(children:[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        '${thisPost.postName}',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
+          Card(
+              //Content
+              margin: EdgeInsets.all(1.0),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(children: [
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                    Text(
+                      '${thisPost.postName}',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ]),
+                  Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          '${thisPost.content}',
+                          textAlign: TextAlign.left,
+                          overflow: TextOverflow.clip,
                         ),
                       ),
-                    ]
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children:[
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            '${thisPost.content}',
-                            textAlign: TextAlign.left,
-                            overflow: TextOverflow.clip,
-                          ),
-                        ),
-                      )
-                    ]
-                  ),
-                ]
-              ),
-            )
+                    )
+                  ]),
+                ]),
+              )),
+          Column(
+            children: List<Widget>.generate((thisPost.postCommentList).length,
+                (index) => _SingleComment(thisPost.postCommentList[index])),
           ),
-          Column(children: 
-                    List<Widget>.generate(
-                      (thisPost.postCommentList).length,
-                      (index) => _SingleComment(thisPost.postCommentList[index])
-                    ),
-          ),
-          
         ],
       ),
-
       bottomNavigationBar: CommentBottomBar(),
-      
     );
   }
 }
@@ -109,29 +97,26 @@ class CommentBottomBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BottomAppBar( child: (
-      Row(children: [
-          Expanded(child: 
-          TextFormField(
-            //controller: ,
-            decoration: InputDecoration(
-              hintText: '댓글을 입력하세요.', 
-              contentPadding: EdgeInsets.fromLTRB(20.0,5.0,20.0,5.0),
-            )
-          ),
+    return BottomAppBar(
+      child: (Row(
+        children: [
+          Expanded(
+            child: TextFormField(
+                //controller: ,
+                decoration: InputDecoration(
+              hintText: '댓글을 입력하세요.',
+              contentPadding: EdgeInsets.fromLTRB(20.0, 5.0, 20.0, 5.0),
+            )),
           ),
           IconButton(
             icon: Icon(Icons.send),
-            onPressed: (){},
+            onPressed: () {},
           )
         ],
-      )
-    ),
-
+      )),
     );
   }
 }
-
 
 class _SingleComment extends StatelessWidget {
   final Comment thisComment;
@@ -141,32 +126,25 @@ class _SingleComment extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.all(1.0),
-      child:ListTile(
-        leading: DefaultCircleAvatar(size: 14),
-        title: Column(
+        margin: EdgeInsets.all(1.0),
+        child: ListTile(
+            leading: DefaultCircleAvatar(size: 14),
+            title: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text('Comment Author',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        )),
+                  ],
+                ),
+                Text(
+                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
+              ],
+            )));
 
-          children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text(
-                'Comment Author',
-                style:TextStyle(
-                  fontWeight:FontWeight.bold,
-                )  
-              ),
-            ],
-          ),
-
-          Text('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
-
-        ],
-        )
-      )
-    );
-    
     //Comment input form field
-    
   }
 }
