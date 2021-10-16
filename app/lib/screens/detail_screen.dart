@@ -55,7 +55,7 @@ class _DetailScreenState extends State<DetailScreen> {
     return Scaffold(
       body: ListView(
         children: <Widget>[
-          ClippedImageView(context, widget.book.coverUrl),
+          ClippedImageView(context, widget.book.coverUrl, widget.book.isbn13),
           Padding(
             padding:
                 const EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),

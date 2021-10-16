@@ -1,10 +1,43 @@
+import 'dart:convert';
+
 import 'package:app/constants/colors.dart';
+import 'package:app/constants/uri.dart';
+import 'package:app/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
 import 'package:app/components/homeScreen/circular_clipper.dart';
 import 'package:transparent_image/transparent_image.dart';
+import 'package:http/http.dart' as http;
 
-Widget ClippedImageView(BuildContext context, String _imageUrl) {
+bool _liked = false; 
+
+Future<bool> _getLike(String isbn) async {
+  final response = await http.get(
+      Uri.parse(myUri + '/like?user_id=${myUser!.userId}&isbn=${isbn}'),
+      headers: <String, String>{
+        'Content-Type' : 'application/json; charset=UTF-8',
+      },
+  );
+  String _res = jsonDecode(utf8.decode(response.bodyBytes))['message'];
+  if(_res == "False") return false;
+  else if(_res == "True") return true;
+  else throw Exception("_getLike value is invalid. : clipped_image_view.dart");
+}
+
+Future<int> _postLike(String isbn, String _likeStatus) async {
+  final response = await http.post(
+      Uri.parse(myUri + '/like'),
+      headers: <String, String>{
+        'Content-Type' : 'application/json; charset=UTF-8',
+      },
+  );
+  String _res = jsonDecode(utf8.decode(response.bodyBytes))['message'];
+  if(_res == "False") return 0;
+  else if(_res == "True") return 1;
+  else return 2;
+}
+
+Widget ClippedImageView(BuildContext context, String _imageUrl, String _isbn) {
   return Stack(
     children: <Widget>[
       ImageFiltered(
@@ -51,8 +84,8 @@ Widget ClippedImageView(BuildContext context, String _imageUrl) {
         ),
       ),
       Positioned(
-        left: 20,
-        top: 5,
+        left : 20,
+        top : 5,
         child: CircleAvatar(
           radius: 25,
           backgroundColor: const Color(COLOR_PRIMARY).withOpacity(0.5),
@@ -66,6 +99,36 @@ Widget ClippedImageView(BuildContext context, String _imageUrl) {
           ),
         ),
       ),
+      Positioned(
+        right: 30,
+        top: 300,
+        child: FutureBuilder<bool> (
+        future:_getLike(_isbn),
+        builder : (BuildContext context, _liked) {
+          if(_liked.hasData) {
+          return IconButton(
+            icon: (_liked.data!)? Icon(Icons.favorite) : Icon(Icons.favorite_border),
+            color :  Colors.red,
+            iconSize:40,
+            onPressed: () {
+              if(_liked.data! == 0) {
+                /*setState(() {
+                  _postLike(_isbn, 1);
+                }*/
+              }
+            },
+          );
+          }
+          else {
+            return Icon(
+              Icons.favorite_border_outlined,
+              color:Colors.black26,
+              size:40,
+              );
+          }
+        }
+        ),
+      )
     ],
   );
 }

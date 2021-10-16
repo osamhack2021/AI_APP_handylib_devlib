@@ -23,15 +23,16 @@ Future<int> writeComment(
   final response = await http.post(
     Uri.parse(proxyUri +
         myUri +
-        'board/page/${postNumber}/comment_write?user_id=${userId}'),
+        'board/page/${postNumber}/comment_write?user_id=${userId}&tag=$tag'),
+        //  POST /board/page/<number>/comment_write?user_id=xxx&tag=xxx
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
     body: jsonEncode(<String, dynamic>{
       'content': content,
       'number': postNumber,
-      'tag': tag,
-      'user_id': userId,
+      //'tag': tag,
+      //'user_id': userId,
     }),
   );
   return response.statusCode;
