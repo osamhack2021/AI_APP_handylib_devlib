@@ -13,15 +13,26 @@ def unit_name():
     resultJson = json.dumps(jsl, ensure_ascii=False)
     return Response(resultJson,mimetype="application/json",status=200)
 
-@unit_page.route('/<Unit_name>', methods=['GET'])
-def Unit_books_list(Unit_name):
+@unit_page.route('/<Unit_name>&<page>', methods=['GET'])
+def Unit_books_list(Unit_name, page):
+    page = int(page)
+    if page <= 0:
+        page = 1
+    p1 = (page-1)*18
+    p2 = page*18
     c = 0
     for i in range(0,len(database.Unit.objects())):
         if database.Unit.objects[i].name == '{}'.format(Unit_name):
             c += 1
     if c == 1 :
+        if (len(database.Unit.objects(name='{}'.format(Unit_name))[0]['books_list'])/18)+1 == page:
+            p1 = page*18
+            p2 = page*18+len(database.Unit.objects(name='{}'.format(Unit_name))[0]['books_list'])%18
+        if (len(database.Unit.objects(name='{}'.format(Unit_name))[0]['books_list'])/18)+1 < page:
+            p1 = 0
+            p2 = 0
         q = []
-        for i in database.Unit.objects(name='{}'.format(Unit_name))[0]['books_list']:
+        for i in database.Unit.objects(name='{}'.format(Unit_name))[0]['books_list'][p1:p2]:
             q.append(i.to_json())
         result = {'name': '{}'.format(Unit_name), 'books_list': q}
         resultJson = json.dumps(result, ensure_ascii=False)
