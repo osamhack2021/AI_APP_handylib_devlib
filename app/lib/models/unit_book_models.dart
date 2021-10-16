@@ -35,12 +35,12 @@ class UnitBook {
   final String? author;
   final String? pubDate;
   final String? description;
-  final String? isbn13;
+  final String? isbn;
   late final String? coverUrl;
   final String? publisher;
   final String? category;
 
-  UnitBook(this.title, this.author, this.pubDate, this.description, this.isbn13,
+  UnitBook(this.title, this.author, this.pubDate, this.description, this.isbn,
       this.coverUrl, this.publisher, this.category);
 
   UnitBook.fromJson(Map<String, dynamic> json)
@@ -48,7 +48,7 @@ class UnitBook {
         author = json['author'],
         pubDate = json['pubDate'],
         description = json['description'],
-        isbn13 = json['isbn13'],
+        isbn = json['isbn'],
         coverUrl = json['cover'],
         publisher = json['publisher'],
         category = json['categoryName'];
@@ -131,5 +131,6 @@ Book convertUnitBooktoBook(UnitBook _unitBook) {
     _unitBook.coverUrl!.replaceAll('\\/', '/'),
     _unitBook.publisher!,
     _unitBook.category!,
+    _unitBook.isbn!,
   );
 }

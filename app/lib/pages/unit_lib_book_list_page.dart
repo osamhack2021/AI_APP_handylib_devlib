@@ -108,7 +108,7 @@ class _UnitLibBookListPageState extends State<UnitLibBookListPage> {
       
       bottomNavigationBar: BottomAppBar(
         color: Color(COLOR_PRIMARY2),
-        child: Row(
+        child: (widget.tag=='total')? Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             IconButton(
@@ -144,6 +144,7 @@ class _UnitLibBookListPageState extends State<UnitLibBookListPage> {
             ),
           ],
         )
+         : null,
       ),
     );
   }

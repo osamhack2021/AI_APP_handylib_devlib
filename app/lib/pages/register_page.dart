@@ -3,6 +3,7 @@
 import 'dart:io';
 
 import 'package:app/components/default_circle_avatar.dart';
+import 'package:app/components/loading_dialog.dart';
 import 'package:app/constants/colors.dart';
 import 'package:app/controller/user_controller.dart';
 import 'package:flutter/material.dart';
@@ -49,6 +50,8 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   void handleSubmit() async {
+
+  myShowDialog(context, "회원가입중입니다..");
     _registerResponse = await createUser(
       form["userName"][0].value.text,
       form["id"][0].value.text,

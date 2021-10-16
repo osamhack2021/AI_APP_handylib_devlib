@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:app/components/loading_dialog.dart';
 import 'package:app/components/login_page/rounded_button.dart';
 import 'package:app/components/login_page/rounded_input_field.dart';
 import 'package:app/components/login_page/rounded_password_field.dart';
@@ -21,6 +22,11 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _passwordController = TextEditingController();
 
   void handleSubmit() async {
+    myShowDialog(context, "로그인중입니다..");
+    // int res = await loginUser(
+    //   _idController.value.text,
+    //   _passwordController.value.text,
+    // );
 
     int res = await loginUser(
       _idController.value.text,
@@ -31,16 +37,17 @@ class _LoginPageState extends State<LoginPage> {
       ScaffoldMessenger.of(context).showSnackBar(snackbar);
       Navigator.of(context).pushReplacementNamed(
         '/home',
-        arguments: await loadUserInfo(_idController.value.text),
-        //arguments: User('test','test','test','test','test','test'),
+         arguments: await loadUserInfo(_idController.value.text),
+        //arguments: User('test', 'test', 'test', 'test', 'test', 'test'),
       );
-    } else if (res == 401) {
-      final snackbar = SnackBar(content: Text('아이디 또는 비밀번호를 확인하여 주십시오.'));
-      ScaffoldMessenger.of(context).showSnackBar(snackbar);
-    } else {
-      final snackbar = SnackBar(content: Text('로그인 서버에 연결하지 못했습니다.'));
-      ScaffoldMessenger.of(context).showSnackBar(snackbar);
-    }
+    } 
+     else if (res == 401) {
+       final snackbar = SnackBar(content: Text('아이디 또는 비밀번호를 확인하여 주십시오.'));
+       ScaffoldMessenger.of(context).showSnackBar(snackbar);
+     } else {
+       final snackbar = SnackBar(content: Text('로그인 서버에 연결하지 못했습니다.'));
+       ScaffoldMessenger.of(context).showSnackBar(snackbar);
+     }
   }
 
   @override

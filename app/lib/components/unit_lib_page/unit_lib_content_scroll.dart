@@ -1,3 +1,5 @@
+
+import 'package:app/components/underlined_text.dart';
 import 'package:app/components/error_notifier.dart';
 import 'package:app/components/unit_lib_page/unit_book_display.dart';
 import 'package:app/constants/size.dart';
@@ -45,7 +47,12 @@ class _UnitLibContentScrollState extends State<UnitLibContentScroll> {
       child: Column(
         children: [
           ListTile(
-            title: Text("${getUnitBookClassTitlebyTag(widget.tag)}"),
+
+            title: Align(
+              alignment: Alignment.bottomLeft,
+              child: UnderLinedText(
+                  text: getUnitBookClassTitlebyTag(widget.tag)!, thickness: 7),
+            ),
             trailing: FutureBuilder<List<UnitBook>>(
                 future: _getUnitBooksList(),
                 builder: (BuildContext context, unitBookList) {
@@ -76,18 +83,6 @@ class _UnitLibContentScrollState extends State<UnitLibContentScroll> {
                 }),
           ),
 
-          /*IconButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) =>
-                      UnitLibBookListPage(unitBookList: unitBookList, tag : widget.tag),
-                  ),
-                );
-              },
-              icon: Icon(Icons.arrow_forward),
-            ),*/
           SizedBox(
               height: 200,
               child: FutureBuilder<List<UnitBook>>(
