@@ -6,6 +6,7 @@ import 'package:app/components/unit_lib_page/unit_book_display.dart';
 import 'package:app/components/unit_lib_page/unit_lib_content_scroll.dart';
 import 'package:app/constants/colors.dart';
 import 'package:app/constants/uri.dart';
+import 'package:app/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -75,7 +76,7 @@ class _MyBookPageState extends State<MyBookPage> {
                             child: ClipRRect(
                                 borderRadius: BorderRadius.circular(10.0),
                                 child: Image.network(
-                                  'https://www.projectlib.tk/image/admin123.png',
+                                  'https://www.projectlib.tk/image/${myUser!.userId}.png',
                                   fit: BoxFit.cover,
                                 )),
                           ),

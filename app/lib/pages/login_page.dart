@@ -23,34 +23,33 @@ class _LoginPageState extends State<LoginPage> {
 
   void handleSubmit() async {
     myShowDialog(context, "로그인중입니다..");
-    // int res = await loginUser(
-    //   _idController.value.text,
-    //   _passwordController.value.text,
-    // );
 
     int res = await loginUser(
       _idController.value.text,
       _passwordController.value.text,
     );
-    if (true) {
+    if (res == 200) {
       final snackbar = SnackBar(content: Text('로그인에 성공했습니다.'));
       ScaffoldMessenger.of(context).showSnackBar(snackbar);
       Navigator.of(context).pushNamedAndRemoveUntil(
         '/home',
         (route) => false,
-        arguments:
-            User('관리자', 'admin', 'test', 'admin@admin.admin', '2unit', '준장'),
-      );
+        //   arguments:
+        //       User('관리자', 'admin', 'test', 'admin@admin.admin', '2unit', '준장'),
+        // );
 
-      //    arguments: await loadUserInfo(_idController.value.text),
+        arguments: await loadUserInfo(_idController.value.text),
+      );
       //   //arguments: User('test', 'test', 'test', 'test', 'test', 'test'),
       // );
     } else if (res == 401) {
       final snackbar = SnackBar(content: Text('아이디 또는 비밀번호를 확인하여 주십시오.'));
       ScaffoldMessenger.of(context).showSnackBar(snackbar);
+      Navigator.of(context).pop();
     } else {
       final snackbar = SnackBar(content: Text('로그인 서버에 연결하지 못했습니다.'));
       ScaffoldMessenger.of(context).showSnackBar(snackbar);
+      Navigator.of(context).pop();
     }
   }
 
@@ -86,7 +85,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   RoundedPasswordField(
                     textInputAction: TextInputAction.done,
-                    onEditingComplete: () => handleSubmit,
+                    onEditingComplete: () => handleSubmit(),
                     controller: _passwordController,
                   ),
                   RoundedButton(
