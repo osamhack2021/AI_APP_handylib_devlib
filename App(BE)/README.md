@@ -94,7 +94,7 @@ Distributed under the MIT License. See [LICENSE.txt](https://github.com/osamhack
 
 ## DB structure
 
-
+![DBimg](https://www.notion.so/backend-c26e987ceb954576b7578e6503940495#01de5423ae7142dbb4b00acfe2c57f2b)
 
 <a id = "API_Reference"></a>
 
