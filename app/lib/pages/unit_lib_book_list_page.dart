@@ -105,45 +105,47 @@ class _UnitLibBookListPageState extends State<UnitLibBookListPage> {
           }),
       bottomNavigationBar: BottomAppBar(
         color: Color(COLOR_PRIMARY2),
-        child: (widget.tag == 'total')
-            ? Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  IconButton(
-                    padding: EdgeInsets.fromLTRB(16.0, 10.0, 16.0, 10.0),
-                    onPressed: () {
-                      if (page <= 1)
-                        null;
-                      else
-                        setState(() {
-                          page--;
-                        });
-                    },
-                    icon: Icon(
-                      Icons.chevron_left,
-                      color: Colors.black54,
-                    ),
-                  ),
-                  Text('$page'),
-                  IconButton(
-                    padding: EdgeInsets.fromLTRB(16.0, 10.0, 16.0, 10.0),
-                    onPressed: () async {
-                      setState(() {
-                        page++;
-                      });
-                      List<UnitBook> _temp = await _getUnitBooksList(page);
-                      setState(() {
-                        widget.unitBookList = _temp;
-                      });
-                    },
-                    icon: Icon(
-                      Icons.chevron_right,
-                      color: Colors.black54,
-                    ),
-                  ),
-                ],
-              )
-            : null,
+        child: (widget.tag=='total')? Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            IconButton(
+              padding: EdgeInsets.fromLTRB(16.0, 10.0, 16.0, 10.0),
+              onPressed: () async {
+                if(page<=1) null;
+                else setState((){
+                  page--;
+                  
+                });
+                List<UnitBook> _temp = await _getUnitBooksList(page);
+                  setState((){
+                    widget.unitBookList = _temp;
+                  });
+                },
+              icon: Icon(
+                Icons.chevron_left,
+                color: Colors.black54,
+              ),
+            ),
+            Text('$page'),
+            IconButton(
+              padding: EdgeInsets.fromLTRB(16.0, 10.0, 16.0, 10.0),
+              onPressed: () async{
+                setState((){
+                    page++;
+                });
+                List<UnitBook> _temp = await _getUnitBooksList(page);
+                  setState((){
+                    widget.unitBookList = _temp;
+                  });
+                },
+              icon: Icon(
+                Icons.chevron_right,
+                color: Colors.black54,
+              ),
+            ),
+          ],
+        )
+         : null,
       ),
     );
   }
