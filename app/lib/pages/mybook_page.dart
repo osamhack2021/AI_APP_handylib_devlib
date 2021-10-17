@@ -17,21 +17,6 @@ class MyBookPage extends StatefulWidget {
   _MyBookPageState createState() => _MyBookPageState();
 }
 
-Future<String> loadUserImage(String userId) async {
-  final response = await http.get(
-    Uri.parse(myUri + 'mypage' + '?user_id=${userId}'),
-    headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-    },
-  );
-
-  if (response.statusCode == 200) {
-    return (jsonDecode(utf8.decode(response.bodyBytes)))['user_data'];
-  } else {
-    throw Exception('Failed to load User data');
-  }
-}
-
 class _MyBookPageState extends State<MyBookPage> {
   @override
   void initState() {

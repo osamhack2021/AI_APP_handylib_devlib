@@ -5,6 +5,7 @@ import 'package:app/constants/colors.dart';
 import 'package:app/constants/size.dart';
 import 'package:app/models/board_models.dart';
 import 'package:app/models/post_models.dart';
+import 'package:app/pages/post_write_page.dart';
 import 'package:flutter/material.dart';
 
 class PostListPage extends StatefulWidget {
@@ -15,10 +16,17 @@ class PostListPage extends StatefulWidget {
 }
 
 class _PostListPageState extends State<PostListPage> {
-  List<Post> nowPostList = [];
+  List<Post> totalPostList = [];
 
   Future<List<Post>> _getPostList(String? tag) async {
     return await getPostListbyTag(tag!, 1);
+  }
+
+  Future<void> _callback(String? tag) async {
+    List<Post> _tempPostList = await _getPostList(tag);
+    setState(() {
+      totalPostList = _tempPostList;
+    });
   }
 
   @override
@@ -32,9 +40,8 @@ class _PostListPageState extends State<PostListPage> {
     }
 
     final thisBoard = ModalRoute.of(context)!.settings.arguments as Board;
-    
+
     _getPostList(thisBoard.boardTag);
-    debugPrint('in build ' + nowPostList.toString());
     return Scaffold(
         appBar: TitledAppbar(thisBoard.boardName!),
         bottomNavigationBar: BottomAppBar(
@@ -53,11 +60,16 @@ class _PostListPageState extends State<PostListPage> {
             Expanded(child: Row()),
             IconButton(
               onPressed: () {
-                Navigator.of(context).pushNamed(
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => PostWritePage(
+                            thisBoard: thisBoard, callback: _callback)));
+              },
+              /*Navigator.of(context).pushNamed(
                   '/home/forum/post-list/write',
                   arguments: thisBoard,
-                );
-              },
+                );*/
               icon: Icon(
                 Icons.create,
                 color: Colors.black54,
@@ -70,10 +82,9 @@ class _PostListPageState extends State<PostListPage> {
           builder: (BuildContext context, nowPostList) {
             List<Widget> children;
             if (nowPostList.hasData) {
+              totalPostList = nowPostList.data!;
               children = <Widget>[
-                //ListView(children: [
-                for (Post curPost in nowPostList.data!) PostSelector(curPost)
-                //])
+                for (Post curPost in totalPostList) PostSelector(curPost)
               ];
               return ListView(
                 children: children,
