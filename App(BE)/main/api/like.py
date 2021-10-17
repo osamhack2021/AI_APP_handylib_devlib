@@ -8,10 +8,16 @@ def like_append():
     user_id = request.values.get('user_id')
     isbn = request.values.get('isbn')
     user=database.User.objects(user_id=user_id).first()
-    like=user.like
-    like.append(isbn)
-    user.upadate(like=like)
-    resultJson=json.dumps({"message": "success"})
+    lists=user.like
+    for item in lists:
+        if item==isbn:
+            lists.remove(isbn)
+            user.update(like=lists)
+            resultJson=json.dumps({"message": 'delete'})
+            return Response(resultJson,mimetype="application/json",status=200)
+    lists.append(isbn)
+    user.update(like=lists)
+    resultJson=json.dumps({"message": 'append'})
     return Response(resultJson,mimetype="application/json",status=200)
 
 @like_page.route('/',methods=['GET'])
