@@ -21,10 +21,12 @@ class DetailScreen extends StatefulWidget {
 class _DetailScreenState extends State<DetailScreen> {
   late Widget currentClippedImageView;
 
+  @override
   void initState() {
     super.initState();
     currentClippedImageView = ClippedImageView(
         context, widget.book.coverUrl, widget.book.isbn, callback);
+    data = getUnitBookInfo(myUser!.unit, widget.book.isbn);
   }
 
   void callback() {
@@ -72,18 +74,6 @@ class _DetailScreenState extends State<DetailScreen> {
   BookStatusType? status;
   bool isChangeState = false;
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView(
-        children: <Widget>[
-          currentClippedImageView,
-
-  void initState() {
-    super.initState();
-    data = getUnitBookInfo(myUser!.unit, widget.book.isbn);
-  }
-
   void handleBorrow() async {
     isChangeState = true;
     borrowUnitBook(myUser!.unit, widget.book.isbn, myUser!.userId)
@@ -128,8 +118,7 @@ class _DetailScreenState extends State<DetailScreen> {
     return Scaffold(
       body: ListView(
         children: <Widget>[
-          ClippedImageView(context, widget.book.coverUrl, widget.book.isbn),
-
+          currentClippedImageView,
           Padding(
             padding:
                 const EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
