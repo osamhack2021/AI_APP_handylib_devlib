@@ -8,7 +8,7 @@ import 'package:app/components/homeScreen/clipped_image_view.dart';
 
 class DetailScreen extends StatefulWidget {
   final Book book;
-  
+
   DetailScreen({required this.book});
 
   @override
@@ -16,6 +16,21 @@ class DetailScreen extends StatefulWidget {
 }
 
 class _DetailScreenState extends State<DetailScreen> {
+  late Widget currentClippedImageView;
+
+  void initState() {
+    super.initState();
+    currentClippedImageView = ClippedImageView(
+        context, widget.book.coverUrl, widget.book.isbn, callback);
+  }
+
+  void callback() {
+    setState(() {
+      currentClippedImageView = ClippedImageView(
+          context, widget.book.coverUrl, widget.book.isbn, callback);
+    });
+  }
+
   Widget title_subtitle_tile(String _title, String _subtitle) {
     return Expanded(
       flex: 1,
@@ -44,11 +59,10 @@ class _DetailScreenState extends State<DetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: ListView(
         children: <Widget>[
-          ClippedImageView(context, widget.book.coverUrl, widget.book.isbn13),
+          currentClippedImageView,
           Padding(
             padding:
                 const EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),

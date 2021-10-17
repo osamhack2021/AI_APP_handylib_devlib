@@ -4,19 +4,19 @@ class Book {
   final String pubDate;
   final String description;
   final String coverUrl;
-  final String isbn13;
+  final String isbn;
   final String publisher;
   final String category;
 
   Book(this.title, this.author, this.pubDate, this.description, this.coverUrl,
-      this.publisher, this.category, this.isbn13);
+      this.publisher, this.category, this.isbn);
 
   Book.fromJson(Map<String, dynamic> json)
       : title = json['title'],
         author = json['author'],
         pubDate = json['pubDate'],
         description = json['description'],
-        isbn13 = json['isbn13'] != "" ? json['isbn13'] : json['isbn'],
+        isbn = json['isbn'],
         coverUrl = json['cover'],
         publisher = json['publisher'],
         category = json['categoryName'];

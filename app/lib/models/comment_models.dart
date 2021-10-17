@@ -1,17 +1,26 @@
 import 'dart:convert';
 
 import 'package:app/constants/uri.dart';
+import 'package:app/controller/timestamp_convert.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 import 'package:http/http.dart' as http;
 
 class Comment {
-  String? content, author;
-  Timestamp? timeStamp;
+  final String? content, author;
+  final String? timeStamp;
 
+  Comment(this.content, this.author, this.timeStamp);
+
+  
   Comment.fromJson(Map<dynamic, dynamic> json)
       : content = json['content'],
         author = json['user_id'],
-        timeStamp = json['time_stamp'];
+        timeStamp =  readTimestamp(parseTimestamp(json["time_stamp"]));
+
+}
+
+Comment defaultComment() {
+  return Comment('test comment content', 'author', '2000-01-02');
 }
 
 Future<int> writeComment(

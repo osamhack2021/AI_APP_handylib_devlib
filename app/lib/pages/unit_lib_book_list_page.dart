@@ -113,12 +113,16 @@ class _UnitLibBookListPageState extends State<UnitLibBookListPage> {
           children: [
             IconButton(
               padding: EdgeInsets.fromLTRB(16.0, 10.0, 16.0, 10.0),
-              onPressed: () {
+              onPressed: () async {
                 if(page<=1) null;
                 else setState((){
                   page--;
                   
                 });
+                List<UnitBook> _temp = await _getUnitBooksList(page);
+                  setState((){
+                    widget.unitBookList = _temp;
+                  });
                 },
               icon: Icon(
                 Icons.chevron_left,
