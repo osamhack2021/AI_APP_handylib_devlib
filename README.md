@@ -4,7 +4,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/osamhack2021/AI_APP_handylib_devlib">
-    <img src="images/logo.ico" alt="Logo" width="80" height="80">
+    <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
 ![license](https://img.shields.io/github/license/osamhack2021/AI_APP_handylib_devlib.svg)
@@ -63,10 +63,9 @@
 
 '내 손안의 진중문고'는 다음과 같은 장점이 있습니다:
 
-- 인공지능 추천 알고리즘을 통한 도서 추천으로 사용자의 독서를 장려할 수 있습니다.
-- 오픈소스 모바일/웹/데스크톱 크로스 플랫폼 SDK인 flutter를 이용하여 프론트엔드를 개발하여 확장성이 뛰어납니다.
-- 어플리케이션으로 개발되어 접근성이 뛰어납니다.
-- 부대의 북카페/도서관에 있는 도서들의 추적&관리가 용이합니다.
+- **인공지능 추천 알고리즘을* 통한 **도서 추천**으로 사용자의 독서를 장려할 수 있습니다. ***(이제 무슨 책을 읽을지 고민하지 않아도 됩니다.)***
+- 부대의 북카페/도서관에 있는 도서들의 **추적&관리**가 용이합니다. ***(이제 북카페 관리병이 필요 없어집니다.)***
+- 사용자는 부대 도서관의 도서 현황을 **열람**하고 원하는 도서를 **검색**할 수 있습니다.***(이제 원하는 책이 있는지 방황할 필요가 없습니다.)***
 
 이상의 특장점은 각 군마다 존재한 기존의 전자책 도서관의 단점과 부대별로 상이한 북카페 관리 체계의 단점을 보완하고 장병 복지와 자기계발에 큰 기여를 하고 있는 진중문고의 외부유출 및 유통 문제를 해결하고 양질의 도서를 보다 좋은 접근성으로 제공하여 줍니다.
 
@@ -126,7 +125,7 @@ collaborative filtering 중 하나인 matrix factorization을 이용하여 추�
 
 ## 라이센스
 
-MIT라이센스가 적용되었습니다. `LICENSE` 파일을 통해 확인할 수 있습니다. 프로젝트에 사용된 오픈소스 라이브러리에 대한 라이센스는 `DEPENDENCIES` 파일을 통해 확인해주세요.
+MIT라이센스가 적용되었습니다. [`LICENSE`](https://github.com/osamhack2021/AI_APP_handylib_devlib/blob/main/LICENSE) 파일을 통해 확인할 수 있습니다. 프로젝트에 사용된 오픈소스 라이브러리에 대한 라이센스는 [`DEPENDENCIES`](https://github.com/osamhack2021/AI_APP_handylib_devlib/blob/main/DEPENDENCIES) 파일을 통해 확인해주세요.
 
 <!-- CONTACT -->
 
