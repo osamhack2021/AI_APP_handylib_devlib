@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:app/constants/uri.dart';
 import 'package:app/models/post_models.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class Board {
@@ -23,7 +24,7 @@ List<Board> boardDataList = [
 
 List<Post> parsePost(dynamic decodedResponseBody) {
   return (decodedResponseBody as List)
-      .map((i) => Post.fromJson(i))
+      .map((i) => Post.fromJsonBoard(i))
       .toList();
 }
 
@@ -34,6 +35,8 @@ Future<List<Post>> getPostListbyTag(String tag, int pageId) async {
         'Content-Type' : 'application/json; charset=UTF-8',
       },
   );
+  //debugPrint(jsonDecode(utf8.decode(response.bodyBytes)).runtimeType.toString());
+  
   return parsePost(jsonDecode(utf8.decode(response.bodyBytes)));
 }
 

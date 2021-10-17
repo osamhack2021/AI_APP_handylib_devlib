@@ -9,11 +9,11 @@ import 'package:app/components/homeScreen/circular_clipper.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:http/http.dart' as http;
 
-bool _liked = false;
 
 Future<bool> _getLike(String isbn) async {
   final response = await http.get(
-    Uri.parse(myUri + '/like?user_id=${myUser!.userId}&isbn=${isbn}'),
+    Uri.parse(myUri + 'like/?user_id=${myUser!.userId}&isbn=${isbn}/'),
+
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -27,23 +27,42 @@ Future<bool> _getLike(String isbn) async {
     throw Exception("_getLike value is invalid. : clipped_image_view.dart");
 }
 
-Future<int> _postLike(String isbn, String _likeStatus) async {
+Future<bool> _postLike(String isbn) async {
   final response = await http.post(
-    Uri.parse(myUri + '/like'),
+
+    Uri.parse(myUri + 'like/?user_id=${myUser!.userId}&isbn=${isbn}/'),
+
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
   );
   String _res = jsonDecode(utf8.decode(response.bodyBytes))['message'];
-  if (_res == "False")
-    return 0;
-  else if (_res == "True")
-    return 1;
+
+  if (_res == "delete")
+    return false;
+  else if (_res == "append")
+    return true;
   else
-    return 2;
+    throw Exception("_getLike value is invalid. : clipped_image_view.dart");
+
 }
 
-Widget ClippedImageView(BuildContext context, String _imageUrl, String _isbn) {
+/*
+class ClippedImageViewClass extends StatelessWidget {
+  final BuildContext? context;
+  final String? imageUrl ,isbn;
+
+  const ClippedImageViewClass({Key? key, this.context, this.imageUrl, this.isbn}) : super(key: key);
+
+  
+  @override
+  Widget build(BuildContext context) {
+    return ClippedImageView(context, imageUrl!, isbn!);
+  }
+}*/
+
+Widget ClippedImageView(
+    BuildContext context, String _imageUrl, String _isbn, Function _callback) {
   return Stack(
     children: <Widget>[
       ImageFiltered(
@@ -112,25 +131,39 @@ Widget ClippedImageView(BuildContext context, String _imageUrl, String _isbn) {
             future: _getLike(_isbn),
             builder: (BuildContext context, _liked) {
               if (_liked.hasData) {
+
+                bool _currentLike = _liked.data!;
                 return IconButton(
-                  icon: (_liked.data!)
+                  icon: (_currentLike)
+
                       ? Icon(Icons.favorite)
                       : Icon(Icons.favorite_border),
                   color: Colors.red,
                   iconSize: 40,
-                  onPressed: () {
-                    if (_liked.data! == 0) {
-                      /*setState(() {
-                  _postLike(_isbn, 1);
-                }*/
+
+                  onPressed: () async {
+                    _currentLike = await _postLike(_isbn);
+                    _callback();
+                    
+                    if(_currentLike) {
+                      final snackbar = SnackBar(content: Text('책을 좋아요 했습니다.'));
+                      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                    }
+                    else {
+                      final snackbar = SnackBar(content: Text('책을 좋아요 취소했습니다.'));
+                      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+
                     }
                   },
                 );
               } else {
-                return Icon(
-                  Icons.favorite_border_outlined,
+
+                return IconButton(
+                  icon: Icon(Icons.favorite_border_outlined),
                   color: Colors.black26,
-                  size: 40,
+                  iconSize: 40,
+                  onPressed: null,
+
                 );
               }
             }),

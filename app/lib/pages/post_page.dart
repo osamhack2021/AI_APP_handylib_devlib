@@ -10,15 +10,32 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class PostPage extends StatelessWidget {
+class PostPage extends StatefulWidget {
   const PostPage({Key? key}) : super(key: key);
 
   @override
+  State<PostPage> createState() => _PostPageState();
+}
+
+class _PostPageState extends State<PostPage> {
+  @override
   Widget build(BuildContext context) {
+    Future<Post> _getPostInfo(String tag, int postNumber) async {
+      return await getPost(tag, postNumber);
+      //return defaultPost();
+    }
+
+    if (ModalRoute.of(context)!.settings.arguments == null) {
+      return Scaffold(
+        body: ErrorNotifier(
+          errorMessage: '게시글 정보를 불러오지 못했어요. 앱을 다시 실행해주세요.',
+        ),
+      );
+    }
+
     final thisPost = ModalRoute.of(context)!.settings.arguments as Post;
-    print(thisPost.toString());
-    
-     if (myUser == null) {
+
+    if (myUser == null) {
       return Scaffold(
         body: ErrorNotifier(
           errorMessage: '유저 정보를 불러오지 못했어요. 앱을 다시 실행해주세요.',
@@ -32,7 +49,6 @@ class PostPage extends StatelessWidget {
         backgroundColor: Color(COLOR_PRIMARY),
         // title: Text(_thisBoard.boardName!,
         // style: const TextStyle(fontWeight: FontWeight.bold)),
-
       ),
       body: ListView(
         children: [
@@ -90,10 +106,35 @@ class PostPage extends StatelessWidget {
                   ]),
                 ]),
               )),
-          Column(
-            children: List<Widget>.generate((thisPost.postCommentList).length,
-                (index) => _SingleComment(thisPost.postCommentList[index])),
-          ),
+
+          //Comments
+          FutureBuilder<Post>(
+            future: _getPostInfo(thisPost.postTag!, thisPost.postId!),
+            builder: (BuildContext context, curPost) {
+              if (curPost.hasData) {
+                return Column(
+                  children: <Widget>[
+                    for (Comment curComment in curPost.data!.postCommentList)
+                      _SingleComment(curComment)
+                  ],
+                );
+              } else if (curPost.hasError) {
+                return ErrorNotifier(errorMessage: '댓글 목록을 불러오지 못했어요.');
+              } else {
+                return Column(children: [
+                  SizedBox(
+                    child: CircularProgressIndicator(),
+                    width: 60,
+                    height: 60,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 16),
+                    child: Text('로딩 중입니다...'),
+                  )
+                ]);
+              }
+            },
+          )
         ],
       ),
       bottomNavigationBar:
@@ -108,7 +149,8 @@ class CommentBottomBar extends StatelessWidget {
   final Post thisPost;
   final String author;
 
-  CommentBottomBar({required this.thisPost, required this.author});
+  CommentBottomBar(
+      {required this.thisPost, required this.author});
 
   @override
   Widget build(BuildContext context) {
@@ -117,7 +159,6 @@ class CommentBottomBar extends StatelessWidget {
         children: [
           Expanded(
             child: TextFormField(
-
                 controller: _commentController,
                 decoration: InputDecoration(
                   hintText: '댓글을 입력하세요.',
@@ -126,14 +167,17 @@ class CommentBottomBar extends StatelessWidget {
           ),
           IconButton(
             icon: Icon(Icons.send),
-            onPressed: () {
-              writeComment(
+            onPressed: () async {
+              int _res = await writeComment(
                 _commentController.value.text,
                 thisPost.postId!,
                 thisPost.postTag!,
                 author,
               );
               _commentController.clear();
+              setState() {
+                _res;
+              }
             },
           )
         ],
@@ -158,14 +202,16 @@ class _SingleComment extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text('Comment Author',
+                    Text('${thisComment.author}',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                         )),
                   ],
                 ),
-                Text(
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [Text('${thisComment.content}')],
+                ),
               ],
             )));
 
