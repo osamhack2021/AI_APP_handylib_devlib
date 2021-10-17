@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:app/components/default_circle_avatar.dart';
+import 'package:app/components/error_notifier.dart';
 import 'package:app/screens/home_screen.dart';
 import 'package:app/components/underlined_text.dart';
 import 'package:app/constants/colors.dart';
@@ -231,7 +232,8 @@ class _FeedPageState extends State<FeedPage> {
           if (snapshot.hasData) {
             return success(snapshot.data);
           } else if (snapshot.hasError) {
-            return Container();
+            print(snapshot.error);
+            return ErrorNotifier(errorMessage: '서버와의 연결이 불안정합니다.');
           }
           // 기본적으로 로딩 Spinner를 보여줍니다.
           return const Center(

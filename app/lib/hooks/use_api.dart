@@ -96,7 +96,7 @@ Future<Map<String, dynamic>> feedAladinApiGet(String isbn13) async {
     "author": document.findAllElements("author").toList()[0].text,
     "pubDate": formatDateTime,
     "cover": document.findAllElements("cover").toList()[0].text,
-    // "isbn13": document.findAllElements("isbn13").toList()[0].text,
+    "isbn13": document.findAllElements("isbn13").toList()[0].text,
     "isbn": document.findAllElements("isbn").toList()[0].text,
     "publisher": document.findAllElements("publisher").toList()[0].text,
     "categoryName": document.findAllElements("categoryName").toList()[0].text,
@@ -141,4 +141,34 @@ Future<Map<String, dynamic>> feedAladinCategoryApi(
               .toString()),
       headers: {"Accept": "application/json"});
   return jsonDecode(response.body);
+}
+
+///////////////// detailpage sync //////////////////////
+const String myUri = 'https://www.projectlib.tk';
+// const String myUri = 'http://175.210.134.48:3000/';
+
+Future<Map<String, dynamic>> getUnitBookInfo(String unit, String isbn) async {
+  const path = "/unit/chk/";
+  http.Response response = await http.get(
+      Uri.parse(myUri + path + "Unit_name=${unit}&isbn=${isbn}"),
+      headers: {"Accept": "application/json"});
+  return jsonDecode(utf8.decode(response.bodyBytes));
+}
+
+Future<int> borrowUnitBook(String unit, String isbn, String userId) async {
+  const path = "/unit/brr/";
+  http.Response response = await http.post(
+      Uri.parse(
+          myUri + path + "Unit_name=${unit}&isbn=${isbn}&user_id=${userId}"),
+      headers: {"Accept": "application/json"});
+  return response.statusCode;
+}
+
+Future<int> returnUnitBook(String unit, String isbn, String userId) async {
+  const path = "/unit/ret/";
+  http.Response response = await http.post(
+      Uri.parse(
+          myUri + path + "Unit_name=${unit}&isbn=${isbn}&user_id=${userId}"),
+      headers: {"Accept": "application/json"});
+  return response.statusCode;
 }

@@ -14,7 +14,6 @@ class UnitLibBookListPage extends StatefulWidget {
   UnitLibBookListPage({this.unitBookList, this.tag});
 
   @override
-
   State<UnitLibBookListPage> createState() => _UnitLibBookListPageState();
 }
 
@@ -50,117 +49,101 @@ class _UnitLibBookListPageState extends State<UnitLibBookListPage> {
         backgroundColor: Color(COLOR_PRIMARY),
         centerTitle: true,
       ),
-      body: FutureBuilder<List<UnitBook>> (
-        future: _getUnitBooksList(page),
-        builder:(BuildContext context, unitBookList) {
-          List<Widget> children;
-          if(unitBookList.hasData) {
-            return CustomScrollView(
-              primary: false,
-              slivers: <Widget>[
-                SliverPadding(
-//                   padding: const EdgeInsets.all(0),
-//                   sliver: SliverGrid.count(
-//                     crossAxisSpacing: 10,
-//                     mainAxisSpacing: 10,
-//                     crossAxisCount: 2,
-//                     childAspectRatio: 0.7,
-//                     children: <Widget>[
-//                       for (UnitBook _curUnitBook in unitBookList!)
-//                         UnitBookDisplay(
-//                           bookData: _curUnitBook,
-//                           imageWidth: 300,
-//                           imageHeight: 600,
-//                         ),
-//                     ],
-//                   ),
-//                 ),
-                padding: const EdgeInsets.all(20),
-                sliver: SliverGrid.count(
-                 crossAxisCount: 3,
-                  children: <Widget>[
-                for (UnitBook _curUnitBook in widget.unitBookList!)
-                  UnitBookDisplay(
-                      bookData: _curUnitBook,
-                      imageHeight: null,
-                      imageWidth: null),
-              ],
-            ),
-          ),
-        ],
-      );
-          }
-          else if(unitBookList.hasError) {
-            children=<Widget>[
-              ErrorNotifier(errorMessage: '리스트를 불러오는 데 문제가 생겼어요. 잠시 후 다시 시도해주세요.',)
-            ];
-          }
-          else {
-            children = const <Widget>[
-                        SizedBox(
-                          child: CircularProgressIndicator(),
-                          width: 60,
-                          height: 60,
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 16),
-                          child: Text('로딩 중입니다...'),
-                        )
-                      ];
-          }
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: children,
-            ),
-          );
-        }
-      ),
-      
-      
-      
-      
-      
+      body: FutureBuilder<List<UnitBook>>(
+          future: _getUnitBooksList(page),
+          builder: (BuildContext context, unitBookList) {
+            List<Widget> children;
+            if (unitBookList.hasData) {
+              return CustomScrollView(
+                primary: false,
+                slivers: <Widget>[
+                  SliverPadding(
+                    padding: const EdgeInsets.all(0),
+                    sliver: SliverGrid.count(
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                      crossAxisCount: 2,
+                      childAspectRatio: 0.7,
+                      children: <Widget>[
+                        for (UnitBook _curUnitBook in widget.unitBookList!)
+                          UnitBookDisplay(
+                            bookData: _curUnitBook,
+                            imageWidth: 130,
+                            imageHeight: 200,
+                          ),
+                      ],
+                    ),
+                  ),
+                ],
+              );
+            } else if (unitBookList.hasError) {
+              children = <Widget>[
+                ErrorNotifier(
+                  errorMessage: '리스트를 불러오는 데 문제가 생겼어요. 잠시 후 다시 시도해주세요.',
+                )
+              ];
+            } else {
+              children = const <Widget>[
+                SizedBox(
+                  child: CircularProgressIndicator(),
+                  width: 60,
+                  height: 60,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 16),
+                  child: Text('로딩 중입니다...'),
+                )
+              ];
+            }
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: children,
+              ),
+            );
+          }),
       bottomNavigationBar: BottomAppBar(
         color: Color(COLOR_PRIMARY2),
-        child: (widget.tag=='total')? Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            IconButton(
-              padding: EdgeInsets.fromLTRB(16.0, 10.0, 16.0, 10.0),
-              onPressed: () {
-                if(page<=1) null;
-                else setState((){
-                  page--;
-                  
-                });
-                },
-              icon: Icon(
-                Icons.chevron_left,
-                color: Colors.black54,
-              ),
-            ),
-            Text('$page'),
-            IconButton(
-              padding: EdgeInsets.fromLTRB(16.0, 10.0, 16.0, 10.0),
-              onPressed: () async{
-                setState((){
-                    page++;
-                });
-                List<UnitBook> _temp = await _getUnitBooksList(page);
-                  setState((){
-                    widget.unitBookList = _temp;
-                  });
-                },
-              icon: Icon(
-                Icons.chevron_right,
-                color: Colors.black54,
-              ),
-            ),
-          ],
-        )
-         : null,
+        child: (widget.tag == 'total')
+            ? Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButton(
+                    padding: EdgeInsets.fromLTRB(16.0, 10.0, 16.0, 10.0),
+                    onPressed: () {
+                      if (page <= 1)
+                        null;
+                      else
+                        setState(() {
+                          page--;
+                        });
+                    },
+                    icon: Icon(
+                      Icons.chevron_left,
+                      color: Colors.black54,
+                    ),
+                  ),
+                  Text('$page'),
+                  IconButton(
+                    padding: EdgeInsets.fromLTRB(16.0, 10.0, 16.0, 10.0),
+                    onPressed: () async {
+                      setState(() {
+                        page++;
+                      });
+                      List<UnitBook> _temp = await _getUnitBooksList(page);
+                      setState(() {
+                        widget.unitBookList = _temp;
+                      });
+                    },
+                    icon: Icon(
+                      Icons.chevron_right,
+                      color: Colors.black54,
+                    ),
+                  ),
+                ],
+              )
+            : null,
       ),
     );
   }

@@ -43,7 +43,7 @@ class _UnitLibContentScrollState extends State<UnitLibContentScroll> {
     _getUnitBooksList();
 
     return Card(
-      margin: EdgeInsets.all(1.0),
+      margin: EdgeInsets.all(10.0),
       child: Column(
         children: [
           ListTile(
@@ -82,7 +82,7 @@ class _UnitLibContentScrollState extends State<UnitLibContentScroll> {
                 }),
           ),
           SizedBox(
-              height: 200,
+              height: 240,
               child: FutureBuilder<List<UnitBook>>(
                   future: _getUnitBooksList(),
                   builder: (BuildContext context, unitBookList) {
@@ -95,8 +95,8 @@ class _UnitLibContentScrollState extends State<UnitLibContentScroll> {
                           for (UnitBook _thisUnitBook in unitBookList.data!)
                             UnitBookDisplay(
                                 bookData: _thisUnitBook,
-                                imageHeight: bookImageHeightConst,
-                                imageWidth: bookImageWidthConst),
+                                imageHeight: 150,
+                                imageWidth: 100),
                         ],
                       );
                     } else if (unitBookList.hasError) {
