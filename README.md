@@ -4,7 +4,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/osamhack2021/AI_APP_handylib_devlib">
-    <img src="images/logo.ico" alt="Logo" width="80" height="80">
+    <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
 ![license](https://img.shields.io/github/license/osamhack2021/AI_APP_handylib_devlib.svg)
