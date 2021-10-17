@@ -26,7 +26,7 @@ class UnitBookDisplay extends StatelessWidget {
     if (bookData == null) debugPrint('bookData is null!!');
 
     return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 5.0),
+        padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10),
         child: Card(
             color: Colors.white,
             shape: RoundedRectangleBorder(

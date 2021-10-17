@@ -48,7 +48,7 @@ AppBar FeedPageAppBar(BuildContext context) {
     elevation: 0.5,
     title: const Center(
       child: Image(
-        image: AssetImage('assets/images/logo.ico'),
+        image: AssetImage('assets/images/logo.png'),
         width: 50,
         height: 50,
         fit: BoxFit.cover,

@@ -33,12 +33,12 @@ BookSelector(int index, Book book, PageController _pageController,
                             const BorderRadius.all(Radius.circular(10)),
                         child: Image(
                           image: NetworkImage(book.coverUrl),
-                          height: 260.0,
+                          height: 240.0,
                           fit: BoxFit.cover,
                         ),
                       ),
                       SizedBox(
-                        width: 120,
+                        width: 110,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,

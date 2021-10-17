@@ -1,4 +1,5 @@
 import 'package:app/components/forum_page/board_selector.dart';
+import 'package:app/models/book_models.dart';
 import 'package:app/pages/feed_page.dart';
 import 'package:app/pages/mybook_page.dart';
 import 'package:app/pages/post_list_page.dart';
@@ -9,6 +10,7 @@ import 'package:app/pages/setting_page.dart';
 import 'package:app/pages/unit_book_detail_page.dart';
 import 'package:app/pages/unit_lib_book_list_page.dart';
 import 'package:app/pages/unit_lib_page.dart';
+import 'package:app/screens/detail_screen.dart';
 import 'package:app/screens/home_screen.dart';
 import 'package:app/screens/onboard_screen.dart';
 import 'package:app/pages/login_page.dart';
@@ -23,13 +25,13 @@ final routes = {
   // '/home/feed': (BuildContext context) => FeedPage(),
   // '/home/mybook': (BuildContext context) => MyBookPage(),
   // '/home/unitlib': (BuildContext context) => UnitLibPage(),
-  '/home/unitlib/book-detail' : (BuildContext context) => UnitBookDetailPage(),
-  '/home/unitlib/list' : (BuildContext context) => UnitLibBookListPage(),
-  '/home/forum' : (BuildContext context) => ForumScreen(),
-  '/home/forum/post-list' : (BuildContext context) => PostListPage(),
-  '/home/forum/post-list/post' : (BuildContext context) => PostPage(),
-  '/home/forum/post-list/write' : (BuildContext context) => PostWritePage(),
-  
+  '/home/unitlib/book-detail': (BuildContext context) => UnitBookDetailPage(),
+  '/home/unitlib/list': (BuildContext context) => UnitLibBookListPage(),
+  '/home/forum': (BuildContext context) => ForumScreen(),
+  '/home/forum/post-list': (BuildContext context) => PostListPage(),
+  '/home/forum/post-list/post': (BuildContext context) => PostPage(),
+  '/home/forum/post-list/write': (BuildContext context) => PostWritePage(),
+
   // '/home/setting': (BuildContext context) => SettingPage(),
 };
 
