@@ -53,19 +53,20 @@ class BoardSelector extends StatelessWidget {
                     _PostPreviewTile(thisBoard: thisBoard, curPost: curPost)
                 ];
               } else if (nowPostList.hasError) {
-
-                return ErrorNotifier(errorMessage: '게시판 정보를 불러오지 못했어요. 나중에 다시 시도해주세요.');
-
+                return ErrorNotifier(
+                    errorMessage: '게시판 정보를 불러오지 못했어요. 나중에 다시 시도해주세요.');
               } else {
                 children = const <Widget>[
                   SizedBox(
-                    child: CircularProgressIndicator(),
+                    child: Center(
+                        child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation(Color(COLOR_PRIMARY)),
+                    )),
                     width: 60,
-                    height: 60,
+                    height: 120,
                   ),
                   Padding(
                     padding: EdgeInsets.only(top: 16),
-
                     child: Text('게시판을 불러오는 중입니다...'),
                   )
                 ];
@@ -116,7 +117,6 @@ class BoardSelector extends StatelessWidget {
     );
   }
 }
-
 
 class _PostPreviewTile extends StatelessWidget {
   const _PostPreviewTile({

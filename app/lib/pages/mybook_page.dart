@@ -67,6 +67,7 @@ class _MyBookPageState extends State<MyBookPage> {
                                 ),
                               ],
                             ),
+
                             child: ClipRRect(
                                 borderRadius: BorderRadius.circular(10.0),
                                 child: Image.network(

@@ -135,9 +135,9 @@ class _SettingPageState extends State<SettingPage> {
                                 fontSize: 15, color: Colors.black54),
                           ),
                           // ProfileEditTile(myUser!, "username"),
-                          ProfileEditTile(myUser!, "email"),
-                          ProfileEditTile(myUser!, "unit"),
-                          ProfileEditTile(myUser!, "rank"),
+                          ProfileEditTile("email", (){setState(() {});}),
+                          ProfileEditTile("unit", (){setState(() {});}),
+                          ProfileEditTile("rank", (){setState(() {});}),
                           const SizedBox(height: 15),
 
                           RoundedButton(

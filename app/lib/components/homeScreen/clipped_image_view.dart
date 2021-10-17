@@ -80,30 +80,28 @@ Widget ClippedImageView(
         ), // Widget that is blurred
       ),
       Container(
-          // padding: EdgeInsets.symmetric(horizontal: 100),
-          width: double.infinity,
-          padding: EdgeInsets.fromLTRB(110, 20, 110, 0),
-          child: Center(
-            child: Hero(
-              tag: _imageUrl,
-              child: Container(
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black87,
-                        offset: Offset(0.0, 4.0),
-                        blurRadius: 15.0,
-                      ),
-                    ],
+        // padding: EdgeInsets.symmetric(horizontal: 100),
+        width: double.infinity,
+        padding: EdgeInsets.fromLTRB(110, 20, 110, 0),
+        child: Center(
+          child: Container(
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black87,
+                    offset: Offset(0.0, 4.0),
+                    blurRadius: 15.0,
                   ),
-                  child: FadeInImage.memoryNetwork(
-                    placeholder: kTransparentImage,
-                    image: _imageUrl,
-                    width: double.infinity,
-                    fit: BoxFit.fitHeight,
-                  )),
-            ),
-          )),
+                ],
+              ),
+              child: FadeInImage.memoryNetwork(
+                placeholder: kTransparentImage,
+                image: _imageUrl,
+                width: double.infinity,
+                fit: BoxFit.fitHeight,
+              )),
+        ),
+      ),
       Positioned(
         left: 20,
         top: 5,
