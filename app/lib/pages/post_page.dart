@@ -28,8 +28,9 @@ class _PostPageState extends State<PostPage> {
     }
 
     Future<void> _renewCommnetList(String tag, int postNumber) async {
-      setState(() async{
-        _curPostList = (await getPost(tag, postNumber)).postCommentList;
+      Post _tempPost = await getPost(tag, postNumber);
+      setState(() {
+        _curPostList = _tempPost.postCommentList;
       });
     }
 
@@ -55,8 +56,6 @@ class _PostPageState extends State<PostPage> {
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Color(COLOR_PRIMARY),
-        // title: Text(_thisBoard.boardName!,
-        // style: const TextStyle(fontWeight: FontWeight.bold)),
       ),
       body: ListView(
         children: [

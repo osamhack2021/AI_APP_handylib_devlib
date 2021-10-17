@@ -32,17 +32,16 @@ class _LoginPageState extends State<LoginPage> {
       _idController.value.text,
       _passwordController.value.text,
     );
-    if (true) {
+    if (res==200) {
       final snackbar = SnackBar(content: Text('로그인에 성공했습니다.'));
       ScaffoldMessenger.of(context).showSnackBar(snackbar);
       Navigator.of(context).pushNamedAndRemoveUntil(
         '/home',
         (route) => false,
-        arguments:
-            User('관리자', 'admin', 'test', 'admin@admin.admin', '2unit', '준장'),
+        arguments: await loadUserInfo(_idController.value.text),
       );
 
-      //    arguments: await loadUserInfo(_idController.value.text),
+          
       //   //arguments: User('test', 'test', 'test', 'test', 'test', 'test'),
       // );
     } else if (res == 401) {

@@ -9,16 +9,19 @@ import 'package:flutter/material.dart';
 class PostWritePage extends StatelessWidget {
   TextEditingController _postTitleController = TextEditingController();
   TextEditingController _postContentController = TextEditingController();
+
+  final Board? thisBoard;
+  final Function? callback;
+
+  PostWritePage({Key? key, this.thisBoard, this.callback}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    final Board _thisBoard =
-        ModalRoute.of(context)!.settings.arguments as Board;
-
     return Scaffold(
         appBar: AppBar(
             elevation: 0.0,
             backgroundColor: Color(COLOR_PRIMARY),
-            title: Text(_thisBoard.boardName!,
+            title: Text(thisBoard!.boardName!,
                 style: const TextStyle(fontWeight: FontWeight.bold))),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
@@ -58,11 +61,12 @@ class PostWritePage extends StatelessWidget {
                   int res = await writePost(
                       _postContentController.value.text,
                       _postTitleController.value.text,
-                      _thisBoard.boardTag!,
+                      thisBoard!.boardTag!,
                       myUser!.userId);
                   if (res == 200) {
                     final _snackbar = SnackBar(content: Text('글을 등록했습니다.'));
                     ScaffoldMessenger.of(context).showSnackBar(_snackbar);
+                    callback!(thisBoard!.boardTag);
                     Navigator.pop(context);
                   } else {
                     final _snackbar =
