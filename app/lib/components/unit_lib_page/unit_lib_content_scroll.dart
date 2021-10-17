@@ -94,9 +94,10 @@ class _UnitLibContentScrollState extends State<UnitLibContentScroll> {
                         children: <Widget>[
                           for (UnitBook _thisUnitBook in unitBookList.data!)
                             UnitBookDisplay(
-                                bookData: _thisUnitBook,
-                                imageHeight: 150,
-                                imageWidth: 100),
+                              bookData: _thisUnitBook,
+                              imageHeight: 150,
+                              imageWidth: 100,
+                            ),
                         ],
                       );
                     } else if (unitBookList.hasError) {

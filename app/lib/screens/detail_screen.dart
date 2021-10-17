@@ -69,6 +69,8 @@ class _DetailScreenState extends State<DetailScreen> {
 // }
 
   Future<Map<String, dynamic>>? data;
+  BookStatusType? status;
+  bool isChangeState = false;
 
   @override
   Widget build(BuildContext context) {
@@ -83,6 +85,7 @@ class _DetailScreenState extends State<DetailScreen> {
   }
 
   void handleBorrow() async {
+    isChangeState = true;
     borrowUnitBook(myUser!.unit, widget.book.isbn, myUser!.userId)
         .then((value) {
       if (value == 200) {
@@ -92,26 +95,31 @@ class _DetailScreenState extends State<DetailScreen> {
         final snackbar = SnackBar(content: Text('대여에 실패하였습니다.'));
         ScaffoldMessenger.of(context).showSnackBar(snackbar);
       }
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (BuildContext context) =>
+                  DetailScreen(book: widget.book)));
     });
-
-    data = getUnitBookInfo(myUser!.unit, widget.book.isbn);
-    setState(() {});
   }
 
-  void handleReturn() {
+  void handleReturn() async {
+    isChangeState = true;
     returnUnitBook(myUser!.unit, widget.book.isbn, myUser!.userId)
         .then((value) {
       if (value == 200) {
-        final snackbar = SnackBar(content: Text('성공적으로 반납하였습니다.'));
+        var snackbar = SnackBar(content: Text('성공적으로 반납하였습니다.'));
         ScaffoldMessenger.of(context).showSnackBar(snackbar);
       } else {
-        final snackbar = SnackBar(content: Text('반납에 실패하였습니다.'));
+        var snackbar = SnackBar(content: Text('반납에 실패하였습니다.'));
         ScaffoldMessenger.of(context).showSnackBar(snackbar);
       }
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (BuildContext context) =>
+                  DetailScreen(book: widget.book)));
     });
-
-    data = getUnitBookInfo(myUser!.unit, widget.book.isbn);
-    setState(() {});
   }
 
   @override
@@ -155,7 +163,6 @@ class _DetailScreenState extends State<DetailScreen> {
                   height: 55,
                   width: size.width,
                   child: _builder(data, (snapshotData) {
-                    BookStatusType status;
                     bool flag = true;
                     if (snapshotData!["Error"] != null) {
                       status = BookStatusType.unavailableNobook;
@@ -215,7 +222,8 @@ class _DetailScreenState extends State<DetailScreen> {
                 ),
                 Container(
                   child: Text(
-                    widget.book.description,
+                    widget.book.description.replaceAllMapped(
+                        RegExp('(&lt;)|(&gt;)|(<.+?\/>)'), (Match m) => ""),
                     style: TextStyle(color: Colors.black87, fontSize: 15),
                   ),
                 ),

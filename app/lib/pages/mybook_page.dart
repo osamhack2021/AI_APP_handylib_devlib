@@ -14,6 +14,11 @@ class MyBookPage extends StatefulWidget {
 
 class _MyBookPageState extends State<MyBookPage> {
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: TitledAppbar("나의 서재"),
@@ -48,7 +53,6 @@ class _MyBookPageState extends State<MyBookPage> {
                                 ),
                               ],
                             ),
-
                             child: ClipRRect(
                                 borderRadius: BorderRadius.circular(10.0),
                                 child: Image.network(
@@ -71,29 +75,6 @@ class _MyBookPageState extends State<MyBookPage> {
                 ),
                 const SizedBox(
                   height: 20,
-
-//       body: ListView(children:[
-//         Card(child:
-//           UnitLibContentScroll(
-//             tag : 'borrow'
-//           ),
-//         ),
-//         Card(child:
-//             Column(children:[
-//               ListTile(
-//                 title: Text("나의 취향 분석"),
-
-//               ),
-//                Container(
-//             margin: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 10.0),
-
-//             decoration: BoxDecoration(
-//               borderRadius: BorderRadius.circular(10.0),
-//               boxShadow: [
-//                 BoxShadow(
-//                   color: Colors.black54,
-//                   offset: Offset(0.0, 4.0),
-//                   blurRadius: 6.0,
                 ),
               ],
             )));

@@ -9,9 +9,11 @@ import 'package:app/components/homeScreen/circular_clipper.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:http/http.dart' as http;
 
+
 Future<bool> _getLike(String isbn) async {
   final response = await http.get(
     Uri.parse(myUri + 'like/?user_id=${myUser!.userId}&isbn=${isbn}/'),
+
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -27,18 +29,22 @@ Future<bool> _getLike(String isbn) async {
 
 Future<bool> _postLike(String isbn) async {
   final response = await http.post(
+
     Uri.parse(myUri + 'like/?user_id=${myUser!.userId}&isbn=${isbn}/'),
+
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
   );
   String _res = jsonDecode(utf8.decode(response.bodyBytes))['message'];
+
   if (_res == "delete")
     return false;
   else if (_res == "append")
     return true;
   else
     throw Exception("_getLike value is invalid. : clipped_image_view.dart");
+
 }
 
 /*
@@ -120,18 +126,21 @@ Widget ClippedImageView(
       ),
       Positioned(
         right: 30,
-        top: 300,
+        top: 350,
         child: FutureBuilder<bool>(
             future: _getLike(_isbn),
             builder: (BuildContext context, _liked) {
               if (_liked.hasData) {
+
                 bool _currentLike = _liked.data!;
                 return IconButton(
                   icon: (_currentLike)
+
                       ? Icon(Icons.favorite)
                       : Icon(Icons.favorite_border),
                   color: Colors.red,
                   iconSize: 40,
+
                   onPressed: () async {
                     _currentLike = await _postLike(_isbn);
                     _callback();
@@ -143,15 +152,18 @@ Widget ClippedImageView(
                     else {
                       final snackbar = SnackBar(content: Text('책을 좋아요 취소했습니다.'));
                       ScaffoldMessenger.of(context).showSnackBar(snackbar);
+
                     }
                   },
                 );
               } else {
+
                 return IconButton(
                   icon: Icon(Icons.favorite_border_outlined),
                   color: Colors.black26,
                   iconSize: 40,
                   onPressed: null,
+
                 );
               }
             }),
