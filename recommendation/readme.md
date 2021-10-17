@@ -82,9 +82,9 @@ AI에서는 개인별 책 추천시스템과 사용자의 취향정보 시각화
 # Test
 테스트 사용법은 다음과 같습니다
 
-'''
+```
 $ python test.py
-'''
+```
 
 # Contributing
 Follow the steps below to contribute this project.
@@ -96,7 +96,7 @@ Push to the Branch
 Open a Pull Request
 
 # License
-Distributed under the MIT License. See LICENSE.txt for more information.
+Distributed under the MIT License. See LICENSE.txt<TODO:add link> for more information.
 
 
 # Contact
