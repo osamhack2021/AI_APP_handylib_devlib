@@ -170,7 +170,7 @@ def Unit_books_list_brr(Unit_name, isbn, user_id):
                     resultJson = json.dumps(result, ensure_ascii=False)
                     return Response(resultJson,mimetype="application/json",status=201)
         if q == []:
-            result = {'Error': 'Unit_name, isbn, user_id를 다시 한번 확인해주세요.'}
+            result = {'Error': 'isbn, user_id를 다시 한번 확인해주세요.'}
             resultJson = json.dumps(result, ensure_ascii=False)
             return Response(resultJson,mimetype="application/json",status=201)
         else :
