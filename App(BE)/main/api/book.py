@@ -7,6 +7,10 @@ book_page=Blueprint('book',__name__)
 @book_page.route('/search/title=<title>&page=<page>',methods=['GET'])
 def book_search(title, page):
     page = int(page)
+    if page <= 1:
+        page = 0
+    else:
+        page = page - 1
     ajson = []
     a = list (database.client.API_test.book.find( {'title': { '$regex': '{}'.format(title) }} ).skip(page*5).limit(5))
     for o in range(len(a)):
