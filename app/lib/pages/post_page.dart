@@ -18,11 +18,19 @@ class PostPage extends StatefulWidget {
 }
 
 class _PostPageState extends State<PostPage> {
+  List<Comment>? _curPostList;
+
   @override
   Widget build(BuildContext context) {
     Future<Post> _getPostInfo(String tag, int postNumber) async {
       return await getPost(tag, postNumber);
       //return defaultPost();
+    }
+
+    Future<void> _renewCommnetList(String tag, int postNumber) async {
+      setState(() async{
+        _curPostList = (await getPost(tag, postNumber)).postCommentList;
+      });
     }
 
     if (ModalRoute.of(context)!.settings.arguments == null) {
@@ -112,9 +120,10 @@ class _PostPageState extends State<PostPage> {
             future: _getPostInfo(thisPost.postTag!, thisPost.postId!),
             builder: (BuildContext context, curPost) {
               if (curPost.hasData) {
+                _curPostList = curPost.data!.postCommentList;
                 return Column(
                   children: <Widget>[
-                    for (Comment curComment in curPost.data!.postCommentList)
+                    for (Comment curComment in _curPostList!)
                       _SingleComment(curComment)
                   ],
                 );
@@ -137,8 +146,10 @@ class _PostPageState extends State<PostPage> {
           )
         ],
       ),
-      bottomNavigationBar:
-          CommentBottomBar(thisPost: thisPost, author: myUser!.userId),
+      bottomNavigationBar: CommentBottomBar(
+          thisPost: thisPost,
+          author: myUser!.userId,
+          callback: _renewCommnetList),
     );
   }
 }
@@ -148,9 +159,10 @@ class CommentBottomBar extends StatelessWidget {
 
   final Post thisPost;
   final String author;
+  final Function? callback;
 
   CommentBottomBar(
-      {required this.thisPost, required this.author});
+      {required this.thisPost, required this.author, this.callback});
 
   @override
   Widget build(BuildContext context) {
@@ -175,9 +187,7 @@ class CommentBottomBar extends StatelessWidget {
                 author,
               );
               _commentController.clear();
-              setState() {
-                _res;
-              }
+              await callback!(thisPost.postTag, thisPost.postId);
             },
           )
         ],
