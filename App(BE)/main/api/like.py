@@ -1,7 +1,7 @@
 from flask import Blueprint,request,Response,json
 from main.models import database
 
-like_page=Blueprint('comment',__name__)
+like_page=Blueprint('like',__name__)
 
 @like_page.route('/',methods=['POST'])
 def like_append():
