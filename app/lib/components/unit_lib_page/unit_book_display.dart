@@ -51,7 +51,7 @@ class UnitBookDisplay extends StatelessWidget {
             );*/
                       },
                       child: Container(
-                        margin: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 10.0),
+                        margin: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10.0),
                           boxShadow: [
@@ -73,6 +73,8 @@ class UnitBookDisplay extends StatelessWidget {
                                   fit: BoxFit.cover,
                                 )
                               : FadeInImage.memoryNetwork(
+                                  width: imageWidth,
+                                  height: imageHeight,
                                   placeholder: kTransparentImage,
                                   image: "http://175.210.134.48:5000/" +
                                       bookData!.coverUrl!
@@ -106,7 +108,7 @@ class UnitBookDisplay extends StatelessWidget {
 //                   builder: (_) =>
 //                       DetailScreen(book: convertUnitBooktoBook(bookData!)),
 //                 ),
-//               ); 
+//               );
 //             },
 //             child: Container(
 //               margin: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 10.0),

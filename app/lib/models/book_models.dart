@@ -17,8 +17,8 @@ Map<BookStatusType, String> bookStatusMap = {
 
 Map<BookStatusType, Color> bookStatusColorMap = {
   BookStatusType.available: Colors.lightGreen,
-  BookStatusType.unavailableNobook: Colors.redAccent,
-  BookStatusType.unavailableBorrowing: Colors.redAccent,
+  BookStatusType.unavailableNobook: Colors.redAccent.withOpacity(0.6),
+  BookStatusType.unavailableBorrowing: Colors.redAccent.withOpacity(0.6),
   BookStatusType.borrowing: Colors.lightBlue
 };
 
@@ -28,19 +28,19 @@ class Book {
   final String pubDate;
   final String description;
   final String coverUrl;
-  final String isbn13;
+  final String isbn;
   final String publisher;
   final String category;
 
   Book(this.title, this.author, this.pubDate, this.description, this.coverUrl,
-      this.publisher, this.category, this.isbn13);
+      this.publisher, this.category, this.isbn);
 
   Book.fromJson(Map<String, dynamic> json)
       : title = json['title'],
         author = json['author'],
         pubDate = json['pubDate'],
         description = json['description'],
-        isbn13 = json['isbn13'] != "" ? json['isbn13'] : json['isbn'],
+        isbn = json['isbn'],
         coverUrl = json['cover'],
         publisher = json['publisher'],
         category = json['categoryName'];
@@ -70,14 +70,14 @@ List<int> jinjungIsbnList = [
 ];
 
 Map<int, String> categoryMap = {
-  // 50930: "과학소설(SF)",
-  // 50933: "액션/스릴러소설",
-  // 50926: "추리/미스터리소설",
-  // 50917: "한국소설",
-  // 8537: "	컴퓨터공학/전산학 개론",
-  // 55890: "건강/취미/레저",
-  // 53488: "패션/뷰티",
-  // 170: "경제경영",
-  // 172: "재테크/투자",
-  // 336: "자기계발",
+  50930: "과학소설(SF)",
+  50933: "액션/스릴러소설",
+  50926: "추리/미스터리소설",
+  50917: "한국소설",
+  8537: "	컴퓨터공학/전산학 개론",
+  55890: "건강/취미/레저",
+  53488: "패션/뷰티",
+  170: "경제경영",
+  172: "재테크/투자",
+  336: "자기계발",
 };
