@@ -147,3 +147,21 @@ class Searchlog(db.Document):
         "user_id": self.user_id,
         "log": self.log,
     }
+class Unittest(db.Document):
+  name = db.StringField()
+  title = db.StringField()
+  isbn = db.StringField()
+  isbn13 = db.StringField()
+  state = db.IntField()
+  user_id = db.StringField()
+  score = db.IntField()
+  def to_json(self):
+    return {
+    "name":self.name,
+    "title":self.title,
+    "isbn":self.isbn,
+    "isbn13":self.isbn13,
+    "state":self.state,
+    "user_id":self.user_id,
+    "score":self.score,
+    }
