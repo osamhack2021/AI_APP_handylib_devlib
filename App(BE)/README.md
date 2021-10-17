@@ -20,11 +20,12 @@
     <li><a href="#Back-End">Back-End</a></li>
     <li><a href="#Dependencies">Dependencies</a></li>
     <li><a href="#Technology_Stack">Technology Stack</a></li>
-    <li><a href="#API_Reference">API Reference</a></li>
     <li><a href="#Installation">Installation</a></li>
     <li><a href="#test">Test</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
+    <li><a href="#databases">DB structure</a></li>
+    <li><a href="#API_Reference">API Reference</a></li>
     <li><a href="#contact">Contact</a></li>
   </ol>
 
@@ -50,6 +51,49 @@ Back-End에서는 python flask와 mongodb를 사용하여 데이터베이스를 
 + [wsgi](https://docs.python.org/ko/3/library/wsgiref.html)
 + [cloudflare](https://www.cloudflare.com/ko-kr/)
 + [Vultr DNS](https://www.vultr.com/docs/introduction-to-vultr-dns)
+
+
+## Installation
+1. Install python from [link](https://www.python.org/)
+2. Clone this repository and navigate into it
+  ```sh
+  $ git clone https://github.com/osamhack2021/AI_APP_handylib_devlib.git
+  $ cd /App(BE)
+  ```
+3. Install the project's dependencies
+* pip
+  ```sh
+  $ pip install -r requirements.txt
+  ```
+4. start the project
+  ```sh
+  $ python app_start.py
+  ```
+
+## Test
+
+테스트 사용법은 다음과 같습니다
+* pip
+  ```sh
+  $ python test.py
+  ```
+
+## Contributing
+Follow the steps below to contribute this project.
+
+1. Fork the Project
+2. Create your Branch
+3. Commit your Changes
+4. Push to the Branch
+5. Open a Pull Request
+
+## License
+Distributed under the MIT License. See [LICENSE.txt](https://github.com/osamhack2021/AI_APP_handylib_devlib/blob/main/LICENSE) for more information.
+
+<a id = "databases"></a>
+
+## DB structure
+
 
 
 <a id = "API_Reference"></a>
@@ -296,6 +340,25 @@ Back-End에서는 python flask와 mongodb를 사용하여 데이터베이스를 
 | :-------- | :------- | :------------- | :-----|
 | `GET,POST` | `검색기록모두삭제 json` | `user_id` | `user_id,log`|
 
+### 좋아요
+
+```https
+  GET /like?user_id=xxx&isbn=xxx
+```
+
+| method | response     | request        |
+| :-------- | :------- | :----------------------- |
+| `GET` | `True or False message` | `isbn,user_id` |
+
+```https
+  POST /like?user_id=xxx&isbn=xxx
+```
+| method | response     | request        |
+| :-------- | :------- | :----------------------- |
+| `POST` | `message` | `isbn,user_id` |
+
+
+
 ### 책
 
 ```https
@@ -330,42 +393,6 @@ Back-End에서는 python flask와 mongodb를 사용하여 데이터베이스를 
 | :-------- | :------- | :------------------------- |
 | `GET` | `isbn검색 알라딘 책 json(5개)` | `isbn, page(Int 0≥)` |
 
-## Installation
-1. Install python from [link](https://www.python.org/)
-2. Clone this repository and navigate into it
-  ```sh
-  $ git clone https://github.com/osamhack2021/AI_APP_handylib_devlib.git
-  $ cd /App(BE)
-  ```
-3. Install the project's dependencies
-* pip
-  ```sh
-  $ pip install -r requirements.txt
-  ```
-4. start the project
-  ```sh
-  $ python app_start.py
-  ```
-
-## Test
-
-테스트 사용법은 다음과 같습니다
-* pip
-  ```sh
-  $ python test.py
-  ```
-
-## Contributing
-Follow the steps below to contribute this project.
-
-1. Fork the Project
-2. Create your Branch
-3. Commit your Changes
-4. Push to the Branch
-5. Open a Pull Request
-
-## License
-Distributed under the MIT License. See [LICENSE.txt](https://github.com/osamhack2021/AI_APP_handylib_devlib/blob/main/LICENSE) for more information.
 
 
 <a id = "contact"></a>

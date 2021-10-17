@@ -16,6 +16,12 @@ def boarding(page_id):
         end=lists.count()
     #pageid에 따라 게시판 수량 띄우기
     to_list = lists[start:end]
+    result={}
+    for item in to_list:
+        comments=[]
+        for num in item['comment_list']:
+            comments.append(database.Comment.objects(board_number=item['number'], comment_number=num).first())
+        item['comment_list']=comments
     resultJson=json.dumps(to_list, ensure_ascii=False)
     return Response(resultJson,mimetype="application/json",status=200)
 #해당 페이지 불러오는 라우터
