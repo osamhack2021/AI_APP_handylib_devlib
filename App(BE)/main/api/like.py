@@ -31,4 +31,4 @@ def like_get():
                 resultJson=json.dumps({"message": "True"})
                 return Response(resultJson,mimetype="application/json",status=200)
     resultJson=json.dumps({"message": "False"})
-    return Response(resultJson,mimetype="application/json",status=404)
+    return Response(resultJson,mimetype="application/json",status=200)

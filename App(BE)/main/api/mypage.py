@@ -5,7 +5,7 @@ import csv
 mypage_page = Blueprint('mypage', __name__)
 
 def read_csv(user_id):
-    file = csv.reader(open('/main/recommedation/recommend_list/{}.csv'.format(user_id), 'r'))
+    file = csv.reader(open('../main/recommendation/recommend_list/{}.csv'.format(user_id), 'r',encoding='utf-8'))
     lists = []
     for row in file:
         # 각 열마다 어떤 데이터인지 읽고 dicts에 저장
