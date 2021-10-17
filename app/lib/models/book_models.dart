@@ -9,7 +9,7 @@ enum BookStatusType {
 }
 
 Map<BookStatusType, String> bookStatusMap = {
-  BookStatusType.available: "대여하기",
+  BookStatusType.available: "대출하기",
   BookStatusType.unavailableNobook: "대여불가능 (부대에 책이 없음)",
   BookStatusType.unavailableBorrowing: "대여불가능 (대여중)",
   BookStatusType.borrowing: "반납하기"

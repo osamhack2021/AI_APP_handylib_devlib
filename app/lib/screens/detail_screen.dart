@@ -5,6 +5,7 @@ import 'package:app/components/error_notifier.dart';
 import 'package:app/constants/colors.dart';
 import 'package:app/hooks/use_api.dart';
 import 'package:app/screens/home_screen.dart';
+import 'package:epub_viewer/epub_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:app/models/book_models.dart';
 import 'package:app/components/homeScreen/clipped_image_view.dart';
@@ -149,7 +150,7 @@ class _DetailScreenState extends State<DetailScreen> {
                 ),
                 const SizedBox(height: 10.0),
                 SizedBox(
-                  height: 55,
+                  height: 60,
                   width: size.width,
                   child: _builder(data, (snapshotData) {
                     bool flag = true;
@@ -162,6 +163,50 @@ class _DetailScreenState extends State<DetailScreen> {
                       if (snapshotData["books_list"][0]["user_id"] ==
                           myUser!.userId) {
                         status = BookStatusType.borrowing;
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              width: size.width / 2 - 45,
+                              decoration: BoxDecoration(
+                                  color: bookStatusColorMap[status],
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: ListTile(
+                                onTap: () {
+                                  if (status == BookStatusType.available) {
+                                    handleBorrow();
+                                  } else if (status ==
+                                      BookStatusType.borrowing) {
+                                    handleReturn();
+                                  }
+                                },
+                                enabled: flag,
+                                leading: Icon(Icons.book_outlined, size: 35),
+                                title: Text(bookStatusMap[status]!),
+                              ),
+                            ),
+                            Container(
+                              width: size.width / 2 - 45,
+                              decoration: BoxDecoration(
+                                  color: Colors.lightGreen,
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: ListTile(
+                                onTap: () async {
+                                  EpubViewer.setConfig(
+                                    themeColor: const Color(COLOR_PRIMARY),
+                                    scrollDirection:
+                                        EpubScrollDirection.HORIZONTAL,
+                                  );
+                                  await EpubViewer.openAsset(
+                                      'assets/ebooks/sample.epub');
+                                },
+                                enabled: flag,
+                                leading: Icon(Icons.bookmark, size: 35),
+                                title: Text("책 읽기"),
+                              ),
+                            )
+                          ],
+                        );
                       } else {
                         status = BookStatusType.unavailableBorrowing;
                         flag = false;
