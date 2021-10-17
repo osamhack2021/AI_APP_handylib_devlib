@@ -92,7 +92,7 @@
 ### - 백엔드
 
 Python의 웹 프레임워크 중 하나인 Flask를 이용하여 어플리케이션의 요청을 처리하는 REST API를 개발하였습니다. 어플리케이션에 정보 저장에 필요한 데이터베이스는 Mongodb를 이용하였고 apache를 이용하여 서버를 자동화하였습니다.<br/>
-자세한 내용은 이하의 백엔드의 [Readme](https://github.com/osamhack2021/AI_APP_handylib_devlib/tree/main/python_flask)를 참고해주세요.
+자세한 내용은 이하의 백엔드의 [Readme](https://github.com/osamhack2021/AI_APP_handylib_devlib/blob/main/App(BE))를 참고해주세요.
 
 ---
 
