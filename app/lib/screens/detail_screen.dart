@@ -70,18 +70,6 @@ class _DetailScreenState extends State<DetailScreen> {
 
   Future<Map<String, dynamic>>? data;
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView(
-        children: <Widget>[
-          currentClippedImageView,
-
-  void initState() {
-    super.initState();
-    data = getUnitBookInfo(myUser!.unit, widget.book.isbn);
-  }
-
   void handleBorrow() async {
     borrowUnitBook(myUser!.unit, widget.book.isbn, myUser!.userId)
         .then((value) {
@@ -120,7 +108,7 @@ class _DetailScreenState extends State<DetailScreen> {
     return Scaffold(
       body: ListView(
         children: <Widget>[
-          ClippedImageView(context, widget.book.coverUrl, widget.book.isbn),
+          currentClippedImageView,
 
           Padding(
             padding:
