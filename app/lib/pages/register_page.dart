@@ -50,8 +50,7 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   void handleSubmit() async {
-
-  myShowDialog(context, "회원가입중입니다..");
+    myShowDialog(context, "회원가입중입니다..");
     _registerResponse = await createUser(
       form["userName"][0].value.text,
       form["id"][0].value.text,
@@ -65,8 +64,9 @@ class _RegisterPageState extends State<RegisterPage> {
       final snackbar = SnackBar(content: Text('회원가입에 성공했습니다.'));
       ScaffoldMessenger.of(context).showSnackBar(snackbar);
 
-      Navigator.of(context).pushNamed(
+      Navigator.of(context).pushNamedAndRemoveUntil(
         '/home',
+        (route) => false,
         arguments: User(
           form["userName"][0].value.text,
           form["id"][0].value.text,
@@ -165,7 +165,6 @@ class _RegisterPageState extends State<RegisterPage> {
                     },
                     controller: form["password"][0],
                   ),
-                  
                   RoundedInputField(
                       hintText: "이메일",
                       controller: form["email"][0],

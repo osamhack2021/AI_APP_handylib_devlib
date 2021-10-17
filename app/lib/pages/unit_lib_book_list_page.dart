@@ -34,7 +34,6 @@ class _UnitLibBookListPageState extends State<UnitLibBookListPage> {
   }
 
   @override
-
   Widget build(BuildContext context) {
     if (widget.unitBookList == null || widget.tag == null) {
       return Scaffold(
@@ -50,62 +49,60 @@ class _UnitLibBookListPageState extends State<UnitLibBookListPage> {
         backgroundColor: Color(COLOR_PRIMARY),
         centerTitle: true,
       ),
-      body: FutureBuilder<List<UnitBook>> (
-        future: _getUnitBooksList(page),
-        builder:(BuildContext context, unitBookList) {
-          List<Widget> children;
-          if(unitBookList.hasData) {
-            return CustomScrollView(
-              primary: false,
-              slivers: <Widget>[
-                SliverPadding(
-                padding: const EdgeInsets.all(20),
-                sliver: SliverGrid.count(
-                 crossAxisCount: 3,
-                  children: <Widget>[
-                for (UnitBook _curUnitBook in widget.unitBookList!)
-                  UnitBookDisplay(
-                      bookData: _curUnitBook,
-                      imageHeight: null,
-                      imageWidth: null),
-              ],
-            ),
-          ),
-        ],
-      );
-          }
-          else if(unitBookList.hasError) {
-            children=<Widget>[
-              ErrorNotifier(errorMessage: '리스트를 불러오는 데 문제가 생겼어요. 잠시 후 다시 시도해주세요.',)
-            ];
-          }
-          else {
-            children = const <Widget>[
-                        SizedBox(
-                          child: CircularProgressIndicator(),
-                          width: 60,
-                          height: 60,
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 16),
-                          child: Text('로딩 중입니다...'),
-                        )
-                      ];
-          }
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: children,
-            ),
-          );
-        }
-      ),
-      
-      
-      
-      
-      
+      body: FutureBuilder<List<UnitBook>>(
+          future: _getUnitBooksList(page),
+          builder: (BuildContext context, unitBookList) {
+            List<Widget> children;
+            if (unitBookList.hasData) {
+              return CustomScrollView(
+                primary: false,
+                slivers: <Widget>[
+                  SliverPadding(
+                    padding: const EdgeInsets.all(0),
+                    sliver: SliverGrid.count(
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                      crossAxisCount: 2,
+                      childAspectRatio: 0.7,
+                      children: <Widget>[
+                        for (UnitBook _curUnitBook in widget.unitBookList!)
+                          UnitBookDisplay(
+                            bookData: _curUnitBook,
+                            imageWidth: 130,
+                            imageHeight: 200,
+                          ),
+                      ],
+                    ),
+                  ),
+                ],
+              );
+            } else if (unitBookList.hasError) {
+              children = <Widget>[
+                ErrorNotifier(
+                  errorMessage: '리스트를 불러오는 데 문제가 생겼어요. 잠시 후 다시 시도해주세요.',
+                )
+              ];
+            } else {
+              children = const <Widget>[
+                SizedBox(
+                  child: CircularProgressIndicator(),
+                  width: 60,
+                  height: 60,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 16),
+                  child: Text('로딩 중입니다...'),
+                )
+              ];
+            }
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: children,
+              ),
+            );
+          }),
       bottomNavigationBar: BottomAppBar(
         color: Color(COLOR_PRIMARY2),
         child: (widget.tag=='total')? Row(
@@ -227,6 +224,7 @@ class _UnitLibBookListPageState extends State<UnitLibBookListPage> {
                       bookData: _curUnitBook,
                       imageHeight: null,
                       imageWidth: null),
+
               ],
             ),
           ),

@@ -48,6 +48,7 @@ class _MyBookPageState extends State<MyBookPage> {
                                 ),
                               ],
                             ),
+
                             child: ClipRRect(
                                 borderRadius: BorderRadius.circular(10.0),
                                 child: Image.network(
@@ -93,7 +94,6 @@ class _MyBookPageState extends State<MyBookPage> {
 //                   color: Colors.black54,
 //                   offset: Offset(0.0, 4.0),
 //                   blurRadius: 6.0,
-
                 ),
               ],
             )));
