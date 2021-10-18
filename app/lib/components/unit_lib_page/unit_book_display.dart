@@ -72,7 +72,7 @@ class UnitBookDisplay extends StatelessWidget {
                                   width: imageWidth,
                                   height: imageHeight,
                                   placeholder: kTransparentImage,
-                                  image: "http://175.210.134.48:5000/" +
+                                  image: //"http://175.210.134.48:5000/" +
                                       bookData!.coverUrl!
                                           .replaceAll('\\/', '/'),
                                   fit: BoxFit.cover,
