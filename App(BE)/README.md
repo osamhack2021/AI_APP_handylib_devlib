@@ -1,11 +1,3 @@
-<div id="top"></div>
-
-<!-- PROJECT LOGO -->
-<br />
-<div align="center">
-  <a href="https://github.com/osamhack2021/AI_APP_handylib_devlib">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
-  </a>
 
 <div align="center">
 
