@@ -11,11 +11,6 @@ import 'package:app/constants/uri.dart';
 import 'package:app/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-<<<<<<< HEAD
-import 'dart:math';
-
-import 'package:transparent_image/transparent_image.dart';
-=======
 import 'package:http/http.dart';
 
 /* the NonCacheNetworkImage class is from 
@@ -42,7 +37,6 @@ class NonCacheNetworkImage extends StatelessWidget {
     );
   }
 }
->>>>>>> 909330f0c7bf31a4bf08a3a37737cf42f5692bf1
 
 class MyBookPage extends StatefulWidget {
   MyBookPage({Key? key}) : super(key: key);
