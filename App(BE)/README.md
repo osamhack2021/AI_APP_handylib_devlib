@@ -41,6 +41,7 @@ Back-End에서는 python flask와 mongodb를 사용하여 데이터베이스를 
 + pymongo==3.12.0
 + Pillow==8.3.2
 + Werkzeug==2.0.2
++ pytest==6.2.5
 + [etc](https://www.notion.so/Dependencies-65da052287ab4b3497848508d1c87358)
 <a id = "Technology_Stack"></a>
 
@@ -77,8 +78,10 @@ Back-End에서는 python flask와 mongodb를 사용하여 데이터베이스를 
 테스트 사용법은 다음과 같습니다
 * pip
   ```sh
-  $ python test.py
+  $ python test_.py
   ```
+또는 postman을 이용해서 아래 <a href="#API_Reference">API Reference</a>를 참고해서 테스트 해보실 수 있습니다.
+테스트 사이트는 https://www.projectlib.tk를 이용하시면 됩니다.
 
 ## Contributing
 Follow the steps below to contribute this project.
@@ -399,7 +402,9 @@ Distributed under the MIT License. See [LICENSE.txt](https://github.com/osamhack
 <a id = "issues"></a>
 
 ## Issues
-apache 서버 재부팅시 /var/run에 있는 wsgi.socket 파일에 대한 권한을 777로 부여해야 실행되는 오류가 있습니다.
+<ol>
+  <li>apache 서버 재부팅시 /var/run에 있는 wsgi.socket 파일에 대한 권한을 777로 부여해야 실행되는 오류가 있습니다.</li>
+</ol>
 
 <a id = "contact"></a>
 
