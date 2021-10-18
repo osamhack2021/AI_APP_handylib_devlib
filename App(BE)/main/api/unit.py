@@ -15,6 +15,8 @@ def Unit_books_list(Unit_name, page):
     page = int(page)
     if page <= 1:
         page = 0
+    else :
+        page = page - 1
     c = 0
     for i in database.client.API_test.unittest.distinct('name'):
         if i == '{}'.format(Unit_name):
