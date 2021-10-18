@@ -80,7 +80,7 @@ Back-End에서는 python flask와 mongodb를 사용하여 데이터베이스를 
   ```sh
   $ python test_.py
   ```
-또는 postman을 이용해서 아래 <a href="#API_Reference">API Reference</a>를 참고해서 테스트 해보실 수 있습니다.
+또는 [postman](https://www.postman.com/)을 이용해서 아래 <a href="#API_Reference">API Reference</a>를 참고해서 테스트 해보실 수 있습니다.
 테스트 사이트는 https://www.projectlib.tk를 이용하시면 됩니다.
 
 ## Contributing
