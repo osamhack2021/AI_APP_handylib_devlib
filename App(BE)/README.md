@@ -58,7 +58,6 @@ Back-End에서는 python flask와 mongodb를 사용하여 데이터베이스를 
 ### [apache2](https://httpd.apache.org/)
 ### [cloudflare](https://www.cloudflare.com/ko-kr/)
 ### [Vultr DNS](https://www.vultr.com/docs/introduction-to-vultr-dns)
-<img src='https://user-images.githubusercontent.com/42088290/137701111-8264256f-0472-4c80-97f7-e4d1321c0b81.png' width ='100' height='100'/>
 
 
 ## Installation
