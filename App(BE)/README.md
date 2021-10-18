@@ -8,7 +8,7 @@
     <a href="https://www.notion.so/DevLib-0960a793aa544b2bbc3038d309ad2c47"><strong>개발 문서</strong></a>
     <br />
     <br />
-    <a href="https://www.projectlib.tk">View Demo site</a>
+    <a href="https://www.projectlib.tk">서버 사이트</a>
   </p>
 </div>
 
