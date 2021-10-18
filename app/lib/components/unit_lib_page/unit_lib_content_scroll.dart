@@ -88,6 +88,10 @@ class _UnitLibContentScrollState extends State<UnitLibContentScroll> {
                   builder: (BuildContext context, unitBookList) {
                     List<Widget> children;
                     if (unitBookList.hasData) {
+                      if (widget.tag == "borrow" &&
+                          unitBookList.data!.length == 0) {
+                        return ErrorNotifier(errorMessage: '아직 대출한 책이 없어요.');
+                      }
                       return ListView(
                         padding: EdgeInsets.all(8.0),
                         scrollDirection: Axis.horizontal,
