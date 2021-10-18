@@ -8,10 +8,5 @@
 </head>
 <body>
 	Test Page
-	{%if not session.get('user_id')%}
-    <form action="/sign_in" method="GET"><a href='/sign_in'>sign_in</a></form>
-    <form action="/sign_up" method="GET"><a href='/sign_up'>sign_up</a></form>
-	{%endif%}
-	
 </body>
 </html>
