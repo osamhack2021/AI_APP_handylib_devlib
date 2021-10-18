@@ -1,3 +1,4 @@
+import 'package:app/components/error_notifier.dart';
 import 'package:app/components/homeScreen/home_bottom_nav.dart';
 import 'package:app/constants/uri.dart';
 import 'package:app/controller/user_controller.dart';
@@ -15,11 +16,23 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    if (ModalRoute.of(context)!.settings.arguments == null)
+      return Scaffold(
+        body: ErrorNotifier(
+          errorMessage: '유저 정보를 불러오지 못했어요. 앱을 다시 실행해주세요.',
+        ),
+      );
     myUser = ModalRoute.of(context)!.settings.arguments as User?;
-
-    //below code is for debug
-    myUser = User('defaultName', 'defaultId', 'defaultPassword', 'defaultEmail',
-        'defaultUnit', 'defaultRank');
+    
+    //below code is for debug 
+    //myUser = User('defaultName', 'defaultId', 'defaultPassword', 'defaultEmail', 'defaultUnit', 'defaultRank');
+    
+    if (myUser == null)
+      return Scaffold(
+        body: ErrorNotifier(
+          errorMessage: '유저 정보를 불러오지 못했어요. 앱을 다시 실행해주세요.',
+        ),
+      );
 
     return Scaffold(
       resizeToAvoidBottomInset: false,

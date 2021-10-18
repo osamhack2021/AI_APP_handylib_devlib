@@ -1,9 +1,17 @@
+import 'dart:io';
+
+import 'package:app/components/default_circle_avatar.dart';
+import 'package:app/components/error_notifier.dart';
+import 'package:app/screens/home_screen.dart';
+import 'package:app/components/underlined_text.dart';
+import 'package:app/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:app/components/homeScreen/feed_page_appbar.dart';
 import 'package:app/models/book_models.dart';
 import 'package:app/components/homeScreen/book_selector.dart';
 import 'package:app/components/homeScreen/content_scroll.dart';
 import 'package:app/hooks/use_api.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class FeedPage extends StatefulWidget {
   const FeedPage({Key? key}) : super(key: key);
@@ -13,92 +21,235 @@ class FeedPage extends StatefulWidget {
 }
 
 class _FeedPageState extends State<FeedPage> {
-  final PageController _topPageController =
-      PageController(initialPage: 0, viewportFraction: 0.6);
+  Future<List<Book>>? jinjungList;
+  Future<List<Book>>? recommendList;
+  List<Future<List<Book>>> categoryList = [];
+  List<String> categoryName = [];
+  final Map<String, bool> filter = {"이번 분기의 진중문고": true};
+  File? _profileImage;
+  SharedPreferences? _prefs;
 
-  Future<List<List<Book>>>? data;
+  void fetchPref() async {
+    SharedPreferences.getInstance().then((SharedPreferences prefs) {
+      _prefs = prefs;
+      String? imagePath;
+      imagePath = prefs.getString('profileImage');
 
-  List<int> isbnList = [
-    9788901252438,
-    9791160947540,
-    9791165797096,
-    9791197549304,
-    9788954682152
-  ];
-  List<int> isbnList2 = [
-    9788956609959,
-    9788956604992,
-    9788956607030,
-    9791189982140,
-    9788956602998
-  ];
+      categoryMap.forEach((key, value) {
+        filter[value] = prefs.getBool(value) ?? true;
+      });
 
-  Future<List<List<Book>>> fetchData() async {
-    List<List<Book>> bookData = [];
+      setState(() {
+        _profileImage = imagePath == null ? null : File(imagePath);
+      });
+    });
+  }
+
+  Future<List<Book>> fetchJinjung() async {
     List<Book> tmpBook = [];
-    for (int isbn13 in isbnList) {
-      tmpBook.add(
-          Book.fromJson(await feedAladinApiGet(isbn13.toString())));
+    for (int isbn13 in jinjungIsbnList) {
+      tmpBook.add(Book.fromJson(await feedAladinApiGet(isbn13.toString())));
     }
-    bookData.add(tmpBook);
-    tmpBook = [];
-    for (int isbn13 in isbnList2) {
-      tmpBook.add(
-          Book.fromJson(await feedAladinApiGet(isbn13.toString())));
+    return tmpBook;
+  }
+
+  Future<List<Book>> fetchRecommend() async {
+    List<Book> tmpBook = [];
+    // for (int isbn13 in jinjungIsbnList) {
+    //   tmpBook.add(Book.fromJson(await feedAladinApiGet(isbn13.toString())));
+    // }
+    Map<String, dynamic> resultJson = await getRecommendList(myUser!.userId);
+
+    for (int i = 0; i < resultJson["recommend_list"].length; i++) {
+      if (resultJson["recommend_list"][i].length == 0) {
+        continue;
+      } else {
+        resultJson["recommend_list"][i][0]['cover'] =
+            resultJson["recommend_list"][i][0]['cover'].replaceAll('\\/', '/');
+        tmpBook.add(Book.fromJson(resultJson["recommend_list"][i][0]));
+      }
     }
-    bookData.add(tmpBook);
-    return bookData;
+
+    return tmpBook;
+  }
+
+  Future<List<Book>> fetchCategory(int categoryNum) async {
+    List<Book> books = [];
+    List<dynamic> res;
+    res = (await feedAladinCategoryApi(categoryNum, 1))["item"];
+    for (var item in res) {
+      item["description"] = item["description"]
+          .replaceAllMapped(RegExp('(&lt;)|(&gt;)|(<.+?\/>)'), (Match m) => "");
+      books.add(Book.fromJson(item));
+    }
+    return books;
   }
 
   @override
   void initState() {
     super.initState();
-    data = fetchData();
+    categoryMap.forEach((key, value) {
+      filter[value] = true;
+    });
+    fetchPref();
+    jinjungList = fetchJinjung();
+    recommendList = fetchRecommend();
+    categoryMap.forEach((key, value) {
+      categoryList.add(fetchCategory(key));
+      categoryName.add(value);
+    });
   }
+
+  final PageController _topPageController =
+      PageController(initialPage: 0, viewportFraction: 0.85);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: FeedPageAppBar(context),
-        body: FutureBuilder<List<List<Book>>>(
-          future: data,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return ListView(
-                children: <Widget>[
-                  SizedBox(
-                    height: 360.0,
+        drawer: NavDrawer(),
+        body: ListView(
+          children: <Widget>[
+            feedTitle(),
+            SizedBox(
+                height: 350.0,
+                width: double.infinity,
+                // child: _builder(jinjungList, (data) {
+                child: _builder(recommendList, (data) {
+                  return PageView.builder(
+                    controller: _topPageController,
+                    itemCount: data!.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return BookSelector(
+                          index, data[index], _topPageController, context);
+                    },
+                  );
+                })),
+            Visibility(
+                visible: filter["이번 분기의 진중문고"]!,
+                child: SizedBox(
                     width: double.infinity,
-                    child: PageView.builder(
-                      controller: _topPageController,
-                      itemCount: snapshot.data![0].length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return BookSelector(index, snapshot.data![0][index],
-                            _topPageController, context);
-                      },
-                    ),
-                  ),
-                  ContentScroll(
-                    snapshot.data == null ? [] : snapshot.data![1],
-                    '정유정',
-                    250.0,
-                    150.0,
-                  ),
-                  // SizedBox(height: 10.0),
-                  // ContentScroll(
-                  //   images: popular,
-                  //   title: 'Popular',
-                  //   imageHeight: 250.0,
-                  //   imageWidth: 150.0,
-                  // ),
-                ],
-              );
-            } else if (snapshot.hasError) {
-              return Text("${snapshot.error}");
-            }
-            // 기본적으로 로딩 Spinner를 보여줍니다.
-            return const Center(child: CircularProgressIndicator());
-          },
+                    height: 290,
+                    child: _builder(jinjungList, (snapshotData) {
+                      return ContentScroll(
+                        snapshotData ?? [],
+                        "이번 분기의 진중문고",
+                        250.0,
+                        150.0,
+                      );
+                    }))),
+            Column(
+              children: _categoryBuilder(),
+            )
+          ],
         ));
+  }
+
+  Drawer NavDrawer() {
+    List<Widget> drawerOptions = [];
+    return Drawer(
+        child: SingleChildScrollView(
+      child: Column(
+        children: <Widget>[
+          UserAccountsDrawerHeader(
+            decoration: BoxDecoration(color: Color(COLOR_PRIMARY)),
+            accountName: Text(myUser!.username),
+            accountEmail: Text(myUser!.userId),
+            currentAccountPicture: _profileImage != null
+                ? CircleAvatar(
+                    radius: 100,
+                    backgroundColor: Colors.white,
+                    child: ClipOval(
+                      child: SizedBox(
+                        width: 190,
+                        height: 190,
+                        child: Image.file(
+                          _profileImage!,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                  )
+                : const DefaultCircleAvatar(size: 80),
+          ),
+          Column(children: drawerChildren()),
+        ],
+      ),
+    ));
+  }
+
+  List<Widget> drawerChildren() {
+    List<Widget> tmp = [];
+    filter.forEach((key, value) {
+      tmp.add(ListTile(
+        trailing: Switch(
+          activeColor: const Color(COLOR_PRIMARY),
+          hoverColor: const Color(COLOR_PRIMARY2),
+          value: value,
+          onChanged: (value) {
+            setState(() {
+              filter[key] = value ? true : false;
+              _prefs!.setBool(key, filter[key]!);
+            });
+          },
+        ),
+        title: Text(key),
+      ));
+    });
+    return tmp;
+  }
+
+  List<Widget> _categoryBuilder() {
+    List<Widget> tmp = [];
+    for (int i = 0; i < categoryList.length; i++) {
+      tmp.add(Visibility(
+          visible: filter[categoryName[i]]!,
+          child: SizedBox(
+              width: double.infinity,
+              height: 290,
+              child: _builder(categoryList[i], (snapshotData) {
+                return ContentScroll(
+                  snapshotData ?? [],
+                  categoryName[i],
+                  250.0,
+                  150.0,
+                );
+              }))));
+    }
+    return tmp;
+  }
+
+  Container feedTitle() {
+    return Container(
+        padding: const EdgeInsets.fromLTRB(20.0, 10, 20, 0),
+        width: double.infinity,
+        child: const Align(
+          alignment: Alignment.bottomLeft,
+          child: UnderLinedText(
+            text: "당신을 위한 AI의 Pick",
+            thickness: 7,
+            style: TextStyle(
+              fontSize: 21.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ));
+  }
+
+  FutureBuilder<List<Book>> _builder(Future<List<Book>>? expectedFuture,
+      Function(List<Book>? snapshotData) success) {
+    return FutureBuilder<List<Book>>(
+        future: expectedFuture,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return success(snapshot.data);
+          } else if (snapshot.hasError) {
+            print(snapshot.error);
+            return ErrorNotifier(errorMessage: '서버와의 연결이 불안정합니다.');
+          }
+          // 기본적으로 로딩 Spinner를 보여줍니다.
+          return const Center(
+              child: CircularProgressIndicator(color: Color(COLOR_PRIMARY)));
+        });
   }
 }

@@ -22,8 +22,8 @@ class PostSelector extends StatelessWidget {
           );
         },
         //dense:true,
-        title:Text('PostSelector ${_thisPost.postName}'),
-        subtitle: Text('${_thisPost.postAuthor}'),
+        title:Text('${_thisPost.postName}'),
+        subtitle: Text('작성자 : ${_thisPost.author}'),
       )
     );
   }

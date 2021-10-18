@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:app/constants/size.dart';
 import 'package:app/constants/uri.dart';
 import 'package:app/controller/message_controller.dart';
+import 'package:app/screens/home_screen.dart';
 import 'package:crypt/crypt.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -38,13 +40,17 @@ Future<int> createUser(
   String unit,
   String rank,
 ) async {
-  final encryptedPassword = Crypt.sha256(password).toString();
+  final encryptedPassword = Crypt.sha256(password, salt: mySalt).toString();
 
   final response = await http.post(
-    Uri.parse(proxyUri + myUri + 'sign_up'),
+    Uri.parse(proxyUri + myUri + 'sign_up/'),
     headers: <String, String>{
+      //"Accept":"application/json",
+      //"Access-Control-Allow-Origin":"*",W
       'Content-Type': 'application/json; charset=UTF-8',
     },
+    /*headers: {
+      },*/
     body: jsonEncode(<String, String>{
       'name': name,
       'user_id': userId,
@@ -54,7 +60,7 @@ Future<int> createUser(
       'rank': rank,
     }),
   );
-  //debugPrint("responseBody: ${response.body}");
+  debugPrint("responseBody: ${response.body}");
   if (response.statusCode == 200) {
     return response.statusCode;
   } else {
@@ -64,7 +70,7 @@ Future<int> createUser(
 
 void testHttp() async {
   final response = await http.get(
-    Uri.parse(proxyUri + myUri + 'mypage'),
+    Uri.parse(proxyUri + myUri + 'mypage/'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -79,9 +85,9 @@ void testHttp() async {
 }
 
 Future<int> loginUser(String userId, String password) async {
-  final encryptedPassword = Crypt.sha256(password).toString();
+  final encryptedPassword = Crypt.sha256(password, salt: mySalt).toString();
   final response = await http.post(
-    Uri.parse(proxyUri + myUri + 'sign_in'),
+    Uri.parse(proxyUri + myUri + 'sign_in/'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -92,21 +98,11 @@ Future<int> loginUser(String userId, String password) async {
       },
     ),
   );
-
-  //Message responseMessage = Message.fromJson(jsonDecode(response.body));
-
   return response.statusCode;
-  /*
-  if(responseMessage.message == "login success") {
-    return true;
-  }
-  else {
-    return false;
-    */
 }
 
 String? getPropertyTitle(User myUser, String prop) {
-  if (prop == 'username') return '이름';
+  if (prop == 'name') return '이름';
   if (prop == 'userId') return '아이디';
   if (prop == 'password') return '비밀번호';
   if (prop == 'email') return '이메일';
@@ -115,7 +111,7 @@ String? getPropertyTitle(User myUser, String prop) {
 }
 
 String? getPropertyValue(User myUser, String prop) {
-  if (prop == 'username') return myUser.username;
+  if (prop == 'name') return myUser.username;
   if (prop == 'userId') return myUser.userId;
   if (prop == 'password') return myUser.password;
   if (prop == 'email') return myUser.email;
@@ -124,13 +120,38 @@ String? getPropertyValue(User myUser, String prop) {
 }
 
 Future<User> loadUserInfo(String userId) async {
-  final response = await http.get(Uri.parse(myUri + ''));
+  final response = await http.get(
+    Uri.parse(proxyUri + myUri + 'info/' + '?user_id=${userId}'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+  );
 
   if (response.statusCode == 200) {
-    return User.fromJson(jsonDecode(response.body));
+    return User.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
   } else {
     throw Exception('Failed to load User data');
   }
+}
+
+Future<int> modifyUserInfo(User myUser) async {
+  String _userId = myUser.userId;
+  final response = await http.put(
+    Uri.parse(proxyUri + myUri + 'info/edit?user_id=$_userId'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, String>{
+      'name': myUser.username,
+      'user_id': myUser.userId,
+      'password': myUser.password,
+      'email': myUser.email,
+      'unit': myUser.unit,
+      'rank': myUser.rank,
+    }),
+  );
+
+  return response.statusCode;
 }
 
 class User {
@@ -146,9 +167,21 @@ class User {
 
   User.fromJson(Map<String, dynamic> json)
       : userId = json["user_id"],
-        username = json["username"],
+        username = json["name"],
         password = json["password"],
         email = json["email"],
         unit = json["unit"],
         rank = json["rank"];
+}
+
+User userCopy(User fromUser) {
+  User newUser = User(
+    fromUser.username,
+    fromUser.userId,
+    fromUser.password,
+    fromUser.email,
+    fromUser.unit,
+    fromUser.rank,
+  );
+  return newUser;
 }
