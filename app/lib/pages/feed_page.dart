@@ -232,6 +232,7 @@ class _FeedPageState extends State<FeedPage> {
           if (snapshot.hasData) {
             return success(snapshot.data);
           } else if (snapshot.hasError) {
+            
             print(snapshot.error);
             return ErrorNotifier(errorMessage: '서버와의 연결이 불안정합니다.');
           }
