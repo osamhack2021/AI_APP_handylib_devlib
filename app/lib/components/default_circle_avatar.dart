@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class DefaultCircleAvatar extends StatelessWidget {
   final double size;
@@ -8,7 +9,8 @@ class DefaultCircleAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CircleAvatar(
-      foregroundImage: (AssetImage('images/default_profile_image.png')),
+      foregroundImage: (AssetImage(
+          (kIsWeb ? "" : "assets/") + 'images/default_profile_image.png')),
       radius: size,
     );
   }

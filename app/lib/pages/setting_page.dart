@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:app/components/titled_appbar.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 final Map<String, TextEditingController> modifySettingController = {
   "email": TextEditingController(),
@@ -44,7 +45,23 @@ class _SettingPageState extends State<SettingPage> {
   }
 
   _onCameraClick() async {
-    ImagePicker _imagePicker = imagePicker;
+    if (kIsWeb) {
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('알림창'),
+          content:
+              const Text('웹 버전에서는 이미지 선택하실 수 없습니다. 이 기능은 앱에서 사용하실 수 있습니다!'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('확인'),
+            ),
+          ],
+        ),
+      );
+    } else{
+ImagePicker _imagePicker = imagePicker;
     XFile? image = await _imagePicker.pickImage(source: ImageSource.gallery);
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (image != null) {
@@ -57,6 +74,8 @@ class _SettingPageState extends State<SettingPage> {
         ScaffoldMessenger.of(context).showSnackBar(snackbar);
       });
     }
+    }
+    
   }
 
   @override

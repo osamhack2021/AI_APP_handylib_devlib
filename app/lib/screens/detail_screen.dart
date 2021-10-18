@@ -1,7 +1,9 @@
+import 'dart:convert';
 import 'dart:ui';
 
 import 'package:app/components/ellipsis_text.dart';
 import 'package:app/components/error_notifier.dart';
+import 'package:app/components/loading_dialog.dart';
 import 'package:app/constants/colors.dart';
 import 'package:app/hooks/use_api.dart';
 import 'package:app/screens/home_screen.dart';
@@ -198,7 +200,10 @@ class _DetailScreenState extends State<DetailScreen> {
                                         EpubScrollDirection.HORIZONTAL,
                                   );
                                   await EpubViewer.openAsset(
-                                      'assets/ebooks/sample.epub');
+                                          'assets/ebooks/sample.epub')
+                                      .whenComplete(() {
+                                    print("ddddddd");
+                                  });
                                 },
                                 enabled: flag,
                                 leading: Icon(Icons.bookmark, size: 35),

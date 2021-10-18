@@ -4,6 +4,7 @@ import 'package:app/models/unit_book_models.dart';
 import 'package:app/screens/detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:transparent_image/transparent_image.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class UnitBookDisplay extends StatelessWidget {
   /*const UnitBookDisplay({
@@ -65,7 +66,7 @@ class UnitBookDisplay extends StatelessWidget {
                                   width: imageWidth,
                                   height: imageHeight,
                                   image: AssetImage(
-                                      'assets/images/default_book_cover_image.png'),
+                                       (kIsWeb ? "" : "assets/") + 'images/default_book_cover_image.png'),
                                   fit: BoxFit.cover,
                                 )
                               : FadeInImage.memoryNetwork(

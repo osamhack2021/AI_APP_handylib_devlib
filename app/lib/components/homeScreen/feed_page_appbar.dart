@@ -2,6 +2,7 @@ import 'package:app/components/homeScreen/search_modal_bottom_sheet.dart';
 import 'package:app/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 // AppBar FeedPageAppBar(BuildContext context) {
 //   return AppBar(
@@ -49,7 +50,7 @@ AppBar FeedPageAppBar(BuildContext context) {
     title: GestureDetector(
       child: const Center(
         child: Image(
-          image: AssetImage('images/logo.png'),
+          image: AssetImage((kIsWeb ? "" : "assets/") + 'images/logo.png'),
           width: 50,
           height: 50,
           fit: BoxFit.cover,

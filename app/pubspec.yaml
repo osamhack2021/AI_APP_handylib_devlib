@@ -46,6 +46,7 @@ dependencies:
   email_validator: ^2.0.1
   # flutter_image: ^4.1.0
   image_picker: ^0.8.4
+  image_picker_web: ^2.0.3
 
 dev_dependencies:
   flutter_test:

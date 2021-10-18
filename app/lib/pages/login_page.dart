@@ -7,7 +7,7 @@ import 'package:app/components/login_page/rounded_password_field.dart';
 import 'package:app/components/underlined_text.dart';
 import 'package:app/constants/colors.dart';
 import 'package:app/controller/user_controller.dart';
-
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -28,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
       _idController.value.text,
       _passwordController.value.text,
     );
-    if (res==200) {
+    if (res == 200) {
       final snackbar = SnackBar(content: Text('로그인에 성공했습니다.'));
       ScaffoldMessenger.of(context).showSnackBar(snackbar);
       Navigator.of(context).pushNamedAndRemoveUntil(
@@ -37,7 +37,6 @@ class _LoginPageState extends State<LoginPage> {
         arguments: await loadUserInfo(_idController.value.text),
       );
 
-          
       //   //arguments: User('test', 'test', 'test', 'test', 'test', 'test'),
       // );
     } else if (res == 401) {
@@ -71,7 +70,8 @@ class _LoginPageState extends State<LoginPage> {
                           fontSize: 24, fontWeight: FontWeight.bold),
                       thickness: 7),
                   Image(
-                    image: AssetImage('assets/images/login.jpg'),
+                    image: AssetImage(
+                        (kIsWeb ? "" : "assets/") + 'images/login.jpg'),
                     height: size.height * 0.4,
                   ),
                   SizedBox(height: size.height * 0.03),

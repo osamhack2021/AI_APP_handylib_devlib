@@ -39,35 +39,36 @@ BookSelector(int index, Book book, PageController _pageController,
                         ),
                       ),
                       SizedBox(
-                        width: 110,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(book.title,
-                                style: const TextStyle(
-                                    fontSize: 14.0,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black87)),
-                            const Divider(
-                              height: 30,
-                              endIndent: 10,
-                              indent: 10,
-                              color: Colors.black12,
-                              thickness: 3,
+                          width: 110,
+                          child: SingleChildScrollView(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(book.title,
+                                    style: const TextStyle(
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black87)),
+                                const Divider(
+                                  height: 30,
+                                  endIndent: 10,
+                                  indent: 10,
+                                  color: Colors.black12,
+                                  thickness: 3,
+                                ),
+                                Text("지은이: " + book.author),
+                                const Divider(
+                                  height: 30,
+                                  endIndent: 10,
+                                  indent: 10,
+                                  color: Colors.black12,
+                                  thickness: 3,
+                                ),
+                                Text(book.category),
+                              ],
                             ),
-                            Text("지은이: " + book.author),
-                            const Divider(
-                              height: 30,
-                              endIndent: 10,
-                              indent: 10,
-                              color: Colors.black12,
-                              thickness: 3,
-                            ),
-                            Text(book.category),
-                          ],
-                        ),
-                      )
+                          ))
                     ]),
               ),
             )),
