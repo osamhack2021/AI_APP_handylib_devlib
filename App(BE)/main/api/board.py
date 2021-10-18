@@ -11,7 +11,8 @@ def boarding(page_id):
     limit=10
     start=(page_id-1)*limit
     end=page_id*limit
-    lists=database.Notice_board.objects(tag=request.values.get('tag'))
+    tag=request.values.get('tag')
+    lists=database.Notice_board.objects(tag=tag)
     if end > lists.count():
         end=lists.count()
     #pageid에 따라 게시판 수량 띄우기
@@ -20,20 +21,21 @@ def boarding(page_id):
     for item in to_list:
         comments=[]
         for num in item['comment_list']:
-            comments.append(database.Comment.objects(board_number=item['number'], comment_number=num).first())
+            comments.append(database.Comment.objects(board_number=item['number'], comment_number=num,tag=tag).first())
         item['comment_list']=comments
     resultJson=json.dumps(to_list, ensure_ascii=False)
     return Response(resultJson,mimetype="application/json",status=200)
 #해당 페이지 불러오는 라우터
 @board_page.route('/page/<int:number>',methods=['GET'])
 def board_number(number):
-    board_item=database.Notice_board.objects(number=number,tag=request.values.get('tag')).first()
+    tag=request.values.get('tag')
+    board_item=database.Notice_board.objects(number=number,tag=tag).first()
     comments= []
     item = board_item.comment_list
     # 댓글 내용 comment 컬렉션에서 불러오기
     if not item==comments:
         for num in item:
-            comments.append(database.Comment.objects(board_number=number, comment_number=num).first())
+            comments.append(database.Comment.objects(board_number=number, comment_number=num,tag=tag).first())
     result={
         "number": number,
     "user_id": board_item.user_id,
