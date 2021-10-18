@@ -1,8 +1,15 @@
+<div id="top"></div>
+
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <a href="https://github.com/osamhack2021/AI_APP_handylib_devlib">
+    <img src="images/logo.png" alt="Logo" width="80" height="80">
+  </a>
 
 <div align="center">
 
   <h3 align="center">내 손 안의 진중문고, HandyLib</h3>
-
   <p align="center">
     진중문고를 내 손안으로!
     <br />
@@ -36,10 +43,13 @@ Back-End에서는 python flask와 mongodb를 사용하여 데이터베이스를 
 ## Dependencies
 + flask-mongoengine==1.0.0
 + Flask-WTF==0.15.1
-+ pymongo
-+ Pillow
-+ Werkzeug
-
++ Flask-Script==2.0.6
++ email-validator==1.1.3
++ fastimport==0.9.14
++ pymongo==3.12.0
++ Pillow==8.3.2
++ Werkzeug==2.0.2
++ [etc](https://www.notion.so/Dependencies-65da052287ab4b3497848508d1c87358)
 <a id = "Technology_Stack"></a>
 
 ## Technology Stack
@@ -394,6 +404,10 @@ Distributed under the MIT License. See [LICENSE.txt](https://github.com/osamhack
 | `GET` | `isbn검색 알라딘 책 json(5개)` | `isbn, page(Int 0≥)` |
 
 
+<a id = "issues"></a>
+
+## Issues
+apache 서버 재부팅시 /var/run에 있는 wsgi.socket 파일에 대한 권한을 777로 부여해야 실행되는 오류가 있습니다.
 
 <a id = "contact"></a>
 
