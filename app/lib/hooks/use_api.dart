@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:transparent_image/transparent_image.dart';
 import 'package:xml/xml.dart';
 import 'package:intl/intl.dart';
 
@@ -171,4 +172,13 @@ Future<int> returnUnitBook(String unit, String isbn, String userId) async {
           myUri + path + "Unit_name=${unit}&isbn=${isbn}&user_id=${userId}"),
       headers: {"Accept": "application/json"});
   return response.statusCode;
+}
+
+//////////////////recommend list///////////////
+Future<Map<String, dynamic>> getRecommendList(String userId) async {
+  const path = "/mypage";
+  http.Response response = await http.get(
+      Uri.parse(myUri + path + "?user_id=" + userId),
+      headers: {"Accept": "application/json"});
+  return jsonDecode(utf8.decode(response.bodyBytes));
 }

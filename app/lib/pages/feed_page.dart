@@ -58,6 +58,18 @@ class _FeedPageState extends State<FeedPage> {
     // for (int isbn13 in jinjungIsbnList) {
     //   tmpBook.add(Book.fromJson(await feedAladinApiGet(isbn13.toString())));
     // }
+    Map<String, dynamic> resultJson = await getRecommendList(myUser!.userId);
+
+    for (int i = 0; i < resultJson["recommend_list"].length; i++) {
+      if (resultJson["recommend_list"][i].length == 0) {
+        continue;
+      } else {
+        resultJson["recommend_list"][i][0]['cover'] =
+            resultJson["recommend_list"][i][0]['cover'].replaceAll('\\/', '/');
+        tmpBook.add(Book.fromJson(resultJson["recommend_list"][i][0]));
+      }
+    }
+
     return tmpBook;
   }
 
@@ -102,8 +114,8 @@ class _FeedPageState extends State<FeedPage> {
             SizedBox(
                 height: 350.0,
                 width: double.infinity,
-                child: _builder(jinjungList, (data) {
-                  // child: _builder(recommendList, (data) {
+                // child: _builder(jinjungList, (data) {
+                child: _builder(recommendList, (data) {
                   return PageView.builder(
                     controller: _topPageController,
                     itemCount: data!.length,
@@ -232,7 +244,6 @@ class _FeedPageState extends State<FeedPage> {
           if (snapshot.hasData) {
             return success(snapshot.data);
           } else if (snapshot.hasError) {
-            
             print(snapshot.error);
             return ErrorNotifier(errorMessage: '서버와의 연결이 불안정합니다.');
           }

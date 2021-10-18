@@ -5,6 +5,7 @@ import 'package:transparent_image/transparent_image.dart';
 
 BookSelector(int index, Book book, PageController _pageController,
     BuildContext context) {
+  Size size = MediaQuery.of(context).size;
   return GestureDetector(
       onTap: () => Navigator.push(
             context,
@@ -33,8 +34,8 @@ BookSelector(int index, Book book, PageController _pageController,
                             const BorderRadius.all(Radius.circular(10)),
                         child: Image(
                           image: NetworkImage(book.coverUrl),
-                          height: 240.0,
-                          fit: BoxFit.cover,
+                          width: (size.width - 60) / 2,
+                          fit: BoxFit.fitWidth,
                         ),
                       ),
                       SizedBox(

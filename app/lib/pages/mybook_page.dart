@@ -9,6 +9,9 @@ import 'package:app/constants/uri.dart';
 import 'package:app/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'dart:math';
+
+import 'package:transparent_image/transparent_image.dart';
 
 class MyBookPage extends StatefulWidget {
   MyBookPage({Key? key}) : super(key: key);
@@ -59,11 +62,15 @@ class _MyBookPageState extends State<MyBookPage> {
                               ],
                             ),
                             child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10.0),
-                                child: Image.network(
-                                  'https://www.projectlib.tk/image/${myUser!.userId}.png',
-                                  fit: BoxFit.cover,
-                                )),
+                              borderRadius: BorderRadius.circular(10.0),
+                              child: FadeInImage.memoryNetwork(
+                                placeholder: kTransparentImage,
+                                image:
+                                    'https://www.projectlib.tk/image/${myUser!.userId}.png?dummy=' +
+                                        Random().nextInt(1000000).toString(),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                           ),
                         ]))),
                 const SizedBox(
