@@ -51,7 +51,7 @@ Back-End에서는 python flask와 mongodb를 사용하여 데이터베이스를 
 
 ## Technology Stack
 
-### [python, Flask](https://flask.palletsprojects.com/en/2.0.x/)
+### [python, Flask](https://flask.palletsprojects.com/en/2.0.x/), [pymongo](https://pypi.org/project/pymongo/)
 ### [MongoDB](https://www.mongodb.com/cloud/atlas/lp/try2?utm_source=google&utm_campaign=gs_apac_south_korea_search_core_brand_atlas_desktop&utm_term=mongodb&utm_medium=cpc_paid_search&utm_ad=e&utm_ad_campaign_id=12212624365&gclid=Cj0KCQjwqp-LBhDQARIsAO0a6aJDBv9E4rs6c4Na0WH_tBu-0TSDAuFCQlRaPZCRUj4o2zFxZ1CTwHgaAvqKEALw_wcB), [mongoengine](https://flask.palletsprojects.com/en/2.0.x/patterns/mongoengine/)
 ### [Microsoft Azure cloud](https://azure.microsoft.com/ko-kr/)
 ### [Git](https://git-scm.com/)
