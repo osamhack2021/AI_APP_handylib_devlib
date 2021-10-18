@@ -18,7 +18,7 @@
 
 
 
-  <span><strong>목차</strong></span>
+  <div><b>목차</b></div>
   <ol>
     <li><a href="#Back-End">Back-End</a></li>
     <li><a href="#Dependencies">Dependencies</a></li>
