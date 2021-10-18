@@ -1,5 +1,9 @@
 
+
 <div align="center">
+  <a href="https://github.com/osamhack2021/AI_APP_handylib_devlib">
+    ![내손안의진중문고_로고_green](https://user-images.githubusercontent.com/42088290/137695537-0f08fc63-1e5d-4f3c-80e2-966ce9e9db13.png)
+  </a>
 
   <h3 align="center">내 손 안의 진중문고, HandyLib</h3>
   <p align="center">
@@ -20,8 +24,6 @@
     <li><a href="#Dependencies">Dependencies</a></li>
     <li><a href="#Technology_Stack">Technology Stack</a></li>
     <li><a href="#Installation">Installation</a></li>
-    <li><a href="#test">Test</a></li>
-    <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#databases">DB structure</a></li>
     <li><a href="#API_Reference">API Reference</a></li>
@@ -33,27 +35,45 @@ Back-End에서는 python flask와 mongodb를 사용하여 데이터베이스를 
 
 
 ## Dependencies
-+ flask-mongoengine==1.0.0
-+ Flask-WTF==0.15.1
-+ Flask-Script==2.0.6
-+ email-validator==1.1.3
-+ fastimport==0.9.14
-+ pymongo==3.12.0
-+ Pillow==8.3.2
-+ Werkzeug==2.0.2
-+ pytest==6.2.5
+| flask-mongoengine | Flask-WTF | Flask-Script | email-validator |
+| :-------- | :-------- | :-------- | :-------- |
+| `1.0.0` | `0.15.1` | `2.0.6` | `1.1.3` |
+
+| fastimport | pymongo | Pillow | Werkzeug | pytest |
+| :-------- | :-------- | :-------- | :-------- | :-------- |
+| `0.9.14` | `3.12.0` | `8.3.2` | `2.0.2` | `6.2.5` |
+
+<br />
+
 + [etc](https://www.notion.so/Dependencies-65da052287ab4b3497848508d1c87358)
+
 <a id = "Technology_Stack"></a>
 
 ## Technology Stack
-+ [python, Flask](https://flask.palletsprojects.com/en/2.0.x/)
-+ [MongoDB](https://www.mongodb.com/cloud/atlas/lp/try2?utm_source=google&utm_campaign=gs_apac_south_korea_search_core_brand_atlas_desktop&utm_term=mongodb&utm_medium=cpc_paid_search&utm_ad=e&utm_ad_campaign_id=12212624365&gclid=Cj0KCQjwqp-LBhDQARIsAO0a6aJDBv9E4rs6c4Na0WH_tBu-0TSDAuFCQlRaPZCRUj4o2zFxZ1CTwHgaAvqKEALw_wcB), [mongoengine](https://flask.palletsprojects.com/en/2.0.x/patterns/mongoengine/)
-+ [Microsoft Azure cloud](https://azure.microsoft.com/ko-kr/)
-+ [Git](https://git-scm.com/)
-+ [apache2](https://httpd.apache.org/)
-+ [wsgi](https://docs.python.org/ko/3/library/wsgiref.html)
-+ [cloudflare](https://www.cloudflare.com/ko-kr/)
-+ [Vultr DNS](https://www.vultr.com/docs/introduction-to-vultr-dns)
+
+### [python, Flask](https://flask.palletsprojects.com/en/2.0.x/)
+
+<img src='https://user-images.githubusercontent.com/42088290/137697387-341ecc0a-dfc2-42e5-a6b8-cb0d86341e37.png' width ='100' height='100'/>
+
+### [MongoDB](https://www.mongodb.com/cloud/atlas/lp/try2?utm_source=google&utm_campaign=gs_apac_south_korea_search_core_brand_atlas_desktop&utm_term=mongodb&utm_medium=cpc_paid_search&utm_ad=e&utm_ad_campaign_id=12212624365&gclid=Cj0KCQjwqp-LBhDQARIsAO0a6aJDBv9E4rs6c4Na0WH_tBu-0TSDAuFCQlRaPZCRUj4o2zFxZ1CTwHgaAvqKEALw_wcB), [mongoengine](https://flask.palletsprojects.com/en/2.0.x/patterns/mongoengine/)
+
+<img src='https://user-images.githubusercontent.com/42088290/137698143-510cfabe-01cf-420a-81da-97fd9292fe31.png' width ='100' height='100'/>
+
+### [Microsoft Azure cloud](https://azure.microsoft.com/ko-kr/)
+<img src='https://user-images.githubusercontent.com/42088290/137698274-90bd7371-a812-4c0a-8cf0-f3ad1f9d810f.png' width ='100' height='100'/>
+
+### [Git](https://git-scm.com/)
+<img src='https://user-images.githubusercontent.com/42088290/137698430-5f5e0249-7c05-47aa-9594-c530a4bebb2d.png' width ='100' height='100'/>
+
+### [apache2](https://httpd.apache.org/)
+<img src='https://user-images.githubusercontent.com/42088290/137698532-313c1095-6ffc-46cf-873a-b87d7cf159f7.png' width ='100' height='100'/>
+
+
+### [cloudflare](https://www.cloudflare.com/ko-kr/)
+<img src='https://user-images.githubusercontent.com/42088290/137699295-61e685c2-5aff-438d-948b-24aaa9334e0b.png' width ='100' height='100'/>
+
+### [Vultr DNS](https://www.vultr.com/docs/introduction-to-vultr-dns)
+<img src='https://user-images.githubusercontent.com/42088290/137701111-8264256f-0472-4c80-97f7-e4d1321c0b81.png' width ='100' height='100'/>
 
 
 ## Installation
@@ -72,25 +92,6 @@ Back-End에서는 python flask와 mongodb를 사용하여 데이터베이스를 
   ```sh
   $ python app_start.py
   ```
-
-## Test
-
-테스트 사용법은 다음과 같습니다
-* pip
-  ```sh
-  $ python test_.py
-  ```
-또는 [postman](https://www.postman.com/)을 이용해서 아래 <a href="#API_Reference">API Reference</a>를 참고해서 테스트 해보실 수 있습니다.
-테스트 사이트는 https://www.projectlib.tk를 이용하시면 됩니다.
-
-## Contributing
-Follow the steps below to contribute this project.
-
-1. Fork the Project
-2. Create your Branch
-3. Commit your Changes
-4. Push to the Branch
-5. Open a Pull Request
 
 ## License
 Distributed under the MIT License. See [LICENSE.txt](https://github.com/osamhack2021/AI_APP_handylib_devlib/blob/main/LICENSE) for more information.
