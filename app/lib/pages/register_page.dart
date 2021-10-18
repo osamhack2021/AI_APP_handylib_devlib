@@ -64,8 +64,10 @@ class _RegisterPageState extends State<RegisterPage> {
     if (_registerResponse == 200) {
       final snackbar = SnackBar(content: Text('회원가입에 성공했습니다.'));
       ScaffoldMessenger.of(context).showSnackBar(snackbar);
+      SharedPreferences prefs = await SharedPreferences.getInstance();
 
       Navigator.of(context).pushNamedAndRemoveUntil(
+        // '/onboard',
         '/home',
         (route) => false,
         arguments: User(
