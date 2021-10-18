@@ -1,9 +1,9 @@
 import pandas as pd
 import numpy as np
-import os
 
-def get_ratings(path, users_file_name):
-    df_users = pd.read_csv(path + users_file_name, encoding='cp949')
+def get_ratings(path, users_file_name, books_file_name):
+    df_users = pd.read_csv(path + users_file_name, encoding='UTF8')
+    df_books = pd.read_csv(path + books_file_name, encoding='UTF8')
     df_users_books = pd.DataFrame(df_users, columns=['user_id', 'like'])
     sr_users = []
     sr_books = []
@@ -15,19 +15,28 @@ def get_ratings(path, users_file_name):
         i = i.split(', ')
         list_like.append(i)
 
-    for user_id in df_users_books['user_id']:
-        for book_id in list_like[user_id]:
-            sr_users.append(user_id)
-            sr_books.append(book_id)
+    for user_idx in df_users_books['user_id']:
+        for book_idx in list_like[user_idx]:
+            if book_idx == '':
+                break
+            sr_users.append(user_idx)
+            sr_books.append(book_idx)
             sr_ratings.append(1)
 
+    for book_idx in range(len(df_books)):
+        if sr_users[0]:
+            sr_users.append(sr_users[0])
+        if sr_books[0]:
+            sr_books.append(book_idx)
+        if sr_ratings[0]:
+            sr_ratings.append(0)
     R = pd.DataFrame({
-        'user_id': sr_users,
-        'book_id': sr_books,
+        'user_idx': sr_users,
+        'book_idx': sr_books,
         'ratings': sr_ratings
     })
 
-    R = R.pivot_table('ratings', index='user_id', columns='book_id').fillna(0)
+    R = R.pivot_table('ratings', index='user_idx', columns='book_idx').fillna(0)
     R.rename(columns= lambda x: int(x), inplace=True)
     R = R.sort_index(axis=1)
     return R
@@ -77,7 +86,7 @@ def predict(file_path, users_file_name, pred_score_file_name):
     regularization_list = []
     total_losses = []
 
-    for i in range(15):
+    for i in range(6):
         if i != 0:
             optimize_user(X, Y, C, P, nu, nf, r_lambda)
             optimize_item(X, Y, C, P, ni, nf, r_lambda)
@@ -101,11 +110,3 @@ def predict(file_path, users_file_name, pred_score_file_name):
 
     df_predict = pd.DataFrame(predict, columns=range(len(R[0]))).fillna(0)  # user-item = 1400 x 1125
     df_predict.to_csv(file_path + pred_score_file_name)
-
-'''
-file_path = '/var/www/python_flask/main/models/'
-users_file_name = "API_test_users.csv"
-books_file_name = "API_test_books.csv"
-pred_file_name = "rec_pred_score_1.csv"
-
-predict(file_path, users_file_name, pred_file_name)'''
