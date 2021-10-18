@@ -46,13 +46,15 @@ AppBar FeedPageAppBar(BuildContext context) {
   return AppBar(
     backgroundColor: Color(COLOR_PRIMARY),
     elevation: 0.5,
-    title: const Center(
-      child: Image(
-        image: AssetImage('assets/images/logo.png'),
-        width: 50,
-        height: 50,
-        fit: BoxFit.cover,
-        color: Color(COLOR_PRIMARY2),
+    title: GestureDetector(
+      child: const Center(
+        child: Image(
+          image: AssetImage('images/logo.png'),
+          width: 50,
+          height: 50,
+          fit: BoxFit.cover,
+          color: Color(COLOR_PRIMARY2),
+        ),
       ),
     ),
     // leading: IconButton(

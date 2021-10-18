@@ -8,7 +8,7 @@ class DefaultCircleAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CircleAvatar(
-      foregroundImage: (AssetImage('assets/images/default_profile_image.png')),
+      foregroundImage: (AssetImage('images/default_profile_image.png')),
       radius: size,
     );
   }

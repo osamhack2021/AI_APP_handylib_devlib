@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
+import 'package:app/components/error_notifier.dart';
 import 'package:app/components/titled_appbar.dart';
 import 'package:app/components/underlined_text.dart';
 import 'package:app/components/unit_lib_page/unit_book_display.dart';
@@ -9,6 +11,32 @@ import 'package:app/constants/uri.dart';
 import 'package:app/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
+
+/* the NonCacheNetworkImage class is from 
+https://stackoverflow.com/questions/68784559/how-to-prevent-caching-images-from-network-flutter
+*/
+
+class NonCacheNetworkImage extends StatelessWidget {
+  const NonCacheNetworkImage(this.imageUrl, {Key? key}) : super(key: key);
+  final String imageUrl;
+  Future<Uint8List> getImageBytes() async {
+    Response response = await get(Uri.parse(imageUrl));
+    return response.bodyBytes;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<Uint8List>(
+      future: getImageBytes(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData)
+          return Image.memory(snapshot.data!, fit: BoxFit.fill);
+        return ErrorNotifier(errorMessage: '취향 분석 데이터를 불러오지 못했습니다.');
+      },
+    );
+  }
+}
 
 class MyBookPage extends StatefulWidget {
   MyBookPage({Key? key}) : super(key: key);
@@ -59,11 +87,15 @@ class _MyBookPageState extends State<MyBookPage> {
                               ],
                             ),
                             child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10.0),
-                                child: Image.network(
+                              borderRadius: BorderRadius.circular(10.0),
+                              child: NonCacheNetworkImage(
+                                  'https://www.projectlib.tk/image/${myUser!.userId}.png'),
+                              /*Image.network(
                                   'https://www.projectlib.tk/image/${myUser!.userId}.png',
+                                  
                                   fit: BoxFit.cover,
-                                )),
+                                )*/
+                            ),
                           ),
                         ]))),
                 const SizedBox(
