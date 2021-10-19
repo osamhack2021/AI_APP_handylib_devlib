@@ -357,7 +357,7 @@ Distributed under the MIT License. See [LICENSE.txt](https://github.com/osamhack
 
 | method | response     | request        |
 | :-------- | :------- | :----------------------- |
-| `GET` | `제목검색 알라딘 책 json(5개)` | `title, page(Int 0≥)` |
+| `GET` | `제목검색 book json(5개)` | `title, page(Int 0≥)` |
 
 ```https
   GET /book/search/categoryId=<categoryId>&page=<page>
@@ -365,7 +365,7 @@ Distributed under the MIT License. See [LICENSE.txt](https://github.com/osamhack
 
 | method | response     | request                |
 | :-------- | :------- | :------------------------- |
-| `GET` | `장르별검색 알라딘 책 json(5개)` | `categoryId, page(Int 0≥)` |
+| `GET` | `장르별검색 book json(5개)` | `categoryId, page(Int 0≥)` |
 
 ```https
   GET /book/feed/categoryId=<categoryId>&page=<page>
@@ -373,7 +373,7 @@ Distributed under the MIT License. See [LICENSE.txt](https://github.com/osamhack
 
 | method | response     | request                |
 | :-------- | :------- | :------------------------- |
-| `GET` | `장르별검색 알라딘 책 json(5개)` | `categoryId, page(Int 0≥)` |
+| `GET` | `장르별검색 book json(5개)` | `categoryId, page(Int 0≥)` |
 
 ```https
   GET /book/search/isbn=<isbn>&page=<page>
@@ -381,7 +381,7 @@ Distributed under the MIT License. See [LICENSE.txt](https://github.com/osamhack
 
 | method | response     | request                |
 | :-------- | :------- | :------------------------- |
-| `GET` | `isbn검색 알라딘 책 json(5개)` | `isbn, page(Int 0≥)` |
+| `GET` | `isbn검색 book json(5개)` | `isbn, page(Int 0≥)` |
 
 
 <a id = "issues"></a>
