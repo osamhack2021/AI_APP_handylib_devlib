@@ -21,42 +21,6 @@
 <!-- TABLE OF CONTENTS -->
 
 
-<span>Readme 목차</span>
-  <ol>
-    <li>
-      <a href="#about-the-project">프론트엔드</a>
-      <ul>
-        <li><a href="#built-with">개발 도구</a></li>
-      </ul>
-    </li>
-  <li><a href="#pageExplanation">페이지 소개</a>
-    <ul>
-      <li>플로우차트</li>
-      <li>메인 페이지 소개</li>
-      <li>기타 페이지 소개</li>
-    </ul>
-  </li>
-  <li>데이터 모델
-    <ul>
-      <li>객체 구조</li>
-      <li>Primary coior 정의</li>
-    </ul>
-  </li>
-  <li>사용한 constants</li>
-  <li>발전 방향</li>
-  
-  <li>
-      <a href="#getting-started">설치 방법</a>
-      <ul>
-        <li><a href="#prerequisites">요구사항</a></li>
-        <li><a href="#installation">설치</a></li>
-      </ul>
-   </li>
-    <li><a href="#usage">사용법</a></li>
-    <li><a href="#license">라이센스</a></li>
-    <li><a href="#contact">개발자 정보</a></li>
-  </ol>
-
 <!-- ABOUT THE PROJECT -->
 <!-- <img src = "" width = 300> -->
 # 프론트엔드
@@ -182,92 +146,112 @@
   <img src = "https://user-images.githubusercontent.com/19871043/137643200-6a735ec4-ffe7-48ac-8f93-57bd5503bd49.png" height = 500>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src = "https://user-images.githubusercontent.com/19871043/137643202-eb1192b6-dc97-4118-acb0-181b9de56179.png" height = 500>
 <br><br>
 
-## 기타 페이지
-회원가입 + 로그인 등
+### 기타 페이지
+
+<img src = "https://user-images.githubusercontent.com/19871043/137919898-85f77674-a1ba-463c-abbf-88cd42e27c4b.png" height = 500>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src = "https://user-images.githubusercontent.com/19871043/137920033-060e34dd-78bf-4380-975a-35bd961eaa78.png" height = 500>
+<br><br>
+
+개인화된 추천 시스템을 제공하기 위한 회원가입과 로그인 기능을 제공합니다.
+<br><br>
 
 
 # 데이터 모델
 ## 객체 구조
+
 ### User
-|  |name|userId|password|email|unit|rank|
-|--|----|------|--------|-----|----|----|
-|  |사용자명|사용자 id|사용자 비밀번호|사용자 이메일|사용자 소속 부대|사용자 계급|
+|객체명|type|의미|
+|-|-|-|
+|name|String|이름|
+|userId|String|아이디|
+|password|String|비밀번호|
+|email|String|이메일|
+|unit|String|소속 부대|
+|rank|String|계급|
 
+### Book
+전자책 객체
+|객체명|type|의미|
+|-|-|-|
+|title|String|도서명|
+|author|String|작가|
+|pubDate|String|출판일자|
+|coverUrl|String|표지 url|
+|isbn|String|isbn10|
+|publisher|String|출판사|
+|category|String|카테고리|
 
-### Built With
+### Post
+게시글 객체
+|객체명|type|의미|
+|-|-|-|
+|postId|int?|게시글 번호|
+|postName|String?|제목|
+|postTag|String?|태그|
+|author|String?|작성자|
+|content|String?|내용|
+|timestamp|String?|작성 시각|
+|postCommentList|List\<Comment\>|댓글 리스트|
 
-This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
+### Board
+게시판 객체
+|객체명|type|의미|
+|-|-|-|
+|boardId|int?|게시판 번호|
+|boardName|String?|게시판 이름|
+|boardTag|String?|게시판 태그|
 
-- [Next.js](https://nextjs.org/)
-- [React.js](https://reactjs.org/)
-- [Vue.js](https://vuejs.org/)
-- [Angular](https://angular.io/)
-- [Svelte](https://svelte.dev/)
-- [Laravel](https://laravel.com)
-- [Bootstrap](https://getbootstrap.com)
-- [JQuery](https://jquery.com)
+### Comment
+댓글 객체
+|객체명|type|의미|
+|-|-|-|
+|content|String?|댓글 내용|
+|author|String?|작성자|
+|timestamp|String?|작성 시간|
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+### Unitbook
+부대 내 도서 객체
+|객체명|type|의미|
+|-|-|-|
+|title|String|도서명|
+|author|String|작가|
+|pubDate|String|출판일자|
+|coverUrl|String|표지 url|
+|isbn|String|isbn10|
+|publisher|String|출판사|
+|category|String|카테고리|
 
-<!-- GETTING STARTED -->
+### Primary color 정의
+본 프로그램에서는 두 개의 메인 색을 사용하고 있습니다.
 
-## Getting Started
+![image](https://user-images.githubusercontent.com/19871043/137916501-aa19658b-9a39-4079-9223-e38c40bba574.png)
+R 224 G 240 B 227
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+![image (1)](https://user-images.githubusercontent.com/19871043/137916894-ddd4b604-eefb-4215-8382-f489c770675b.png)
+R 184 G 216 B 190
 
-### Prerequisites
+# 설치방법
 
-This is an example of how to list things you need to use the software and how to install them.
+## 요구사항
 
-- npm
-  ```sh
-  npm install npm@latest -g
-  ```
+## 설치
 
-### Installation
+## 사용법
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-   ```sh
-   git clone https://github.com/your_username_/Project-Name.git
-   ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = "ENTER YOUR API";
-   ```
+## 라이센스
+이 프로그램은 MIT 라이센스를 적용합니다.
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+## 한계와 발전방향
+본 프로그램은 짧은 시간 내에 제작된 것으로 기본적인 기능 제공에 중점을 두고 있습니다.
+<br><br>
+전자책 시스템은 Aladin API에서 파싱해온 정보를 이용하는데, Aladin API는 책의 제목, 설명, isbn과 같은 일부 정보만 제공하고
+<br><br>
+당연하게도 전자책 db는 제공하고 있지 않습니다. 따라서 이 프로그램에서는 전자책을 실제로 열람할 수 없습니다.
+<br><br>
+만약 실제로 이 프로그램이 사용된다면 기존의 각 군 도서관 전자책 시스템 db를 가져와서 장병들이 열람할 수 있도록 수정할 필요가 있습니다.
+<br><br>
 
-<!-- USAGE EXAMPLES -->
-
-## Usage
-
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-
-<!-- LICENSE -->
-
-## License
-
-Distributed under the MIT License. See `LICENSE.txt` for more information.
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-<!-- CONTACT -->
-
-## Contact
-
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
-
-Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
-
-<p align="right">(<a href="#top">back to top</a>)</p>
+## 개발자 정보
+|     |        |
+|-----|--------|
+|홍지환|Frontend|
+|김민준|Frontend|
