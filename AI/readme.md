@@ -109,7 +109,8 @@ recommendation 경로는 github 상에서 AI 경로에 해당합니다.
     + APP_test_books.csv
     + APP_test_users.csv
     + rec_pred_score_1.csv
-    + random_user_generator.py
+    + dummy_generator.py
+    + dummy_user.py
     + recommendation.py
     + update.py
     + data_update.py
