@@ -19,26 +19,26 @@
 <span>Readme 목차</span>
   <ol>
     <li>
-      <a href="# AI (recommendation)">AI (recommendation)</a>
+      AI (recommendation)
     </li>
     <li>
-      <a href="# AI (recommendation)">책 추천시스템</a>
+      책 추천시스템
     </li>
     <li>
-      <a href="# AI (recommendation)">취향정보 시각화</a>
+      취향정보 시각화
     </li>
     <li>
-      <a href="#getting-started">시작하기</a>
+      시작하기
       <ul>
-        <li><a href="#prerequisites">요구사항</a></li>
-        <li><a href="#installation">설치</a></li>
-        <li><a href="#installation">설정</a></li>
-        <li><a href="#installation">사용법</a></li>
+        <li>요구사항</li>
+        <li>설치</li>
+        <li>설정</li>
+        <li>사용법</li>
       </ul>
     </li>
-    <li><a href="#usage">발전 방향</a></li>
-    <li><a href="#license">라이센스</a></li>
-    <li><a href="#contact">개발자 정보</a></li>
+    <li>발전방향</li>
+    <li>라이센스</li>
+    <li>개발자 정보</li>
   </ol>
 
 <!-- ABOUT THE PROJECT -->
@@ -54,7 +54,7 @@ AI에서는 개인별 책 추천시스템과 사용자의 취향정보 시각화
 # 2. 책 추천시스템
 서버에서 사용자 및 책 정보를 요청하여, Matrix Factorization 기반 추천 리스트 30권을 생성합니다.
 
-API_test_users.csv : userid_0의 like는 [1247, 164, 89, 1219, 903]입니다.
+[API_test_users.csv](https://github.com/osamhack2021/AI_APP_handylib_devlib/blob/main/AI/example_file/API_test_users.csv) : userid_0의 like는 [1247, 164, 89, 1219, 903]입니다.
 
 + 1247 : 국내도서>수험서/자격증>공무원 수험서>소방공무원(승진)>기타 과목
 + 164 : 국내도서>사회과학>국방/군사학>국내외 군사사정
@@ -62,9 +62,9 @@ API_test_users.csv : userid_0의 like는 [1247, 164, 89, 1219, 903]입니다.
 + 1219 : 국내도서>자기계발>성공>성공담
 + 국내도서>전집/중고전집>창작동화
 
-![img_1.png](img_1.png)
+![img_1.png](https://github.com/osamhack2021/AI_APP_handylib_devlib/blob/main/AI/image_ai/img_1.png)
 
-userid_0.csv에 나온 추천도서는 [1030, 1413, 626, 1150, 167] 등 30권입니다.
+[userid_0.csv <todo : add csv and make link>]에 나온 추천도서는 [1030, 1413, 626, 1150, 167] 등 30권입니다.
 
 + 1030 : 조선왕조실톡 6 - 조선의 두 번째 영광 (국내도서>역사>조선사>조선후기(영조~순종))
 + 1413 : 삶의 덫에서 벗어나 새로운 나를 열기 (국내도서>자기계발>힐링>마음 다스리기))
@@ -72,12 +72,12 @@ userid_0.csv에 나온 추천도서는 [1030, 1413, 626, 1150, 167] 등 30권입
 + 1150 : 회사에서 나만 그래? - 언니들이 알려주는 조직생활 노하우 26 (국내도서>자기계발>여성의 자기계발)
 + 167 : 우린 다르게 살기로 했다 - 혼자는 외롭고 함께는 괴로운 사람들을 위한 마을공동체 탐사기 (국내도서>사회과학>사회운동>사회운동 일반)
 
-![img.png](img.png)
+![img.png](https://github.com/osamhack2021/AI_APP_handylib_devlib/blob/main/AI/image_ai/img.png)
 
 # 3. 취향정보 시각화
 사용자가 좋아요를 누른 책을 기반으로 사용자가 좋아하는 카테고리를 wordcloud로 시각화합니다.
 
-![img_3.png](img_3.png)
+![img_3.png](https://github.com/osamhack2021/AI_APP_handylib_devlib/blob/main/AI/image_ai/img_3.png)
 
 # 4. 시작하기
 ## 요구사항
@@ -85,7 +85,7 @@ userid_0.csv에 나온 추천도서는 [1030, 1413, 626, 1150, 167] 등 30권입
 - pandas==1.3.3
 - numpy>=1.19.5
 
-/var/www/python_flask/ 경로에서 다음 코드를 실행하여 필요한 모듈을 설치합니다. 
+다음 코드를 실행하여 필요한 모듈을 설치합니다. 
 ```buildoutcfg
 $ pip install pandas
 $ pip install numpy
@@ -156,9 +156,9 @@ users_file_name과 books_file_name은 사용자 정보와 책 정보가 담긴 .
 
 
 ## 사용법
-test.py에서 함수 호출의 예시를 확인하실 수 있습니다.
+[test.py](https://github.com/osamhack2021/AI_APP_handylib_devlib/blob/main/AI/test.py)에서 함수 호출의 예시를 확인하실 수 있습니다.
 
-api에서 request에 대응하는 함수를 호출함으로써 사용할 수 있습니다. 아래 예시는 마이페이지 api를 담당하는 mypage.py의 일부입니다.
+api에서 request에 대응하는 함수를 호출함으로써 사용할 수 있습니다. 아래 예시는 마이페이지 api를 담당하는 mypage.py에서 취향분석 이미지를 호출하는 코드입니다.
 
 ```buildoutcfg
 @mypage_page.route('/', methods=['GET'])
@@ -184,11 +184,10 @@ def mypage():
 ```
 
 주의사항입니다.
-+ api와 recommeder system 파일의 경로가 다를 경우, api 파일에서 모듈을 import 할 때 경로에 유의하기 바랍니다. ex) ```from main.recommendation import data_update``` 등
-+ wordcloud_maker.py의 exe_img(), update.py의 update(), data_update.py의 update()는 file_path와 save_path 등의 환경변수를 소스코드에서 직접 지정하였으므로, 함수를 호출할 때 path, name을 설정하는 것이 아닌, wordcloud_maker.py, update.py, data_update.py에서 원하는 경로로 수정해주어야 합니다.
++ 이 프로젝트와 같이 api를 구현한 파일과 recommeder system을 구현한 파일의 파일의 경로가 다를 경우, api 파일에서 모듈을 import 할 때 경로에 유의하기 바랍니다. ex) ```from main.recommendation import data_update``` 등
++ wordcloud_maker.py의 exe_img(user_id), update.py의 update(), data_update.py의 update()는 file_path와 save_path 등의 환경변수를 소스코드에서 직접 지정하였으므로, 함수를 호출할 때 path, name을 설정하는 것이 아닌, wordcloud_maker.py, update.py, data_update.py에서 원하는 경로로 수정해주어야 합니다.
 
 # 5. 발전방향
-
 이 프로젝트의 추천시스템이 사용한 알고리즘은 collaborative filtering 방식 추천 알고리즘 중 하나인 Matrix Factorization입니다.
 
 collaborative filtering이란 자신과 비슷한 평점을 매긴 다른 사용자의 평점을 이용해 아직 평점을 매기지 않은 책의 평점을 예측하는 알고리즘이라는 뜻입니다. 예를 들어, A가 'aa'라는 책을 좋아하고, B가 'aa'와 'bb'를 좋아한다면, A와 B는 같은 'aa'를 좋아하므로, 비슷한 흥미도를 가질 것이고, A도 B가 좋아하는 'bb'를 좋아할 것이라고 예측하는 알고리즘입니다. 
@@ -215,9 +214,9 @@ AI 파트에서는 추천시스템이 meta data를 활용할 수 있도록 앞�
 + 개발자님만의 branch에 push
 + Pull Request 열기
 
-# 7. License
+# 7. 라이센스
 MIT License에 따라 배포되고 있습니다. <a href="https://github.com/osamhack2021/AI_APP_handylib_devlib/blob/main/LICENSE">LICENSE.txt</a>를 통해 더 자세한 license 정보를 확인하실 수 있습니다.
 
 
-# 8. Contact
+# 8. 개발자 정보
 김승하(k2river) kstream35@gmail.com
