@@ -4,7 +4,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="https://user-images.githubusercontent.com/19871043/137923020-43a87404-7754-4c22-83e7-1b428da35ef7.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">내 손 안의 진중문고, HandyLib</h3>
