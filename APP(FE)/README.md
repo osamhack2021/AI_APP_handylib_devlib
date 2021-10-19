@@ -22,10 +22,9 @@
 
 
 <!-- ABOUT THE PROJECT -->
-<!-- <img src = "" width = 300> -->
-# 프론트엔드
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+### 개요
+
 
 프론트엔드에서는 flutter를 이용하여 앱 UI/UX 및 개인화 기능을 개발하였습니다. 
 
@@ -251,7 +250,7 @@ R 184 G 216 B 190
 <br><br>
 
 ## 개발자 정보
-|     |        |
-|-----|--------|
-|홍지환|Frontend|
-|김민준|Frontend|
+|개발자명|제작 분야|Contact|Page|
+|-|-|-|-|
+|홍지환|로그인, 회원가입, 부대 도서관, 게시판, 나의 프로필|eat333@naver.com||
+|김민준|UI/UX 디자인, 전자도서관, 책 대출, 검색기능, 전자책|mamy0320@naver.com||
