@@ -52,7 +52,7 @@ List<UnitBook> parseUnitBook(dynamic decodedResponseBody) {
 }
 
 List<UnitBook> parseBorrowBook(dynamic decodedResponseBody) {
-  return (decodedResponseBody as List)
+  return (decodedResponseBody['books_list'] as List)
       .map((i) => UnitBook.fromJson(i))
       .toList();
 }
@@ -81,7 +81,10 @@ Future<List<UnitBook>> getUnitTagBookList(String unit, String tag) async {
 
 Future<List<UnitBook>> getBorrowBookList(String unit) async {
   final response = await http.get(
-    Uri.parse(proxyUri + myUri + 'mypage/borrow_list?user_id=${myUser!.userId}'),
+    Uri.parse(proxyUri +
+        myUri +
+        'unit/chk/Unit_name=${myUser!.unit}&user_id=${myUser!.userId}'),
+
     
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',

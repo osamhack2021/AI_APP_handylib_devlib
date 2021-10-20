@@ -7,7 +7,7 @@ import 'package:app/components/login_page/rounded_password_field.dart';
 import 'package:app/components/underlined_text.dart';
 import 'package:app/constants/colors.dart';
 import 'package:app/controller/user_controller.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
+
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -71,7 +71,10 @@ class _LoginPageState extends State<LoginPage> {
                       thickness: 7),
                   Image(
                     image: AssetImage(
-                        (kIsWeb ? "" : "assets/") + 'images/login.jpg'),
+                        (Theme.of(context).platform == TargetPlatform.android
+                                ? "assets/"
+                                : "") +
+                            'images/login.jpg'),
                     height: size.height * 0.4,
                   ),
                   SizedBox(height: size.height * 0.03),

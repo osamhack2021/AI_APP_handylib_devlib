@@ -16,7 +16,6 @@ import 'package:email_validator/email_validator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -264,7 +263,7 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   _onCameraClick() async {
-    if (kIsWeb) {
+    if (Theme.of(context).platform != TargetPlatform.android ) {
       showDialog<String>(
         context: context,
         builder: (BuildContext context) => AlertDialog(

@@ -152,7 +152,6 @@ class _DetailScreenState extends State<DetailScreen> {
                 ),
                 const SizedBox(height: 10.0),
                 SizedBox(
-                  height: 60,
                   width: size.width,
                   child: _builder(data, (snapshotData) {
                     bool flag = true;

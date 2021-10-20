@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:app/components/titled_appbar.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 
 final Map<String, TextEditingController> modifySettingController = {
   "email": TextEditingController(),
@@ -45,7 +44,7 @@ class _SettingPageState extends State<SettingPage> {
   }
 
   _onCameraClick() async {
-    if (kIsWeb) {
+    if (Theme.of(context).platform != TargetPlatform.android) {
       showDialog<String>(
         context: context,
         builder: (BuildContext context) => AlertDialog(
@@ -60,22 +59,21 @@ class _SettingPageState extends State<SettingPage> {
           ],
         ),
       );
-    } else{
-ImagePicker _imagePicker = imagePicker;
-    XFile? image = await _imagePicker.pickImage(source: ImageSource.gallery);
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (image != null) {
-      prefs.setString('profileImage', image.path);
-      Future.delayed(const Duration(milliseconds: 500), () {
-        setState(() {
-          _profileImage = File(image.path);
+    } else {
+      ImagePicker _imagePicker = imagePicker;
+      XFile? image = await _imagePicker.pickImage(source: ImageSource.gallery);
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      if (image != null) {
+        prefs.setString('profileImage', image.path);
+        Future.delayed(const Duration(milliseconds: 500), () {
+          setState(() {
+            _profileImage = File(image.path);
+          });
+          final snackbar = SnackBar(content: Text('성공적으로 변경되었습니다.'));
+          ScaffoldMessenger.of(context).showSnackBar(snackbar);
         });
-        final snackbar = SnackBar(content: Text('성공적으로 변경되었습니다.'));
-        ScaffoldMessenger.of(context).showSnackBar(snackbar);
-      });
+      }
     }
-    }
-    
   }
 
   @override
@@ -154,9 +152,15 @@ ImagePicker _imagePicker = imagePicker;
                                 fontSize: 15, color: Colors.black54),
                           ),
                           // ProfileEditTile(myUser!, "username"),
-                          ProfileEditTile("email", (){setState(() {});}),
-                          ProfileEditTile("unit", (){setState(() {});}),
-                          ProfileEditTile("rank", (){setState(() {});}),
+                          ProfileEditTile("email", () {
+                            setState(() {});
+                          }),
+                          ProfileEditTile("unit", () {
+                            setState(() {});
+                          }),
+                          ProfileEditTile("rank", () {
+                            setState(() {});
+                          }),
                           const SizedBox(height: 15),
 
                           RoundedButton(

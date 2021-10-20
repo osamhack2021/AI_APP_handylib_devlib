@@ -4,7 +4,8 @@ import 'package:app/models/unit_book_models.dart';
 import 'package:app/screens/detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:transparent_image/transparent_image.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
+
+
 
 class UnitBookDisplay extends StatelessWidget {
   /*const UnitBookDisplay({
@@ -45,7 +46,7 @@ class UnitBookDisplay extends StatelessWidget {
                             builder: (_) => DetailScreen(
                                 book: convertUnitBooktoBook(bookData!)),
                           ),
-                        ); 
+                        );
                       },
                       child: Container(
                         margin: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
@@ -65,17 +66,16 @@ class UnitBookDisplay extends StatelessWidget {
                               ? Image(
                                   width: imageWidth,
                                   height: imageHeight,
-                                  image: AssetImage(
-                                       (kIsWeb ? "" : "assets/") + 'images/default_book_cover_image.png'),
+                                  image: AssetImage((Theme.of(context).platform == TargetPlatform.android ? "assets/":"") +
+                                      'images/default_book_cover_image.png'),
                                   fit: BoxFit.cover,
                                 )
                               : FadeInImage.memoryNetwork(
                                   width: imageWidth,
                                   height: imageHeight,
                                   placeholder: kTransparentImage,
-                                  image: //"http://175.210.134.48:5000/" +
-                                      bookData!.coverUrl!
-                                          .replaceAll('\\/', '/'),
+                                  image: bookData!.coverUrl!
+                                      .replaceAll('\\/', '/'),
                                   fit: BoxFit.cover,
                                 ),
                         ),

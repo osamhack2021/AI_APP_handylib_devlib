@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:xml/xml.dart';
+import 'package:app/constants/uri.dart';
 import 'package:intl/intl.dart';
 
 String aladinHost = "www.aladin.co.kr";
@@ -10,7 +11,7 @@ const String proxyUri = '';
 String aladinFeedPath = "ttb/api/ItemLookUp.aspx";
 String aladinSearchPath = "ttb/api/ItemSearch.aspx";
 String aladinCategoryPath = "ttb/api/ItemList.aspx";
-String proxy = "http://175.210.134.48:5000/";
+String proxy = "https://hyejin-degreeshow.site/proxy/";
 //https://cors-anywhere.herokuapp.com/
 
 Map<String, String> _monthMap = {
@@ -48,7 +49,7 @@ Future<Map<String, dynamic>> searchAladinApiGet(String query, int page) async {
   http.Response response = await http.get(
       Uri.parse(proxy +
           Uri(
-                  scheme: "http",
+                  scheme: "https",
                   host: aladinHost,
                   path: aladinSearchPath,
                   queryParameters: _param)
@@ -78,7 +79,7 @@ Future<Map<String, dynamic>> feedAladinApiGet(String isbn13) async {
   http.Response response = await http.get(
       Uri.parse(proxy +
           Uri(
-                  scheme: "http",
+                  scheme: "https",
                   host: aladinHost,
                   path: aladinFeedPath,
                   queryParameters: _param)
@@ -135,7 +136,7 @@ Future<Map<String, dynamic>> feedAladinCategoryApi(
   http.Response response = await http.get(
       Uri.parse(proxy +
           Uri(
-                  scheme: "http",
+                  scheme: "https",
                   host: aladinHost,
                   path: aladinCategoryPath,
                   queryParameters: _param)
@@ -145,8 +146,7 @@ Future<Map<String, dynamic>> feedAladinCategoryApi(
 }
 
 ///////////////// detailpage sync //////////////////////
-const String myUri = 'https://www.projectlib.tk';
-// const String myUri = 'http://175.210.134.48:3000/';
+
 
 Future<Map<String, dynamic>> getUnitBookInfo(String unit, String isbn) async {
   const path = "/unit/chk/";
