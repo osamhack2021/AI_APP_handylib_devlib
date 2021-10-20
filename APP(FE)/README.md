@@ -265,5 +265,5 @@ R 12 G 152 B 105
 ## 개발자 정보
 |개발자명|제작 분야|Contact|Page|
 |-|-|-|-|
-|홍지환|로그인, 회원가입, 부대 도서관, 게시판, 나의 프로필|eat333@naver.com||
-|김민준|UI/UX 디자인, 전자도서관, 책 대출, 검색기능, 전자책|mamy0320@naver.com||
+|홍지환|로그인, 회원가입, 부대 도서관, 게시판, 나의 프로필|eat333@naver.com|https://github.com/Jordano-Jackson|
+|김민준|UI/UX 디자인, 전자도서관, 책 대출, 검색기능, 전자책|mamy0320@naver.com|https://github.com/1kl1|
