@@ -243,9 +243,6 @@
 ![image](https://user-images.githubusercontent.com/19871043/137916501-aa19658b-9a39-4079-9223-e38c40bba574.png)
 R 224 G 240 B 227
 
-![image (1)](https://user-images.githubusercontent.com/19871043/137916894-ddd4b604-eefb-4215-8382-f489c770675b.png)
-R 184 G 216 B 190
-
 ![color](https://user-images.githubusercontent.com/19871043/138083561-58010d0f-394b-4e52-b17b-a8d2f30c2920.png)
 R 12 G 152 B 105
 
