@@ -51,7 +51,7 @@
 <br><br>
 ### 📕 전자도서관
 
-<img src = "https://user-images.githubusercontent.com/19871043/137631076-eb59683e-a0d6-4f45-a467-c0fa00690e3b.png" height = 500> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src = "https://user-images.githubusercontent.com/19871043/137631425-2cf711c2-79b6-43f3-aef1-bdec65753ae5.png" height = 500>
+<img src = "images/sample.png" height = 500> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src = "https://user-images.githubusercontent.com/19871043/137631425-2cf711c2-79b6-43f3-aef1-bdec65753ae5.png" height = 500>
 
 <br>
 전자도서관은 산발적으로 나뉘어 있던 기존의 군 전자도서관 시스템을 <strong>하나로 통합한 시스템</strong>입니다. 
