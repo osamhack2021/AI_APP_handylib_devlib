@@ -12,9 +12,8 @@
   <p align="center">
     진중문고를 내 손안으로!
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template"><strong>[ View Docs ]</strong></a>
-    <br />
-    <a href="https://github.com/othneildrew/Best-README-Template"><strong>[ View Demo ]</strong></a>
+    <a href="https://humdrum-anise-0dc.notion.site/DevLib-0960a793aa544b2bbc3038d309ad2c47"><strong>[ 개발문서 보기 ]</strong></a>
+    <a href="https://hyejin-degreeshow.site/"><strong>[ Demo 보기 ]</strong></a>
   </p>
 </div>
 
@@ -231,10 +230,18 @@ R 184 G 216 B 190
 # 설치방법
 
 ## 요구사항
-
+* 안드로이드 Api 21(Lollipop) 이상의 안드로이드 휴대폰
+* 100mb이상의 저장공간
+* 3mbps 이상급 인터넷 연결속도(원활한 사용을 위함)
 ## 설치
+1. 다음 링크에 들어가주세요. [http://gofile.me/6KI41/irzDBPvjK](http://gofile.me/6KI41/irzDBPvjK)
+2. 이하 설명에 따라서 어플리케이션을 설치해 주세요. <details><summary>설치법</summary>1. 사이트 접속 후 다운로드 버튼을 눌러 다운로드해주세요.<br/><img height="800"  src="images/install1.jpeg" alt="install1"><br/><br/>2. 다운로드 받은 파일을 클릭하여 설치를 진행해주세요. <br/><img height="800"  src="images/install2.jpeg" alt="install2"><br/><br/>3. 보안상 문제가 생기면 설정 버튼을 누르고 [이 출처 허용]을 해주세요. <br/><img height="800"  src="images/install3.jpeg" alt="install3"><img height="800"  src="images/install4.jpeg" alt="install4"><br/><br/>4. 이후 정상적으로 설치를 진행해주세요.<br/><img height="800"  src="images/install5.jpeg" alt="install5"><br/><br/>5. Play프로텍트 관련 문제가 나오면 무시하고 설치를 눌러서 설치를 마무리해주세요.<br/><img height="800"  src="images/install6.jpeg" alt="install6"><br/><br/><img height="800"  src="images/install7.jpeg" alt="install7"><br/>
+</details>
 
+3. 어플리케이션의 권한을 설정해 주세요. <details><summary>설정법</summary>1. 어플리케이션을 2-3초간 꾹 눌러서 설정창을 연 후, 우측 상단의 i를 눌러주세요.<br/><img height="800" src="images/perm1.jpeg" alt=""><br/><br/>2. 권한을 클릭해주세요. <br/><img height="800"  height="800"  src="images/perm2.jpeg" alt=""><br/><br/>3. 저장공간, 카메라를 각각 클릭하여 권한을 허용해주세요. <br/><img height="800"  src="images/perm3.jpeg" alt=""><img height="800"  src="images/perm4.jpeg" alt=""><img height="800"  src="images/perm5.jpeg" alt="">
+</details>
 ## 사용법
+[시연 영상](https://www.youtube.com/watch?v=l0aqgu-mOxE)을 참고해주세요.
 
 ## 라이센스
 이 프로그램은 MIT 라이센스를 적용합니다.
