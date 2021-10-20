@@ -99,7 +99,7 @@
 ### - 프론트엔드
 
 크로스 플랫폼 SDK인 flutter을 이용하여 어플리케이션을 개발하였습니다. 로그인/회원가입 기능으로 어플리케이션을 개인화였고, 도서 추천, 나의 서재, 부대 도서관, 게시판, 개인정보 수정 기능을 가지고 있습니다.<br/>
-자세한 내용은 이하의 앱의 [Readme](https://github.com/osamhack2021/AI_APP_handylib_devlib/tree/main/app)를 참고해주세요.
+자세한 내용은 이하의 앱의 [Readme](https://github.com/osamhack2021/AI_APP_handylib_devlib/tree/main/APP(FE))를 참고해주세요.
 
 ---
 
@@ -113,7 +113,7 @@ Python의 웹 프레임워크 중 하나인 Flask를 이용하여 어플리케�
 ### - 추천알고리즘
 
 collaborative filtering 중 하나인 matrix factorization을 이용하여 추천시스템을 개발하였습니다. 신규사용자에겐 도서 이용 기록등이 없으므로 전체 책 중 무작위로 추천리스트가 제공되고, 사용자가 좋아하는 도서에 좋아요를 누르면 매일 밤 21시 추천점수가 업데이트되어 맞춤형 도서를 추천받을 수 있습니다.<br/>
-자세한 내용은 AI의 [Readme](https://github.com/osamhack2021/AI_APP_handylib_devlib/tree/main/recommendation)를 참고해주세요.
+자세한 내용은 AI의 [Readme](https://github.com/osamhack2021/AI_APP_handylib_devlib/tree/main/AI)를 참고해주세요.
 
 </br>
 
@@ -124,10 +124,10 @@ collaborative filtering 중 하나인 matrix factorization을 이용하여 추�
 ### 설치
 
 1. 다음 링크에 들어가주세요. [http://gofile.me/6KI41/irzDBPvjK](http://gofile.me/6KI41/irzDBPvjK)
-2. 이하 설명에 따라서 어플리케이션을 설치해 주세요. <details><summary>설치법</summary>1. 사이트 접속 후 다운로드 버튼을 눌러 다운로드해주세요.<br/><img src="images/install1.jpeg" alt="install1"><br/><br/>2. 다운로드 받은 파일을 클릭하여 설치를 진행해주세요. <br/><img src="images/install2.jpeg" alt="install2"><br/><br/>3. 보안상 문제가 생기면 설정 버튼을 누르고 [이 출처 허용]을 해주세요. <br/><img src="images/install3.jpeg" alt="install3"><img src="images/install4.jpeg" alt="install4"><br/><br/>4. 이후 정상적으로 설치를 진행해주세요.<br/><img src="images/install5.jpeg" alt="install5"><br/><br/>5. Play프로텍트 관련 문제가 나오면 무시하고 설치를 눌러서 설치를 마무리해주세요.<br/><img src="images/install6.jpeg" alt="install6"><br/><br/><img src="images/install7.jpeg" alt="install7"><br/>
+2. 이하 설명에 따라서 어플리케이션을 설치해 주세요. <details><summary>설치법</summary>1. 사이트 접속 후 다운로드 버튼을 눌러 다운로드해주세요.<br/><img height="800"  src="images/install1.jpeg" alt="install1"><br/><br/>2. 다운로드 받은 파일을 클릭하여 설치를 진행해주세요. <br/><img height="800"  src="images/install2.jpeg" alt="install2"><br/><br/>3. 보안상 문제가 생기면 설정 버튼을 누르고 [이 출처 허용]을 해주세요. <br/><img height="800"  src="images/install3.jpeg" alt="install3"><img height="800"  src="images/install4.jpeg" alt="install4"><br/><br/>4. 이후 정상적으로 설치를 진행해주세요.<br/><img height="800"  src="images/install5.jpeg" alt="install5"><br/><br/>5. Play프로텍트 관련 문제가 나오면 무시하고 설치를 눌러서 설치를 마무리해주세요.<br/><img height="800"  src="images/install6.jpeg" alt="install6"><br/><br/><img height="800"  src="images/install7.jpeg" alt="install7"><br/>
 </details>
 
-3. 어플리케이션의 권한을 설정해 주세요. <details><summary>설정법</summary>1. 어플리케이션을 2-3초간 꾹 눌러서 설정창을 연 후, 우측 상단의 i를 눌러주세요.<br/><img src="images/perm1.jpeg" alt=""><br/><br/>2. 권한을 클릭해주세요. <br/><img src="images/perm2.jpeg" alt=""><br/><br/>3. 저장공간, 카메라를 각각 클릭하여 권한을 허용해주세요. <br/><img src="images/perm3.jpeg" alt=""><img src="images/perm4.jpeg" alt=""><img src="images/perm5.jpeg" alt="">
+3. 어플리케이션의 권한을 설정해 주세요. <details><summary>설정법</summary>1. 어플리케이션을 2-3초간 꾹 눌러서 설정창을 연 후, 우측 상단의 i를 눌러주세요.<br/><img height="800" src="images/perm1.jpeg" alt=""><br/><br/>2. 권한을 클릭해주세요. <br/><img height="800"  height="800"  src="images/perm2.jpeg" alt=""><br/><br/>3. 저장공간, 카메라를 각각 클릭하여 권한을 허용해주세요. <br/><img height="800"  src="images/perm3.jpeg" alt=""><img height="800"  src="images/perm4.jpeg" alt=""><img height="800"  src="images/perm5.jpeg" alt="">
 </details>
 
 각 기능별 개발을 위한 설치방법은 기능별 README를 참고해주세요.
