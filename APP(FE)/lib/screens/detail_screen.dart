@@ -193,16 +193,22 @@ class _DetailScreenState extends State<DetailScreen> {
                                   borderRadius: BorderRadius.circular(10)),
                               child: ListTile(
                                 onTap: () async {
-                                  EpubViewer.setConfig(
-                                    themeColor: const Color(COLOR_PRIMARY),
-                                    scrollDirection:
-                                        EpubScrollDirection.HORIZONTAL,
+                                  showDialog<String>(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        AlertDialog(
+                                      title: const Text('알림창'),
+                                      content: const Text(
+                                          '웹 버전에서는 ebook 읽기 기능을 사용하실 수 없습니다. 이 기능은 앱에서 사용하실 수 있습니다!'),
+                                      actions: <Widget>[
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.of(context).pop(),
+                                          child: const Text('확인'),
+                                        ),
+                                      ],
+                                    ),
                                   );
-                                  await EpubViewer.openAsset(
-                                          'assets/ebooks/sample.epub')
-                                      .whenComplete(() {
-                                    print("ddddddd");
-                                  });
                                 },
                                 enabled: flag,
                                 leading: Icon(Icons.bookmark, size: 35),
