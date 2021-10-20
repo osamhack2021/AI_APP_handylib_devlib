@@ -13,12 +13,12 @@ def update():
     for b in books:
         isbn.append(b.isbn)
     '''
-    file_path = '/var/www/python_flask/main/recommendation/'
-    books_file_name = 'API_test_books.csv'
+    file_path = '/var/www/python_flask/main/recommendation/'    # 환경에 맞게 수정
+    books_file_name = 'API_test_books.csv'                      # 환경에 맞게 수정
     df_books = pd.read_csv(file_path + books_file_name)
     isbn = list(np.array(df_books['isbn']).tolist())
 
-    dummy_file_name = 'dummy_users.csv'
+    dummy_file_name = 'dummy_users.csv'                         # 환경에 맞게 수정
     df_dummy_user = pd.read_csv(file_path + dummy_file_name)
 
     users = database.User.objects()

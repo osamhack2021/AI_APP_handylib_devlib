@@ -159,6 +159,7 @@ users_file_name과 books_file_name은 사용자 정보와 책 정보가 담긴 .
 + 셋째, file_name에는 확장자를 포함하셔야 오류가 발생하지 않습니다.
 + 넷째, 현재 프로젝트에서는 사용자가 like를 누른 책 정보를 기반으로 추천리스트와 취향이미지를 생성하였습니다. 다른 데이터를 사용하기를 원한다면 App(BE)의 <a href="https://github.com/osamhack2021/AI_APP_handylib_devlib/blob/main/App(BE)/main/models/database.py">database.py</a>의 User 객체를 참고하시기 바랍니다. 
 + 다섯째, pandas로 한글이 들어간 .csv 형식 파일을 읽어올 때는 ```encoding='UTF8'``` 또는 ```encoding='cp949'```를 사용해야 합니다. 만약 특정 encoding 방식에서 오류가 발생한다면, 다른 encoding 방식으로 수정해서 사용하시면 됩니다.
++ 여섯째, 파일을 생성하려는 경로에는 쓰기 권한이 있어야 하며, 절대경로를 포함한 파일명을 입력해야 합니다.
 
 
 ## 사용법

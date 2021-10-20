@@ -63,9 +63,9 @@ def make_wordcloud(file_path, save_path, font_path, users_file_name, books_file_
     wc.to_file(save_path + file_name)
 
 def exe_img(user_id):
-    file_path = '/var/www/python_flask/main/recommendation/'
-    save_path = '/var/www/python_flask/main/static/img/'
-    users_file_name = "API_test_users.csv"
-    books_file_name = "API_test_books.csv"
-    font_path = "/var/www/python_flask/main/recommendation/NanumFontSetup_TTF_BARUNPEN/NanumBarunpenR.ttf"
+    file_path = '/var/www/python_flask/main/recommendation/'    # 환경에 맞게 수정
+    save_path = '/var/www/python_flask/main/static/img/'        # 환경에 맞게 수정
+    users_file_name = "API_test_users.csv"                      # 환경에 맞게 수정
+    books_file_name = "API_test_books.csv"                      # 환경에 맞게 수정
+    font_path = "/var/www/python_flask/main/recommendation/NanumFontSetup_TTF_BARUNPEN/NanumBarunpenR.ttf"  # 환경에 맞게 수정
     make_wordcloud(file_path, save_path, font_path, users_file_name, books_file_name, user_id)

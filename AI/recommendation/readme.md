@@ -38,3 +38,13 @@ DB에서 User 정보를 받아서 API_test_users.csv를 최신화합니다.
 
 ### dummy_generator.py
 cold start problem을 해결하기 위해 같은 카테고리의 책을 읽는 가상의 사용자 데이터 dummy_users.csv를 생성합니다.
+
+### recommendation.py
+ALS.py가 생성한 rec_pred_score_1.csv를 기반으로 추천리스트를 생성합니다.
+
+### update.py
+ALS.py를 실행하여 rec_pred_score_1.csv가 DB의 사용자 정보에 맞게 최신화됩니다.
+
+### wordcloud_maker.py
+취향정보 시각화 이미지를 생성합니다.
+주의사항으로는, 워드클라우드 모듈을 사용하므로 반드시 폰트를 저장하여야 합니다.

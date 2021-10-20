@@ -1,11 +1,11 @@
 import pandas as pd
 import random
 
-file_path = 'C:/Users/admin/Documents/git_ai/AI_APP_handylib_devlib/AI/recommendation/'  # 서버 폴더경로 맞춰서 다시 설정
-save_path = 'recommend_list/'
-users_file_name = "dummy_users.csv"
-books_file_name = "API_test_books.csv"
-categories_file_name = "rec_category_2.csv"
+file_path = 'C:/Users/admin/Documents/git_ai/AI_APP_handylib_devlib/AI/recommendation/'  # 환경에 맞게 수정
+save_path = 'recommend_list/'                   # 환경에 맞게 수정
+users_file_name = "dummy_users.csv"             # 환경에 맞게 수정
+books_file_name = "API_test_books.csv"          # 환경에 맞게 수정
+categories_file_name = "rec_category_2.csv"     # 환경에 맞게 수정
 
 df_books = pd.read_csv(file_path + books_file_name, encoding='UTF8')
 df_category = pd.read_csv(file_path + categories_file_name, encoding='cp949')
