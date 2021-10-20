@@ -38,6 +38,11 @@ def mypage():
             recommend_list = read_csv(user_id)
             # user_data 불러오기
             user_data='https://www.projectlib.tk/image/{}.png'.format(user_id)
+            # 서버 추천 코드
+            from main.recommendation import data_update
+            data_update.update()
+            from main.recommendation import wordcloud_maker
+            wordcloud_maker.exe_img(user_id)
             # res
             dicts = {
                 "borrow_list": borrow_lists,
@@ -67,6 +72,9 @@ def borrow():
 
 @mypage_page.route('/recommend_list', methods=['GET'])
 def recommend():
+    # 서버 추천 코드
+    from main.recommendation import data_update
+    data_update.update()
     user_id = request.values.get('user_id')
     if user_id:
         user = database.User.objects(user_id=user_id).first()

@@ -18,6 +18,9 @@ def like_append():
     lists.append(isbn)
     user.update(like=lists)
     resultJson=json.dumps({"message": 'append'})
+    # 서버 추천 코드
+    from main.recommendation import data_update
+    data_update.update()
     return Response(resultJson,mimetype="application/json",status=200)
 
 @like_page.route('/',methods=['GET'])
