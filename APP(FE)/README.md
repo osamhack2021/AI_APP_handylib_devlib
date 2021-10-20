@@ -33,8 +33,7 @@
 # UI/UX
 
 ## 플로우차트
-![Untitled Diagram drawio](https://user-images.githubusercontent.com/19871043/137645027-70095b17-478a-4a11-9cc4-e6fa3c034b4e.png)
-<br><br>
+![Untitled Diagram drawio](https://user-images.githubusercontent.com/19871043/138083035-45dbbb28-da8c-4086-8615-bfd21baf535a.png)<br><br>
 
 ## 메인페이지
 
@@ -247,6 +246,8 @@ R 224 G 240 B 227
 ![image (1)](https://user-images.githubusercontent.com/19871043/137916894-ddd4b604-eefb-4215-8382-f489c770675b.png)
 R 184 G 216 B 190
 
+![color](https://user-images.githubusercontent.com/19871043/138083561-58010d0f-394b-4e52-b17b-a8d2f30c2920.png)
+R 12 G 152 B 105
 
 ## 라이센스
 이 프로그램은 MIT 라이센스를 적용합니다.
