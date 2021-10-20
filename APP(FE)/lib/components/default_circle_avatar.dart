@@ -9,7 +9,7 @@ class DefaultCircleAvatar extends StatelessWidget {
   Widget build(BuildContext context) {
     return CircleAvatar(
       foregroundImage: (AssetImage(
-          (Theme.of(context).platform == TargetPlatform.android ? "assets/": "") + 'images/default_profile_image.png')),
+          'images/default_profile_image.png')),
       radius: size,
     );
   }

@@ -66,7 +66,7 @@ class UnitBookDisplay extends StatelessWidget {
                               ? Image(
                                   width: imageWidth,
                                   height: imageHeight,
-                                  image: AssetImage((Theme.of(context).platform == TargetPlatform.android ? "assets/":"") +
+                                  image: AssetImage(
                                       'images/default_book_cover_image.png'),
                                   fit: BoxFit.cover,
                                 )

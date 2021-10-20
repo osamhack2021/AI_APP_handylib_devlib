@@ -71,9 +71,7 @@ class _LoginPageState extends State<LoginPage> {
                       thickness: 7),
                   Image(
                     image: AssetImage(
-                        (Theme.of(context).platform == TargetPlatform.android
-                                ? "assets/"
-                                : "") +
+                        
                             'images/login.jpg'),
                     height: size.height * 0.4,
                   ),

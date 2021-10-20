@@ -48,7 +48,7 @@ AppBar FeedPageAppBar(BuildContext context) {
     title: GestureDetector(
       child: Center(
         child: Image(
-          image: AssetImage((Theme.of(context).platform == TargetPlatform.android  ? "assets/": "") + 'images/logo.png'),
+          image: AssetImage('images/logo.png'),
           width: 50,
           height: 50,
           fit: BoxFit.cover,

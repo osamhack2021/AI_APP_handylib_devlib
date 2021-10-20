@@ -95,6 +95,12 @@ class _RegisterPageState extends State<RegisterPage> {
     return flag;
   }
 
+  @override
+  void initState() {
+    super.initState();
+    form["unit"][0].text = "1unit";
+  }
+
   Widget build(BuildContext context) {
     final node = FocusScope.of(context);
     Size size = MediaQuery.of(context).size;
@@ -196,11 +202,22 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                       )),
                   RoundedInputField(
+                      enabled: false,
                       hintText: "소속 부대",
                       controller: form["unit"][0],
                       textInputAction: TextInputAction.next,
                       onEditingComplete: () => node.nextFocus(),
                       icon: Icons.group),
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 0, 40, 10),
+                      child: Text("데모버전에서는 1unit부대만을 설정할 수 있습니다.",
+                          style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.black87.withOpacity(0.8))),
+                    ),
+                  ),
                   RoundedInputField(
                       hintText: "계급",
                       controller: form["rank"][0],
@@ -263,7 +280,7 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   _onCameraClick() async {
-    if (Theme.of(context).platform != TargetPlatform.android ) {
+    if (true) {
       showDialog<String>(
         context: context,
         builder: (BuildContext context) => AlertDialog(

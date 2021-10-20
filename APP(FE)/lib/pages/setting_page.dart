@@ -44,7 +44,7 @@ class _SettingPageState extends State<SettingPage> {
   }
 
   _onCameraClick() async {
-    if (Theme.of(context).platform != TargetPlatform.android) {
+    if (true) {
       showDialog<String>(
         context: context,
         builder: (BuildContext context) => AlertDialog(
