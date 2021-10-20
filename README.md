@@ -46,15 +46,15 @@
     <li>
       <a href="#프로젝트-요약">프로젝트 요약</a>
       <ul>
-        <li><a href="#개발-도구">개발 도구</a></li>
+        <li><a href="https://github.com/osamhack2021/AI_APP_handylib_devlib/blob/main/README.md#--%EA%B0%9C%EB%B0%9C-%EB%8F%84%EA%B5%AC">개발 도구</a></li>
       </ul>
     </li>
     <li>
       <a href="#분야별-설명요약">분야별 설명요약</a>
       <ul>
-        <li><a href="#프론트엔드">프론트엔드(flutter)</a></li>
-        <li><a href="#백엔드">백엔드(flask)</a></li>
-        <li><a href="#추천알고리즘">AI(추천알고리즘)</a></li>
+        <li><a href="https://github.com/osamhack2021/AI_APP_handylib_devlib/blob/main/README.md#--%ED%94%84%EB%A1%A0%ED%8A%B8%EC%97%94%EB%93%9C">프론트엔드(flutter)</a></li>
+        <li><a href="https://github.com/osamhack2021/AI_APP_handylib_devlib/blob/main/README.md#--%EB%B0%B1%EC%97%94%EB%93%9C">백엔드(flask)</a></li>
+        <li><a href="https://github.com/osamhack2021/AI_APP_handylib_devlib/blob/main/README.md#--%EC%B6%94%EC%B2%9C%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98">AI(추천알고리즘)</a></li>
       </ul>
     </li>
     <li><a href="#사용법">사용법</a></li>
