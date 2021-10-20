@@ -1,18 +1,19 @@
+<div id="top"></div>
 
-
+<!-- PROJECT LOGO -->
+<br />
 <div align="center">
-  <a href="https://github.com/osamhack2021/AI_APP_handylib_devlib">
-    <img src='https://user-images.githubusercontent.com/42088290/137695537-0f08fc63-1e5d-4f3c-80e2-966ce9e9db13.png' width ='80' height='80'/>
+  <a href="https://github.com/othneildrew/Best-README-Template">
+    <img src="https://user-images.githubusercontent.com/19871043/137923020-43a87404-7754-4c22-83e7-1b428da35ef7.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">내 손 안의 진중문고, HandyLib</h3>
+
   <p align="center">
     진중문고를 내 손안으로!
     <br />
-    <a href="https://www.notion.so/DevLib-0960a793aa544b2bbc3038d309ad2c47"><strong>개발 문서</strong></a>
-    <br />
-    <br />
-    <a href="https://www.projectlib.tk">서버 사이트</a>
+    <a href="https://humdrum-anise-0dc.notion.site/DevLib-0960a793aa544b2bbc3038d309ad2c47"><strong>[ 개발문서 보기 ]</strong></a>
+    <a href="https://hyejin-degreeshow.site/"><strong>[ Demo 보기 ]</strong></a>
   </p>
 </div>
 
@@ -49,7 +50,7 @@
 AI에서는 개인별 책 추천시스템과 사용자의 취향정보 시각화를 담당하였습니다.
 
 추천시스템 개발과정과 보다 자세한 설명을 원하신다면 링크에서 AI 파트의 개발문서를 확인해주시기 바랍니다.
-[AI [recommender system]](https://www.notion.so/recommender-system-e97a10b6db184d2aabb2f67b3eac3b85)
+[AI [recommender system]](https://www.notion.so/AI-Recommendation-e97a10b6db184d2aabb2f67b3eac3b85)
 
 # 2. 책 추천시스템
 서버에서 사용자 및 책 정보를 요청하여, Matrix Factorization 기반 추천 리스트 30권을 생성합니다.

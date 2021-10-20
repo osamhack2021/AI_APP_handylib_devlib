@@ -1,13 +1,13 @@
 import pandas as pd
 import random
 
-file_path = '/var/www/python_flask/main/recommendation/'  # 서버 폴더경로 맞춰서 다시 설정
+file_path = 'C:/Users/admin/Documents/git_ai/AI_APP_handylib_devlib/AI/recommendation/'  # 서버 폴더경로 맞춰서 다시 설정
 save_path = 'recommend_list/'
 users_file_name = "dummy_users.csv"
 books_file_name = "API_test_books.csv"
 categories_file_name = "rec_category_2.csv"
 
-df_books = pd.read_csv(file_path + books_file_name, encoding='cp949')
+df_books = pd.read_csv(file_path + books_file_name, encoding='UTF8')
 df_category = pd.read_csv(file_path + categories_file_name, encoding='cp949')
 df_category = df_category[['category', 'count']].dropna()
 
