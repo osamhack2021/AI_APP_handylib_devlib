@@ -108,7 +108,7 @@ Distributed under the MIT License. See [LICENSE.txt](https://github.com/osamhack
 
 ## DB structure
 
-![DBimg](https://humdrum-anise-0dc.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F81ec89d7-0808-47ed-89b7-48c5f605f641%2F2.png?table=block&id=01de5423-ae71-42db-b4b0-0acfe2c57f2b&spaceId=838bf944-efb3-4319-ac45-238563161cf9&width=2000&userId=&cache=v2)
+![DBimg](https://humdrum-anise-0dc.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F4156eac6-5e31-4a9e-926d-98cbad490748%2F2.png?table=block&id=01de5423-ae71-42db-b4b0-0acfe2c57f2b&spaceId=838bf944-efb3-4319-ac45-238563161cf9&width=2000&userId=&cache=v2)
 
 <a id = "API_Reference"></a>
 
