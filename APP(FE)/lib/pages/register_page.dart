@@ -82,6 +82,7 @@ class _RegisterPageState extends State<RegisterPage> {
       final snackbar =
           SnackBar(content: Text('회원가입에 실패했습니다. 에러코드 : ${_registerResponse}'));
       ScaffoldMessenger.of(context).showSnackBar(snackbar);
+      Navigator.of(context).pop();
     }
   }
 
@@ -263,7 +264,7 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   _onCameraClick() async {
-    if (Theme.of(context).platform != TargetPlatform.android ) {
+    if (Theme.of(context).platform != TargetPlatform.android) {
       showDialog<String>(
         context: context,
         builder: (BuildContext context) => AlertDialog(

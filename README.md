@@ -1,5 +1,9 @@
 <div id="top"></div>
 
+## 이하 프로젝트의 실행은 10월 27일(수)까지 유효합니다.
+국방오픈소스아카데미에서 지원해주는 개발 환경의 사정 상 평일은 17-23시, 주말 및 공휴일은 09-23시까지 실행이 가능합니다. 이외 시간에 대한 실행은 보장할 수 없습니다.
+[관련링크](https://osam.kr/hackathon/main)
+
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
@@ -20,10 +24,19 @@
     <br />
     <a target="_blank" href="https://humdrum-anise-0dc.notion.site/DevLib-0960a793aa544b2bbc3038d309ad2c47"><strong>[ 개발문서 보기 ]</strong></a>
     <br />
-    <a target="_blank" href="https://github.com/othneildrew/Best-README-Template"><strong>[ 데모버전 ]</strong></a>
+    <a target="_blank" href="https://hyejin-degreeshow.site"><strong>[ 데모버전 ]</strong></a>
+<details>
+<summary>데모버전 사용법</summary>
+1. 상단의 링크를 통해 사이트에 접속해주세요.<br/>
+2. F12를 눌러 개발자도구를 활성화해주세요.<br/>
+3. 개발자도구의 좌측 상단에 있는 휴대폰 모양을 클릭해주세요<br/>
+<img src="images/demo1.png" alt="demo1"><br/><br/>
+4. 이후 화면상단에 있는 Dimensions를 Pixel 2XL로 변경해주세요.<br/>
+<img src="images/demo2.png" alt="demo2"><br/><br/>
+5. 이후 F5를 눌러 화면을 재로딩 해주시면 개발진이 의도한 어플리케이션 화면을 사용하실 수 있습니다!
+</details>
   </p>
 </div>
-
 <!-- TABLE OF CONTENTS -->
 
 ## Readme 목차
@@ -105,11 +118,11 @@ collaborative filtering 중 하나인 matrix factorization을 이용하여 추�
 
 ## 사용법
 
-사용자는 안드로이드/ios 스마트폰을 이용하여 어플리케이션을 설치하여 기능을 사용할 수 있습니다. 현재는 ios 빌드가 유료인 관계로 안드로이드만을 지원하며, 추후 ios빌드를 제공할 계획입니다.
+사용자는 안드로이드/ios 스마트폰을 이용하여 어플리케이션을 설치하여 기능을 사용할 수 있습니다. Demo버전은 web을 제공중에 있습니다. 현재는 ios 빌드가 유료인 관계로 안드로이드만을 지원하며, 추후 ios빌드를 제공할 계획입니다.
 
 ### 설치
 
-1. 다음 링크에서 어플리케이션을 다운받으세요. [https://example.com](https://example.com)
+1. 다음 링크에서 어플리케이션을 다운받으세요. [http://gofile.me/6KI41/ncnuScpxl](http://gofile.me/6KI41/ncnuScpxl)
 2. 어플리케이션을 설치해 주세요.
 
 3. 어플리케이션의 권한을 설정해 주세요.
