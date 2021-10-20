@@ -41,30 +41,33 @@ Future<int> createUser(
   String rank,
 ) async {
   final encryptedPassword = Crypt.sha256(password, salt: mySalt).toString();
-
-  final response = await http.post(
-    Uri.parse(proxyUri + myUri + 'sign_up/'),
-    headers: <String, String>{
-      //"Accept":"application/json",
-      //"Access-Control-Allow-Origin":"*",W
-      'Content-Type': 'application/json; charset=UTF-8',
-    },
-    /*headers: {
+  try {
+    final response = await http.post(
+      Uri.parse(proxyUri + myUri + 'sign_up/'),
+      headers: <String, String>{
+        //"Accept":"application/json",
+        //"Access-Control-Allow-Origin":"*",W
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      /*headers: {
       },*/
-    body: jsonEncode(<String, String>{
-      'name': name,
-      'user_id': userId,
-      'password': encryptedPassword,
-      'email': email,
-      'unit': unit,
-      'rank': rank,
-    }),
-  );
-  debugPrint("responseBody: ${response.body}");
-  if (response.statusCode == 200) {
-    return response.statusCode;
-  } else {
-    return response.statusCode;
+      body: jsonEncode(<String, String>{
+        'name': name,
+        'user_id': userId,
+        'password': encryptedPassword,
+        'email': email,
+        'unit': unit,
+        'rank': rank,
+      }),
+    );
+    debugPrint("responseBody: ${response.body}");
+    if (response.statusCode == 200) {
+      return response.statusCode;
+    } else {
+      return response.statusCode;
+    }
+  } catch (e) {
+    return 503;
   }
 }
 
@@ -86,19 +89,23 @@ void testHttp() async {
 
 Future<int> loginUser(String userId, String password) async {
   final encryptedPassword = Crypt.sha256(password, salt: mySalt).toString();
-  final response = await http.post(
-    Uri.parse(proxyUri + myUri + 'sign_in/'),
-    headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-    },
-    body: jsonEncode(
-      <String, String>{
-        'user_id': userId,
-        'password': encryptedPassword,
+  try {
+    final response = await http.post(
+      Uri.parse(proxyUri + myUri + 'sign_in/'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
       },
-    ),
-  );
-  return response.statusCode;
+      body: jsonEncode(
+        <String, String>{
+          'user_id': userId,
+          'password': encryptedPassword,
+        },
+      ),
+    );
+    return response.statusCode;
+  } catch (e) {
+    return 503;
+  }
 }
 
 String? getPropertyTitle(User myUser, String prop) {
