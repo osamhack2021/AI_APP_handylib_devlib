@@ -22,5 +22,16 @@ def sign_up():
         rank=params['rank'],
         unit=params['unit']
     ).save()
+    # 서버 추천 코드
+    user_id=params['user_id']
+    from main.recommendation import recommendation
+    import pandas as pd
+    file_path = '/var/www/python_flask/main/recommendation/'  # 서버 폴더경로 맞춰서 다시 설정
+    save_path = 'recommend_list/'
+    users_file_name = "API_test_users.csv"
+    books_file_name = "API_test_books.csv"
+    rec_file_name=user_id+'.csv'
+    df_users = pd.read_csv(file_path + users_file_name, encoding='utf-8')
+    recommendation.recommendation(file_path, save_path, users_file_name, books_file_name, rec_file_name, user_id)
     resultJson=json.dumps({"message": "sign_up success"})
     return Response(resultJson,mimetype="application/json",status=200)

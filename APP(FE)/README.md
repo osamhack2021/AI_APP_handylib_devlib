@@ -12,9 +12,8 @@
   <p align="center">
     진중문고를 내 손안으로!
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template"><strong>[ View Docs ]</strong></a>
-    <br />
-    <a href="https://github.com/othneildrew/Best-README-Template"><strong>[ View Demo ]</strong></a>
+    <a href="https://humdrum-anise-0dc.notion.site/DevLib-0960a793aa544b2bbc3038d309ad2c47"><strong>[ 개발문서 보기 ]</strong></a>
+    <a href="https://hyejin-degreeshow.site/"><strong>[ Demo 보기 ]</strong></a>
   </p>
 </div>
 
@@ -34,8 +33,7 @@
 # UI/UX
 
 ## 플로우차트
-![Untitled Diagram drawio](https://user-images.githubusercontent.com/19871043/137645027-70095b17-478a-4a11-9cc4-e6fa3c034b4e.png)
-<br><br>
+![Untitled Diagram drawio](https://user-images.githubusercontent.com/19871043/138083035-45dbbb28-da8c-4086-8615-bfd21baf535a.png)<br><br>
 
 ## 메인페이지
 
@@ -52,7 +50,7 @@
 <br><br>
 ### 📕 전자도서관
 
-<img src = "https://user-images.githubusercontent.com/19871043/137631076-eb59683e-a0d6-4f45-a467-c0fa00690e3b.png" height = 500> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src = "https://user-images.githubusercontent.com/19871043/137631425-2cf711c2-79b6-43f3-aef1-bdec65753ae5.png" height = 500>
+<img src = "images/sample.png" height = 500> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src = "https://user-images.githubusercontent.com/19871043/137631425-2cf711c2-79b6-43f3-aef1-bdec65753ae5.png" height = 500>
 
 <br>
 전자도서관은 산발적으로 나뉘어 있던 기존의 군 전자도서관 시스템을 <strong>하나로 통합한 시스템</strong>입니다. 
@@ -154,6 +152,26 @@
 <br><br>
 
 
+# 설치방법
+
+## 요구사항
+* 안드로이드 Api 21(Lollipop) 이상의 안드로이드 휴대폰
+* 100mb이상의 저장공간
+* 3mbps 이상급 인터넷 연결속도(원활한 사용을 위함)
+
+## 설치
+
+1. 다음 링크에 들어가주세요. [http://gofile.me/6KI41/irzDBPvjK](http://gofile.me/6KI41/irzDBPvjK)
+2. 이하 설명에 따라서 어플리케이션을 설치해 주세요. <details><summary>설치법</summary>1. 사이트 접속 후 다운로드 버튼을 눌러 다운로드해주세요.<br/><img height="800"  src="images/install1.jpeg" alt="install1"><br/><br/>2. 다운로드 받은 파일을 클릭하여 설치를 진행해주세요. <br/><img height="800"  src="images/install2.jpeg" alt="install2"><br/><br/>3. 보안상 문제가 생기면 설정 버튼을 누르고 [이 출처 허용]을 해주세요. <br/><img height="800"  src="images/install3.jpeg" alt="install3"><img height="800"  src="images/install4.jpeg" alt="install4"><br/><br/>4. 이후 정상적으로 설치를 진행해주세요.<br/><img height="800"  src="images/install5.jpeg" alt="install5"><br/><br/>5. Play프로텍트 관련 문제가 나오면 무시하고 설치를 눌러서 설치를 마무리해주세요.<br/><img height="800"  src="images/install6.jpeg" alt="install6"><br/><br/><img height="800"  src="images/install7.jpeg" alt="install7"><br/>
+</details>
+
+3. 어플리케이션의 권한을 설정해 주세요. <details><summary>설정법</summary>1. 어플리케이션을 2-3초간 꾹 눌러서 설정창을 연 후, 우측 상단의 i를 눌러주세요.<br/><img height="800" src="images/perm1.jpeg" alt=""><br/><br/>2. 권한을 클릭해주세요. <br/><img height="800"  height="800"  src="images/perm2.jpeg" alt=""><br/><br/>3. 저장공간, 카메라를 각각 클릭하여 권한을 허용해주세요. <br/><img height="800"  src="images/perm3.jpeg" alt=""><img height="800"  src="images/perm4.jpeg" alt=""><img height="800"  src="images/perm5.jpeg" alt=""></details>
+
+## 사용법
+
+[시연 영상](https://www.youtube.com/watch?v=l0aqgu-mOxE)을 참고해주세요.
+
+
 # 데이터 모델
 ## 객체 구조
 
@@ -225,16 +243,8 @@
 ![image](https://user-images.githubusercontent.com/19871043/137916501-aa19658b-9a39-4079-9223-e38c40bba574.png)
 R 224 G 240 B 227
 
-![image (1)](https://user-images.githubusercontent.com/19871043/137916894-ddd4b604-eefb-4215-8382-f489c770675b.png)
-R 184 G 216 B 190
-
-# 설치방법
-
-## 요구사항
-
-## 설치
-
-## 사용법
+![color](https://user-images.githubusercontent.com/19871043/138083561-58010d0f-394b-4e52-b17b-a8d2f30c2920.png)
+R 12 G 152 B 105
 
 ## 라이센스
 이 프로그램은 MIT 라이센스를 적용합니다.
@@ -252,5 +262,5 @@ R 184 G 216 B 190
 ## 개발자 정보
 |개발자명|제작 분야|Contact|Page|
 |-|-|-|-|
-|홍지환|로그인, 회원가입, 부대 도서관, 게시판, 나의 프로필|eat333@naver.com||
-|김민준|UI/UX 디자인, 전자도서관, 책 대출, 검색기능, 전자책|mamy0320@naver.com||
+|홍지환|로그인, 회원가입, 부대 도서관, 게시판, 나의 프로필|eat333@naver.com|https://github.com/Jordano-Jackson|
+|김민준|UI/UX 디자인, 전자도서관, 책 대출, 검색기능, 전자책|mamy0320@naver.com|https://github.com/1kl1|

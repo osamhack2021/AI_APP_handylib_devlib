@@ -24,6 +24,7 @@
     <li><a href="#Dependencies">Dependencies</a></li>
     <li><a href="#Technology_Stack">Technology Stack</a></li>
     <li><a href="#Installation">Installation</a></li>
+    <li><a href="#directory">Directory Structure</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#databases">DB structure</a></li>
     <li><a href="#API_Reference">API Reference</a></li>
@@ -76,6 +77,29 @@ Back-End에서는 python flask와 mongodb를 사용하여 데이터베이스를 
   ```sh
   $ python app_start.py
   ```
+
+<a id = "directory"></a>
+
+## Directory Structure
+```
++ APP(BE)
+  + main
+    + api
+    + models
+      + database.py
+    + static
+      + img
+      + templates
+    + app.py
+  + .gitignore
+  + app_start.py
+  + config.py
+  + README.d
+  + requirements.txt
+
+```
+
+
 
 ## License
 Distributed under the MIT License. See [LICENSE.txt](https://github.com/osamhack2021/AI_APP_handylib_devlib/blob/main/LICENSE) for more information.
