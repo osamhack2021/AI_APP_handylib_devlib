@@ -1,6 +1,7 @@
 <div id="top"></div>
 
 ## 이하 프로젝트의 실행은 10월 27일(수)까지 유효합니다.
+
 국방오픈소스아카데미에서 지원해주는 개발 환경의 사정 상 평일은 17-23시, 주말 및 공휴일은 09-23시까지 실행이 가능합니다. 이외 시간에 대한 실행은 보장할 수 없습니다.
 [관련링크](https://osam.kr/hackathon/main)
 
@@ -76,10 +77,10 @@
 
 '내 손안의 진중문고'는 다음과 같은 장점이 있습니다:
 
-- **인공지능 추천 알고리즘을** 통한 **도서 추천**으로 사용자의 독서를 장려할 수 있습니다. ***(이제 무슨 책을 읽을지 고민하지 않아도 됩니다.)***
-- **Ebook** Reader 기능을 지원합니다. ***(수만권의 책을 내 손 안으로!)***
-- 부대의 북카페/도서관에 있는 도서들의 **추적&관리**가 용이합니다. ***(이제 북카페 관리병이 필요 없어집니다.)***
-- 사용자는 부대 도서관의 도서 현황을 **열람**하고 원하는 도서를 **검색**할 수 있습니다.***(이제 원하는 책이 있는지 방황할 필요가 없습니다.)***
+- **인공지능 추천 알고리즘을** 통한 **도서 추천**으로 사용자의 독서를 장려할 수 있습니다. **_(이제 무슨 책을 읽을지 고민하지 않아도 됩니다.)_**
+- **Ebook** Reader 기능을 지원합니다. **_(수만권의 책을 내 손 안으로!)_**
+- 부대의 북카페/도서관에 있는 도서들의 **추적&관리**가 용이합니다. **_(이제 북카페 관리병이 필요 없어집니다.)_**
+- 사용자는 부대 도서관의 도서 현황을 **열람**하고 원하는 도서를 **검색**할 수 있습니다.**_(이제 원하는 책이 있는지 방황할 필요가 없습니다.)_**
 
 이상의 특장점은 각 군마다 존재한 기존의 전자책 도서관의 단점과 부대별로 상이한 북카페 관리 체계의 단점을 보완하고 장병 복지와 자기계발에 큰 기여를 하고 있는 진중문고의 외부유출 및 유통 문제를 해결하고 양질의 도서를 보다 좋은 접근성으로 제공하여 줍니다.
 
@@ -105,7 +106,7 @@
 ### - 백엔드
 
 Python의 웹 프레임워크 중 하나인 Flask를 이용하여 어플리케이션의 요청을 처리하는 REST API를 개발하였습니다. 어플리케이션에 정보 저장에 필요한 데이터베이스는 Mongodb를 이용하였고 apache를 이용하여 서버를 자동화하였습니다.<br/>
-자세한 내용은 이하의 백엔드의 [Readme](https://github.com/osamhack2021/AI_APP_handylib_devlib/blob/main/App(BE))를 참고해주세요.
+자세한 내용은 이하의 백엔드의 [Readme](<https://github.com/osamhack2021/AI_APP_handylib_devlib/blob/main/App(BE)>)를 참고해주세요.
 
 ---
 
@@ -122,10 +123,12 @@ collaborative filtering 중 하나인 matrix factorization을 이용하여 추�
 
 ### 설치
 
-1. 다음 링크에서 어플리케이션을 다운받으세요. [http://gofile.me/6KI41/ncnuScpxl](http://gofile.me/6KI41/ncnuScpxl)
-2. 어플리케이션을 설치해 주세요.
+1. 다음 링크에 들어가주세요. [http://gofile.me/6KI41/irzDBPvjK](http://gofile.me/6KI41/irzDBPvjK)
+2. 이하 설명에 따라서 어플리케이션을 설치해 주세요. <details><summary>설치법</summary>1. 사이트 접속 후 다운로드 버튼을 눌러 다운로드해주세요.<br/><img src="images/install1.jpeg" alt="install1"><br/><br/>2. 다운로드 받은 파일을 클릭하여 설치를 진행해주세요. <br/><img src="images/install2.jpeg" alt="install2"><br/><br/>3. 보안상 문제가 생기면 설정 버튼을 누르고 [이 출처 허용]을 해주세요. <br/><img src="images/install3.jpeg" alt="install3"><img src="images/install4.jpeg" alt="install4"><br/><br/>4. 이후 정상적으로 설치를 진행해주세요.<br/><img src="images/install5.jpeg" alt="install5"><br/><br/>5. Play프로텍트 관련 문제가 나오면 무시하고 설치를 눌러서 설치를 마무리해주세요.<br/><img src="images/install6.jpeg" alt="install6"><br/><br/><img src="images/install7.jpeg" alt="install7"><br/>
+</details>
 
-3. 어플리케이션의 권한을 설정해 주세요.
+3. 어플리케이션의 권한을 설정해 주세요. <details><summary>설정법</summary>1. 어플리케이션을 2-3초간 꾹 눌러서 설정창을 연 후, 우측 상단의 i를 눌러주세요.<br/><img src="images/perm1.jpeg" alt=""><br/><br/>2. 권한을 클릭해주세요. <br/><img src="images/perm2.jpeg" alt=""><br/><br/>3. 저장공간, 카메라를 각각 클릭하여 권한을 허용해주세요. <br/><img src="images/perm3.jpeg" alt=""><img src="images/perm4.jpeg" alt=""><img src="images/perm5.jpeg" alt="">
+</details>
 
 각 기능별 개발을 위한 설치방법은 기능별 README를 참고해주세요.
 
@@ -133,7 +136,7 @@ collaborative filtering 중 하나인 matrix factorization을 이용하여 추�
 
 ### 어플리케이션 사용법
 
-개발이 완료된 후 이미지가 추가 될 예정입니다.
+[시연 영상](https://www.youtube.com/watch?v=l0aqgu-mOxE)을 참고해주세요.
 
 <!-- LICENSE -->
 
