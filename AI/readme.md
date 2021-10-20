@@ -55,6 +55,8 @@ AI에서는 개인별 책 추천시스템과 사용자의 취향정보 시각화
 # 2. 책 추천시스템
 서버에서 사용자 및 책 정보를 요청하여, Matrix Factorization 기반 추천 리스트 30권을 생성합니다.
 
+![img_AI_pick.png](https://github.com/osamhack2021/AI_APP_handylib_devlib/blob/main/AI/image_ai/AI%EC%9D%98%20PICK.PNG)
+
 [API_test_users.csv](https://github.com/osamhack2021/AI_APP_handylib_devlib/blob/main/AI/example_file/API_test_users.csv) : userid_0의 like는 [1247, 164, 89, 1219, 903]입니다.
 
 + 1247 : 국내도서>수험서/자격증>공무원 수험서>소방공무원(승진)>기타 과목
@@ -100,6 +102,7 @@ backend에서 구성한 환경에서 /var/www/main/ 경로에 다음과 같이 �
 recommendation 경로는 github 상에서 AI 경로에 해당합니다.
 
 /main/api/ 경로에는 BE에서 api를 구현한 파일이 있으며, 추천시스템과 취향정보 이미지가 필요할 때 /main/recommendation/에서 필요한 모듈을 호출하여 사용합니다.
+  
 ### Directory
 + main
   + recommendation
@@ -148,17 +151,18 @@ file_path = 'C:/Users/admin/Documents/osam_ai/book_dataset/'
 file_path = '/var/www/python_flask/recommendation/'
 ```
 users_file_name과 books_file_name은 사용자 정보와 책 정보가 담긴 .csv 형식 파일의 이름을 적어주시면 됩니다.
-<a href="https://github.com/osamhack2021/AI_APP_handylib_devlib/blob/main/LICENSE">example_file</a>의 API_test_users와 API_test_books를 참고하여, column 형식에 맞게 자신만의 사용자, 책 DB를 사용할 수 있습니다.
+<a href="https://github.com/osamhack2021/AI_APP_handylib_devlib/blob/main/AI/example_file">example_file</a>의 API_test_users와 API_test_books를 참고하여, column 형식에 맞게 자신만의 사용자, 책 DB를 사용할 수 있습니다.
 
 주의사항입니다.
 + 첫째, 파일의 절대경로를 path에 입력해야 오류를 줄일 수 있습니다.
 + 둘째, file_name을 입력하는 곳에는 directory를 제외한 이름만 적어야 합니다.
 + 셋째, file_name에는 확장자를 포함하셔야 오류가 발생하지 않습니다.
 + 넷째, 현재 프로젝트에서는 사용자가 like를 누른 책 정보를 기반으로 추천리스트와 취향이미지를 생성하였습니다. 다른 데이터를 사용하기를 원한다면 App(BE)의 <a href="https://github.com/osamhack2021/AI_APP_handylib_devlib/blob/main/App(BE)/main/models/database.py">database.py</a>의 User 객체를 참고하시기 바랍니다. 
++ 다섯째, pandas로 한글이 들어간 .csv 형식 파일을 읽어올 때는 ```encoding='UTF8'``` 또는 ```encoding='cp949'```를 사용해야 합니다. 만약 특정 encoding 방식에서 오류가 발생한다면, 다른 encoding 방식으로 수정해서 사용하시면 됩니다.
 
 
 ## 사용법
-[test.py](https://github.com/osamhack2021/AI_APP_handylib_devlib/blob/main/AI/test.py)에서 함수 호출의 예시를 확인하실 수 있습니다.
+[test.py](https://github.com/osamhack2021/AI_APP_handylib_devlib/blob/main/AI/recommendation/test.py)에서 함수 호출의 예시를 확인하실 수 있습니다.
 
 api에서 request에 대응하는 함수를 호출함으로써 사용할 수 있습니다. 아래 예시는 마이페이지 api를 담당하는 mypage.py에서 취향분석 이미지를 호출하는 코드입니다.
 
