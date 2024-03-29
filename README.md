@@ -148,7 +148,7 @@ MIT라이센스가 적용되었습니다. [`LICENSE`](https://github.com/osamhac
 
 ## 개발자 정보
 
-김민준 - mamy0320@naver.com</br>
+김민준</br>
 홍지환 - eat333@naver.com </br>
 김수민 - kdg97811@naver.com</br>
 고명진 - mj2000go@naver.com</br>
